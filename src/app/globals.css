@@ -1,26 +1,50 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --dark-bg: #0a0e1a;
+  --dark-panel: #111827;
+  --neon-green: #02FF81;
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  --border-color: rgba(2, 255, 129, 0.2);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--dark-bg);
+  color: var(--text-primary);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+@layer utilities {
+  .neon-border {
+    border: 1px solid var(--border-color);
+  }
+
+  .neon-text {
+    color: var(--neon-green);
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 10px rgba(2, 255, 129, 0.3);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #01cc66;
 }
