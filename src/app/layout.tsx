@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { WalletProvider } from "@/components/WalletProvider";
+import { Navbar } from "@/components/Navbar";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,7 +25,11 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-war-dark text-white font-mono antialiased">
-        {children}
+        <WalletProvider>
+          <Navbar />
+          {children}
+          <Toaster position="bottom-right" />
+        </WalletProvider>
       </body>
     </html>
   );
