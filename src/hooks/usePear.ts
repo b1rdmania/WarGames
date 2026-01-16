@@ -4,17 +4,18 @@ import { useState, useEffect } from 'react';
 import { useAccount, useSignTypedData } from 'wagmi';
 import {
   authenticateWithPear,
-  saveAuthToken,
-  getAuthToken,
-  clearAuthToken,
+  saveAuthTokens,
+  getAccessToken,
+  clearAuthTokens,
   isAuthenticated
 } from '@/integrations/pear/auth';
+import { getAgentWallet, createAgentWallet } from '@/integrations/pear/agent';
 
 export function usePear() {
   const { address, isConnected } = useAccount();
   const { signTypedDataAsync } = useSignTypedData();
 
-  const [jwtToken, setJwtToken] = useState<string | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
   const [agentWallet, setAgentWallet] = useState<string | null>(null);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [error, setError] = useState<Error>();
@@ -22,13 +23,25 @@ export function usePear() {
   // Load token on mount
   useEffect(() => {
     if (isConnected && typeof window !== 'undefined') {
-      const token = getAuthToken();
+      const token = getAccessToken();
       if (token) {
-        setJwtToken(token);
-        // TODO: Verify token and fetch agent wallet
+        setAccessToken(token);
+        // Fetch agent wallet
+        loadAgentWallet(token);
       }
     }
   }, [isConnected]);
+
+  async function loadAgentWallet(token: string) {
+    try {
+      const wallet = await getAgentWallet(token);
+      if (wallet.exists) {
+        setAgentWallet(wallet.address);
+      }
+    } catch (err) {
+      console.error('Failed to load agent wallet:', err);
+    }
+  }
 
   async function authenticate() {
     if (!address || !isConnected) {
@@ -41,9 +54,15 @@ export function usePear() {
     try {
       const result = await authenticateWithPear(address, signTypedDataAsync);
 
-      setJwtToken(result.jwtToken);
-      setAgentWallet(result.agentWalletAddress);
-      saveAuthToken(result.jwtToken);
+      setAccessToken(result.accessToken);
+      saveAuthTokens(result.accessToken, result.refreshToken);
+
+      // Check/create agent wallet
+      let wallet = await getAgentWallet(result.accessToken);
+      if (!wallet.exists) {
+        wallet = await createAgentWallet(result.accessToken);
+      }
+      setAgentWallet(wallet.address);
 
       setIsAuthenticating(false);
     } catch (err) {
@@ -54,13 +73,13 @@ export function usePear() {
   }
 
   function disconnect() {
-    setJwtToken(null);
+    setAccessToken(null);
     setAgentWallet(null);
-    clearAuthToken();
+    clearAuthTokens();
   }
 
   return {
-    jwtToken,
+    accessToken,
     agentWallet,
     isAuthenticated: (typeof window !== 'undefined' && isAuthenticated() && isConnected) || false,
     isAuthenticating,

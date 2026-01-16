@@ -2,49 +2,52 @@ import { PEAR_CONFIG } from './config';
 
 export interface AgentWalletInfo {
   address: string;
-  balance: string; // USDC balance
-  activePositions: number;
+  exists: boolean;
 }
 
-export async function getAgentWallet(jwtToken: string): Promise<AgentWalletInfo> {
-  const response = await fetch(`${PEAR_CONFIG.apiUrl}/agent-wallet`, {
+export async function getAgentWallet(accessToken: string): Promise<AgentWalletInfo> {
+  const response = await fetch(`${PEAR_CONFIG.apiUrl}/agentWallet`, {
     headers: {
-      'Authorization': `Bearer ${jwtToken}`,
+      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
   });
 
+  if (response.status === 404) {
+    return { address: '', exists: false };
+  }
+
   if (!response.ok) {
-    const error = await response.json();
+    const error = await response.json().catch(() => ({}));
     throw new Error(error.message || 'Failed to fetch agent wallet');
   }
 
   const data = await response.json();
 
   return {
-    address: data.address,
-    balance: data.balance,
-    activePositions: data.activePositions || 0,
+    address: data.address || data.walletAddress,
+    exists: true,
   };
 }
 
-export async function depositToAgent(
-  jwtToken: string,
-  amount: string
-): Promise<{ txHash: string }> {
-  const response = await fetch(`${PEAR_CONFIG.apiUrl}/agent-wallet/deposit`, {
+export async function createAgentWallet(accessToken: string): Promise<AgentWalletInfo> {
+  const response = await fetch(`${PEAR_CONFIG.apiUrl}/agentWallet`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${jwtToken}`,
+      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ amount }),
   });
 
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Deposit failed');
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || 'Failed to create agent wallet');
   }
 
-  return await response.json();
+  const data = await response.json();
+
+  return {
+    address: data.address || data.walletAddress,
+    exists: true,
+  };
 }

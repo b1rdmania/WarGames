@@ -6,26 +6,26 @@ import { getMarketById } from '@/integrations/pear/markets';
 import type { PearPosition } from '@/integrations/pear/types';
 
 interface PositionsPanelProps {
-  jwtToken: string | null;
+  accessToken: string | null;
 }
 
-export function PositionsPanel({ jwtToken }: PositionsPanelProps) {
+export function PositionsPanel({ accessToken }: PositionsPanelProps) {
   const [positions, setPositions] = useState<PearPosition[]>([]);
   const [loading, setLoading] = useState(false);
   const [closingId, setClosingId] = useState<string>();
 
   useEffect(() => {
-    if (jwtToken) {
+    if (accessToken) {
       loadPositions();
     }
-  }, [jwtToken]);
+  }, [accessToken]);
 
   const loadPositions = async () => {
-    if (!jwtToken) return;
+    if (!accessToken) return;
 
     setLoading(true);
     try {
-      const data = await getActivePositions(jwtToken);
+      const data = await getActivePositions(accessToken);
       setPositions(data);
     } catch (error) {
       console.error('Failed to load positions:', error);
@@ -35,11 +35,11 @@ export function PositionsPanel({ jwtToken }: PositionsPanelProps) {
   };
 
   const handleClose = async (positionId: string) => {
-    if (!jwtToken) return;
+    if (!accessToken) return;
 
     setClosingId(positionId);
     try {
-      await closePosition(jwtToken, positionId);
+      await closePosition(accessToken, positionId);
       await loadPositions(); // Reload positions
     } catch (error) {
       console.error('Failed to close position:', error);
@@ -49,7 +49,7 @@ export function PositionsPanel({ jwtToken }: PositionsPanelProps) {
     }
   };
 
-  if (!jwtToken) {
+  if (!accessToken) {
     return (
       <div className="bg-war-panel neon-border p-6 text-center">
         <p className="text-gray-400">Connect wallet and authenticate to view positions</p>

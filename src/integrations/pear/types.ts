@@ -1,6 +1,7 @@
 export interface PearAuthResponse {
-  jwtToken: string;
-  agentWalletAddress: string;
+  accessToken: string;
+  refreshToken: string;
+  expiresIn: number;
 }
 
 export interface PearMarketConfig {

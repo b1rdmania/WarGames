@@ -9,7 +9,7 @@ import { BetModal } from '@/components/BetModal';
 import { PositionsPanel } from '@/components/PositionsPanel';
 
 export default function MarketsPage() {
-  const { jwtToken, isAuthenticated, isAuthenticating, authenticate } = usePear();
+  const { accessToken, isAuthenticated, isAuthenticating, authenticate } = usePear();
 
   const [betModalOpen, setBetModalOpen] = useState(false);
   const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
@@ -28,11 +28,11 @@ export default function MarketsPage() {
   };
 
   const handleConfirmBet = async (marketId: string, side: 'long' | 'short', amount: string) => {
-    if (!jwtToken) {
+    if (!accessToken) {
       throw new Error('Not authenticated');
     }
 
-    await executePosition(jwtToken, {
+    await executePosition(accessToken, {
       marketId,
       side,
       amount,
@@ -80,7 +80,7 @@ export default function MarketsPage() {
       {isAuthenticated && (
         <div className="mb-8">
           <h2 className="text-2xl font-bold neon-text mb-4">YOUR BETS</h2>
-          <PositionsPanel jwtToken={jwtToken} />
+          <PositionsPanel accessToken={accessToken} />
         </div>
       )}
 
