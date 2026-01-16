@@ -68,86 +68,77 @@ export function BetModal({ isOpen, marketId, side, onClose, onConfirm }: BetModa
   const effectiveExposure = amount ? (parseFloat(amount) * leverage).toFixed(2) : '0.00';
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-      <div className="bg-war-panel neon-border rounded-lg max-w-md w-full">
+    <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
+      <div className="bg-war-dark neon-border max-w-md w-full p-6">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-war-green/20">
-          <h2 className="text-xl font-bold neon-text">PLACE BET</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-bold neon-text">PLACE BET</h2>
           <button
             onClick={handleClose}
-            className="text-gray-400 hover:text-white text-2xl leading-none"
+            className="text-gray-500 hover:text-war-green"
             disabled={isExecuting}
           >
-            ×
+            ✕
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-6 space-y-6">
+        <div className="space-y-4">
           {/* Market Info */}
-          <div>
-            <h3 className="font-bold mb-2">{market.name}</h3>
-            <div className={`text-lg font-bold ${config.color}`}>
-              {config.label} on {config.token}
+          <div className="border-b border-gray-700 pb-3">
+            <div className="text-sm text-gray-500 mb-1">{market.name}</div>
+            <div className={`font-mono ${config.color}`}>
+              {config.label} {config.token}
             </div>
           </div>
 
           {/* Bet Amount */}
           <div>
-            <label className="block text-sm text-gray-400 mb-2">
-              BET AMOUNT (USDC)
-            </label>
+            <div className="text-xs text-gray-500 mb-2">BET AMOUNT (USDC)</div>
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              placeholder="0.00"
-              className="w-full bg-war-dark neon-border px-4 py-3 text-white text-lg focus:outline-none focus:neon-glow transition-all"
+              placeholder="10"
+              className="w-full bg-black border border-war-green/30 px-3 py-2 text-war-green font-mono focus:outline-none focus:border-war-green"
               disabled={isExecuting}
             />
           </div>
 
           {/* Leverage Info */}
-          <div className="bg-war-dark p-4 rounded border border-gray-700">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-gray-400">Leverage:</span>
-              <span className="text-war-green font-bold">{leverage}x</span>
+          <div className="border border-gray-700 p-3 text-xs">
+            <div className="flex justify-between mb-1">
+              <span className="text-gray-500">Leverage:</span>
+              <span className="text-war-green">{leverage}x</span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-400">Effective Exposure:</span>
-              <span className="text-white font-bold">${effectiveExposure}</span>
+            <div className="flex justify-between">
+              <span className="text-gray-500">Exposure:</span>
+              <span className="text-white">${effectiveExposure}</span>
             </div>
-          </div>
-
-          {/* Warning */}
-          <div className="bg-yellow-900/20 border border-yellow-500/30 p-3 rounded">
-            <p className="text-xs text-yellow-400">
-              ⚠️ Leveraged positions can result in significant losses. Only bet what you can afford to lose.
-            </p>
           </div>
 
           {/* Error */}
           {error && (
-            <div className="bg-red-900/20 border border-red-500/50 p-3 rounded">
-              <p className="text-sm text-red-400">{error}</p>
+            <div className="border border-red-500/50 p-2 text-xs text-red-400">
+              {error}
             </div>
           )}
 
           {/* Actions */}
-          <div className="flex gap-3">
+          <div className="flex gap-2 pt-2">
             <button
               onClick={handleClose}
               disabled={isExecuting}
-              className="flex-1 bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 transition-colors disabled:opacity-50"
+              className="flex-1 border border-gray-700 text-gray-400 py-2 text-sm hover:border-gray-500 disabled:opacity-30"
             >
               CANCEL
             </button>
             <button
               onClick={handleConfirm}
               disabled={isExecuting || !amount || parseFloat(amount) <= 0}
-              className={`flex-1 ${config.bgColor} hover:opacity-80 text-white font-bold py-3 transition-opacity disabled:opacity-50`}
+              className={`flex-1 ${config.bgColor} text-white font-bold py-2 text-sm hover:opacity-80 disabled:opacity-30`}
             >
-              {isExecuting ? 'PLACING BET...' : 'CONFIRM BET'}
+              {isExecuting ? 'EXECUTING...' : 'CONFIRM'}
             </button>
           </div>
         </div>
