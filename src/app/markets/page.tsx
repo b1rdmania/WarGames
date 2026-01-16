@@ -18,7 +18,10 @@ export default function MarketsPage() {
 
   const handleBet = (marketId: string, side: 'long' | 'short') => {
     if (!isAuthenticated) {
-      alert('Please authenticate with Pear Protocol first');
+      // Trigger authentication instead of alert
+      authenticate().catch(err => {
+        console.error('Auth failed:', err);
+      });
       return;
     }
 
@@ -50,27 +53,27 @@ export default function MarketsPage() {
   return (
     <main className="max-w-7xl mx-auto px-4 py-8">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold neon-text mb-2">NARRATIVE MARKETS</h1>
-        <p className="text-gray-400">Bet on the narratives that move markets</p>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold neon-text mb-1">MARKETS</h1>
+        <p className="text-sm text-gray-500">Bet on narratives that move markets</p>
       </div>
 
       {/* Authentication */}
       {!isAuthenticated && (
-        <div className="bg-war-panel neon-border p-6 mb-8">
+        <div className="border border-war-green/50 p-4 mb-6 bg-war-dark">
           <div className="flex justify-between items-center">
             <div>
-              <h3 className="font-bold neon-text mb-1">AUTHENTICATE WITH PEAR PROTOCOL</h3>
-              <p className="text-sm text-gray-400">
-                Sign a message to create your non-custodial trading agent
+              <div className="text-war-green font-mono mb-1">⚠ AUTHENTICATION REQUIRED</div>
+              <p className="text-xs text-gray-500">
+                Click to sign message and create agent wallet
               </p>
             </div>
             <button
               onClick={authenticate}
               disabled={isAuthenticating}
-              className="bg-war-green text-war-dark font-bold px-6 py-3 hover:opacity-80 transition-opacity disabled:opacity-50"
+              className="bg-war-green text-black font-bold px-4 py-2 text-sm hover:opacity-80 disabled:opacity-50"
             >
-              {isAuthenticating ? 'AUTHENTICATING...' : 'AUTHENTICATE'}
+              {isAuthenticating ? '[ SIGNING... ]' : 'AUTHENTICATE →'}
             </button>
           </div>
         </div>
@@ -78,48 +81,48 @@ export default function MarketsPage() {
 
       {/* Positions Panel */}
       {isAuthenticated && (
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold neon-text mb-4">YOUR BETS</h2>
+        <div className="mb-6">
+          <div className="text-sm text-war-green mb-3 font-mono">[ YOUR BETS ]</div>
           <PositionsPanel accessToken={accessToken} />
         </div>
       )}
 
       {/* Market Filter Tabs */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-4 text-xs">
         <button
           onClick={() => setActiveTab('all')}
-          className={`px-4 py-2 font-bold transition-all ${
+          className={`px-3 py-1 border ${
             activeTab === 'all'
-              ? 'bg-war-green text-war-dark'
-              : 'bg-war-panel neon-border text-gray-400 hover:text-white'
+              ? 'border-war-green text-war-green'
+              : 'border-gray-700 text-gray-500 hover:text-gray-400'
           }`}
         >
-          ALL MARKETS
+          ALL
         </button>
         <button
           onClick={() => setActiveTab('geopolitical')}
-          className={`px-4 py-2 font-bold transition-all ${
+          className={`px-3 py-1 border ${
             activeTab === 'geopolitical'
-              ? 'bg-war-green text-war-dark'
-              : 'bg-war-panel neon-border text-gray-400 hover:text-white'
+              ? 'border-war-green text-war-green'
+              : 'border-gray-700 text-gray-500 hover:text-gray-400'
           }`}
         >
-          GEOPOLITICAL
+          GEO
         </button>
         <button
           onClick={() => setActiveTab('tech')}
-          className={`px-4 py-2 font-bold transition-all ${
+          className={`px-3 py-1 border ${
             activeTab === 'tech'
-              ? 'bg-war-green text-war-dark'
-              : 'bg-war-panel neon-border text-gray-400 hover:text-white'
+              ? 'border-war-green text-war-green'
+              : 'border-gray-700 text-gray-500 hover:text-gray-400'
           }`}
         >
-          TECH/INDUSTRY
+          TECH
         </button>
       </div>
 
       {/* Markets Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
         {filteredMarkets.map((market) => (
           <MarketCard
             key={market.id}
