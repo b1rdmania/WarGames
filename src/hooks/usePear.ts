@@ -21,7 +21,7 @@ export function usePear() {
 
   // Load token on mount
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && typeof window !== 'undefined') {
       const token = getAuthToken();
       if (token) {
         setJwtToken(token);
@@ -62,7 +62,7 @@ export function usePear() {
   return {
     jwtToken,
     agentWallet,
-    isAuthenticated: isAuthenticated() && isConnected,
+    isAuthenticated: (typeof window !== 'undefined' && isAuthenticated() && isConnected) || false,
     isAuthenticating,
     error,
     authenticate,

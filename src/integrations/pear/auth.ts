@@ -49,15 +49,22 @@ export async function authenticateWithPear(
 }
 
 export function saveAuthToken(token: string) {
-  localStorage.setItem('pear_jwt', token);
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('pear_jwt', token);
+  }
 }
 
 export function getAuthToken(): string | null {
-  return localStorage.getItem('pear_jwt');
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('pear_jwt');
+  }
+  return null;
 }
 
 export function clearAuthToken() {
-  localStorage.removeItem('pear_jwt');
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('pear_jwt');
+  }
 }
 
 export function isAuthenticated(): boolean {

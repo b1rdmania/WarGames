@@ -32,8 +32,9 @@ export async function executeBridge(
         });
       },
 
-      acceptExchangeRateUpdateHook(oldRate, newRate) {
-        const change = Math.abs((newRate - oldRate) / oldRate);
+      acceptExchangeRateUpdateHook: async (params) => {
+        const { oldToAmount, newToAmount } = params;
+        const change = Math.abs((Number(newToAmount) - Number(oldToAmount)) / Number(oldToAmount));
         return change < 0.02; // Accept up to 2% slippage
       },
 
@@ -49,14 +50,16 @@ export async function executeBridge(
     console.error('Bridge execution failed:', error);
 
     // Try to resume
-    const savedRoute = localStorage.getItem('activeRoute');
-    if (savedRoute) {
-      try {
-        await resumeRoute(JSON.parse(savedRoute));
-        callbacks.onSuccess();
-        return;
-      } catch (resumeError) {
-        console.error('Resume failed:', resumeError);
+    if (typeof window !== 'undefined') {
+      const savedRoute = localStorage.getItem('activeRoute');
+      if (savedRoute) {
+        try {
+          await resumeRoute(JSON.parse(savedRoute));
+          callbacks.onSuccess();
+          return;
+        } catch (resumeError) {
+          console.error('Resume failed:', resumeError);
+        }
       }
     }
 

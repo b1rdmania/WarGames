@@ -43,7 +43,9 @@ export function useBridge() {
     setTxHash(undefined);
 
     // Save route for resume capability
-    localStorage.setItem('activeRoute', JSON.stringify(route));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('activeRoute', JSON.stringify(route));
+    }
 
     await executeBridge(route, {
       onStatusUpdate: (statusText) => {
@@ -54,7 +56,9 @@ export function useBridge() {
       },
       onSuccess: () => {
         setStatus('success');
-        localStorage.removeItem('activeRoute');
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('activeRoute');
+        }
       },
       onError: (err) => {
         setError(err);
