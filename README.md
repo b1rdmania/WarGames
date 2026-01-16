@@ -1,36 +1,177 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WAR.MARKET
 
-## Getting Started
+> Bet on narratives that move markets
 
-First, run the development server:
+A narrative markets platform built for the **Hyperliquid London Community Hackathon** (Jan 16-18, 2026).
+
+## 🎯 What is WAR.MARKET?
+
+WAR.MARKET lets users bet on macro narratives through leveraged pair trades. Instead of traditional trading interfaces, we use betting language and mobile-first UX to target Gen Z users with intuitive position taking on geopolitical and tech trends.
+
+### Example Markets
+
+**Geopolitical:**
+- 🇺🇸 Trump 2024 Crypto Impact: BTC vs SPY
+- 🇺🇦 Ukraine Reconstruction Boom: EWU vs LMT
+- 🌍 Middle East Energy Shift: ICLN vs USO
+
+**Tech/Industry:**
+- 🤖 AI vs Crypto: NVDA vs BTC
+- ⚛️ Quantum Computing Threat: IBM vs ETH
+- 🌐 Decentralized Social Media: LENS vs META
+
+## 🏆 Hackathon Tracks
+
+### LI.FI Track ($6,500)
+**One-click cross-chain onboarding to Hyperliquid**
+- Bridge from ETH, Arbitrum, Base, or Optimism
+- Direct routing to HyperEVM USDC
+- Automated route discovery with gas optimization
+
+### Pear Protocol Track ($3,500)
+**Execute pair/basket trades via Pear Execution API**
+- Non-custodial agent wallets
+- EIP-712 authentication
+- Leveraged narrative positions (2-3x)
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js 14 (App Router), TypeScript, Tailwind CSS
+- **Wallet:** viem + wagmi (multi-chain support)
+- **Bridging:** LI.FI SDK
+- **Trading:** Pear Protocol API
+- **Settlement:** Hyperliquid (HyperCore + HyperEVM)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- MetaMask or compatible wallet
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/b1rdmania/WarGames.git
+cd WarGames
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your configuration
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+NEXT_PUBLIC_PEAR_CLIENT_ID=HLHackathon1
+NEXT_PUBLIC_NETWORK=mainnet
+```
 
-## Learn More
+## 📱 User Flow
 
-To learn more about Next.js, take a look at the following resources:
+1. **Connect Wallet** - Support for 5 chains (ETH, ARB, BASE, OP, HyperEVM)
+2. **Bridge to HyperEVM** - One-click LI.FI integration
+3. **Authenticate** - Sign EIP-712 message to create agent wallet
+4. **Browse Markets** - Filter by geopolitical or tech narratives
+5. **Place Bet** - Choose BET UP or BET DOWN with leverage
+6. **Track Positions** - Real-time P&L on active bets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Design Philosophy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Betting Language (Gen Z Focus)
+- ✅ "BET UP/DOWN" instead of "Long/Short"
+- ✅ "PLACE BET" instead of "Execute Position"
+- ✅ "BET AMOUNT" instead of "Position Size"
 
-## Deploy on Vercel
+### Terminal Aesthetic
+- Neon green (#02FF81) on dark backgrounds
+- IBM Plex Mono font
+- High contrast, minimal design
+- Mobile-first responsive layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🏗️ Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+User Wallet
+    ↓
+LI.FI Bridge → HyperEVM USDC
+    ↓
+Pear Agent Wallet → HyperCore Trading
+```
+
+### Key Components
+
+- **BridgeModal**: Route discovery and execution
+- **MarketCard**: Narrative market display with betting UI
+- **BetModal**: Position entry with leverage calculation
+- **PositionsPanel**: Active positions with P&L tracking
+
+### Integrations
+
+**src/integrations/lifi/**
+- config.ts - SDK initialization
+- routes.ts - Route discovery
+- execute.ts - Bridge execution with error recovery
+
+**src/integrations/pear/**
+- auth.ts - EIP-712 authentication
+- agent.ts - Agent wallet management
+- positions.ts - Position execution and tracking
+- markets.ts - Market configuration
+
+## 🧪 Testing
+
+```bash
+# Run build check
+npm run build
+
+# Run development server
+npm run dev
+```
+
+## 📦 Deployment
+
+```bash
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+## 🎥 Demo Video
+
+[Link to 3-minute demo video]
+
+## 🤝 Contributing
+
+Built for Hyperliquid London Community Hackathon 2026.
+
+Team:
+- [@b1rdmania](https://github.com/b1rdmania)
+- Claude Code (AI pair programmer)
+
+## 📄 License
+
+MIT
+
+## 🔗 Links
+
+- [Hyperliquid](https://hyperliquid.xyz)
+- [Pear Protocol](https://pearprotocol.io)
+- [LI.FI](https://li.fi)
+- [GitHub Repo](https://github.com/b1rdmania/WarGames)
+
+---
+
+**Built with ⚡️ for Hyperliquid London Community Hackathon**
