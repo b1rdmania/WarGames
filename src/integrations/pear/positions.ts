@@ -89,20 +89,45 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
   console.log('📊 Raw positions from Pear API:', JSON.stringify(positions, null, 2));
 
   const deriveMarket = (pos: any): { marketId: string; side: 'long' | 'short' } => {
-    const longCoin = pos?.longAssets?.[0]?.coin;
-    const shortCoin = pos?.shortAssets?.[0]?.coin;
-    if (!longCoin || !shortCoin) return { marketId: 'unknown', side: 'long' };
+    const posLongCoins = (pos?.longAssets ?? []).map((a: any) => a.coin).filter(Boolean);
+    const posShortCoins = (pos?.shortAssets ?? []).map((a: any) => a.coin).filter(Boolean);
 
-    // Match against configured markets (simple 1v1 pairs only).
-    // If the legs match pairs.long/pairs.short, we call it BET UP (side: long).
-    // If swapped, it's BET DOWN (side: short).
+    if (posLongCoins.length === 0 || posShortCoins.length === 0) {
+      return { marketId: 'unknown', side: 'long' };
+    }
+
+    // Helper to check if arrays have significant overlap (>50% match)
+    const hasOverlap = (arr1: string[], arr2: string[]): boolean => {
+      const set2 = new Set(arr2);
+      const matches = arr1.filter(x => set2.has(x)).length;
+      return matches >= Math.min(arr1.length, arr2.length) * 0.5;
+    };
+
+    // Check against all configured markets (both pairs AND baskets)
     for (const m of MARKETS) {
-      if (!m.pairs) continue;
-      if (m.pairs.long === longCoin && m.pairs.short === shortCoin) {
-        return { marketId: m.id, side: 'long' };
+      // Simple pairs
+      if (m.pairs) {
+        if (m.pairs.long === posLongCoins[0] && m.pairs.short === posShortCoins[0]) {
+          return { marketId: m.id, side: 'long' };
+        }
+        if (m.pairs.long === posShortCoins[0] && m.pairs.short === posLongCoins[0]) {
+          return { marketId: m.id, side: 'short' };
+        }
       }
-      if (m.pairs.long === shortCoin && m.pairs.short === longCoin) {
-        return { marketId: m.id, side: 'short' };
+
+      // Basket markets
+      if (m.basket) {
+        const basketLongCoins = m.basket.long.map(a => a.asset);
+        const basketShortCoins = m.basket.short.map(a => a.asset);
+
+        // Check if position matches market's long side
+        if (hasOverlap(posLongCoins, basketLongCoins) && hasOverlap(posShortCoins, basketShortCoins)) {
+          return { marketId: m.id, side: 'long' };
+        }
+        // Check if position matches market's short side (inverted)
+        if (hasOverlap(posLongCoins, basketShortCoins) && hasOverlap(posShortCoins, basketLongCoins)) {
+          return { marketId: m.id, side: 'short' };
+        }
       }
     }
 

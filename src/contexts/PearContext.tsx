@@ -1,8 +1,9 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 import { useAccount, useChainId, useSignTypedData, useSwitchChain } from 'wagmi';
 import { arbitrum } from 'wagmi/chains';
+import toast from 'react-hot-toast';
 import {
   getAuthEip712Message,
   loginWithEip712Signature,
@@ -19,6 +20,7 @@ interface PearContextValue {
   agentWallet: string | null;
   isAuthenticated: boolean;
   isAuthenticating: boolean;
+  isSessionExpired: boolean;
   error: Error | undefined;
   lastApiError: PearApiError | null;
   statusLine: string;
@@ -38,35 +40,67 @@ export function PearProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [agentWallet, setAgentWallet] = useState<string | null>(null);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
   const [error, setError] = useState<Error>();
   const [lastApiError, setLastApiError] = useState<PearApiError | null>(null);
   const [statusLine, setStatusLine] = useState<string>('IDLE');
   const [requiredChainId, setRequiredChainId] = useState<number | null>(null);
+  const hadTokenRef = useRef(false);
 
-  // Load token on mount
+  // Load token on mount and watch for expiry
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (!isConnected || !address) {
       setAccessToken(null);
       setAgentWallet(null);
+      setIsSessionExpired(false);
       clearAuthTokens();
+      hadTokenRef.current = false;
       return;
     }
 
-    (async () => {
+    const checkToken = async () => {
       const token = await getValidAccessToken(address);
       if (!token) {
+        // Token is invalid or expired
+        if (hadTokenRef.current) {
+          // User WAS authenticated, now they're not - session expired
+          setIsSessionExpired(true);
+          toast.error('Session expired. Please re-authenticate.', {
+            icon: '⏰',
+            duration: 5000,
+            style: {
+              background: '#000',
+              color: '#ef4444',
+              border: '1px solid #ef444433',
+              fontFamily: 'monospace',
+            },
+          });
+          emitDebugLog({ level: 'warn', scope: 'auth', message: 'Session expired' });
+        }
         setAccessToken(null);
         setAgentWallet(null);
         clearAuthTokens();
+        hadTokenRef.current = false;
         return;
       }
 
+      hadTokenRef.current = true;
+      setIsSessionExpired(false);
       setAccessToken(token);
       await loadAgentWallet(token);
-    })().catch((err) => {
+    };
+
+    checkToken().catch((err) => {
       console.error('Failed to initialize Pear auth:', err);
     });
+
+    // Check token validity every 30 seconds
+    const interval = setInterval(() => {
+      checkToken().catch(console.error);
+    }, 30000);
+
+    return () => clearInterval(interval);
   }, [isConnected, address]);
 
   async function loadAgentWallet(token: string) {
@@ -89,6 +123,7 @@ export function PearProvider({ children }: { children: ReactNode }) {
     setError(undefined);
     setLastApiError(null);
     setRequiredChainId(null);
+    setIsSessionExpired(false);
 
     try {
       emitDebugLog({ level: 'info', scope: 'setup', message: 'RUN SETUP start' });
@@ -188,6 +223,7 @@ export function PearProvider({ children }: { children: ReactNode }) {
     agentWallet,
     isAuthenticated: !!(accessToken && isConnected),
     isAuthenticating,
+    isSessionExpired,
     error,
     lastApiError,
     statusLine,

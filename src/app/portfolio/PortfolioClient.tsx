@@ -181,7 +181,31 @@ export default function PortfolioClient() {
       <div className="mt-6">
         <div className="flex items-center justify-between text-sm font-mono text-gray-300 mb-3">
           <div>[ ACTIVE POSITIONS ]</div>
-          {hasLoadedPositions && refreshingPositions ? <div className="text-[10px] text-gray-500">UPDATING…</div> : null}
+          <div className="flex items-center gap-3">
+            {hasLoadedPositions && refreshingPositions ? (
+              <div className="text-[10px] text-gray-500">UPDATING…</div>
+            ) : null}
+            <button
+              onClick={async () => {
+                if (!accessToken || refreshingPositions) return;
+                setRefreshingPositions(true);
+                try {
+                  const pos = await getActivePositions(accessToken);
+                  setPositions(pos);
+                  setHasLoadedPositions(true);
+                  toast.success('Refreshed');
+                } catch (err) {
+                  toast.error('Failed to refresh');
+                } finally {
+                  setRefreshingPositions(false);
+                }
+              }}
+              disabled={refreshingPositions || !accessToken}
+              className="tm-btn px-3 py-1 text-[10px] disabled:opacity-50"
+            >
+              {refreshingPositions ? '...' : 'REFRESH'}
+            </button>
+          </div>
         </div>
 
         {loadingPositions && !hasLoadedPositions ? (

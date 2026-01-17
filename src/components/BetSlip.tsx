@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import { executePosition } from '@/integrations/pear/positions';
@@ -33,6 +33,23 @@ export function BetSlip({
   const [amount, setAmount] = useState('10');
   const [submitting, setSubmitting] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [lastError, setLastError] = useState<string | null>(null);
+  const mountedRef = useRef(true);
+
+  // Track mounted state to prevent state updates after unmount
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  // Clear error when modal reopens
+  useEffect(() => {
+    if (isOpen) {
+      setLastError(null);
+    }
+  }, [isOpen]);
 
   const balanceNum = balance ? Number(balance) : null;
   const presets = useMemo(() => [5, 10, 25], []);
@@ -153,16 +170,34 @@ export function BetSlip({
                   <div className="tm-v text-yellow-200">{market.remapReason}</div>
                 </div>
               )}
+              <div className="tm-row">
+                <div className="tm-k">Slippage</div>
+                <div className="tm-v">1% max</div>
+              </div>
             </div>
           )}
         </div>
 
+        {/* Error display with retry */}
+        {lastError && (
+          <div className="mt-4 tm-box border-red-400/30 bg-red-500/10">
+            <div className="text-xs font-mono text-red-300 mb-2">ERROR: {lastError}</div>
+            <button
+              className="tm-btn tm-btn-danger w-full"
+              onClick={() => setLastError(null)}
+            >
+              DISMISS & RETRY
+            </button>
+          </div>
+        )}
+
         <div className="mt-4">
           <button
             className={`tm-btn w-full ${side === 'short' ? 'tm-btn-danger' : ''}`}
-            disabled={submitting || !canAfford}
+            disabled={submitting || !canAfford || !!lastError}
             onClick={async () => {
               setSubmitting(true);
+              setLastError(null);
               try {
                 await executePosition(accessToken, {
                   marketId: market.id,
@@ -172,13 +207,25 @@ export function BetSlip({
                   resolvedPairs: market.resolvedPairs,
                   resolvedBasket: market.resolvedBasket,
                 });
+                if (!mountedRef.current) return;
                 toast.success('Locked in.');
                 onPlaced();
                 onClose();
               } catch (e) {
-                toast.error((e as Error).message || 'Failed');
+                if (!mountedRef.current) return;
+                const errMsg = (e as Error).message || 'Failed to execute';
+                // Check for auth-related errors
+                if (errMsg.includes('401') || errMsg.includes('unauthorized') || errMsg.includes('token')) {
+                  setLastError('Session expired. Please re-authenticate on the Trade page.');
+                  toast.error('Session expired');
+                } else {
+                  setLastError(errMsg);
+                  toast.error(errMsg);
+                }
               } finally {
-                setSubmitting(false);
+                if (mountedRef.current) {
+                  setSubmitting(false);
+                }
               }
             }}
           >
