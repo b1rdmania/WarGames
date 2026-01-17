@@ -1,6 +1,7 @@
 'use client';
 
-import { useAccount, useChainId } from 'wagmi';
+import { useAccount, useChainId, useSwitchChain } from 'wagmi';
+import { arbitrum } from 'wagmi/chains';
 import { usePear } from '@/hooks/usePear';
 import { PEAR_CONFIG } from '@/integrations/pear/config';
 import toast from 'react-hot-toast';
@@ -12,6 +13,7 @@ export function PearTerminalPanel({
 }) {
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
   const { runSetup, disconnect, isAuthenticating, statusLine, lastApiError, agentWallet, isAuthenticated, requiredChainId } = usePear();
 
   return (
@@ -70,6 +72,38 @@ export function PearTerminalPanel({
             ERROR {lastApiError.status} {lastApiError.endpoint}
           </div>
           <div>{lastApiError.message}</div>
+        </div>
+      )}
+
+      {isConnected && chainId !== arbitrum.id && (
+        <div className="mt-4 border border-yellow-500/40 p-3 text-xs text-yellow-200">
+          <div className="font-mono mb-2">WRONG NETWORK</div>
+          <div className="text-gray-200">
+            Pear auth requires <span className="text-white font-bold">Arbitrum (chainId {arbitrum.id})</span>.
+            You are currently on chainId <span className="text-white font-bold">{chainId}</span>.
+          </div>
+          <div className="mt-3 flex gap-2">
+            <button
+              onClick={() => {
+                (async () => {
+                  try {
+                    if (!switchChainAsync) throw new Error('Wallet does not support programmatic chain switching');
+                    await switchChainAsync({ chainId: arbitrum.id });
+                    toast.success('Switched to Arbitrum');
+                  } catch (e) {
+                    console.error(e);
+                    toast.error((e as Error).message || 'Failed to switch chain');
+                  }
+                })();
+              }}
+              className="bg-war-green text-war-dark font-bold px-3 py-2 text-xs hover:opacity-80"
+            >
+              SWITCH TO ARBITRUM
+            </button>
+          </div>
+          <div className="mt-2 text-[11px] text-gray-400">
+            Spec ref: `docs/pear-docs/AUTHENTICATION.md` (domain.chainId from `/auth/eip712-message`)
+          </div>
         </div>
       )}
 
