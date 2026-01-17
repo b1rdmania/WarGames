@@ -1,83 +1,49 @@
 import type { PearMarketConfig } from './types';
 
 export const MARKETS: PearMarketConfig[] = [
-  // Macro Markets
+  // SAFE DEMO MARKETS (mainnet): use highly liquid crypto majors so we can reliably place bets.
+  // Narrative indices come later; for now, we’re proving the execution stack end-to-end.
   {
-    id: 'ai-bubble-pop',
-    name: 'AI Bubble Pop',
-    description: 'Are AI valuations sustainable or headed for correction vs traditional tech?',
-    category: 'geopolitical',
+    id: 'sol-vs-eth',
+    name: 'SOL > ETH',
+    description: 'Safe demo pair: long SOL vs short ETH',
+    category: 'tech',
     pairs: {
-      long: 'QQQ',    // Nasdaq (traditional tech)
-      short: 'NVDA',  // AI hype leader
+      long: 'SOL',
+      short: 'ETH',
     },
     leverage: 3,
   },
   {
-    id: 'japan-awakens',
-    name: 'Japan Awakens',
-    description: 'Japanese equities break 30-year stagnation vs US market dominance',
-    category: 'geopolitical',
-    pairs: {
-      long: 'EWJ',    // Japan ETF
-      short: 'SPY',   // S&P 500
-    },
-    leverage: 2,
-  },
-  {
-    id: 'deglobalization',
-    name: 'Deglobalization Trade',
-    description: 'Friend-shoring and onshoring vs China manufacturing dominance',
-    category: 'geopolitical',
-    pairs: {
-      long: 'EWI',    // Italy/Europe manufacturing
-      short: 'FXI',   // China large cap
-    },
-    leverage: 2,
-  },
-  {
-    id: 'gcc-tech-pivot',
-    name: 'GCC Tech Pivot',
-    description: 'Saudi Vision 2030 & UAE NEOM tech diversification succeeds vs oil dependence',
-    category: 'geopolitical',
-    pairs: {
-      long: 'QQQ',    // Global tech (beneficiary of Gulf investment)
-      short: 'USO',   // Oil (what they\'re pivoting from)
-    },
-    leverage: 2,
-  },
-
-  // Tech/Industry Markets
-  {
-    id: 'crypto-flippening',
-    name: 'The Flippening',
-    description: 'Will Ethereum flip Bitcoin as the dominant crypto asset?',
+    id: 'eth-vs-btc',
+    name: 'ETH > BTC',
+    description: 'Safe demo pair: long ETH vs short BTC',
     category: 'tech',
     pairs: {
-      long: 'ETH',    // Ethereum
-      short: 'BTC',   // Bitcoin
+      long: 'ETH',
+      short: 'BTC',
     },
     leverage: 3,
   },
   {
-    id: 'space-economy',
-    name: 'Space Economy Boom',
-    description: 'Space industry scales faster than traditional aerospace',
+    id: 'btc-vs-sol',
+    name: 'BTC > SOL',
+    description: 'Safe demo pair: long BTC vs short SOL',
     category: 'tech',
     pairs: {
-      long: 'ARKX',   // Space exploration ETF
-      short: 'BA',    // Boeing (legacy aerospace)
+      long: 'BTC',
+      short: 'SOL',
     },
-    leverage: 2,
+    leverage: 3,
   },
   {
-    id: 'vr-metaverse',
-    name: 'VR Metaverse Reality',
-    description: 'VR/AR goes mainstream vs remaining niche tech',
-    category: 'tech',
+    id: 'hype-vs-eth',
+    name: 'HYPE > ETH',
+    description: 'Safe demo pair: long HYPE vs short ETH',
+    category: 'geopolitical',
     pairs: {
-      long: 'META',   // Meta (VR investment)
-      short: 'AAPL',  // Apple (slower VR adoption)
+      long: 'HYPE',
+      short: 'ETH',
     },
     leverage: 3,
   },
