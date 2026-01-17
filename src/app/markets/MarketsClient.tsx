@@ -10,12 +10,13 @@ import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { WalletConnectModal } from '@/components/WalletConnectModal';
 import { PearSetupCard } from '@/components/PearSetupCard';
-import { TradingPanel } from '@/components/TradingPanel';
+import { MarketFeed } from '@/components/MarketFeed';
+import { BetSlip } from '@/components/BetSlip';
 import { PositionCard } from '@/components/PositionCard';
 import { PortfolioSummary } from '@/components/PortfolioSummary';
+import { PortfolioLine } from '@/components/PortfolioLine';
 import { AssetPriceTicker } from '@/components/AssetPriceTicker';
 import { RiskShell } from '@/components/RiskShell';
-import { MARKETS } from '@/integrations/pear/markets';
 import { getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
 import { connectPearWebsocket } from '@/integrations/pear/websocket';
@@ -31,8 +32,13 @@ export default function MarketsClient() {
   const [connectModalOpen, setConnectModalOpen] = useState(false);
   const [positions, setPositions] = useState<PearPosition[]>([]);
   const [loadingPositions, setLoadingPositions] = useState(false);
+  const [portfolioDetailsOpen, setPortfolioDetailsOpen] = useState(false);
+  const [betSlipOpen, setBetSlipOpen] = useState(false);
+  const [betSlipMarketId, setBetSlipMarketId] = useState<string | null>(null);
+  const [betSlipSide, setBetSlipSide] = useState<'long' | 'short' | null>(null);
 
-  const effectiveMarkets = validatedMarkets?.length ? validatedMarkets : MARKETS;
+  // Always prefer validated markets (includes baskets + safe remaps).
+  const effectiveMarkets = validatedMarkets ?? [];
 
   // Load positions
   useEffect(() => {
@@ -208,8 +214,17 @@ export default function MarketsClient() {
         <AssetPriceTicker />
       </div>
 
-      {/* Portfolio Summary */}
-      {positions.length > 0 && <PortfolioSummary positions={positions} balance={perpUsdc} />}
+      <PortfolioLine
+        positions={positions}
+        balance={perpUsdc}
+        detailsOpen={portfolioDetailsOpen}
+        onToggleDetails={() => setPortfolioDetailsOpen((v) => !v)}
+      />
+      {portfolioDetailsOpen && positions.length > 0 && (
+        <div className="mt-4">
+          <PortfolioSummary positions={positions} balance={perpUsdc} />
+        </div>
+      )}
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-5">
@@ -243,12 +258,12 @@ export default function MarketsClient() {
 
         <div className="lg:col-span-1">
           {accessToken && (
-            <TradingPanel
-              accessToken={accessToken}
+            <MarketFeed
               markets={effectiveMarkets}
-              balance={perpUsdc}
-              onPlaced={() => {
-                getActivePositions(accessToken).then(setPositions);
+              onPick={(m, s) => {
+                setBetSlipMarketId(m.id);
+                setBetSlipSide(s);
+                setBetSlipOpen(true);
               }}
             />
           )}
@@ -256,6 +271,23 @@ export default function MarketsClient() {
       </div>
 
       <WalletConnectModal isOpen={connectModalOpen} onClose={() => setConnectModalOpen(false)} />
+
+      <BetSlip
+        isOpen={betSlipOpen}
+        market={effectiveMarkets.find((m: any) => m.id === betSlipMarketId) ?? null}
+        side={betSlipSide}
+        balance={perpUsdc}
+        accessToken={accessToken ?? ''}
+        onClose={() => {
+          setBetSlipOpen(false);
+          setBetSlipMarketId(null);
+          setBetSlipSide(null);
+        }}
+        onPlaced={() => {
+          if (!accessToken) return;
+          getActivePositions(accessToken).then(setPositions);
+        }}
+      />
     </RiskShell>
   );
 }

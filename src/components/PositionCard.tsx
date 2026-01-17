@@ -209,7 +209,7 @@ export function PositionCard({
         {closing ? (
           'CLOSING…'
         ) : (
-          'CLOSE POSITION'
+          'CASH OUT'
         )}
       </button>
     </div>
