@@ -71,18 +71,18 @@ export function usePear() {
     setLastApiError(null);
 
     try {
-      setStatusLine('AUTH: GET EIP-712 MESSAGE');
+      setStatusLine('AUTH: /auth/eip712-message');
       const result = await authenticateWithPear(address, signTypedDataAsync);
       setStatusLine('AUTH: TOKEN RECEIVED');
 
       setAccessToken(result.accessToken);
       saveAuthTokens(result.accessToken, result.refreshToken, result.expiresIn, address);
 
-      setStatusLine('AGENT: GET /agentWallet');
+      setStatusLine('AGENT: /agentWallet (GET)');
       let wallet = await getAgentWallet(result.accessToken);
 
       if (!wallet.exists && createIfMissing) {
-        setStatusLine('AGENT: POST /agentWallet');
+        setStatusLine('AGENT: /agentWallet (POST)');
         wallet = await createAgentWallet(result.accessToken);
       }
 

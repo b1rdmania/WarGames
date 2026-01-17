@@ -4,6 +4,16 @@ import type { PearAuthResponse } from './types';
 
 const EXPIRY_BUFFER_MS = 60_000; // refresh 60s before expiry
 const USER_ADDR_KEY = 'pear_user_address';
+const FALLBACK_CLIENT_ID = 'HLHackathon1';
+
+async function fetchEip712Message(address: string, clientId: string) {
+  // Spec: docs/pear-docs/AUTHENTICATION.md (GET /auth/eip712-message)
+  const endpoint = '/auth/eip712-message';
+  const url = `${PEAR_CONFIG.apiUrl}${endpoint}?address=${encodeURIComponent(address)}&clientId=${encodeURIComponent(clientId)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw await toPearApiError(res, endpoint);
+  return res.json();
+}
 
 export async function authenticateWithPear(
   userAddress: string,
@@ -12,16 +22,24 @@ export async function authenticateWithPear(
   // Spec: docs/pear-docs/AUTHENTICATION.md
   const normalizedAddress = userAddress.toLowerCase();
   // Step 1: Get EIP712 message from server
-  const eip712Endpoint = '/auth/eip712-message';
-  const messageResponse = await fetch(
-    `${PEAR_CONFIG.apiUrl}/auth/eip712-message?address=${normalizedAddress}&clientId=${PEAR_CONFIG.clientId}`
-  );
-
-  if (!messageResponse.ok) {
-    throw await toPearApiError(messageResponse, eip712Endpoint);
+  let eip712Data: any;
+  let effectiveClientId = PEAR_CONFIG.clientId;
+  try {
+    eip712Data = await fetchEip712Message(normalizedAddress, effectiveClientId);
+  } catch (err) {
+    // If the configured clientId is not accepted (401), fall back to the hackathon clientId.
+    // This keeps the demo unblocked even if Vercel env var was misconfigured.
+    if (
+      err instanceof Error &&
+      (err as any).status === 401 &&
+      effectiveClientId !== FALLBACK_CLIENT_ID
+    ) {
+      effectiveClientId = FALLBACK_CLIENT_ID;
+      eip712Data = await fetchEip712Message(normalizedAddress, effectiveClientId);
+    } else {
+      throw err;
+    }
   }
-
-  const eip712Data = await messageResponse.json();
 
   // Step 2: Sign the message
   const signature = await signTypedData({
@@ -41,7 +59,7 @@ export async function authenticateWithPear(
     body: JSON.stringify({
       method: 'eip712',
       address: normalizedAddress,
-      clientId: PEAR_CONFIG.clientId,
+      clientId: effectiveClientId,
       details: {
         signature,
         timestamp: eip712Data.message.timestamp,
