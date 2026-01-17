@@ -29,6 +29,26 @@ export function RiskShell({
           </div>
 
           {children}
+
+          <footer className={styles.footer}>
+            <div className={styles.footerLeft}>made by b1rdmania</div>
+            <div className={styles.footerLinks}>
+              <a
+                className={styles.footerLink}
+                href="https://github.com/b1rdmania/WarGames"
+                target="_blank"
+                rel="noreferrer"
+              >
+                github
+              </a>
+              <span className={styles.footerSep}>·</span>
+              <a className={styles.footerLink} href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
+                x
+              </a>
+              <span className={styles.footerSep}>·</span>
+              <span className={styles.footerRight}>music made in wario.style</span>
+            </div>
+          </footer>
         </div>
       </div>
     </div>
