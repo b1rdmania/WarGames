@@ -1,4 +1,5 @@
 import { PEAR_CONFIG } from './config';
+import { toPearApiError } from './errors';
 import type { PearAuthResponse } from './types';
 
 const EXPIRY_BUFFER_MS = 60_000; // refresh 60s before expiry
@@ -8,15 +9,16 @@ export async function authenticateWithPear(
   userAddress: string,
   signTypedData: (args: any) => Promise<string>
 ): Promise<PearAuthResponse> {
+  // Spec: docs/pear-docs/AUTHENTICATION.md
   const normalizedAddress = userAddress.toLowerCase();
   // Step 1: Get EIP712 message from server
+  const eip712Endpoint = '/auth/eip712-message';
   const messageResponse = await fetch(
     `${PEAR_CONFIG.apiUrl}/auth/eip712-message?address=${normalizedAddress}&clientId=${PEAR_CONFIG.clientId}`
   );
 
   if (!messageResponse.ok) {
-    const error = await messageResponse.json().catch(() => ({}));
-    throw new Error(error.error || error.message || 'Failed to get EIP712 message');
+    throw await toPearApiError(messageResponse, eip712Endpoint);
   }
 
   const eip712Data = await messageResponse.json();
@@ -30,6 +32,7 @@ export async function authenticateWithPear(
   });
 
   // Step 3: Login with signature
+  const loginEndpoint = '/auth/login';
   const loginResponse = await fetch(`${PEAR_CONFIG.apiUrl}/auth/login`, {
     method: 'POST',
     headers: {
@@ -47,8 +50,7 @@ export async function authenticateWithPear(
   });
 
   if (!loginResponse.ok) {
-    const error = await loginResponse.json().catch(() => ({}));
-    throw new Error(error.error || error.message || 'Authentication failed');
+    throw await toPearApiError(loginResponse, loginEndpoint);
   }
 
   const data = await loginResponse.json();

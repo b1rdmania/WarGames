@@ -10,6 +10,7 @@ import {
   isAuthenticated
 } from '@/integrations/pear/auth';
 import { getAgentWallet, createAgentWallet } from '@/integrations/pear/agent';
+import { PearApiError } from '@/integrations/pear/errors';
 
 export function usePear() {
   const { address, isConnected } = useAccount();
@@ -19,6 +20,8 @@ export function usePear() {
   const [agentWallet, setAgentWallet] = useState<string | null>(null);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [error, setError] = useState<Error>();
+  const [lastApiError, setLastApiError] = useState<PearApiError | null>(null);
+  const [statusLine, setStatusLine] = useState<string>('IDLE');
 
   // Load token on mount
   useEffect(() => {
@@ -55,6 +58,43 @@ export function usePear() {
       }
     } catch (err) {
       console.error('Failed to load agent wallet:', err);
+      if (err instanceof PearApiError) setLastApiError(err);
+    }
+  }
+
+  async function runSetup(createIfMissing: boolean = true) {
+    if (!address || !isConnected) throw new Error('Wallet not connected');
+    if (isAuthenticating) return;
+
+    setIsAuthenticating(true);
+    setError(undefined);
+    setLastApiError(null);
+
+    try {
+      setStatusLine('AUTH: GET EIP-712 MESSAGE');
+      const result = await authenticateWithPear(address, signTypedDataAsync);
+      setStatusLine('AUTH: TOKEN RECEIVED');
+
+      setAccessToken(result.accessToken);
+      saveAuthTokens(result.accessToken, result.refreshToken, result.expiresIn, address);
+
+      setStatusLine('AGENT: GET /agentWallet');
+      let wallet = await getAgentWallet(result.accessToken);
+
+      if (!wallet.exists && createIfMissing) {
+        setStatusLine('AGENT: POST /agentWallet');
+        wallet = await createAgentWallet(result.accessToken);
+      }
+
+      setAgentWallet(wallet.address || null);
+      setStatusLine('READY');
+    } catch (err) {
+      setStatusLine('ERROR');
+      setError(err as Error);
+      if (err instanceof PearApiError) setLastApiError(err);
+      throw err;
+    } finally {
+      setIsAuthenticating(false);
     }
   }
 
@@ -71,6 +111,8 @@ export function usePear() {
 
     setIsAuthenticating(true);
     setError(undefined);
+    setLastApiError(null);
+    setStatusLine('AUTHENTICATING');
 
     try {
       const result = await authenticateWithPear(address, signTypedDataAsync);
@@ -86,9 +128,12 @@ export function usePear() {
       setAgentWallet(wallet.address);
 
       setIsAuthenticating(false);
+      setStatusLine('READY');
     } catch (err) {
       setError(err as Error);
+      if (err instanceof PearApiError) setLastApiError(err);
       setIsAuthenticating(false);
+      setStatusLine('ERROR');
       throw err;
     }
   }
@@ -96,6 +141,8 @@ export function usePear() {
   function disconnect() {
     setAccessToken(null);
     setAgentWallet(null);
+    setLastApiError(null);
+    setStatusLine('IDLE');
     clearAuthTokens();
   }
 
@@ -106,6 +153,9 @@ export function usePear() {
     isAuthenticating,
     error,
     authenticate,
+    runSetup,
+    lastApiError,
+    statusLine,
     disconnect,
   };
 }

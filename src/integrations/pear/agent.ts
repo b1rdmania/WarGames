@@ -1,4 +1,5 @@
 import { PEAR_CONFIG } from './config';
+import { toPearApiError } from './errors';
 
 export interface AgentWalletInfo {
   address: string;
@@ -6,6 +7,8 @@ export interface AgentWalletInfo {
 }
 
 export async function getAgentWallet(accessToken: string): Promise<AgentWalletInfo> {
+  // Spec: docs/pear-docs/AGENT_WALLET.md (GET /agentWallet)
+  const endpoint = '/agentWallet';
   const response = await fetch(`${PEAR_CONFIG.apiUrl}/agentWallet`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`,
@@ -13,17 +16,12 @@ export async function getAgentWallet(accessToken: string): Promise<AgentWalletIn
     },
   });
 
-  if (response.status === 401) {
-    throw new Error('Unauthorized fetching agent wallet. Please re-authenticate (signature) and try again.');
-  }
-
   if (response.status === 404) {
     return { address: '', exists: false };
   }
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.error || error.message || 'Failed to fetch agent wallet');
+    throw await toPearApiError(response, endpoint);
   }
 
   const data = await response.json();
@@ -35,6 +33,8 @@ export async function getAgentWallet(accessToken: string): Promise<AgentWalletIn
 }
 
 export async function createAgentWallet(accessToken: string): Promise<AgentWalletInfo> {
+  // Spec: docs/pear-docs/AGENT_WALLET.md (POST /agentWallet)
+  const endpoint = '/agentWallet';
   const response = await fetch(`${PEAR_CONFIG.apiUrl}/agentWallet`, {
     method: 'POST',
     headers: {
@@ -44,11 +44,7 @@ export async function createAgentWallet(accessToken: string): Promise<AgentWalle
   });
 
   if (!response.ok) {
-    if (response.status === 401) {
-      throw new Error('Unauthorized creating agent wallet. Please re-authenticate (signature) and try again.');
-    }
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.error || error.message || 'Failed to create agent wallet');
+    throw await toPearApiError(response, endpoint);
   }
 
   const data = await response.json();

@@ -13,6 +13,7 @@ import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import type { ResolvedPairs } from '@/integrations/pear/types';
 import { WalletConnectModal } from '@/components/WalletConnectModal';
+import { PearTerminalPanel } from '@/components/PearTerminalPanel';
 
 export default function MarketsPage() {
   const { isConnected } = useAccount();
@@ -82,47 +83,14 @@ export default function MarketsPage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8">
-      {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold neon-text mb-1">MARKETS</h1>
-        <p className="text-sm text-gray-500">Bet on narratives that move markets</p>
+        <h1 className="text-2xl font-bold neon-text mb-1">TERMINAL</h1>
+        <p className="text-sm text-gray-500">Minimal flow for debugging: connect → run setup → bet</p>
       </div>
 
-      {/* Authentication */}
-      {!isAuthenticated && (
-        <div className="border border-war-green/50 p-4 mb-6 bg-war-dark">
-          <div className="flex justify-between items-center">
-            <div>
-              <div className="text-war-green font-mono mb-1">⚠ AUTHENTICATION REQUIRED</div>
-              <p className="text-xs text-gray-500">
-                Click to sign message and create agent wallet
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                if (!isConnected) {
-                  setConnectModalOpen(true);
-                  return;
-                }
-                authenticate().catch(err => {
-                  console.error('Auth failed:', err);
-                  if (err.message?.includes('User rejected') || err.message?.includes('denied')) {
-                    toast.error('Signature rejected. Please try again.');
-                  } else if (err.message?.includes('Wallet not connected')) {
-                    toast.error('Please connect your wallet first.');
-                  } else {
-                    toast.error(err.message || 'Authentication failed. Please try again.');
-                  }
-                });
-              }}
-              disabled={isAuthenticating}
-              className="bg-war-green text-black font-bold px-4 py-2 text-sm hover:opacity-80 disabled:opacity-50"
-            >
-              {!isConnected ? 'CONNECT WALLET →' : (isAuthenticating ? '[ SIGNING... ]' : 'AUTHENTICATE →')}
-            </button>
-          </div>
-        </div>
-      )}
+      <div className="mb-6">
+        <PearTerminalPanel onRequestConnect={() => setConnectModalOpen(true)} />
+      </div>
 
       {/* Positions Panel */}
       {isAuthenticated && (
@@ -170,15 +138,21 @@ export default function MarketsPage() {
       </div>
 
       {/* Markets Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {filteredMarkets.map((market) => (
-          <MarketCard
-            key={market.id}
-            market={market}
-            onBet={handleBet}
-          />
-        ))}
-      </div>
+      {isAuthenticated ? (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {filteredMarkets.map((market) => (
+            <MarketCard
+              key={market.id}
+              market={market}
+              onBet={handleBet}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="bg-war-panel neon-border p-6 text-sm text-gray-400">
+          Authenticate first (use the terminal panel above) to enable trading.
+        </div>
+      )}
 
       {/* Bet Modal */}
       <BetModal
