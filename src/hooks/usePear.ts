@@ -212,7 +212,7 @@ export function usePear() {
   return {
     accessToken,
     agentWallet,
-    isAuthenticated: (typeof window !== 'undefined' && isAuthenticated() && isConnected) || false,
+    isAuthenticated: !!(accessToken && isConnected),
     isAuthenticating,
     error,
     authenticate,
