@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
+import Link from 'next/link';
 import styles from './RiskShell.module.css';
 import { MusicControls } from './MusicControls';
+import { HeaderWalletWidget } from './HeaderWalletWidget';
 
 export function RiskShell({
   title = 'WAR.MARKET',
@@ -26,14 +28,16 @@ export function RiskShell({
           <div className={styles.container}>
             <div className={styles.headerInner}>
               <div className={styles.brand}>
-                <div className={styles.title}>{title}</div>
+                <Link href="/markets" className={styles.title} aria-label="WAR.MARKET home">
+                  {title}
+                </Link>
                 <div className={styles.subtitle}>{subtitle}</div>
               </div>
               {nav ? <div className={styles.nav}>{nav}</div> : null}
               <div className={styles.headerRight}>
                 <div className={styles.headerWidgets}>
                   <MusicControls />
-                  {right}
+                  {right ?? <HeaderWalletWidget />}
                 </div>
               </div>
             </div>

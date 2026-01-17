@@ -3,7 +3,6 @@ import { IBM_Plex_Mono, Space_Mono } from "next/font/google";
 import { WalletProvider } from "@/components/WalletProvider";
 import { PearProvider } from "@/contexts/PearContext";
 import { MusicProvider } from "@/contexts/MusicContext";
-import { Navbar } from "@/components/Navbar";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
@@ -37,7 +36,6 @@ export default function RootLayout({
         <WalletProvider>
           <PearProvider>
             <MusicProvider>
-              <Navbar />
               {children}
               <Toaster position="bottom-right" />
             </MusicProvider>
