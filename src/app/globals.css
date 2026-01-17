@@ -50,6 +50,17 @@ html button {
   border-radius: 0;
 }
 
+/* Browser defaults can re-introduce “grey button” UI; make terminal buttons transparent by default */
+html button {
+  background: transparent;
+  color: inherit;
+}
+
+/* Remove native select chrome/arrow background where possible */
+html select {
+  background-image: none;
+}
+
 html option {
   background: #000;
   color: #fff;
