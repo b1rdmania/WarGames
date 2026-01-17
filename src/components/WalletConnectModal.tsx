@@ -33,10 +33,10 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
 
   return (
     <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-      <div className="bg-war-dark neon-border max-w-md w-full p-6">
+      <div className="bg-pear-dark pear-border max-w-md w-full p-6">
         <div className="flex justify-between items-center mb-4">
           <div>
-            <div className="text-sm text-war-green font-mono">[ CONNECT WALLET ]</div>
+            <div className="text-sm text-pear-lime font-mono">[ CONNECT WALLET ]</div>
             <div className="text-xs text-gray-500 mt-1">
               Choose a wallet. MetaMask is available alongside other injected wallets.
             </div>
@@ -65,7 +65,7 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
                     }
                   })();
                 }}
-                className="w-full flex items-center justify-between neon-border text-war-green px-4 py-3 text-sm hover:neon-glow disabled:opacity-50"
+                className="w-full flex items-center justify-between pear-border text-pear-lime px-4 py-3 text-sm hover:pear-glow disabled:opacity-50"
               >
                 <span>{labelForConnector(connector.id, connector.name)}</span>
                 <span className="text-xs text-gray-500">

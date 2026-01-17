@@ -33,7 +33,7 @@ export default function MarketsPage() {
           <div className="mb-4 text-right">
             <button
               onClick={() => setShowDebug(!showDebug)}
-              className="text-xs px-3 py-1 border border-gray-700 text-gray-400 hover:text-war-green hover:border-war-green"
+              className="text-xs px-3 py-1 border border-gray-700 text-gray-400 hover:text-pear-lime hover:border-pear-lime"
             >
               {showDebug ? 'HIDE DEBUG' : 'SHOW DEBUG'}
             </button>
@@ -49,7 +49,7 @@ export default function MarketsPage() {
 
           {/* Welcome Card */}
           <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-lg p-12 text-center shadow-2xl">
-            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-pear-lime to-pear-lime-light bg-clip-text text-transparent">
               WAR.MARKET
             </h1>
             <p className="text-xl text-gray-300 mb-8">
@@ -63,7 +63,7 @@ export default function MarketsPage() {
                 </p>
                 <button
                   onClick={() => setConnectModalOpen(true)}
-                  className="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-4 rounded-lg text-lg transition-colors shadow-lg"
+                  className="bg-pear-lime hover:bg-pear-lime-light text-pear-dark font-bold px-8 py-4 rounded-lg text-lg transition-colors shadow-lg"
                 >
                   Connect Wallet
                 </button>
@@ -75,7 +75,7 @@ export default function MarketsPage() {
                 </p>
                 <button
                   onClick={() => setShowDebug(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-lg text-lg transition-colors"
+                  className="bg-pear-lime hover:bg-pear-lime-light text-pear-dark font-bold px-8 py-4 rounded-lg text-lg transition-colors"
                 >
                   Show Setup Panel
                 </button>
@@ -98,7 +98,7 @@ export default function MarketsPage() {
         </div>
         <button
           onClick={() => setShowDebug(!showDebug)}
-          className="text-xs px-4 py-2 border border-gray-700 text-gray-400 hover:text-war-green hover:border-war-green rounded"
+          className="text-xs px-4 py-2 border border-gray-700 text-gray-400 hover:text-pear-lime hover:border-pear-lime rounded"
         >
           {showDebug ? 'HIDE DEBUG' : 'SHOW DEBUG'}
         </button>
@@ -121,7 +121,7 @@ export default function MarketsPage() {
         <div className="lg:col-span-2 space-y-4">
           <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <span className="w-2 h-2 bg-pear-lime rounded-full animate-pulse"></span>
               Active Positions
             </h2>
             {accessToken && <PositionsPanel accessToken={accessToken} refreshKey={positionsRefreshKey} />}
@@ -130,8 +130,8 @@ export default function MarketsPage() {
 
         {/* Right: Place Bet */}
         <div className="lg:col-span-1">
-          <div className="bg-gradient-to-br from-green-900/20 to-blue-900/20 border border-green-700/30 rounded-lg p-6 sticky top-6">
-            <h2 className="text-xl font-bold text-green-400 mb-4">Place New Bet</h2>
+          <div className="bg-gradient-to-br from-pear-panel to-pear-panel-light border border-pear-lime/30 rounded-lg p-6 sticky top-6">
+            <h2 className="text-xl font-bold text-pear-lime mb-4">Place New Bet</h2>
             {accessToken && (
               <TradeTerminal
                 accessToken={accessToken}

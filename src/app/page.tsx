@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="max-w-7xl mx-auto px-4 py-12">
       <div className="text-center">
-        <h1 className="text-5xl font-bold neon-text mb-4">
+        <h1 className="text-5xl font-bold pear-text mb-4">
           WAR.MARKET
         </h1>
         <p className="text-xl text-gray-400 mb-8">
@@ -22,14 +22,14 @@ export default function Home() {
           <div className="pt-2">
             <Link
               href="/markets"
-              className="inline-block bg-war-panel neon-border text-war-green text-xl font-bold px-8 py-4 hover:neon-glow transition-all"
+              className="inline-block bg-pear-panel pear-border text-pear-lime text-xl font-bold px-8 py-4 hover:pear-glow transition-all"
             >
               BROWSE MARKETS →
             </Link>
           </div>
         </div>
 
-        <div className="neon-border bg-war-panel p-8 inline-block">
+        <div className="pear-border bg-pear-panel p-8 inline-block">
           <p className="text-sm text-gray-500">
             SYSTEM STATUS: OPERATIONAL
           </p>

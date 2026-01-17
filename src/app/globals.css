@@ -3,31 +3,34 @@
 @tailwind utilities;
 
 :root {
-  --dark-bg: #0a0e1a;
-  --dark-panel: #111827;
-  --neon-green: #02FF81;
-  --text-primary: #ffffff;
-  --text-secondary: #9ca3af;
-  --border-color: rgba(2, 255, 129, 0.2);
+  /* Pear Protocol Branding */
+  --pear-dark: #060902;
+  --pear-panel: #0e140f;
+  --pear-panel-light: #141c15;
+  --pear-lime: #a2db5c;
+  --pear-lime-light: #bde689;
+  --pear-gray: #a0a0a0;
+  --pear-gray-dark: #717171;
+  --pear-accent: #334128;
+  --border-color: rgba(162, 219, 92, 0.2);
 }
 
 body {
-  background-color: var(--dark-bg);
-  color: var(--text-primary);
-  font-family: 'IBM Plex Mono', monospace;
+  background-color: var(--pear-dark);
+  color: #ffffff;
 }
 
 @layer utilities {
-  .neon-border {
+  .pear-border {
     border: 1px solid var(--border-color);
   }
 
-  .neon-text {
-    color: var(--neon-green);
+  .pear-text {
+    color: var(--pear-lime);
   }
 
-  .neon-glow {
-    box-shadow: 0 0 10px rgba(2, 255, 129, 0.3);
+  .pear-glow {
+    box-shadow: 0 0 10px rgba(162, 219, 92, 0.3);
   }
 }
 
@@ -37,14 +40,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--dark-bg);
+  background: var(--pear-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--neon-green);
+  background: var(--pear-lime);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #01cc66;
+  background: var(--pear-lime-light);
 }

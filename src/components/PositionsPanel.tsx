@@ -65,7 +65,7 @@ export function PositionsPanel({ accessToken, refreshKey }: PositionsPanelProps)
 
   if (!accessToken) {
     return (
-      <div className="bg-war-panel neon-border p-6 text-center">
+      <div className="bg-pear-panel pear-border p-6 text-center">
         <p className="text-gray-400">Connect wallet and authenticate to view positions</p>
       </div>
     );
@@ -73,21 +73,21 @@ export function PositionsPanel({ accessToken, refreshKey }: PositionsPanelProps)
 
   if (loading) {
     return (
-      <div className="bg-war-panel neon-border p-6 text-center">
-        <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-war-green border-t-transparent"></div>
+      <div className="bg-pear-panel pear-border p-6 text-center">
+        <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-pear-lime border-t-transparent"></div>
       </div>
     );
   }
 
   if (positions.length === 0) {
     return (
-      <div className="bg-war-panel neon-border p-6">
+      <div className="bg-pear-panel pear-border p-6">
         <div className="flex items-center justify-between gap-4">
           <p className="text-gray-400">No active positions</p>
           <button
             onClick={() => loadPositions()}
             disabled={loading}
-            className="neon-border text-war-green px-3 py-2 text-xs hover:neon-glow disabled:opacity-50"
+            className="pear-border text-pear-lime px-3 py-2 text-xs hover:pear-glow disabled:opacity-50"
           >
             REFRESH
           </button>
@@ -107,11 +107,11 @@ export function PositionsPanel({ accessToken, refreshKey }: PositionsPanelProps)
         return (
           <div
             key={position.id}
-            className="bg-war-panel border-2 border-war-green/30 p-6 hover:border-war-green/50 transition-all"
+            className="bg-pear-panel border-2 border-pear-lime/30 p-6 hover:border-pear-lime/50 transition-all"
           >
             <div className="flex justify-between items-start mb-6">
               <div>
-                <h3 className="text-2xl font-bold neon-text mb-2">
+                <h3 className="text-2xl font-bold pear-text mb-2">
                   {market?.name || (position.longAsset && position.shortAsset ? `${position.longAsset} vs ${position.shortAsset}` : 'Unknown Market')}
                 </h3>
                 <div className={`inline-block px-3 py-1 text-sm font-bold ${

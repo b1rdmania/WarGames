@@ -23,15 +23,15 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
   };
 
   return (
-    <div className="bg-war-dark border border-war-green/30 p-4 hover:border-war-green transition-colors">
+    <div className="bg-pear-dark border border-pear-lime/30 p-4 hover:border-pear-lime transition-colors">
       {/* Header */}
       <div className="flex justify-between items-start mb-3 text-xs">
         <span className="text-gray-500">{categoryLabels[market.category]}</span>
-        <span className="text-war-green">{market.leverage}x</span>
+        <span className="text-pear-lime">{market.leverage}x</span>
       </div>
 
       {/* Market Name */}
-      <h3 className="text-sm font-bold text-war-green mb-2">
+      <h3 className="text-sm font-bold text-pear-lime mb-2">
         {market.name}
       </h3>
 

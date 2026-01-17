@@ -17,10 +17,10 @@ export function PearTerminalPanel({
   const { runSetup, disconnect, isAuthenticating, statusLine, lastApiError, agentWallet, isAuthenticated, requiredChainId } = usePear();
 
   return (
-    <div className="bg-war-panel neon-border p-6">
+    <div className="bg-pear-panel pear-border p-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <div className="text-sm text-war-green font-mono">[ PEAR TERMINAL ]</div>
+          <div className="text-sm text-pear-lime font-mono">[ PEAR TERMINAL ]</div>
           <div className="text-xs text-gray-500 mt-1">
             api={PEAR_CONFIG.apiUrl} clientId={PEAR_CONFIG.clientId} net={PEAR_CONFIG.network}
           </div>
@@ -32,7 +32,7 @@ export function PearTerminalPanel({
               disconnect();
               toast.success('Cleared Pear session');
             }}
-            className="neon-border text-war-green px-3 py-2 text-xs hover:neon-glow"
+            className="pear-border text-pear-lime px-3 py-2 text-xs hover:pear-glow"
           >
             RESET
           </button>
@@ -48,7 +48,7 @@ export function PearTerminalPanel({
         </div>
         <div className="flex justify-between gap-4">
           <span className="text-gray-500">CHAIN</span>
-          <span className={`${chainId === arbitrum.id ? 'text-war-green' : 'text-yellow-400'}`}>
+          <span className={`${chainId === arbitrum.id ? 'text-pear-lime' : 'text-yellow-400'}`}>
             {chainId === arbitrum.id ? `${chainId} (Arbitrum ✓)` : `${chainId}`}
           </span>
         </div>
@@ -62,7 +62,7 @@ export function PearTerminalPanel({
         </div>
         <div className="flex justify-between gap-4">
           <span className="text-gray-500">STATUS</span>
-          <span className="text-war-green">{statusLine}</span>
+          <span className="text-pear-lime">{statusLine}</span>
         </div>
       </div>
 
@@ -97,7 +97,7 @@ export function PearTerminalPanel({
                   }
                 })();
               }}
-              className="bg-war-green text-war-dark font-bold px-3 py-2 text-xs hover:opacity-80"
+              className="bg-pear-lime text-pear-dark font-bold px-3 py-2 text-xs hover:opacity-80"
             >
               SWITCH TO ARBITRUM
             </button>
@@ -109,7 +109,7 @@ export function PearTerminalPanel({
         {!isConnected ? (
           <button
             onClick={onRequestConnect}
-            className="bg-war-green text-war-dark font-bold px-4 py-2 text-sm hover:opacity-80"
+            className="bg-pear-lime text-pear-dark font-bold px-4 py-2 text-sm hover:opacity-80"
           >
             CONNECT
           </button>
@@ -122,7 +122,7 @@ export function PearTerminalPanel({
               });
             }}
             disabled={isAuthenticating}
-            className="bg-war-green text-war-dark font-bold px-4 py-2 text-sm hover:opacity-80 disabled:opacity-50"
+            className="bg-pear-lime text-pear-dark font-bold px-4 py-2 text-sm hover:opacity-80 disabled:opacity-50"
           >
             {isAuthenticating ? 'RUNNING…' : 'RUN SETUP'}
           </button>

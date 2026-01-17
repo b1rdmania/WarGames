@@ -77,13 +77,13 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
 
   return (
     <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-      <div className="bg-war-dark neon-border max-w-md w-full p-6">
+      <div className="bg-pear-dark pear-border max-w-md w-full p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold neon-text">PLACE BET</h2>
+          <h2 className="text-lg font-bold pear-text">PLACE BET</h2>
           <button
             onClick={handleClose}
-            className="text-gray-500 hover:text-war-green"
+            className="text-gray-500 hover:text-pear-lime"
             disabled={isExecuting}
           >
             ✕
@@ -108,7 +108,7 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="10"
-              className="w-full bg-black border border-war-green/30 px-3 py-2 text-war-green font-mono focus:outline-none focus:border-war-green"
+              className="w-full bg-black border border-pear-lime/30 px-3 py-2 text-pear-lime font-mono focus:outline-none focus:border-pear-lime"
               disabled={isExecuting}
             />
           </div>
@@ -117,7 +117,7 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
           <div className="border border-gray-700 p-3 text-xs">
             <div className="flex justify-between mb-1">
               <span className="text-gray-500">Leverage:</span>
-              <span className="text-war-green">{leverage}x</span>
+              <span className="text-pear-lime">{leverage}x</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Exposure:</span>

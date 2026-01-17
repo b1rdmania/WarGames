@@ -9,12 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'war-dark': '#0a0e1a',
-        'war-panel': '#111827',
-        'war-green': '#02FF81',
+        // Pear Protocol Branding
+        'pear-dark': '#060902',
+        'pear-panel': '#0e140f',
+        'pear-panel-light': '#141c15',
+        'pear-lime': '#a2db5c',
+        'pear-lime-light': '#bde689',
+        'pear-gray': '#a0a0a0',
+        'pear-gray-dark': '#717171',
+        'pear-accent': '#334128',
       },
       fontFamily: {
-        mono: ['IBM Plex Mono', 'monospace'],
+        sans: ['var(--font-geist-sans)', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'Fragment Mono', 'monospace'],
       },
     },
   },

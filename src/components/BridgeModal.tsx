@@ -50,13 +50,13 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-      <div className="bg-war-dark neon-border max-w-lg w-full p-6">
+      <div className="bg-pear-dark pear-border max-w-lg w-full p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-bold neon-text">BRIDGE → HYPEREVM</h2>
+          <h2 className="text-xl font-bold pear-text">BRIDGE → HYPEREVM</h2>
           <button
             onClick={handleClose}
-            className="text-gray-500 hover:text-war-green text-xl"
+            className="text-gray-500 hover:text-pear-lime text-xl"
           >
             ✕
           </button>
@@ -72,7 +72,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.01"
-              className="w-full bg-black border border-war-green/30 px-3 py-2 text-war-green font-mono focus:outline-none focus:border-war-green"
+              className="w-full bg-black border border-pear-lime/30 px-3 py-2 text-pear-lime font-mono focus:outline-none focus:border-pear-lime"
               disabled={status === 'executing'}
               step="0.01"
             />
@@ -83,7 +83,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
             <button
               onClick={handleFindRoutes}
               disabled={!amount || parseFloat(amount) <= 0}
-              className="w-full bg-war-green text-black font-bold py-2 hover:opacity-80 disabled:opacity-30"
+              className="w-full bg-pear-lime text-black font-bold py-2 hover:opacity-80 disabled:opacity-30"
             >
               → FIND ROUTES
             </button>
@@ -91,8 +91,8 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
 
           {/* Loading State */}
           {status === 'fetching-routes' && (
-            <div className="border border-war-green/30 p-4 text-center">
-              <p className="text-war-green font-mono">[ SEARCHING ROUTES... ]</p>
+            <div className="border border-pear-lime/30 p-4 text-center">
+              <p className="text-pear-lime font-mono">[ SEARCHING ROUTES... ]</p>
             </div>
           )}
 
@@ -106,18 +106,18 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
                 <button
                   key={index}
                   onClick={() => handleExecute(route)}
-                  className="w-full border border-war-green/30 hover:border-war-green p-3 text-left"
+                  className="w-full border border-pear-lime/30 hover:border-pear-lime p-3 text-left"
                 >
                   <div className="flex justify-between items-center">
                     <div>
-                      <div className="text-war-green font-mono">
+                      <div className="text-pear-lime font-mono">
                         {(parseFloat(route.toAmount) / 1e6).toFixed(4)} USDC
                       </div>
                       <div className="text-xs text-gray-500 mt-1">
                         ~{formatTime(route.estimatedTime)} • ${parseFloat(route.gasCost).toFixed(2)} gas
                       </div>
                     </div>
-                    <div className="text-war-green">→</div>
+                    <div className="text-pear-lime">→</div>
                   </div>
                 </button>
               ))}
@@ -126,13 +126,13 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
 
           {/* Executing State */}
           {status === 'executing' && (
-            <div className="border border-war-green p-4">
-              <p className="text-war-green font-mono mb-2">[ EXECUTING... ]</p>
+            <div className="border border-pear-lime p-4">
+              <p className="text-pear-lime font-mono mb-2">[ EXECUTING... ]</p>
               <p className="text-xs text-gray-500">Do not close this window</p>
               {txHash && (
                 <div className="mt-3 pt-3 border-t border-gray-700">
                   <p className="text-xs text-gray-500 mb-1">TX:</p>
-                  <p className="text-xs text-war-green font-mono break-all">
+                  <p className="text-xs text-pear-lime font-mono break-all">
                     {txHash.slice(0, 20)}...
                   </p>
                 </div>
@@ -142,17 +142,17 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
 
           {/* Success State */}
           {status === 'success' && (
-            <div className="border border-war-green p-4">
-              <p className="text-war-green font-bold mb-2">✓ COMPLETE</p>
+            <div className="border border-pear-lime p-4">
+              <p className="text-pear-lime font-bold mb-2">✓ COMPLETE</p>
               <p className="text-xs text-gray-500 mb-4">Funds bridged to HyperEVM</p>
               {txHash && (
-                <p className="text-xs text-war-green font-mono break-all mb-4">
+                <p className="text-xs text-pear-lime font-mono break-all mb-4">
                   {txHash.slice(0, 20)}...
                 </p>
               )}
               <button
                 onClick={handleClose}
-                className="w-full bg-war-green text-black font-bold py-2"
+                className="w-full bg-pear-lime text-black font-bold py-2"
               >
                 CLOSE
               </button>
@@ -171,7 +171,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
                   reset();
                   setSelectedRoute(undefined);
                 }}
-                className="w-full bg-war-green text-black font-bold py-2"
+                className="w-full bg-pear-lime text-black font-bold py-2"
               >
                 RETRY
               </button>

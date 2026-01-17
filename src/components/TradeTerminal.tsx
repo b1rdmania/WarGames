@@ -38,7 +38,7 @@ export function TradeTerminal({
         <select
           value={marketId}
           onChange={(e) => setMarketId(e.target.value)}
-          className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:border-green-500 focus:outline-none"
+          className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white focus:border-pear-lime focus:outline-none"
         >
           {markets.map((m) => (
             <option key={m.id} value={m.id}>
@@ -57,7 +57,7 @@ export function TradeTerminal({
             onClick={() => setSide('long')}
             className={`py-3 rounded font-bold transition-all ${
               side === 'long'
-                ? 'bg-green-600 text-white shadow-lg'
+                ? 'bg-pear-lime text-pear-dark shadow-lg'
                 : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
             }`}
           >
@@ -90,7 +90,7 @@ export function TradeTerminal({
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white text-lg font-bold focus:border-green-500 focus:outline-none"
+          className="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white text-lg font-bold focus:border-pear-lime focus:outline-none"
           placeholder="10"
         />
         {perpUsdc && (
@@ -107,7 +107,7 @@ export function TradeTerminal({
       <div className="bg-gray-800/50 border border-gray-700 rounded p-3 text-xs space-y-1">
         <div className="flex justify-between">
           <span className="text-gray-400">Leverage:</span>
-          <span className="text-green-400 font-bold">{market.leverage}x</span>
+          <span className="text-pear-lime font-bold">{market.leverage}x</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-400">Notional:</span>
@@ -141,7 +141,7 @@ export function TradeTerminal({
             }
           })();
         }}
-        className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-700 disabled:cursor-not-allowed text-white font-bold py-3 rounded-lg transition-colors shadow-lg"
+        className="w-full bg-pear-lime hover:bg-pear-lime-light disabled:bg-gray-700 disabled:cursor-not-allowed text-pear-dark font-bold py-3 rounded-lg transition-colors shadow-lg"
       >
         {submitting ? 'PLACING...' : 'PLACE BET'}
       </button>
