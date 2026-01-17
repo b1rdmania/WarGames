@@ -4,7 +4,6 @@ import { GeistMono } from "geist/font/mono";
 import { WalletProvider } from "@/components/WalletProvider";
 import { PearProvider } from "@/contexts/PearContext";
 import { Navbar } from "@/components/Navbar";
-import { DesignProvider } from "@/components/DesignProvider";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
@@ -19,17 +18,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" data-ui="terminal" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="min-h-screen bg-pear-dark text-white font-sans antialiased">
-        <DesignProvider>
-          <WalletProvider>
-            <PearProvider>
-              <Navbar />
-              {children}
-              <Toaster position="bottom-right" />
-            </PearProvider>
-          </WalletProvider>
-        </DesignProvider>
+        <WalletProvider>
+          <PearProvider>
+            <Navbar />
+            {children}
+            <Toaster position="bottom-right" />
+          </PearProvider>
+        </WalletProvider>
       </body>
     </html>
   );
