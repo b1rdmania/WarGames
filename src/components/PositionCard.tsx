@@ -6,6 +6,23 @@ import { closePosition } from '@/integrations/pear/positions';
 import { getMarketByAssets } from '@/integrations/pear/markets';
 import type { PearPosition } from '@/integrations/pear/types';
 
+function cleanCoin(raw?: string): string | null {
+  if (!raw) return null;
+  const s = raw.split(':').pop()!.trim().replace(/^[^A-Za-z0-9]+/, '');
+  if (!s || s === '-' || s === '—') return null;
+  return s;
+}
+
+function compactCoins(list?: Array<{ coin: string }>, max = 3): string | null {
+  if (!list || list.length === 0) return null;
+  const coins = list
+    .map((a) => cleanCoin(a.coin))
+    .filter((x): x is string => Boolean(x));
+  if (coins.length === 0) return null;
+  if (coins.length <= max) return coins.join('+');
+  return `${coins.slice(0, max).join('+')}+${coins.length - max}`;
+}
+
 export function PositionCard({
   position,
   accessToken,
@@ -21,13 +38,13 @@ export function PositionCard({
   const isProfitable = pnl >= 0;
 
   // Map position assets to our narrative market
-  const longAsset = position.longAsset ?? '—';
-  const shortAsset = position.shortAsset ?? '—';
+  const longAsset = cleanCoin(position.longAsset) ?? compactCoins(position.longAssets) ?? '—';
+  const shortAsset = cleanCoin(position.shortAsset) ?? compactCoins(position.shortAssets) ?? '—';
   const market =
     position.longAsset && position.shortAsset
       ? getMarketByAssets(position.longAsset, position.shortAsset)
       : undefined;
-  const displayName = market?.name || `${longAsset}/${shortAsset}`;
+  const displayName = market?.name || (longAsset !== '—' && shortAsset !== '—' ? `${longAsset}/${shortAsset}` : 'POSITION');
   const displayDescription =
     market?.description || `${position.side === 'long' ? 'Long' : 'Short'} ${longAsset} vs ${shortAsset}`;
 
@@ -48,16 +65,14 @@ export function PositionCard({
           <div className="text-lg font-mono text-white mb-1">{displayName}</div>
           <div className="text-xs font-mono text-gray-500 mb-3">{displayDescription}</div>
           <div className="flex items-center gap-3">
-            <span className={`text-xs font-mono px-3 py-1 border ${
+            <span className={`text-[10px] font-mono px-3 py-1 border tracking-widest uppercase ${
               position.side === 'long'
                 ? 'bg-pear-lime/10 text-pear-lime border-pear-lime/30'
                 : 'bg-red-500/10 text-red-300 border-red-400/30'
             }`}>
               {position.side === 'long' ? '↑ BET UP' : '↓ BET DOWN'}
             </span>
-            <span className="text-xs text-gray-400 font-mono">
-              {longAsset}/{shortAsset}
-            </span>
+            <span className="text-xs text-gray-400 font-mono">{longAsset} vs {shortAsset}</span>
           </div>
         </div>
 
@@ -164,14 +179,14 @@ export function PositionCard({
 
       {/* Performance Indicators */}
       <div className="flex items-center justify-between text-xs font-mono text-gray-500 mb-4 px-1">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <span>
             Ratio moved{' '}
             <span className={priceChange >= 0 ? 'text-pear-lime' : 'text-red-400'}>
             {priceChange >= 0 ? '+' : ''}{priceChange.toFixed(2)}%
             </span>
           </span>
-          <span>Opened {timeDisplay}</span>
+          <span className="ml-2">Opened {timeDisplay}</span>
         </div>
         <div className="text-gray-500">
           Current: {currentPrice.toFixed(4)}
@@ -183,7 +198,7 @@ export function PositionCard({
         href="https://app.pear.garden/dashboard"
         target="_blank"
         rel="noopener noreferrer"
-        className="block text-center text-xs font-mono text-pear-lime hover:text-pear-lime-light mb-4 transition-colors"
+        className="block text-center text-xs font-mono text-pear-lime visited:text-pear-lime hover:text-pear-lime-light hover:underline mb-4 transition-colors"
       >
         View on Pear Dashboard ↗
       </a>
