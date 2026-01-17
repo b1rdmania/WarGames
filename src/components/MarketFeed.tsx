@@ -6,8 +6,7 @@ import styles from './MarketFeed.module.css';
 
 function cleanSymbol(s: string) {
   // Pear can return namespaced symbols like "xyz:INTC" or "km:US500".
-  const i = s.indexOf(':');
-  return i >= 0 ? s.slice(i + 1) : s;
+  return s.split(':').pop()!.trim();
 }
 
 function formatBasketCompact(assets: { asset: string; weight?: number }[]) {

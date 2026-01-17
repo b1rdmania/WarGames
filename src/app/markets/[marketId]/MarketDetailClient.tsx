@@ -24,6 +24,11 @@ function formatBasket(assets: { asset: string; weight?: number }[]) {
     .join(' · ');
 }
 
+function cleanSymbol(s: string) {
+  // Pear can return namespaced symbols like "xyz:INTC" or "km:US500".
+  return s.split(':').pop()!.trim();
+}
+
 export default function MarketDetailClient({ marketId }: { marketId: string }) {
   const { markets } = useValidatedMarkets();
   const market = useMemo(() => markets.find((m) => m.id === marketId) ?? null, [markets, marketId]);
@@ -75,9 +80,9 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
               <div className="tm-k">Underlying</div>
               <div className="tm-v">
                 {resolvedPairs
-                  ? `${resolvedPairs.long} vs ${resolvedPairs.short}`
+                  ? `${cleanSymbol(resolvedPairs.long)} vs ${cleanSymbol(resolvedPairs.short)}`
                   : resolvedBasket
-                    ? `${resolvedBasket.long.map((x) => x.asset).join(' + ')} vs ${resolvedBasket.short.map((x) => x.asset).join(' + ')}`
+                    ? `${resolvedBasket.long.map((x) => cleanSymbol(x.asset)).join(' + ')} vs ${resolvedBasket.short.map((x) => cleanSymbol(x.asset)).join(' + ')}`
                     : '—'}
               </div>
             </div>
@@ -134,8 +139,8 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
           <div className="pear-border bg-black/30 p-5 font-mono text-sm text-gray-300">
             {resolvedPairs ? (
               <div>
-                Long: <span className="text-pear-lime">{resolvedPairs.long}</span> · Short:{' '}
-                <span className="text-red-300">{resolvedPairs.short}</span>
+                Long: <span className="text-pear-lime">{cleanSymbol(resolvedPairs.long)}</span> · Short:{' '}
+                <span className="text-red-300">{cleanSymbol(resolvedPairs.short)}</span>
               </div>
             ) : resolvedBasket ? (
               <div className="space-y-2">
