@@ -1,4 +1,5 @@
-:root {
+.root {
+  /* Scoped theme variables (avoid leaking into other routes) */
   --rm-dark-bg: #0a0a0a;
   --rm-dark-panel: #121212;
   --rm-dark-surface: #171717;
@@ -8,9 +9,7 @@
   --rm-text-primary: #e0e0e0;
   --rm-text-secondary: #888888;
   --rm-grid-line: rgba(2, 255, 129, 0.1);
-}
 
-.root {
   position: relative;
   min-height: 100vh;
   background: var(--rm-dark-bg);
