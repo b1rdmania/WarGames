@@ -1,7 +1,15 @@
+ 'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ConnectButton } from './ConnectButton';
 
 export function Navbar() {
+  const pathname = usePathname();
+
+  // Landing page is a full-screen hero; hide the app chrome there.
+  if (pathname === '/') return null;
+
   return (
     <nav className="border-b pear-border bg-pear-panel">
       <div className="max-w-7xl mx-auto px-4 py-4">
