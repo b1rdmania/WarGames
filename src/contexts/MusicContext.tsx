@@ -45,7 +45,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     async (nextTrackId: number, nextMuted: boolean) => {
       const audio = audioRef.current;
       if (!audio) return;
-      if (isSplash) return; // splash handled by SplashAudio component
+      if (isSplash) return; // splash page: no music
 
       const next = TRACKS.find((t) => t.id === nextTrackId) ?? TRACKS[0];
       try {
