@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 import { useAccount, useChainId, useSignTypedData, useSwitchChain } from 'wagmi';
-import { arbitrum } from 'wagmi/chains';
 import toast from 'react-hot-toast';
 import {
   getAuthEip712Message,
@@ -197,9 +196,12 @@ export function PearProvider({ children }: { children: ReactNode }) {
         err.message?.includes('Provided chainId') &&
         err.message?.includes('must match the active chainId')
       ) {
+        // Extract actual chainIds from the error if possible
+        const chainMatch = err.message.match(/Provided chainId "?(\d+)"? .* active chainId "?(\d+)"?/);
+        const providedChain = chainMatch?.[1] ?? String(requiredChainId ?? '?');
+        const activeChain = chainMatch?.[2] ?? String(activeChainId);
         const mapped = new Error(
-          `Wallet network mismatch. Pear auth signing requires Arbitrum (chainId ${arbitrum.id}). ` +
-            `Your wallet is currently on chainId ${activeChainId}. Please switch and retry.`
+          `Chain mismatch. Signing requires chainId ${providedChain} but wallet is on ${activeChain}. Please switch networks.`
         );
         setError(mapped);
         throw mapped;
