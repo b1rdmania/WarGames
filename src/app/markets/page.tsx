@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useAccount } from 'wagmi';
 import { usePear } from '@/hooks/usePear';
 import { executePosition } from '@/integrations/pear/positions';
 import { MarketCard } from '@/components/MarketCard';
@@ -11,12 +12,15 @@ import { BalancesPanel } from '@/components/BalancesPanel';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import type { ResolvedPairs } from '@/integrations/pear/types';
+import { WalletConnectModal } from '@/components/WalletConnectModal';
 
 export default function MarketsPage() {
+  const { isConnected } = useAccount();
   const { accessToken, isAuthenticated, isAuthenticating, authenticate } = usePear();
   const { perpUsdc } = useVaultBalances(accessToken);
   const { markets: validatedMarkets } = useValidatedMarkets();
   const [positionsRefreshKey, setPositionsRefreshKey] = useState(0);
+  const [connectModalOpen, setConnectModalOpen] = useState(false);
 
   const [betModalOpen, setBetModalOpen] = useState(false);
   const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
@@ -26,6 +30,10 @@ export default function MarketsPage() {
 
   const handleBet = (marketId: string, side: 'long' | 'short', resolvedPairs?: ResolvedPairs) => {
     if (!isAuthenticated) {
+      if (!isConnected) {
+        setConnectModalOpen(true);
+        return;
+      }
       // Fix #1: Show user-friendly error messages
       authenticate().catch(err => {
         console.error('Auth failed:', err);
@@ -92,6 +100,10 @@ export default function MarketsPage() {
             </div>
             <button
               onClick={() => {
+                if (!isConnected) {
+                  setConnectModalOpen(true);
+                  return;
+                }
                 authenticate().catch(err => {
                   console.error('Auth failed:', err);
                   if (err.message?.includes('User rejected') || err.message?.includes('denied')) {
@@ -106,7 +118,7 @@ export default function MarketsPage() {
               disabled={isAuthenticating}
               className="bg-war-green text-black font-bold px-4 py-2 text-sm hover:opacity-80 disabled:opacity-50"
             >
-              {isAuthenticating ? '[ SIGNING... ]' : 'AUTHENTICATE →'}
+              {!isConnected ? 'CONNECT METAMASK →' : (isAuthenticating ? '[ SIGNING... ]' : 'AUTHENTICATE →')}
             </button>
           </div>
         </div>
@@ -177,6 +189,8 @@ export default function MarketsPage() {
         onClose={() => setBetModalOpen(false)}
         onConfirm={handleConfirmBet}
       />
+
+      <WalletConnectModal isOpen={connectModalOpen} onClose={() => setConnectModalOpen(false)} />
     </main>
   );
 }

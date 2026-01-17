@@ -1,11 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { WalletConnectModal } from './WalletConnectModal';
 
 export function ConnectButton() {
   const { address, isConnected } = useAccount();
-  const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
+  const [open, setOpen] = useState(false);
 
   if (isConnected && address) {
     return (
@@ -19,11 +21,14 @@ export function ConnectButton() {
   }
 
   return (
-    <button
-      onClick={() => connect({ connector: connectors[0] })}
-      className="px-4 py-2 bg-war-green text-war-dark font-bold hover:opacity-80 transition-opacity"
-    >
-      CONNECT WALLET
-    </button>
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className="px-4 py-2 bg-war-green text-war-dark font-bold hover:opacity-80 transition-opacity"
+      >
+        CONNECT WALLET
+      </button>
+      <WalletConnectModal isOpen={open} onClose={() => setOpen(false)} />
+    </>
   );
 }
