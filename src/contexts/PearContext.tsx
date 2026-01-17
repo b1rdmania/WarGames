@@ -147,12 +147,20 @@ export function PearProvider({ children }: { children: ReactNode }) {
           if (switched?.id !== domainChainId) {
             throw new Error(`Failed to switch wallet network to chainId ${domainChainId}. Please switch manually and retry.`);
           }
+          // Brief pause to let wallet state sync after chain switch
+          await new Promise(r => setTimeout(r, 500));
         }
       }
 
       setStatusLine('AUTH: SIGN EIP-712');
+      // Ensure domain chainId is a number (API may return string)
+      const normalizedDomain = {
+        ...eip712Data.domain,
+        chainId: Number(eip712Data.domain.chainId),
+      };
       const signature = await signTypedDataAsync({
-        domain: eip712Data.domain,
+        account: address,
+        domain: normalizedDomain,
         types: eip712Data.types,
         primaryType: eip712Data.primaryType,
         message: eip712Data.message,
