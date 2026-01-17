@@ -50,6 +50,19 @@ export function TradingPanel({
           <p className="text-xs text-gray-500 mt-2">{market.description}</p>
         </div>
 
+        {/* Market Info */}
+        <div className="bg-pear-lime/5 border border-pear-lime/20 rounded-lg p-3">
+          <div className="text-xs text-gray-400 mb-2">Trading Pair</div>
+          <div className="flex items-center justify-between">
+            <div className="text-sm font-semibold text-white">
+              {market.pairs.long} / {market.pairs.short}
+            </div>
+            <div className="text-xs text-pear-lime font-bold">
+              {market.leverage}x Leverage
+            </div>
+          </div>
+        </div>
+
         {/* Direction */}
         <div>
           <label className="block text-sm font-medium text-gray-400 mb-2">Direction</label>

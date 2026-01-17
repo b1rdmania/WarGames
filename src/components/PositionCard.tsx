@@ -31,6 +31,15 @@ export function PositionCard({
   const displayDescription =
     market?.description || `${position.side === 'long' ? 'Long' : 'Short'} ${longAsset} vs ${shortAsset}`;
 
+  // Performance indicators
+  const entryPrice = Number(position.entryPrice);
+  const currentPrice = Number(position.currentPrice);
+  const priceChange = entryPrice > 0 ? ((currentPrice - entryPrice) / entryPrice) * 100 : 0;
+  const timeInPosition = position.timestamp
+    ? Math.floor((Date.now() - position.timestamp) / (1000 * 60 * 60 * 24))
+    : 0;
+  const timeDisplay = timeInPosition === 0 ? 'Today' : `${timeInPosition}d ago`;
+
   return (
     <div className="bg-gradient-to-br from-pear-panel-light to-pear-panel border border-pear-lime/20 rounded-2xl p-7 hover:border-pear-lime/40 hover:shadow-xl hover:shadow-pear-lime/5 transition-all group">
       {/* Header */}
@@ -70,7 +79,7 @@ export function PositionCard({
       </div>
 
       {/* Details */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="bg-black/20 rounded-lg p-4">
           <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Position Size</div>
           <div className="text-base text-white font-mono font-semibold">${Number(position.size).toFixed(2)}</div>
@@ -78,6 +87,19 @@ export function PositionCard({
         <div className="bg-black/20 rounded-lg p-4">
           <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Entry Price</div>
           <div className="text-base text-white font-mono font-semibold">{Number(position.entryPrice).toFixed(4)}</div>
+        </div>
+      </div>
+
+      {/* Performance Indicators */}
+      <div className="flex items-center justify-between text-xs text-gray-400 mb-4 px-1">
+        <div className="flex items-center gap-4">
+          <span>📊 Ratio moved <span className={priceChange >= 0 ? 'text-pear-lime' : 'text-red-400'}>
+            {priceChange >= 0 ? '+' : ''}{priceChange.toFixed(2)}%
+          </span></span>
+          <span>⏱️ Opened {timeDisplay}</span>
+        </div>
+        <div className="text-gray-500">
+          Current: {currentPrice.toFixed(4)}
         </div>
       </div>
 

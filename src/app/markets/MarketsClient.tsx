@@ -12,6 +12,8 @@ import { WalletConnectModal } from '@/components/WalletConnectModal';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import { TradingPanel } from '@/components/TradingPanel';
 import { PositionCard } from '@/components/PositionCard';
+import { PortfolioSummary } from '@/components/PortfolioSummary';
+import { AssetPriceTicker } from '@/components/AssetPriceTicker';
 import { MARKETS } from '@/integrations/pear/markets';
 import { getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
@@ -80,12 +82,20 @@ export default function MarketsClient() {
 
   // Authenticated view
   return (
-    <main className="min-h-screen p-6 bg-gradient-to-b from-pear-dark via-pear-dark to-pear-panel/50">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-10">
+    <main className="min-h-screen bg-gradient-to-b from-pear-dark via-pear-dark to-pear-panel/50">
+      {/* Asset Price Ticker */}
+      <AssetPriceTicker />
+
+      <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className="mb-6">
           <h1 className="text-4xl font-bold text-white mb-2">Markets</h1>
           <p className="text-lg text-gray-300">Manage your positions and place new bets</p>
         </div>
+
+        {/* Portfolio Summary */}
+        {positions.length > 0 && (
+          <PortfolioSummary positions={positions} balance={perpUsdc} />
+        )}
 
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
