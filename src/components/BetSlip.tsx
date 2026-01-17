@@ -64,7 +64,7 @@ export function BetSlip({
     resolvedPairs?.short ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 flex items-end md:items-center justify-center p-3">
+    <div className="fixed inset-0 z-[1000] bg-black/80 flex items-end md:items-center justify-center p-3">
       <div className="w-full max-w-xl bg-pear-dark pear-border p-5">
         <div className="flex items-start justify-between gap-4">
           <div>

@@ -41,10 +41,24 @@ export function MarketFeed({
               </td>
               <td className={styles.td}>
                 <div className={styles.actionButtons}>
-                  <button className={styles.btnAction} onClick={() => onPick(m, 'long')}>
+                  <button
+                    type="button"
+                    className={styles.btnAction}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onPick(m, 'long');
+                    }}
+                  >
                     YES
                   </button>
-                  <button className={`${styles.btnAction} ${styles.btnShort}`} onClick={() => onPick(m, 'short')}>
+                  <button
+                    type="button"
+                    className={`${styles.btnAction} ${styles.btnShort}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onPick(m, 'short');
+                    }}
+                  >
                     NO
                   </button>
                 </div>
