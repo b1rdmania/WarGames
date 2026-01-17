@@ -89,6 +89,38 @@
   font-size: 13px;
 }
 
+.underlying {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 12px;
+  color: rgba(224, 224, 224, 0.78);
+  white-space: pre-wrap;
+  line-height: 1.35;
+}
+
+.legs {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 12px;
+  color: rgba(224, 224, 224, 0.82);
+  white-space: pre-wrap;
+  line-height: 1.35;
+}
+
+.marketDesc {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 12px;
+  color: rgba(224, 224, 224, 0.85);
+  white-space: pre-wrap;
+  line-height: 1.4;
+  max-width: 44ch;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+}
+
 .longSide {
   color: rgba(2, 255, 129, 0.9);
 }

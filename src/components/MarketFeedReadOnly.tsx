@@ -4,10 +4,16 @@ import Link from 'next/link';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import styles from './MarketFeed.module.css';
 
+function cleanSymbol(s: string) {
+  // Pear can return namespaced symbols like "xyz:INTC" or "km:US500".
+  const i = s.indexOf(':');
+  return i >= 0 ? s.slice(i + 1) : s;
+}
+
 function formatBasketShort(assets: { asset: string; weight?: number }[]) {
   return assets
     .slice(0, 4)
-    .map((a) => `${a.asset}${typeof a.weight === 'number' ? `(${Math.round(a.weight * 100)})` : ''}`)
+    .map((a) => `${cleanSymbol(a.asset)}${typeof a.weight === 'number' ? `(${Math.round(a.weight * 100)})` : ''}`)
     .join(' · ');
 }
 
@@ -37,9 +43,9 @@ export function MarketFeedReadOnly({
             const pairs = m.resolvedPairs ?? m.pairs;
             const basket = m.resolvedBasket ?? m.basket;
             const underlying = pairs
-              ? `${pairs.long} vs ${pairs.short}`
+              ? `${cleanSymbol(pairs.long)} vs ${cleanSymbol(pairs.short)}`
               : basket
-                ? `${basket.long.map((x) => x.asset).join(' + ')} vs ${basket.short.map((x) => x.asset).join(' + ')}`
+                ? `${basket.long.map((x) => cleanSymbol(x.asset)).join(' + ')} vs ${basket.short.map((x) => cleanSymbol(x.asset)).join(' + ')}`
                 : '—';
 
             return (
@@ -56,12 +62,12 @@ export function MarketFeedReadOnly({
                 </td>
                 <td className={styles.td}>
                   <div className={styles.legs}>
-                    {pairs ? pairs.long : basket ? formatBasketShort(basket.long) : '—'}
+                    {pairs ? cleanSymbol(pairs.long) : basket ? formatBasketShort(basket.long) : '—'}
                   </div>
                 </td>
                 <td className={styles.td}>
                   <div className={styles.legs}>
-                    {pairs ? pairs.short : basket ? formatBasketShort(basket.short) : '—'}
+                    {pairs ? cleanSymbol(pairs.short) : basket ? formatBasketShort(basket.short) : '—'}
                   </div>
                 </td>
                 <td className={styles.td}>

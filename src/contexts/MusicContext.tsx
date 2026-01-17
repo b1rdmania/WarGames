@@ -173,6 +173,15 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const setTrack = useCallback(
     (id: number) => {
       if (!TRACKS.some((t) => t.id === id)) return;
+      // Stop ALL audio elements first (in case of stray players)
+      document.querySelectorAll('audio').forEach((el) => {
+        try {
+          el.pause();
+          el.currentTime = 0;
+        } catch {
+          // ignore
+        }
+      });
       // Selecting a track implies intent to listen.
       setMuted(false);
       setSelectedTrackId(id);
@@ -185,17 +194,29 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const toggleMuted = useCallback(() => {
     setMuted((m) => {
       const next = !m;
-      // If unmuting, try to start immediately; if muting, pause to match expected behavior.
+      const audio = audioRef.current;
+      // If muting, fully stop playback
       if (next) {
-        const audio = audioRef.current;
         if (audio) {
           try {
             audio.pause();
+            audio.currentTime = 0;
+            audio.muted = true;
           } catch {
             // ignore
           }
         }
+        // Also stop any other audio elements on the page (in case of stray players)
+        document.querySelectorAll('audio').forEach((el) => {
+          try {
+            el.pause();
+            el.muted = true;
+          } catch {
+            // ignore
+          }
+        });
       } else {
+        // Unmuting - restart the selected track
         void hardSwitch(selectedTrackId, false);
       }
       return next;

@@ -3,13 +3,26 @@
 import { usePear } from '@/contexts/PearContext';
 import toast from 'react-hot-toast';
 import { useAccount, useChainId, useSwitchChain } from 'wagmi';
-import { arbitrum } from 'wagmi/chains';
+import { hyperEVM } from '@/lib/wagmi';
+
+// Known chain names for display
+const CHAIN_NAMES: Record<number, string> = {
+  1: 'Ethereum',
+  42161: 'Arbitrum',
+  8453: 'Base',
+  10: 'Optimism',
+  999: 'HyperEVM',
+  14601: 'HyperEVM',
+};
 
 export function PearSetupCard() {
   const { address, isConnected } = useAccount();
   const { runSetup, isAuthenticating, statusLine, agentWallet } = usePear();
   const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
+
+  const isOnHyperEVM = chainId === 999 || chainId === 14601;
+  const chainName = CHAIN_NAMES[chainId] || `Chain ${chainId}`;
 
   return (
     <div className="pear-border bg-black/40 p-6">
@@ -59,16 +72,19 @@ export function PearSetupCard() {
           </p>
           <div className="mt-2 text-xs font-mono text-gray-500">
             Detected chainId: <span className="text-white">{chainId}</span>
-            {chainId === arbitrum.id ? <span className="text-pear-lime"> (Arbitrum ✓)</span> : null}
+            {isOnHyperEVM ? (
+              <span className="text-pear-lime"> ({chainName} ✓)</span>
+            ) : (
+              <span className="text-gray-400"> ({chainName})</span>
+            )}
           </div>
         </div>
 
-        {isConnected && chainId !== arbitrum.id && (
-          <div className="border border-yellow-500/40 p-4 text-xs text-yellow-200">
-            <div className="font-mono mb-2">WRONG NETWORK</div>
-            <div className="text-gray-200">
-              Pear auth signing requires <span className="text-white font-bold">Arbitrum (chainId {arbitrum.id})</span>. You
-              are currently on chainId <span className="text-white font-bold">{chainId}</span>.
+        {isConnected && !isOnHyperEVM && (
+          <div className="border border-pear-lime/30 p-4 text-xs text-gray-300">
+            <div className="font-mono mb-2 text-pear-lime">RECOMMENDED: HYPEREVM</div>
+            <div className="text-gray-400">
+              For the best experience, switch to <span className="text-white font-bold">HyperEVM</span>.
             </div>
             <div className="mt-3">
               <button
@@ -78,16 +94,16 @@ export function PearSetupCard() {
                   (async () => {
                     try {
                       if (!switchChainAsync) throw new Error('Wallet does not support chain switching');
-                      await switchChainAsync({ chainId: arbitrum.id });
-                      toast.success('Switched to Arbitrum');
+                      await switchChainAsync({ chainId: hyperEVM.id });
+                      toast.success('Switched to HyperEVM');
                     } catch (e) {
                       console.error(e);
-                      toast.error((e as Error).message || 'Failed to switch chain');
+                      toast.error((e as Error).message || 'Failed to switch - add HyperEVM to your wallet');
                     }
                   })();
                 }}
               >
-                SWITCH TO ARBITRUM
+                SWITCH TO HYPEREVM
               </button>
             </div>
           </div>
