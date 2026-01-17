@@ -13,7 +13,7 @@ export interface PearMarketConfig {
   id: string;
   name: string;
   description: string;
-  category: 'geopolitical' | 'tech' | 'macro';
+  category: 'geopolitical' | 'tech' | 'macro' | 'crypto';
   // Simple pairs (backward compatible)
   pairs?: {
     long: string;

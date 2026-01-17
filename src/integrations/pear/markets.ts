@@ -133,7 +133,7 @@ export function getMarketById(id: string): PearMarketConfig | undefined {
   return MARKETS.find(m => m.id === id);
 }
 
-export function getMarketsByCategory(category: 'geopolitical' | 'tech' | 'macro'): PearMarketConfig[] {
+export function getMarketsByCategory(category: 'geopolitical' | 'tech' | 'macro' | 'crypto'): PearMarketConfig[] {
   return MARKETS.filter(m => m.category === category);
 }
 
