@@ -19,13 +19,13 @@ export async function getAgentWallet(accessToken: string): Promise<AgentWalletIn
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || 'Failed to fetch agent wallet');
+    throw new Error(error.error || error.message || 'Failed to fetch agent wallet');
   }
 
   const data = await response.json();
 
   return {
-    address: data.address || data.walletAddress,
+    address: data.agentWalletAddress || data.address || data.walletAddress,
     exists: true,
   };
 }
@@ -41,13 +41,13 @@ export async function createAgentWallet(accessToken: string): Promise<AgentWalle
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || 'Failed to create agent wallet');
+    throw new Error(error.error || error.message || 'Failed to create agent wallet');
   }
 
   const data = await response.json();
 
   return {
-    address: data.address || data.walletAddress,
+    address: data.agentWalletAddress || data.address || data.walletAddress,
     exists: true,
   };
 }

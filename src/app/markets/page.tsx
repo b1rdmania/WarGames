@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { usePear } from '@/hooks/usePear';
 import { MARKETS } from '@/integrations/pear/markets';
 import { executePosition } from '@/integrations/pear/positions';
@@ -18,9 +19,17 @@ export default function MarketsPage() {
 
   const handleBet = (marketId: string, side: 'long' | 'short') => {
     if (!isAuthenticated) {
-      // Trigger authentication instead of alert
+      // Fix #1: Show user-friendly error messages
       authenticate().catch(err => {
         console.error('Auth failed:', err);
+        // Check if user rejected signature
+        if (err.message?.includes('User rejected') || err.message?.includes('denied')) {
+          toast.error('Signature rejected. Please try again.');
+        } else if (err.message?.includes('Wallet not connected')) {
+          toast.error('Please connect your wallet first.');
+        } else {
+          toast.error(err.message || 'Authentication failed. Please try again.');
+        }
       });
       return;
     }
@@ -69,7 +78,18 @@ export default function MarketsPage() {
               </p>
             </div>
             <button
-              onClick={authenticate}
+              onClick={() => {
+                authenticate().catch(err => {
+                  console.error('Auth failed:', err);
+                  if (err.message?.includes('User rejected') || err.message?.includes('denied')) {
+                    toast.error('Signature rejected. Please try again.');
+                  } else if (err.message?.includes('Wallet not connected')) {
+                    toast.error('Please connect your wallet first.');
+                  } else {
+                    toast.error(err.message || 'Authentication failed. Please try again.');
+                  }
+                });
+              }}
               disabled={isAuthenticating}
               className="bg-war-green text-black font-bold px-4 py-2 text-sm hover:opacity-80 disabled:opacity-50"
             >

@@ -1,72 +1,83 @@
 import type { PearMarketConfig } from './types';
 
 export const MARKETS: PearMarketConfig[] = [
-  // Geopolitical Markets
+  // Macro Markets
   {
-    id: 'trump-crypto-impact',
-    name: 'Trump 2024 Crypto Impact',
-    description: 'Will Trump presidency accelerate crypto adoption vs traditional finance?',
+    id: 'ai-bubble-pop',
+    name: 'AI Bubble Pop',
+    description: 'Are AI valuations sustainable or headed for correction vs traditional tech?',
     category: 'geopolitical',
     pairs: {
-      long: 'BTC',    // Crypto upside
-      short: 'SPY',   // Traditional finance downside
+      long: 'QQQ',    // Nasdaq (traditional tech)
+      short: 'NVDA',  // AI hype leader
     },
     leverage: 3,
   },
   {
-    id: 'ukraine-reconstruction',
-    name: 'Ukraine Reconstruction Boom',
-    description: 'European construction vs global defense spending post-conflict',
+    id: 'japan-awakens',
+    name: 'Japan Awakens',
+    description: 'Japanese equities break 30-year stagnation vs US market dominance',
     category: 'geopolitical',
     pairs: {
-      long: 'EWU',    // UK/Europe ETF
-      short: 'LMT',   // Lockheed Martin (defense)
+      long: 'EWJ',    // Japan ETF
+      short: 'SPY',   // S&P 500
     },
     leverage: 2,
   },
   {
-    id: 'middle-east-energy',
-    name: 'Middle East Energy Shift',
-    description: 'Renewable energy surge vs traditional oil dependence',
+    id: 'deglobalization',
+    name: 'Deglobalization Trade',
+    description: 'Friend-shoring and onshoring vs China manufacturing dominance',
     category: 'geopolitical',
     pairs: {
-      long: 'ICLN',   // Clean energy ETF
-      short: 'USO',   // Oil ETF
+      long: 'EWI',    // Italy/Europe manufacturing
+      short: 'FXI',   // China large cap
+    },
+    leverage: 2,
+  },
+  {
+    id: 'gcc-tech-pivot',
+    name: 'GCC Tech Pivot',
+    description: 'Saudi Vision 2030 & UAE NEOM tech diversification succeeds vs oil dependence',
+    category: 'geopolitical',
+    pairs: {
+      long: 'QQQ',    // Global tech (beneficiary of Gulf investment)
+      short: 'USO',   // Oil (what they\'re pivoting from)
     },
     leverage: 2,
   },
 
   // Tech/Industry Markets
   {
-    id: 'ai-vs-crypto',
-    name: 'AI vs Crypto',
-    description: 'Will AI adoption outpace crypto by 2027?',
+    id: 'crypto-flippening',
+    name: 'The Flippening',
+    description: 'Will Ethereum flip Bitcoin as the dominant crypto asset?',
     category: 'tech',
     pairs: {
-      long: 'NVDA',   // AI hardware
-      short: 'BTC',   // Crypto
+      long: 'ETH',    // Ethereum
+      short: 'BTC',   // Bitcoin
     },
     leverage: 3,
   },
   {
-    id: 'quantum-threat',
-    name: 'Quantum Computing Threat',
-    description: 'Quantum computing breaks crypto before mass adoption',
+    id: 'space-economy',
+    name: 'Space Economy Boom',
+    description: 'Space industry scales faster than traditional aerospace',
     category: 'tech',
     pairs: {
-      long: 'IBM',    // Quantum leader
-      short: 'ETH',   // Crypto at risk
+      long: 'ARKX',   // Space exploration ETF
+      short: 'BA',    // Boeing (legacy aerospace)
     },
     leverage: 2,
   },
   {
-    id: 'social-media-shift',
-    name: 'Decentralized Social Media',
-    description: 'Web3 social platforms vs traditional social media giants',
+    id: 'vr-metaverse',
+    name: 'VR Metaverse Reality',
+    description: 'VR/AR goes mainstream vs remaining niche tech',
     category: 'tech',
     pairs: {
-      long: 'LENS',   // Web3 social token
-      short: 'META',  // Facebook/Meta
+      long: 'META',   // Meta (VR investment)
+      short: 'AAPL',  // Apple (slower VR adoption)
     },
     leverage: 3,
   },

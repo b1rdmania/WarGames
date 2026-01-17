@@ -1,17 +1,21 @@
 import { PEAR_CONFIG } from './config';
 import type { PearAuthResponse } from './types';
 
+const EXPIRY_BUFFER_MS = 60_000; // refresh 60s before expiry
+
 export async function authenticateWithPear(
   userAddress: string,
   signTypedData: (args: any) => Promise<string>
 ): Promise<PearAuthResponse> {
+  const normalizedAddress = userAddress.toLowerCase();
   // Step 1: Get EIP712 message from server
   const messageResponse = await fetch(
-    `${PEAR_CONFIG.apiUrl}/auth/eip712-message?address=${userAddress}&clientId=${PEAR_CONFIG.clientId}`
+    `${PEAR_CONFIG.apiUrl}/auth/eip712-message?address=${normalizedAddress}&clientId=${PEAR_CONFIG.clientId}`
   );
 
   if (!messageResponse.ok) {
-    throw new Error('Failed to get EIP712 message');
+    const error = await messageResponse.json().catch(() => ({}));
+    throw new Error(error.error || error.message || 'Failed to get EIP712 message');
   }
 
   const eip712Data = await messageResponse.json();
@@ -32,7 +36,7 @@ export async function authenticateWithPear(
     },
     body: JSON.stringify({
       method: 'eip712',
-      address: userAddress,
+      address: normalizedAddress,
       clientId: PEAR_CONFIG.clientId,
       details: {
         signature,
@@ -43,7 +47,7 @@ export async function authenticateWithPear(
 
   if (!loginResponse.ok) {
     const error = await loginResponse.json().catch(() => ({}));
-    throw new Error(error.message || 'Authentication failed');
+    throw new Error(error.error || error.message || 'Authentication failed');
   }
 
   const data = await loginResponse.json();
@@ -55,11 +59,12 @@ export async function authenticateWithPear(
   };
 }
 
-export function saveAuthTokens(accessToken: string, refreshToken: string) {
+export function saveAuthTokens(accessToken: string, refreshToken: string, expiresIn: number) {
   if (typeof window !== 'undefined') {
     localStorage.setItem('pear_access_token', accessToken);
     localStorage.setItem('pear_refresh_token', refreshToken);
-    localStorage.setItem('pear_token_expiry', String(Date.now() + 900000)); // 15 min
+    // Pear returns expiresIn in seconds (e.g. 900). Store expiry in ms.
+    localStorage.setItem('pear_token_expiry', String(Date.now() + expiresIn * 1000));
   }
 }
 
@@ -73,6 +78,39 @@ export function getAccessToken(): string | null {
     return localStorage.getItem('pear_access_token');
   }
   return null;
+}
+
+function getTokenExpiryMs(): number | null {
+  if (typeof window === 'undefined') return null;
+  const raw = localStorage.getItem('pear_token_expiry');
+  if (!raw) return null;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : null;
+}
+
+export async function getValidAccessToken(): Promise<string | null> {
+  const accessToken = getAccessToken();
+  const expiryMs = getTokenExpiryMs();
+
+  // No token (or expired) → attempt refresh if possible.
+  if (!accessToken || !expiryMs) {
+    try {
+      return await refreshAccessToken();
+    } catch {
+      return null;
+    }
+  }
+
+  // Refresh early, before it expires, to avoid user-visible failures mid-flow.
+  if (Date.now() > expiryMs - EXPIRY_BUFFER_MS) {
+    try {
+      return await refreshAccessToken();
+    } catch {
+      return null;
+    }
+  }
+
+  return accessToken;
 }
 
 export function getRefreshToken(): string | null {
@@ -109,12 +147,13 @@ export async function refreshAccessToken(): Promise<string> {
   });
 
   if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
     clearAuthTokens();
-    throw new Error('Failed to refresh token');
+    throw new Error(error.error || error.message || 'Failed to refresh token');
   }
 
   const data = await response.json();
-  saveAuthTokens(data.accessToken, data.refreshToken);
+  saveAuthTokens(data.accessToken, data.refreshToken, data.expiresIn);
 
   return data.accessToken;
 }

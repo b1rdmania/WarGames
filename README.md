@@ -20,27 +20,21 @@ WAR.MARKET lets users bet on macro narratives through leveraged pair trades. Ins
 - ⚛️ Quantum Computing Threat: IBM vs ETH
 - 🌐 Decentralized Social Media: LENS vs META
 
-## 🏆 Hackathon Tracks
-
-### LI.FI Track ($6,500)
-**One-click cross-chain onboarding to Hyperliquid**
-- Bridge from ETH, Arbitrum, Base, or Optimism
-- Direct routing to HyperEVM USDC
-- Automated route discovery with gas optimization
+## 🏆 Hackathon Track (submission focus)
 
 ### Pear Protocol Track ($3,500)
 **Execute pair/basket trades via Pear Execution API**
+
 - Non-custodial agent wallets
 - EIP-712 authentication
-- Leveraged narrative positions (2-3x)
+- Leveraged narrative positions (2–3x)
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** Next.js 14 (App Router), TypeScript, Tailwind CSS
-- **Wallet:** viem + wagmi (multi-chain support)
-- **Bridging:** LI.FI SDK
+- **Frontend:** Next.js (App Router), TypeScript, Tailwind CSS
+- **Wallet:** wagmi + viem
 - **Trading:** Pear Protocol API
-- **Settlement:** Hyperliquid (HyperCore + HyperEVM)
+- **Settlement:** Hyperliquid (via Pear execution engine)
 
 ## 🚀 Getting Started
 
@@ -79,12 +73,13 @@ NEXT_PUBLIC_NETWORK=mainnet
 
 ## 📱 User Flow
 
-1. **Connect Wallet** - Support for 5 chains (ETH, ARB, BASE, OP, HyperEVM)
-2. **Bridge to HyperEVM** - One-click LI.FI integration
-3. **Authenticate** - Sign EIP-712 message to create agent wallet
-4. **Browse Markets** - Filter by geopolitical or tech narratives
-5. **Place Bet** - Choose BET UP or BET DOWN with leverage
-6. **Track Positions** - Real-time P&L on active bets
+1. **Connect wallet**
+2. **Authenticate** - Sign EIP-712 message with Pear
+3. **Agent wallet** - Create + approve agent wallet (required for execution)
+4. **Fund trading collateral** - Ensure you have sufficient USDC available for execution (spot/perp balances)
+5. **Browse markets** - Pick a narrative
+6. **Place bet** - BET UP / BET DOWN
+7. **Track positions** - View P&L and close
 
 ## 🎨 Design Philosophy
 
@@ -104,24 +99,16 @@ NEXT_PUBLIC_NETWORK=mainnet
 ```
 User Wallet
     ↓
-LI.FI Bridge → HyperEVM USDC
-    ↓
 Pear Agent Wallet → HyperCore Trading
 ```
 
 ### Key Components
 
-- **BridgeModal**: Route discovery and execution
 - **MarketCard**: Narrative market display with betting UI
 - **BetModal**: Position entry with leverage calculation
 - **PositionsPanel**: Active positions with P&L tracking
 
 ### Integrations
-
-**src/integrations/lifi/**
-- config.ts - SDK initialization
-- routes.ts - Route discovery
-- execute.ts - Bridge execution with error recovery
 
 **src/integrations/pear/**
 - auth.ts - EIP-712 authentication
@@ -169,7 +156,6 @@ MIT
 
 - [Hyperliquid](https://hyperliquid.xyz)
 - [Pear Protocol](https://pearprotocol.io)
-- [LI.FI](https://li.fi)
 - [GitHub Repo](https://github.com/b1rdmania/WarGames)
 
 ---

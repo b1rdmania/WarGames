@@ -5,7 +5,7 @@ import { useAccount, useSignTypedData } from 'wagmi';
 import {
   authenticateWithPear,
   saveAuthTokens,
-  getAccessToken,
+  getValidAccessToken,
   clearAuthTokens,
   isAuthenticated
 } from '@/integrations/pear/auth';
@@ -22,14 +22,23 @@ export function usePear() {
 
   // Load token on mount
   useEffect(() => {
-    if (isConnected && typeof window !== 'undefined') {
-      const token = getAccessToken();
-      if (token) {
-        setAccessToken(token);
-        // Fetch agent wallet
-        loadAgentWallet(token);
+    if (!isConnected || typeof window === 'undefined') return;
+
+    // Pull a valid token (auto-refresh if near-expiry). If we can't, clear local state.
+    (async () => {
+      const token = await getValidAccessToken();
+      if (!token) {
+        setAccessToken(null);
+        setAgentWallet(null);
+        clearAuthTokens();
+        return;
       }
-    }
+
+      setAccessToken(token);
+      await loadAgentWallet(token);
+    })().catch((err) => {
+      console.error('Failed to initialize Pear auth:', err);
+    });
   }, [isConnected]);
 
   async function loadAgentWallet(token: string) {
@@ -48,6 +57,12 @@ export function usePear() {
       throw new Error('Wallet not connected');
     }
 
+    // Fix #4: Prevent concurrent auth attempts
+    if (isAuthenticating) {
+      console.log('Authentication already in progress');
+      return;
+    }
+
     setIsAuthenticating(true);
     setError(undefined);
 
@@ -55,7 +70,7 @@ export function usePear() {
       const result = await authenticateWithPear(address, signTypedDataAsync);
 
       setAccessToken(result.accessToken);
-      saveAuthTokens(result.accessToken, result.refreshToken);
+      saveAuthTokens(result.accessToken, result.refreshToken, result.expiresIn);
 
       // Check/create agent wallet
       let wallet = await getAgentWallet(result.accessToken);

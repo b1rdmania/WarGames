@@ -1,5 +1,5 @@
 import { PEAR_CONFIG } from './config';
-import { getMarketById } from './markets';
+import { getMarketById, MARKETS } from './markets';
 import type { PearPosition, ExecutePositionParams } from './types';
 
 export async function executePosition(
@@ -18,13 +18,14 @@ export async function executePosition(
     usdValue: parseFloat(params.amount),
     longAssets: [
       {
-        symbol: params.side === 'long' ? market.pairs.long : market.pairs.short,
+        // Pear API spec uses `asset` key.
+        asset: params.side === 'long' ? market.pairs.long : market.pairs.short,
         weight: 1.0,
       },
     ],
     shortAssets: [
       {
-        symbol: params.side === 'long' ? market.pairs.short : market.pairs.long,
+        asset: params.side === 'long' ? market.pairs.short : market.pairs.long,
         weight: 1.0,
       },
     ],
@@ -41,7 +42,7 @@ export async function executePosition(
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || 'Failed to execute position');
+    throw new Error(error.error || error.message || 'Failed to execute position');
   }
 
   return await response.json();
@@ -57,16 +58,35 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || 'Failed to fetch positions');
+    throw new Error(error.error || error.message || 'Failed to fetch positions');
   }
 
   const positions = await response.json();
 
+  const deriveMarket = (pos: any): { marketId: string; side: 'long' | 'short' } => {
+    const longCoin = pos?.longAssets?.[0]?.coin;
+    const shortCoin = pos?.shortAssets?.[0]?.coin;
+    if (!longCoin || !shortCoin) return { marketId: 'unknown', side: 'long' };
+
+    // Match against configured markets (simple 1v1 pairs only).
+    // If the legs match pairs.long/pairs.short, we call it BET UP (side: long).
+    // If swapped, it's BET DOWN (side: short).
+    for (const m of MARKETS) {
+      if (m.pairs.long === longCoin && m.pairs.short === shortCoin) {
+        return { marketId: m.id, side: 'long' };
+      }
+      if (m.pairs.long === shortCoin && m.pairs.short === longCoin) {
+        return { marketId: m.id, side: 'short' };
+      }
+    }
+
+    return { marketId: 'unknown', side: 'long' };
+  };
+
   // Transform API response to our format
   return positions.map((pos: any) => ({
     id: pos.positionId,
-    marketId: 'unknown', // We'll need to derive this from assets
-    side: pos.longAssets.length > 0 ? 'long' : 'short',
+    ...deriveMarket(pos),
     size: pos.positionValue.toString(),
     entryPrice: pos.entryRatio.toString(),
     currentPrice: pos.markRatio.toString(),
@@ -93,7 +113,7 @@ export async function closePosition(
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.message || 'Failed to close position');
+    throw new Error(error.error || error.message || 'Failed to close position');
   }
 
   return await response.json();
