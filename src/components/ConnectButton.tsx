@@ -1,13 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useAccount, useDisconnect } from 'wagmi';
-import { WalletConnectModal } from './WalletConnectModal';
+import toast from 'react-hot-toast';
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
 
 export function ConnectButton() {
   const { address, isConnected } = useAccount();
+  const { connectAsync, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
-  const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -35,14 +35,36 @@ export function ConnectButton() {
   }
 
   return (
-    <>
-      <button
-        onClick={() => setOpen(true)}
-        className="px-6 py-2.5 bg-pear-lime text-pear-dark font-bold hover:bg-pear-lime-light transition-all rounded-lg"
-      >
-        Connect Wallet
-      </button>
-      <WalletConnectModal isOpen={open} onClose={() => setOpen(false)} />
-    </>
+    <button
+      disabled={isPending}
+      onClick={() => {
+        (async () => {
+          try {
+            const eth: any = (window as any).ethereum;
+            const isMetaMask =
+              Boolean(eth?.isMetaMask) ||
+              (Array.isArray(eth?.providers) && eth.providers.some((p: any) => Boolean(p?.isMetaMask)));
+
+            const metaMaskConn = connectors.find((c) => c.id === 'metaMask');
+            const injectedConn = connectors.find((c) => c.id === 'injected');
+            const chosen = (isMetaMask && metaMaskConn) ? metaMaskConn : injectedConn ?? metaMaskConn;
+
+            if (!chosen) {
+              toast.error('No wallet connector available');
+              return;
+            }
+
+            await connectAsync({ connector: chosen });
+            toast.success('Wallet connected');
+          } catch (e) {
+            console.error(e);
+            toast.error((e as Error).message || 'Failed to connect wallet');
+          }
+        })();
+      }}
+      className="px-6 py-2.5 bg-pear-lime text-pear-dark font-bold hover:bg-pear-lime-light transition-all rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      {isPending ? 'Connecting…' : 'Connect Wallet'}
+    </button>
   );
 }
