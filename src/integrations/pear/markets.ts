@@ -1,11 +1,70 @@
 import type { PearMarketConfig } from './types';
 
 export const MARKETS: PearMarketConfig[] = [
-  // === MACRO / TRADFI NARRATIVES ===
+  // === GEOPOLITICAL NARRATIVES ===
+
   {
-    id: 'ai-bubble-pop',
-    name: 'AI Bubble Pop',
-    description: 'Is AI overvalued? NVDA vs the broad market',
+    id: 'gulf-tech-pivot',
+    name: 'Gulf Tech Pivot',
+    description: 'Saudi Vision 2030 - will Gulf states escape oil dependency?',
+    category: 'geopolitical',
+    pairs: {
+      long: 'NVDA',  // Tech proxy (no QQQ on Pear)
+      short: 'OIL',
+    },
+    leverage: 3,
+  },
+  {
+    id: 'brics-de-dollarization',
+    name: 'BRICS De-Dollarization',
+    description: 'Gold-backed BRICS currency threatens USD hegemony',
+    category: 'geopolitical',
+    pairs: {
+      long: 'GOLD',
+      short: 'SPX',  // USD proxy (no UUP on Pear)
+    },
+    leverage: 2,
+  },
+  {
+    id: 'chip-sovereignty',
+    name: 'Chip Sovereignty',
+    description: 'US/EU reshoring vs Taiwan semiconductor dominance',
+    category: 'geopolitical',
+    pairs: {
+      long: 'INTC',  // US chip manufacturing
+      short: 'NVDA', // Taiwan TSMC-dependent
+    },
+    leverage: 3,
+  },
+  {
+    id: 'resource-nationalism',
+    name: 'Resource Nationalism',
+    description: 'Lithium triangle controls EV supply chains',
+    category: 'geopolitical',
+    pairs: {
+      long: 'GOLD',  // Resource commodity proxy
+      short: 'TSLA', // EV industry at risk
+    },
+    leverage: 3,
+  },
+  {
+    id: 'digital-gold-war',
+    name: 'Digital Gold War',
+    description: 'Bitcoin vs gold as crisis store of value',
+    category: 'geopolitical',
+    pairs: {
+      long: 'BTC',
+      short: 'GOLD',
+    },
+    leverage: 3,
+  },
+
+  // === MACRO / TECH NARRATIVES ===
+
+  {
+    id: 'ai-bubble',
+    name: 'AI Bubble',
+    description: 'Is NVDA overvalued vs the market?',
     category: 'macro',
     pairs: {
       long: 'NVDA',
@@ -14,9 +73,9 @@ export const MARKETS: PearMarketConfig[] = [
     leverage: 3,
   },
   {
-    id: 'mag7-dominance',
-    name: 'Mag 7 Dominance',
-    description: 'Big Tech concentration vs market diversification',
+    id: 'mag7-reign',
+    name: 'Mag 7 Reign',
+    description: 'Big Tech concentration vs diversification',
     category: 'macro',
     basket: {
       long: [
@@ -33,49 +92,9 @@ export const MARKETS: PearMarketConfig[] = [
     leverage: 2,
   },
   {
-    id: 'chip-war',
-    name: 'Chip War',
-    description: 'AI chip leaders vs Intel legacy',
-    category: 'macro',
-    basket: {
-      long: [
-        { asset: 'NVDA', weight: 0.6 },
-        { asset: 'AMD', weight: 0.4 },
-      ],
-      short: [{ asset: 'INTC', weight: 1.0 }],
-    },
-    leverage: 3,
-  },
-  {
-    id: 'digital-gold',
-    name: 'Digital Gold',
-    description: 'Bitcoin vs traditional store of value',
-    category: 'macro',
-    pairs: {
-      long: 'BTC',
-      short: 'GOLD',
-    },
-    leverage: 3,
-  },
-  {
-    id: 'tech-concentration',
-    name: 'Tech Concentration Risk',
-    description: 'Top 3 tech giants vs S&P 500',
-    category: 'macro',
-    basket: {
-      long: [
-        { asset: 'NVDA', weight: 0.4 },
-        { asset: 'MSFT', weight: 0.3 },
-        { asset: 'AAPL', weight: 0.3 },
-      ],
-      short: [{ asset: 'SPX', weight: 1.0 }],
-    },
-    leverage: 2,
-  },
-  {
-    id: 'safe-haven',
+    id: 'safe-haven-flight',
     name: 'Safe Haven Flight',
-    description: 'Gold in times of market turmoil',
+    description: 'Gold vs equities in market turmoil',
     category: 'macro',
     pairs: {
       long: 'GOLD',
@@ -83,34 +102,13 @@ export const MARKETS: PearMarketConfig[] = [
     },
     leverage: 2,
   },
-  {
-    id: 'ev-revolution',
-    name: 'EV Revolution',
-    description: 'Tesla mobility vs Apple devices',
-    category: 'macro',
-    pairs: {
-      long: 'TSLA',
-      short: 'AAPL',
-    },
-    leverage: 3,
-  },
-  {
-    id: 'semiconductor-boom',
-    name: 'Semiconductor Boom',
-    description: 'Chip industry vs broad market',
-    category: 'macro',
-    pairs: {
-      long: 'SEMIS',
-      short: 'SPX',
-    },
-    leverage: 3,
-  },
 
   // === CRYPTO NARRATIVES ===
+
   {
     id: 'the-flippening',
     name: 'The Flippening',
-    description: 'Will ETH overtake BTC in market dominance?',
+    description: 'Will ETH overtake BTC?',
     category: 'tech',
     pairs: {
       long: 'ETH',
@@ -121,38 +119,15 @@ export const MARKETS: PearMarketConfig[] = [
   {
     id: 'alt-season',
     name: 'Alt Season',
-    description: 'Diversified alts vs Bitcoin dominance',
+    description: 'Alts vs Bitcoin dominance',
     category: 'tech',
     basket: {
       long: [
-        { asset: 'SOL', weight: 0.3 },
-        { asset: 'ETH', weight: 0.3 },
-        { asset: 'ARB', weight: 0.2 },
-        { asset: 'HYPE', weight: 0.2 },
+        { asset: 'SOL', weight: 0.35 },
+        { asset: 'ETH', weight: 0.35 },
+        { asset: 'HYPE', weight: 0.30 },
       ],
       short: [{ asset: 'BTC', weight: 1.0 }],
-    },
-    leverage: 3,
-  },
-  {
-    id: 'hype-momentum',
-    name: 'HYPE Momentum',
-    description: 'Hyperliquid token vs Ethereum - the new DeFi leader?',
-    category: 'tech',
-    pairs: {
-      long: 'HYPE',
-      short: 'ETH',
-    },
-    leverage: 3,
-  },
-  {
-    id: 'eth-l2-boom',
-    name: 'ETH L2 Boom',
-    description: 'Arbitrum gains vs Ethereum base layer',
-    category: 'tech',
-    pairs: {
-      long: 'ARB',
-      short: 'ETH',
     },
     leverage: 3,
   },
