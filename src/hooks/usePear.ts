@@ -1,9 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useAccount, useSignTypedData } from 'wagmi';
+import { useAccount, useChainId, useSignTypedData, useSwitchChain } from 'wagmi';
+import { arbitrum } from 'wagmi/chains';
 import {
   authenticateWithPear,
+  getAuthEip712Message,
+  loginWithEip712Signature,
   saveAuthTokens,
   getValidAccessToken,
   clearAuthTokens,
@@ -15,6 +18,8 @@ import { PearApiError } from '@/integrations/pear/errors';
 export function usePear() {
   const { address, isConnected } = useAccount();
   const { signTypedDataAsync } = useSignTypedData();
+  const activeChainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
 
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [agentWallet, setAgentWallet] = useState<string | null>(null);
@@ -22,6 +27,7 @@ export function usePear() {
   const [error, setError] = useState<Error>();
   const [lastApiError, setLastApiError] = useState<PearApiError | null>(null);
   const [statusLine, setStatusLine] = useState<string>('IDLE');
+  const [requiredChainId, setRequiredChainId] = useState<number | null>(null);
 
   // Load token on mount
   useEffect(() => {
@@ -69,10 +75,40 @@ export function usePear() {
     setIsAuthenticating(true);
     setError(undefined);
     setLastApiError(null);
+    setRequiredChainId(null);
 
     try {
       setStatusLine('AUTH: /auth/eip712-message');
-      const result = await authenticateWithPear(address, signTypedDataAsync);
+      const { eip712Data, clientId } = await getAuthEip712Message(address);
+      const domainChainId = Number(eip712Data?.domain?.chainId);
+      if (Number.isFinite(domainChainId)) {
+        setRequiredChainId(domainChainId);
+        // Pear currently returns chainId=42161 for auth (Arbitrum).
+        // Spec: docs/pear-docs/AUTHENTICATION.md
+        if (activeChainId !== domainChainId) {
+          setStatusLine(`SWITCH CHAIN: ${domainChainId}`);
+          if (!switchChainAsync) {
+            throw new Error(`Please switch your wallet network to chainId ${domainChainId} and retry.`);
+          }
+          await switchChainAsync({ chainId: domainChainId });
+        }
+      }
+
+      setStatusLine('AUTH: SIGN EIP-712');
+      const signature = await signTypedDataAsync({
+        domain: eip712Data.domain,
+        types: eip712Data.types,
+        primaryType: eip712Data.primaryType,
+        message: eip712Data.message,
+      });
+
+      setStatusLine('AUTH: /auth/login');
+      const result = await loginWithEip712Signature({
+        address,
+        clientId,
+        signature,
+        timestamp: eip712Data.message.timestamp,
+      });
       setStatusLine('AUTH: TOKEN RECEIVED');
 
       setAccessToken(result.accessToken);
@@ -92,6 +128,14 @@ export function usePear() {
       setStatusLine('ERROR');
       setError(err as Error);
       if (err instanceof PearApiError) setLastApiError(err);
+      // Map the common viem chainId mismatch into an actionable instruction.
+      if (
+        err instanceof Error &&
+        err.message?.includes('Provided chainId') &&
+        err.message?.includes('must match the active chainId')
+      ) {
+        setError(new Error(`Wallet network mismatch. Pear auth requires Arbitrum (chainId ${arbitrum.id}). Please switch and retry.`));
+      }
       throw err;
     } finally {
       setIsAuthenticating(false);
@@ -156,6 +200,7 @@ export function usePear() {
     runSetup,
     lastApiError,
     statusLine,
+    requiredChainId,
     disconnect,
   };
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 import { usePear } from '@/hooks/usePear';
 import { PEAR_CONFIG } from '@/integrations/pear/config';
 import toast from 'react-hot-toast';
@@ -11,7 +11,8 @@ export function PearTerminalPanel({
   onRequestConnect: () => void;
 }) {
   const { address, isConnected } = useAccount();
-  const { runSetup, disconnect, isAuthenticating, statusLine, lastApiError, agentWallet, isAuthenticated } = usePear();
+  const chainId = useChainId();
+  const { runSetup, disconnect, isAuthenticating, statusLine, lastApiError, agentWallet, isAuthenticated, requiredChainId } = usePear();
 
   return (
     <div className="bg-war-panel neon-border p-6">
@@ -41,6 +42,12 @@ export function PearTerminalPanel({
           <span className="text-gray-500">WALLET</span>
           <span className="text-white">
             {isConnected && address ? `${address.slice(0, 6)}…${address.slice(-4)}` : 'DISCONNECTED'}
+          </span>
+        </div>
+        <div className="flex justify-between gap-4">
+          <span className="text-gray-500">CHAIN</span>
+          <span className="text-white">
+            {requiredChainId ? `${chainId} (need ${requiredChainId})` : `${chainId}`}
           </span>
         </div>
         <div className="flex justify-between gap-4">

@@ -6,7 +6,7 @@ const EXPIRY_BUFFER_MS = 60_000; // refresh 60s before expiry
 const USER_ADDR_KEY = 'pear_user_address';
 const FALLBACK_CLIENT_ID = 'HLHackathon1';
 
-async function fetchEip712Message(address: string, clientId: string) {
+export async function fetchEip712Message(address: string, clientId: string) {
   // Spec: docs/pear-docs/AUTHENTICATION.md (GET /auth/eip712-message)
   const endpoint = '/auth/eip712-message';
   const url = `${PEAR_CONFIG.apiUrl}${endpoint}?address=${encodeURIComponent(address)}&clientId=${encodeURIComponent(clientId)}`;
@@ -15,17 +15,12 @@ async function fetchEip712Message(address: string, clientId: string) {
   return res.json();
 }
 
-export async function authenticateWithPear(
-  userAddress: string,
-  signTypedData: (args: any) => Promise<string>
-): Promise<PearAuthResponse> {
-  // Spec: docs/pear-docs/AUTHENTICATION.md
-  const normalizedAddress = userAddress.toLowerCase();
-  // Step 1: Get EIP712 message from server
-  let eip712Data: any;
+export async function getAuthEip712Message(address: string): Promise<{ eip712Data: any; clientId: string }> {
+  const normalizedAddress = address.toLowerCase();
   let effectiveClientId = PEAR_CONFIG.clientId;
   try {
-    eip712Data = await fetchEip712Message(normalizedAddress, effectiveClientId);
+    const eip712Data = await fetchEip712Message(normalizedAddress, effectiveClientId);
+    return { eip712Data, clientId: effectiveClientId };
   } catch (err) {
     // If the configured clientId is not accepted (401), fall back to the hackathon clientId.
     // This keeps the demo unblocked even if Vercel env var was misconfigured.
@@ -35,11 +30,45 @@ export async function authenticateWithPear(
       effectiveClientId !== FALLBACK_CLIENT_ID
     ) {
       effectiveClientId = FALLBACK_CLIENT_ID;
-      eip712Data = await fetchEip712Message(normalizedAddress, effectiveClientId);
-    } else {
-      throw err;
+      const eip712Data = await fetchEip712Message(normalizedAddress, effectiveClientId);
+      return { eip712Data, clientId: effectiveClientId };
     }
+    throw err;
   }
+}
+
+export async function loginWithEip712Signature(args: {
+  address: string;
+  clientId: string;
+  signature: string;
+  timestamp: number;
+}): Promise<PearAuthResponse> {
+  // Spec: docs/pear-docs/AUTHENTICATION.md (POST /auth/login)
+  const loginEndpoint = '/auth/login';
+  const res = await fetch(`${PEAR_CONFIG.apiUrl}${loginEndpoint}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      method: 'eip712',
+      address: args.address.toLowerCase(),
+      clientId: args.clientId,
+      details: { signature: args.signature, timestamp: args.timestamp },
+    }),
+  });
+
+  if (!res.ok) throw await toPearApiError(res, loginEndpoint);
+  const data = await res.json();
+  return { accessToken: data.accessToken, refreshToken: data.refreshToken, expiresIn: data.expiresIn };
+}
+
+export async function authenticateWithPear(
+  userAddress: string,
+  signTypedData: (args: any) => Promise<string>
+): Promise<PearAuthResponse> {
+  // Spec: docs/pear-docs/AUTHENTICATION.md
+  const normalizedAddress = userAddress.toLowerCase();
+  // Step 1: Get EIP712 message from server
+  const { eip712Data, clientId } = await getAuthEip712Message(normalizedAddress);
 
   // Step 2: Sign the message
   const signature = await signTypedData({
@@ -50,34 +79,12 @@ export async function authenticateWithPear(
   });
 
   // Step 3: Login with signature
-  const loginEndpoint = '/auth/login';
-  const loginResponse = await fetch(`${PEAR_CONFIG.apiUrl}/auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      method: 'eip712',
-      address: normalizedAddress,
-      clientId: effectiveClientId,
-      details: {
-        signature,
-        timestamp: eip712Data.message.timestamp,
-      },
-    }),
+  return await loginWithEip712Signature({
+    address: normalizedAddress,
+    clientId,
+    signature,
+    timestamp: eip712Data.message.timestamp,
   });
-
-  if (!loginResponse.ok) {
-    throw await toPearApiError(loginResponse, loginEndpoint);
-  }
-
-  const data = await loginResponse.json();
-
-  return {
-    accessToken: data.accessToken,
-    refreshToken: data.refreshToken,
-    expiresIn: data.expiresIn,
-  };
 }
 
 export function saveAuthTokens(
