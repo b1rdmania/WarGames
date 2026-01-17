@@ -6,6 +6,7 @@ import { RiskShell } from '@/components/RiskShell';
 import { TerminalTopNav } from '@/components/TerminalTopNav';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
+import styles from '@/components/MarketDetail.module.css';
 
 function titleCase(s: string) {
   return s
@@ -52,24 +53,30 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
   const resolvedPairs = market.resolvedPairs ?? market.pairs;
   const resolvedBasket = market.resolvedBasket ?? market.basket;
   const narrative = getMarketNarrative(market.id);
+  const overview = narrative?.overview ?? `${market.name} expresses the narrative: ${market.description}.`;
 
   return (
     <RiskShell
       subtitle="MARKET"
       nav={<TerminalTopNav />}
     >
-      <div className="mb-6">
-        <div className="text-3xl md:text-5xl font-mono font-bold tracking-widest text-pear-lime">{pageTitle}</div>
-        <div className="mt-2 text-sm font-mono text-gray-500">
+      <div className={styles.hero}>
+        <div className={styles.kicker}>SYSTEM STATUS: OPERATIONAL · MARKET DOSSIER</div>
+        <div className={styles.title}>{pageTitle}</div>
+        <div className={styles.subline}>
           <span className="text-gray-400">{pageKicker}</span>
           <span className="text-gray-600"> · </span>
           <span>{market.description}</span>
         </div>
+        <div className={styles.callout}>
+          <div className={styles.calloutLabel}>OVERVIEW</div>
+          {overview}
+        </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className={styles.grid}>
         <div className="pear-border bg-black/40 p-6">
-          <div className="text-sm font-mono text-gray-300 mb-4">[ LIVE METRICS ]</div>
+          <div className={styles.panelTitle}>[ LIVE METRICS ]</div>
           <div className="tm-box">
             <div className="tm-row">
               <div className="tm-k">Category</div>
@@ -99,72 +106,54 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
         </div>
 
         <div className="pear-border bg-black/40 p-6">
-          <div className="text-sm font-mono text-gray-300 mb-4">[ PLACE BET ]</div>
-          <div className="text-xs font-mono text-gray-400 mb-4">
-            Ready to trade this narrative? Head to the TRADE page to connect your wallet and execute.
-          </div>
-
-          <Link
-            href="/trade"
-            className="block text-center tm-btn w-full py-4"
-          >
-            GO TO TRADE
-          </Link>
-        </div>
-      </div>
-
-      <div className="mt-8 space-y-8">
-        <section>
-          <div className="text-pear-lime font-mono font-bold tracking-widest mb-3">OVERVIEW</div>
-          <div className="text-sm font-mono text-gray-400 leading-relaxed">
-            {narrative?.overview ?? `${market.name} expresses the narrative: ${market.description}.`}
-          </div>
-        </section>
-
-        <section>
-          <div className="text-pear-lime font-mono font-bold tracking-widest mb-3">WHY THIS INDEX MATTERS</div>
-          <div className="text-sm font-mono text-gray-400 leading-relaxed">
-            {narrative?.why ??
-              'You’re not guessing “up or down” on one ticker — you’re taking a view on relative performance. This reduces direction noise and keeps the bet anchored to the narrative.'}
-          </div>
-        </section>
-
-        <section>
-          <div className="text-pear-lime font-mono font-bold tracking-widest mb-3">TRADING MODEL</div>
-          <div className="text-sm font-mono text-gray-400 leading-relaxed">
-            {narrative?.model ??
-              `Execution runs through Pear Protocol’s agent wallet flow and places the underlying long/short legs on Hyperliquid. Leverage is fixed at ${market.leverage}x for this market.`}
-          </div>
-        </section>
-
-        <section>
-          <div className="text-pear-lime font-mono font-bold tracking-widest mb-3">INDEX COMPOSITION</div>
-          <div className="pear-border bg-black/30 p-5 font-mono text-sm text-gray-300">
+          <div className={styles.panelTitle}>[ INDEX COMPOSITION ]</div>
+          <div className={styles.compositionBox}>
             {resolvedPairs ? (
               <div>
-                Long: <span className="text-pear-lime">{cleanSymbol(resolvedPairs.long)}</span> · Short:{' '}
-                <span className="text-red-300">{cleanSymbol(resolvedPairs.short)}</span>
+                Long: <span className={styles.long}>{cleanSymbol(resolvedPairs.long)}</span> · Short:{' '}
+                <span className={styles.short}>{cleanSymbol(resolvedPairs.short)}</span>
               </div>
             ) : resolvedBasket ? (
               <div className="space-y-2">
                 <div>
-                  Long:{' '}
-                  <span className="text-pear-lime">{formatBasket(resolvedBasket.long)}</span>
+                  Long: <span className={styles.long}>{formatBasket(resolvedBasket.long)}</span>
                 </div>
                 <div>
-                  Short:{' '}
-                  <span className="text-red-300">{formatBasket(resolvedBasket.short)}</span>
+                  Short: <span className={styles.short}>{formatBasket(resolvedBasket.short)}</span>
                 </div>
               </div>
             ) : (
               <div>—</div>
             )}
           </div>
+          <div className="mt-4 text-xs font-mono text-gray-500">
+            Browse-only page. Trading happens in the terminal.
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.divider} />
+
+      <div>
+        <section className={styles.section}>
+          <div className={styles.sectionTitle}>WHY THIS INDEX MATTERS</div>
+          <div className={styles.sectionBody}>
+            {narrative?.why ??
+              'You’re not guessing “up or down” on one ticker — you’re taking a view on relative performance. This reduces direction noise and keeps the bet anchored to the narrative.'}
+          </div>
         </section>
 
-        <section>
-          <div className="text-pear-lime font-mono font-bold tracking-widest mb-3">POWERED BY</div>
-          <div className="text-sm font-mono text-gray-400 leading-relaxed">
+        <section className={styles.section}>
+          <div className={styles.sectionTitle}>TRADING MODEL</div>
+          <div className={styles.sectionBody}>
+            {narrative?.model ??
+              `Execution runs through Pear Protocol’s agent wallet flow and places the underlying long/short legs on Hyperliquid. Leverage is fixed at ${market.leverage}x for this market.`}
+          </div>
+        </section>
+
+        <section className={styles.section}>
+          <div className={styles.sectionTitle}>POWERED BY</div>
+          <div className={styles.sectionBody}>
             {narrative?.poweredBy ? (
               narrative.poweredBy
             ) : (
@@ -176,11 +165,9 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
           </div>
         </section>
 
-        <div>
-          <Link href="/markets" className="text-pear-lime font-mono hover:underline">
-            ← RETURN TO MARKETS
-          </Link>
-        </div>
+        <Link href="/markets" className={styles.backLink}>
+          ← RETURN TO MARKETS
+        </Link>
       </div>
     </RiskShell>
   );
