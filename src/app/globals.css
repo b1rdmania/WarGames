@@ -9,10 +9,25 @@
   --pear-panel-light: #141c15;
   --pear-lime: #a2db5c;
   --pear-lime-light: #bde689;
+  --pear-lime-rgb: 162, 219, 92;
   --pear-gray: #a0a0a0;
   --pear-gray-dark: #717171;
   --pear-accent: #334128;
   --border-color: rgba(162, 219, 92, 0.2);
+}
+
+/* Global terminal mode (the “nuke” baseline): overrides tokens everywhere */
+html[data-ui="terminal"] {
+  --pear-dark: #0a0a0a;
+  --pear-panel: #121212;
+  --pear-panel-light: #171717;
+  --pear-lime: #02ff81;
+  --pear-lime-light: #7dffc2;
+  --pear-lime-rgb: 2, 255, 129;
+  --border-color: rgba(2, 255, 129, 0.22);
+
+  /* Prevent iOS/Safari from rendering native light form controls */
+  color-scheme: dark;
 }
 
 body {
@@ -30,8 +45,23 @@ body {
   }
 
   .pear-glow {
-    box-shadow: 0 0 10px rgba(162, 219, 92, 0.3);
+    box-shadow: 0 0 10px rgba(var(--pear-lime-rgb), 0.3);
   }
+}
+
+/* Terminal mode: normalize native controls (Safari/iOS selects/buttons) */
+html[data-ui="terminal"] input,
+html[data-ui="terminal"] select,
+html[data-ui="terminal"] textarea,
+html[data-ui="terminal"] button {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+html[data-ui="terminal"] option {
+  background: #000;
+  color: #fff;
 }
 
 /* Scrollbar styling */
