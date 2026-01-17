@@ -123,7 +123,7 @@ export default function PortfolioClient() {
             </button>
           </div>
         ) : (
-          <PearSetupCard />
+          <PearSetupCard variant="portfolio" />
         )}
       </RiskShell>
     );
