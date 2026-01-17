@@ -56,6 +56,6 @@ export function SplashAudio() {
     };
   }, []);
 
-  return <audio ref={audioRef} src="/splash.mp3" preload="auto" autoPlay playsInline loop />;
+  return <audio ref={audioRef} src="/music/1.mp3" preload="auto" autoPlay playsInline loop />;
 }
 
