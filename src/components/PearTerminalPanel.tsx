@@ -2,7 +2,7 @@
 
 import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 import { arbitrum } from 'wagmi/chains';
-import { usePear } from '@/hooks/usePear';
+import { usePear } from '@/contexts/PearContext';
 import { PEAR_CONFIG } from '@/integrations/pear/config';
 import toast from 'react-hot-toast';
 

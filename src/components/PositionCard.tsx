@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { closePosition } from '@/integrations/pear/positions';
+import { getMarketByAssets } from '@/integrations/pear/markets';
 import type { PearPosition } from '@/integrations/pear/types';
 
 export function PositionCard({
@@ -19,14 +20,26 @@ export function PositionCard({
   const pnlPercent = Number(position.pnlPercent);
   const isProfitable = pnl >= 0;
 
+  // Map position assets to our narrative market
+  const longAsset = position.longAsset ?? '—';
+  const shortAsset = position.shortAsset ?? '—';
+  const market =
+    position.longAsset && position.shortAsset
+      ? getMarketByAssets(position.longAsset, position.shortAsset)
+      : undefined;
+  const displayName = market?.name || `${longAsset}/${shortAsset}`;
+  const displayDescription =
+    market?.description || `${position.side === 'long' ? 'Long' : 'Short'} ${longAsset} vs ${shortAsset}`;
+
   return (
     <div className="bg-gradient-to-br from-pear-panel-light to-pear-panel border border-pear-lime/20 rounded-2xl p-7 hover:border-pear-lime/40 hover:shadow-xl hover:shadow-pear-lime/5 transition-all group">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div className="flex-1">
-          <h3 className="text-xl font-bold text-white mb-3">
-            {position.marketId.replace(/-/g, ' ').toUpperCase()}
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {displayName}
           </h3>
+          <p className="text-sm text-gray-400 mb-3">{displayDescription}</p>
           <div className="flex items-center gap-3">
             <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${
               position.side === 'long'
@@ -36,7 +49,7 @@ export function PositionCard({
               {position.side === 'long' ? '↑ BET UP' : '↓ BET DOWN'}
             </span>
             <span className="text-sm text-gray-400 font-mono">
-              {position.longAsset}/{position.shortAsset}
+              {longAsset}/{shortAsset}
             </span>
           </div>
         </div>
@@ -67,6 +80,16 @@ export function PositionCard({
           <div className="text-base text-white font-mono font-semibold">{Number(position.entryPrice).toFixed(4)}</div>
         </div>
       </div>
+
+      {/* View on Pear Protocol */}
+      <a
+        href={`https://www.pear.garden/position/${position.id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block text-center text-sm text-pear-lime hover:text-pear-lime-light mb-4 transition-colors font-medium"
+      >
+        View on Pear Protocol ↗
+      </a>
 
       {/* Close button */}
       <button

@@ -1,28 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { usePear } from '@/hooks/usePear';
+import { usePear } from '@/contexts/PearContext';
 import toast from 'react-hot-toast';
 import { useAccount } from 'wagmi';
 
 export function PearSetupCard() {
   const { address, isConnected } = useAccount();
-  const { runSetup, isAuthenticating, statusLine, agentWallet, accessToken, isAuthenticated } = usePear();
-  const hasReloaded = useRef(false);
-
-  // Debug logging
-  console.log('PearSetupCard:', { isAuthenticated, accessToken: !!accessToken, agentWallet, isConnected });
-
-  // If authenticated, force a single page refresh to show markets view
-  useEffect(() => {
-    if (isAuthenticated && accessToken && !isAuthenticating && !hasReloaded.current) {
-      console.log('Authenticated! Reloading page once...');
-      hasReloaded.current = true;
-      setTimeout(() => {
-        window.location.href = '/markets';
-      }, 500);
-    }
-  }, [isAuthenticated, accessToken, isAuthenticating]);
+  const { runSetup, isAuthenticating, statusLine, agentWallet } = usePear();
 
   return (
     <div className="bg-gradient-to-br from-pear-panel via-pear-panel-light to-pear-panel rounded-2xl p-10 border border-pear-lime/30 shadow-2xl">
@@ -78,35 +62,6 @@ export function PearSetupCard() {
             Sign a message to create your trading session with Pear Protocol.
             Your agent wallet will be created automatically.
           </p>
-        </div>
-
-        {/* Debug info - visible */}
-        <div className="bg-black/40 border border-gray-700 rounded-lg p-4 font-mono text-xs space-y-2">
-          <div className="text-gray-500 mb-2">Debug Info:</div>
-          <div className="flex justify-between">
-            <span className="text-gray-400">isAuthenticated:</span>
-            <span className={isAuthenticated ? 'text-pear-lime' : 'text-red-400'}>
-              {isAuthenticated ? 'true' : 'false'}
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-400">accessToken:</span>
-            <span className={accessToken ? 'text-pear-lime' : 'text-red-400'}>
-              {accessToken ? 'present' : 'missing'}
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-400">isConnected:</span>
-            <span className={isConnected ? 'text-pear-lime' : 'text-red-400'}>
-              {isConnected ? 'true' : 'false'}
-            </span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-gray-400">agentWallet:</span>
-            <span className={agentWallet ? 'text-pear-lime' : 'text-gray-600'}>
-              {agentWallet ? 'created' : 'none'}
-            </span>
-          </div>
         </div>
 
         {/* Action button */}
