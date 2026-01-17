@@ -118,7 +118,7 @@ export default function MarketsPage() {
               disabled={isAuthenticating}
               className="bg-war-green text-black font-bold px-4 py-2 text-sm hover:opacity-80 disabled:opacity-50"
             >
-              {!isConnected ? 'CONNECT METAMASK →' : (isAuthenticating ? '[ SIGNING... ]' : 'AUTHENTICATE →')}
+              {!isConnected ? 'CONNECT WALLET →' : (isAuthenticating ? '[ SIGNING... ]' : 'AUTHENTICATE →')}
             </button>
           </div>
         </div>

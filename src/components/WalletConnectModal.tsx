@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import toast from 'react-hot-toast';
 import { useConnect } from 'wagmi';
 
@@ -16,6 +17,17 @@ function labelForConnector(id: string, name: string) {
 
 export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps) {
   const { connectAsync, connectors, isPending } = useConnect();
+
+  const isMetaMaskDetected = useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    const eth: any = (window as any).ethereum;
+    if (!eth) return false;
+    if (eth.isMetaMask) return true;
+    if (Array.isArray(eth.providers)) {
+      return eth.providers.some((p: any) => Boolean(p?.isMetaMask));
+    }
+    return false;
+  }, []);
 
   if (!isOpen) return null;
 
@@ -40,7 +52,7 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
             .map((connector) => (
               <button
                 key={connector.uid}
-                disabled={isPending}
+                disabled={isPending || (connector.id === 'metaMask' && !isMetaMaskDetected)}
                 onClick={() => {
                   (async () => {
                     try {
@@ -56,10 +68,20 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
                 className="w-full flex items-center justify-between neon-border text-war-green px-4 py-3 text-sm hover:neon-glow disabled:opacity-50"
               >
                 <span>{labelForConnector(connector.id, connector.name)}</span>
-                <span className="text-xs text-gray-500">{connector.id === 'injected' ? 'Rabby/Phantom/etc' : 'MetaMask'}</span>
+                <span className="text-xs text-gray-500">
+                  {connector.id === 'injected'
+                    ? 'Rabby/Phantom/etc'
+                    : (isMetaMaskDetected ? 'Detected' : 'Not installed')}
+                </span>
               </button>
             ))}
         </div>
+
+        {!isMetaMaskDetected && (
+          <div className="mt-3 text-xs text-gray-500">
+            MetaMask will only appear as a connectable option if the MetaMask extension is installed/enabled in this browser profile.
+          </div>
+        )}
 
         <div className="mt-4">
           <button
