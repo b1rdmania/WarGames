@@ -24,11 +24,9 @@ export function PortfolioSummary({
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {/* Total P&L */}
-        <div className="bg-black/20 p-4 pear-border">
-          <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">
-            Total P&L
-          </div>
-          <div className={`text-xl font-mono ${isProfitable ? 'text-pear-lime' : 'text-red-400'}`}>
+        <div className="tm-box">
+          <div className="tm-k mb-2">Total P&amp;L</div>
+          <div className={`tm-v ${isProfitable ? 'text-pear-lime' : 'text-red-400'}`}>
             {isProfitable ? '+' : ''}${totalPnl.toFixed(2)}
           </div>
           <div className={`text-xs font-mono mt-1 ${isProfitable ? 'text-pear-lime/80' : 'text-red-400/80'}`}>
@@ -37,42 +35,24 @@ export function PortfolioSummary({
         </div>
 
         {/* Open Positions */}
-        <div className="bg-black/20 p-4 pear-border">
-          <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">
-            Positions
-          </div>
-          <div className="text-xl font-mono text-white">
-            {positions.length}
-          </div>
-          <div className="text-xs font-mono text-gray-400 mt-1">
-            {profitableCount} winning
-          </div>
+        <div className="tm-box">
+          <div className="tm-k mb-2">Positions</div>
+          <div className="tm-v">{positions.length}</div>
+          <div className="text-xs font-mono text-gray-400 mt-1">{profitableCount} winning</div>
         </div>
 
         {/* Capital Deployed */}
-        <div className="bg-black/20 p-4 pear-border">
-          <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">
-            Deployed
-          </div>
-          <div className="text-xl font-mono text-white">
-            ${totalCapital.toFixed(2)}
-          </div>
-          <div className="text-xs font-mono text-gray-400 mt-1">
-            across {positions.length} bets
-          </div>
+        <div className="tm-box">
+          <div className="tm-k mb-2">Deployed</div>
+          <div className="tm-v">${totalCapital.toFixed(2)}</div>
+          <div className="text-xs font-mono text-gray-400 mt-1">across {positions.length} bets</div>
         </div>
 
         {/* Available Balance */}
-        <div className="bg-black/20 p-4 pear-border">
-          <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">
-            Available
-          </div>
-          <div className="text-xl font-mono text-white">
-            ${balance ? Number(balance).toFixed(2) : '0.00'}
-          </div>
-          <div className="text-xs font-mono text-gray-400 mt-1">
-            USDC balance
-          </div>
+        <div className="tm-box">
+          <div className="tm-k mb-2">Available</div>
+          <div className="tm-v">${balance ? Number(balance).toFixed(2) : '0.00'}</div>
+          <div className="text-xs font-mono text-gray-400 mt-1">USDC balance</div>
         </div>
       </div>
     </div>

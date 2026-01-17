@@ -96,6 +96,40 @@ h1, h2, h3 {
   box-shadow: 0 0 12px rgba(239, 68, 68, 0.12);
 }
 
+/* Sub-table primitives (for the “boxed table” sections) */
+.tm-box {
+  background: rgba(0, 0, 0, 0.20);
+  border: 1px solid var(--border-color);
+  padding: 12px;
+}
+
+.tm-k {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pear-gray-dark);
+}
+
+.tm-v {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 14px;
+  color: #fff;
+}
+
+.tm-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tm-row + .tm-row {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(var(--pear-lime-rgb), 0.18);
+}
+
 @layer utilities {
   .pear-border {
     border: 1px solid var(--border-color);

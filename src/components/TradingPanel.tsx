@@ -74,15 +74,14 @@ export function TradingPanel({
         </div>
 
         {/* Market Info */}
-        <div className="pear-border bg-black/20 p-3">
-          <div className="text-xs text-gray-500 mb-2 font-mono uppercase tracking-wider">Trading Pair</div>
-          <div className="flex items-center justify-between">
-            <div className="text-sm font-mono text-white">
-              {longLabel} / {shortLabel}
-            </div>
-            <div className="text-xs text-pear-lime font-mono">
-              {market.leverage}x Leverage
-            </div>
+        <div className="tm-box">
+          <div className="tm-row">
+            <div className="tm-k">Trading Pair</div>
+            <div className="tm-v">{longLabel} / {shortLabel}</div>
+          </div>
+          <div className="tm-row">
+            <div className="tm-k">Leverage</div>
+            <div className="tm-v text-pear-lime">{market.leverage}x</div>
           </div>
         </div>
 
@@ -141,16 +140,12 @@ export function TradingPanel({
         </div>
 
         {/* Summary */}
-        <div className="bg-black/20 p-4 pear-border">
-          <div className="flex items-center justify-between text-sm font-mono">
-            <span className="text-gray-400">LEVERAGE</span>
-            <span className="text-pear-lime">{market.leverage}x</span>
-          </div>
-          <div className="flex items-center justify-between text-sm mt-2 font-mono">
-            <span className="text-gray-400">NOTIONAL</span>
-            <span className="text-white">
+        <div className="tm-box">
+          <div className="tm-row">
+            <div className="tm-k">Notional</div>
+            <div className="tm-v">
               ${amountNum && market.leverage ? (amountNum * market.leverage).toFixed(2) : '0.00'}
-            </span>
+            </div>
           </div>
         </div>
 

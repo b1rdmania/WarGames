@@ -73,13 +73,13 @@ export function PositionCard({
 
       {/* Details */}
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="bg-black/20 p-4 pear-border">
-          <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">Position Size</div>
-          <div className="text-sm text-white font-mono">${Number(position.size).toFixed(2)}</div>
+        <div className="tm-box">
+          <div className="tm-k mb-2">Position Size</div>
+          <div className="tm-v">${Number(position.size).toFixed(2)}</div>
         </div>
-        <div className="bg-black/20 p-4 pear-border">
-          <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">Entry Price</div>
-          <div className="text-sm text-white font-mono">{Number(position.entryPrice).toFixed(4)}</div>
+        <div className="tm-box">
+          <div className="tm-k mb-2">Entry Price</div>
+          <div className="tm-v">{Number(position.entryPrice).toFixed(4)}</div>
         </div>
       </div>
 
@@ -87,9 +87,9 @@ export function PositionCard({
       {(position.marginUsed || position.stopLoss || position.takeProfit) && (
         <div className="grid grid-cols-3 gap-3 mb-4">
           {position.marginUsed && (
-            <div className="bg-black/20 p-3 pear-border">
-              <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-1">Margin</div>
-              <div className="text-sm text-white font-mono">${Number(position.marginUsed).toFixed(2)}</div>
+            <div className="tm-box">
+              <div className="tm-k mb-1">Margin</div>
+              <div className="tm-v">${Number(position.marginUsed).toFixed(2)}</div>
             </div>
           )}
           {position.stopLoss && (
@@ -101,9 +101,9 @@ export function PositionCard({
             </div>
           )}
           {position.takeProfit && (
-            <div className="bg-black/20 p-3 pear-border">
-              <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-1">Take Profit</div>
-              <div className="text-sm text-pear-lime font-mono">
+            <div className="tm-box">
+              <div className="tm-k mb-1">Take Profit</div>
+              <div className="tm-v text-pear-lime">
                 {position.takeProfit.type === 'PERCENTAGE' ? `${position.takeProfit.value}%` : `$${position.takeProfit.value}`}
               </div>
             </div>
