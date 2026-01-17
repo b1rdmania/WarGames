@@ -8,6 +8,7 @@ import { RiskShell } from '@/components/RiskShell';
 import { TerminalTopNav } from '@/components/TerminalTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import { BetSlip } from '@/components/BetSlip';
+import { getMarketNarrative } from '@/components/MarketDetail';
 import { usePear } from '@/contexts/PearContext';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
@@ -115,6 +116,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
 
   const resolvedPairs = market.resolvedPairs ?? market.pairs;
   const resolvedBasket = market.resolvedBasket ?? market.basket;
+  const narrative = getMarketNarrative(market.id);
 
   return (
     <RiskShell
@@ -206,24 +208,23 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
         <section>
           <div className="text-pear-lime font-mono font-bold tracking-widest mb-3">OVERVIEW</div>
           <div className="text-sm font-mono text-gray-400 leading-relaxed">
-            {market.name} expresses the narrative: {market.description}. It packages the thesis into a single bettable instrument
-            using a neutral long/short basket executed via Pear.
+            {narrative?.overview ?? `${market.name} expresses the narrative: ${market.description}.`}
           </div>
         </section>
 
         <section>
           <div className="text-pear-lime font-mono font-bold tracking-widest mb-3">WHY THIS INDEX MATTERS</div>
           <div className="text-sm font-mono text-gray-400 leading-relaxed">
-            You’re not guessing “up or down” on one ticker — you’re taking a view on relative performance. This reduces direction
-            noise and keeps the bet anchored to the narrative.
+            {narrative?.why ??
+              'You’re not guessing “up or down” on one ticker — you’re taking a view on relative performance. This reduces direction noise and keeps the bet anchored to the narrative.'}
           </div>
         </section>
 
         <section>
           <div className="text-pear-lime font-mono font-bold tracking-widest mb-3">TRADING MODEL</div>
           <div className="text-sm font-mono text-gray-400 leading-relaxed">
-            Execution runs through Pear Protocol’s agent wallet flow and places the underlying long/short legs on Hyperliquid.
-            Leverage is fixed at {market.leverage}x for this market.
+            {narrative?.model ??
+              `Execution runs through Pear Protocol’s agent wallet flow and places the underlying long/short legs on Hyperliquid. Leverage is fixed at ${market.leverage}x for this market.`}
           </div>
         </section>
 
@@ -255,7 +256,14 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
         <section>
           <div className="text-pear-lime font-mono font-bold tracking-widest mb-3">POWERED BY</div>
           <div className="text-sm font-mono text-gray-400 leading-relaxed">
-            Built on <span className="text-pear-lime">Pear Protocol</span> execution with settlement on <span className="text-pear-lime">Hyperliquid</span>.
+            {narrative?.poweredBy ? (
+              narrative.poweredBy
+            ) : (
+              <>
+                Built on <span className="text-pear-lime">Pear Protocol</span> execution with settlement on{' '}
+                <span className="text-pear-lime">Hyperliquid</span>.
+              </>
+            )}
           </div>
         </section>
 
