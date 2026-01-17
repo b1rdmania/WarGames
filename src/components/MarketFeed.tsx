@@ -4,10 +4,16 @@ import Link from 'next/link';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import styles from './MarketFeed.module.css';
 
+function cleanSymbol(s: string) {
+  // Pear can return namespaced symbols like "xyz:INTC" or "km:US500".
+  const i = s.indexOf(':');
+  return i >= 0 ? s.slice(i + 1) : s;
+}
+
 function formatBasketCompact(assets: { asset: string; weight?: number }[]) {
-  if (assets.length === 1) return assets[0].asset;
-  if (assets.length <= 2) return assets.map(a => a.asset).join('+');
-  return `${assets[0].asset}+${assets.length - 1} more`;
+  if (assets.length === 1) return cleanSymbol(assets[0].asset);
+  if (assets.length <= 2) return assets.map(a => cleanSymbol(a.asset)).join('+');
+  return `${cleanSymbol(assets[0].asset)}+${assets.length - 1} more`;
 }
 
 export function MarketFeed({
@@ -33,8 +39,8 @@ export function MarketFeed({
           {markets.map((m) => {
             const pairs = m.resolvedPairs ?? m.pairs;
             const basket = m.resolvedBasket ?? m.basket;
-            const longLabel = pairs ? pairs.long : basket ? formatBasketCompact(basket.long) : '—';
-            const shortLabel = pairs ? pairs.short : basket ? formatBasketCompact(basket.short) : '—';
+            const longLabel = pairs ? cleanSymbol(pairs.long) : basket ? formatBasketCompact(basket.long) : '—';
+            const shortLabel = pairs ? cleanSymbol(pairs.short) : basket ? formatBasketCompact(basket.short) : '—';
             return (
               <tr key={m.id} className={`${styles.row} ${selectedMarketId === m.id ? styles.rowSelected : ''}`}>
                 <td className={styles.td}>

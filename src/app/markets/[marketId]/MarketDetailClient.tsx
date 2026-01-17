@@ -17,7 +17,10 @@ function titleCase(s: string) {
 
 function formatBasket(assets: { asset: string; weight?: number }[]) {
   return assets
-    .map((a) => `${a.asset}${typeof a.weight === 'number' ? ` (${Math.round(a.weight * 100)}%)` : ''}`)
+    .map((a) => {
+      const sym = a.asset.includes(':') ? a.asset.split(':').pop()! : a.asset;
+      return `${sym}${typeof a.weight === 'number' ? ` (${Math.round(a.weight * 100)}%)` : ''}`;
+    })
     .join(' · ');
 }
 

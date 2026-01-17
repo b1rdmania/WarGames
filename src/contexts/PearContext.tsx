@@ -137,18 +137,21 @@ export function PearProvider({ children }: { children: ReactNode }) {
       const domainChainId = Number(eip712Data?.domain?.chainId);
       if (Number.isFinite(domainChainId)) {
         setRequiredChainId(domainChainId);
-        if (activeChainId !== domainChainId) {
-          setStatusLine(`SWITCH CHAIN: ${domainChainId}`);
-          emitDebugLog({ level: 'warn', scope: 'chain', message: 'Switching for auth signing', data: { from: activeChainId, to: domainChainId } });
-          if (!switchChainAsync) {
-            throw new Error(`Please switch your wallet network to chainId ${domainChainId} and retry.`);
+        // Always attempt to switch - wagmi state can be stale
+        setStatusLine(`SWITCH CHAIN: ${domainChainId}`);
+        emitDebugLog({ level: 'warn', scope: 'chain', message: 'Switching for auth signing', data: { from: activeChainId, to: domainChainId } });
+        if (switchChainAsync) {
+          try {
+            await switchChainAsync({ chainId: domainChainId });
+            // Brief pause to let wallet state sync after chain switch
+            await new Promise(r => setTimeout(r, 500));
+          } catch (switchErr) {
+            // If switch fails, user may need to add the network or switch manually
+            emitDebugLog({ level: 'error', scope: 'chain', message: 'Chain switch failed', data: { error: (switchErr as Error)?.message } });
+            throw new Error(`Please switch to Arbitrum (chainId ${domainChainId}) in your wallet and retry.`);
           }
-          const switched = await switchChainAsync({ chainId: domainChainId });
-          if (switched?.id !== domainChainId) {
-            throw new Error(`Failed to switch wallet network to chainId ${domainChainId}. Please switch manually and retry.`);
-          }
-          // Brief pause to let wallet state sync after chain switch
-          await new Promise(r => setTimeout(r, 500));
+        } else {
+          throw new Error(`Please switch your wallet to Arbitrum (chainId ${domainChainId}) and retry.`);
         }
       }
 
