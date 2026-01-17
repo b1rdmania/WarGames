@@ -20,47 +20,51 @@ export function PositionCard({
   const isProfitable = pnl >= 0;
 
   return (
-    <div className="bg-pear-panel-light border border-pear-lime/20 rounded-xl p-6 hover:border-pear-lime/40 transition-all">
+    <div className="bg-gradient-to-br from-pear-panel-light to-pear-panel border border-pear-lime/20 rounded-2xl p-7 hover:border-pear-lime/40 hover:shadow-xl hover:shadow-pear-lime/5 transition-all group">
       {/* Header */}
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <h3 className="text-lg font-bold text-white mb-1">
+      <div className="flex items-start justify-between mb-6">
+        <div className="flex-1">
+          <h3 className="text-xl font-bold text-white mb-3">
             {position.marketId.replace(/-/g, ' ').toUpperCase()}
           </h3>
-          <div className="flex items-center gap-2">
-            <span className={`text-xs px-2 py-1 rounded-full ${
+          <div className="flex items-center gap-3">
+            <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${
               position.side === 'long'
-                ? 'bg-pear-lime/20 text-pear-lime'
-                : 'bg-red-500/20 text-red-400'
+                ? 'bg-pear-lime/20 text-pear-lime border border-pear-lime/30'
+                : 'bg-red-500/20 text-red-400 border border-red-500/30'
             }`}>
               {position.side === 'long' ? '↑ BET UP' : '↓ BET DOWN'}
             </span>
-            <span className="text-xs text-gray-500 font-mono">
+            <span className="text-sm text-gray-400 font-mono">
               {position.longAsset}/{position.shortAsset}
             </span>
           </div>
         </div>
 
         {/* P&L Badge */}
-        <div className={`text-right ${isProfitable ? 'text-pear-lime' : 'text-red-400'}`}>
-          <div className="text-2xl font-bold">
+        <div className={`text-right px-4 py-2 rounded-xl ${
+          isProfitable
+            ? 'bg-pear-lime/10 border border-pear-lime/30'
+            : 'bg-red-500/10 border border-red-500/30'
+        }`}>
+          <div className={`text-3xl font-bold ${isProfitable ? 'text-pear-lime' : 'text-red-400'}`}>
             {isProfitable ? '+' : ''}{pnl.toFixed(2)}
           </div>
-          <div className="text-sm">
+          <div className={`text-sm font-semibold ${isProfitable ? 'text-pear-lime/80' : 'text-red-400/80'}`}>
             {isProfitable ? '+' : ''}{pnlPercent.toFixed(2)}%
           </div>
         </div>
       </div>
 
       {/* Details */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <div className="text-xs text-gray-500 mb-1">Position Size</div>
-          <div className="text-sm text-white font-mono">${Number(position.size).toFixed(2)}</div>
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="bg-black/20 rounded-lg p-4">
+          <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Position Size</div>
+          <div className="text-base text-white font-mono font-semibold">${Number(position.size).toFixed(2)}</div>
         </div>
-        <div>
-          <div className="text-xs text-gray-500 mb-1">Entry Price</div>
-          <div className="text-sm text-white font-mono">{Number(position.entryPrice).toFixed(4)}</div>
+        <div className="bg-black/20 rounded-lg p-4">
+          <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Entry Price</div>
+          <div className="text-base text-white font-mono font-semibold">{Number(position.entryPrice).toFixed(4)}</div>
         </div>
       </div>
 
@@ -80,9 +84,16 @@ export function PositionCard({
           }
         }}
         disabled={closing}
-        className="w-full bg-gray-800 hover:bg-gray-700 disabled:bg-gray-900 text-white font-bold py-3 rounded-lg transition-all"
+        className="w-full bg-gray-800/50 hover:bg-gray-700 disabled:bg-gray-900/50 border border-gray-700 hover:border-gray-600 text-white font-bold py-3.5 rounded-xl transition-all group-hover:bg-gray-800"
       >
-        {closing ? 'Closing...' : 'Close Position'}
+        {closing ? (
+          <span className="flex items-center justify-center gap-2">
+            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            Closing...
+          </span>
+        ) : (
+          'Close Position'
+        )}
       </button>
     </div>
   );

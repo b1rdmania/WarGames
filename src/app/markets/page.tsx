@@ -48,27 +48,27 @@ export default function MarketsPage() {
   // Unauthenticated view
   if (!isAuthenticated) {
     return (
-      <main className="min-h-screen flex items-center justify-center p-6">
-        <div className="max-w-xl w-full space-y-8">
+      <main className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-pear-dark via-pear-dark to-pear-panel">
+        <div className="max-w-2xl w-full space-y-10">
           {/* Welcome */}
-          <div className="text-center">
-            <h1 className="text-5xl font-bold text-white mb-3">
+          <div className="text-center space-y-4">
+            <h1 className="text-6xl font-bold text-white mb-4">
               WAR.MARKET
             </h1>
-            <p className="text-lg text-gray-400">
+            <p className="text-xl text-gray-300">
               Trade narrative markets with leverage
             </p>
           </div>
 
           {/* Auth card */}
           {!isConnected ? (
-            <div className="bg-gradient-to-br from-pear-panel via-pear-panel-light to-pear-panel rounded-2xl p-8 border border-pear-lime/20 text-center">
-              <p className="text-gray-300 mb-6">
+            <div className="bg-gradient-to-br from-pear-panel via-pear-panel-light to-pear-panel rounded-2xl p-10 border border-pear-lime/30 shadow-2xl text-center space-y-6">
+              <p className="text-lg text-gray-300">
                 Connect your wallet to start trading
               </p>
               <button
                 onClick={() => setConnectModalOpen(true)}
-                className="bg-pear-lime hover:bg-pear-lime-light text-pear-dark font-bold px-8 py-4 rounded-lg text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 w-full"
+                className="bg-pear-lime hover:bg-pear-lime-light text-pear-dark font-bold px-10 py-4 rounded-xl text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 w-full"
               >
                 Connect Wallet
               </button>
@@ -84,33 +84,34 @@ export default function MarketsPage() {
 
   // Authenticated view
   return (
-    <main className="min-h-screen p-6">
+    <main className="min-h-screen p-6 bg-gradient-to-b from-pear-dark via-pear-dark to-pear-panel/50">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-1">Markets</h1>
-          <p className="text-gray-400">Manage your positions and place new bets</p>
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold text-white mb-2">Markets</h1>
+          <p className="text-lg text-gray-300">Manage your positions and place new bets</p>
         </div>
 
         {/* Main content */}
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Left: Positions */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-6">
             <div>
-              <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                <span className="w-2 h-2 bg-pear-lime rounded-full animate-pulse" />
+              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <span className="w-2.5 h-2.5 bg-pear-lime rounded-full animate-pulse shadow-lg shadow-pear-lime/50" />
                 Active Positions
               </h2>
 
               {loadingPositions ? (
-                <div className="bg-pear-panel-light border border-pear-lime/20 rounded-xl p-12 text-center">
-                  <div className="w-8 h-8 border-2 border-pear-lime border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                  <p className="text-gray-400">Loading positions...</p>
+                <div className="bg-gradient-to-br from-pear-panel-light to-pear-panel border border-pear-lime/20 rounded-2xl p-16 text-center">
+                  <div className="w-12 h-12 border-3 border-pear-lime border-t-transparent rounded-full animate-spin mx-auto mb-6" />
+                  <p className="text-lg text-gray-300">Loading positions...</p>
                 </div>
               ) : positions.length === 0 ? (
-                <div className="bg-pear-panel-light border border-pear-lime/20 rounded-xl p-12 text-center">
-                  <p className="text-gray-400 mb-2">No active positions</p>
-                  <p className="text-sm text-gray-500">Place your first bet to get started</p>
+                <div className="bg-gradient-to-br from-pear-panel-light to-pear-panel border border-pear-lime/20 rounded-2xl p-16 text-center space-y-3">
+                  <div className="text-5xl mb-4">📊</div>
+                  <p className="text-xl text-gray-300 font-semibold">No active positions</p>
+                  <p className="text-base text-gray-400">Place your first bet to get started →</p>
                 </div>
               ) : accessToken ? (
                 <div className="space-y-4">
