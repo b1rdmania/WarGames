@@ -16,12 +16,14 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
     geopolitical: 'bg-red-900/20 border-red-500/30',
     tech: 'bg-blue-900/20 border-blue-500/30',
     macro: 'bg-amber-900/10 border-amber-500/25',
+    crypto: 'bg-purple-900/20 border-purple-500/30',
   };
 
   const categoryLabels = {
     geopolitical: 'GEOPOLITICAL',
     tech: 'TECH/INDUSTRY',
     macro: 'MACRO',
+    crypto: 'CRYPTO',
   };
 
   const pairs = market.resolvedPairs ?? market.pairs;
