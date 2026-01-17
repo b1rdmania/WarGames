@@ -6,7 +6,10 @@ import { useAccount } from 'wagmi';
 
 export function PearSetupCard() {
   const { address, isConnected } = useAccount();
-  const { runSetup, isAuthenticating, statusLine, agentWallet } = usePear();
+  const { runSetup, isAuthenticating, statusLine, agentWallet, accessToken, isAuthenticated } = usePear();
+
+  // Debug logging
+  console.log('PearSetupCard:', { isAuthenticated, accessToken: !!accessToken, agentWallet, isConnected });
 
   return (
     <div className="bg-gradient-to-br from-pear-panel via-pear-panel-light to-pear-panel rounded-2xl p-10 border border-pear-lime/30 shadow-2xl">

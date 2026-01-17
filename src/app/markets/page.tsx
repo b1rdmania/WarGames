@@ -24,6 +24,9 @@ export default function MarketsPage() {
 
   const effectiveMarkets = validatedMarkets?.length ? validatedMarkets : MARKETS;
 
+  // Debug logging
+  console.log('MarketsPage:', { isAuthenticated, accessToken: !!accessToken, isConnected });
+
   // Load positions
   useEffect(() => {
     if (!accessToken) return;
