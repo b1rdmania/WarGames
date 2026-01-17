@@ -29,7 +29,7 @@ export function TradingPanel({
   if (!market) return null;
 
   return (
-    <div className="border border-pear-lime/20 bg-black/40 p-6 sticky top-6">
+    <div className="pear-border bg-black/40 p-6 sticky top-6">
       <div className="text-sm font-mono text-gray-300 mb-4">[ PLACE BET ]</div>
 
       <div className="space-y-6">
@@ -51,7 +51,7 @@ export function TradingPanel({
         </div>
 
         {/* Market Info */}
-        <div className="border border-pear-lime/10 bg-black/20 p-3">
+        <div className="pear-border bg-black/20 p-3">
           <div className="text-xs text-gray-500 mb-2 font-mono uppercase tracking-wider">Trading Pair</div>
           <div className="flex items-center justify-between">
             <div className="text-sm font-mono text-white">
@@ -118,7 +118,7 @@ export function TradingPanel({
         </div>
 
         {/* Summary */}
-        <div className="bg-black/20 p-4 border border-pear-lime/10">
+        <div className="bg-black/20 p-4 pear-border">
           <div className="flex items-center justify-between text-sm font-mono">
             <span className="text-gray-400">LEVERAGE</span>
             <span className="text-pear-lime">{market.leverage}x</span>

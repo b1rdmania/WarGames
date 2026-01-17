@@ -6,6 +6,14 @@
   --rm-text-primary: #e0e0e0;
   --rm-text-secondary: #888888;
 
+  /* Override Pear theme tokens inside the terminal so existing components match */
+  --pear-dark: var(--rm-dark-bg);
+  --pear-panel: var(--rm-dark-panel);
+  --pear-panel-light: #171717;
+  --pear-lime: var(--rm-neon-green);
+  --pear-lime-light: #7dffc2;
+  --border-color: rgba(2, 255, 129, 0.22);
+
   position: relative;
   min-height: 100vh;
   background: var(--rm-dark-bg);

@@ -41,7 +41,7 @@ export function PositionCard({
   const timeDisplay = timeInPosition === 0 ? 'Today' : `${timeInPosition}d ago`;
 
   return (
-    <div className="border border-pear-lime/20 bg-black/40 p-6">
+    <div className="pear-border bg-black/40 p-6">
       <div className="flex items-start justify-between mb-5">
         <div className="flex-1">
           <div className="text-sm font-mono text-gray-300 mb-2">[ POSITION ]</div>
@@ -61,7 +61,7 @@ export function PositionCard({
           </div>
         </div>
 
-        <div className="text-right border border-pear-lime/10 bg-black/20 px-4 py-2">
+        <div className="text-right pear-border bg-black/20 px-4 py-2">
           <div className={`text-xl font-mono ${isProfitable ? 'text-pear-lime' : 'text-red-400'}`}>
             {isProfitable ? '+' : ''}${pnl.toFixed(2)}
           </div>
@@ -73,11 +73,11 @@ export function PositionCard({
 
       {/* Details */}
       <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="bg-black/20 p-4 border border-pear-lime/10">
+        <div className="bg-black/20 p-4 pear-border">
           <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">Position Size</div>
           <div className="text-sm text-white font-mono">${Number(position.size).toFixed(2)}</div>
         </div>
-        <div className="bg-black/20 p-4 border border-pear-lime/10">
+        <div className="bg-black/20 p-4 pear-border">
           <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">Entry Price</div>
           <div className="text-sm text-white font-mono">{Number(position.entryPrice).toFixed(4)}</div>
         </div>

@@ -19,12 +19,12 @@ export function PortfolioSummary({
   const profitableCount = positions.filter(p => Number(p.pnl) >= 0).length;
 
   return (
-    <div className="border border-pear-lime/20 bg-black/40 p-6 mb-6">
+    <div className="pear-border bg-black/40 p-6 mb-6">
       <div className="text-sm font-mono text-gray-300 mb-4">[ PORTFOLIO ]</div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {/* Total P&L */}
-        <div className="bg-black/20 p-4 border border-pear-lime/10">
+        <div className="bg-black/20 p-4 pear-border">
           <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">
             Total P&L
           </div>
@@ -37,7 +37,7 @@ export function PortfolioSummary({
         </div>
 
         {/* Open Positions */}
-        <div className="bg-black/20 p-4 border border-pear-lime/10">
+        <div className="bg-black/20 p-4 pear-border">
           <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">
             Positions
           </div>
@@ -50,7 +50,7 @@ export function PortfolioSummary({
         </div>
 
         {/* Capital Deployed */}
-        <div className="bg-black/20 p-4 border border-pear-lime/10">
+        <div className="bg-black/20 p-4 pear-border">
           <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">
             Deployed
           </div>
@@ -63,7 +63,7 @@ export function PortfolioSummary({
         </div>
 
         {/* Available Balance */}
-        <div className="bg-black/20 p-4 border border-pear-lime/10">
+        <div className="bg-black/20 p-4 pear-border">
           <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-2">
             Available
           </div>

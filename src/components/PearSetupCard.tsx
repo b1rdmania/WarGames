@@ -9,7 +9,7 @@ export function PearSetupCard() {
   const { runSetup, isAuthenticating, statusLine, agentWallet } = usePear();
 
   return (
-    <div className="border border-pear-lime/20 bg-black/40 p-6">
+    <div className="pear-border bg-black/40 p-6">
       <div className="space-y-6">
         <div className="flex items-center justify-between gap-4">
           <div className="text-sm font-mono text-gray-300">[ SETUP STATUS ]</div>
@@ -27,9 +27,9 @@ export function PearSetupCard() {
         </div>
 
         {/* Info cards */}
-        <div className="border border-pear-lime/10 bg-black/20">
+        <div className="pear-border bg-black/20">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            <div className="p-4 border-b md:border-b-0 md:border-r border-pear-lime/10">
+            <div className="p-4 border-b md:border-b-0 md:border-r border-pear-lime/20">
               <div className="text-xs font-mono text-gray-500 mb-2">YOUR WALLET</div>
               <div className="text-sm text-white font-mono">
                 {address ? `${address.slice(0, 8)}...${address.slice(-6)}` : '—'}
@@ -49,7 +49,7 @@ export function PearSetupCard() {
         </div>
 
         {/* Helper text */}
-        <div className="border border-pear-lime/10 bg-black/20 p-4">
+        <div className="pear-border bg-black/20 p-4">
           <p className="text-sm text-gray-400 leading-relaxed">
             Sign a message to create your trading session with Pear Protocol.
             Your agent wallet will be created automatically.
