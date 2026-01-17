@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import styles from './MarketFeed.module.css';
 
@@ -27,7 +28,11 @@ export function MarketFeed({
           {markets.map((m) => (
             <tr key={m.id} className={styles.row}>
               <td className={styles.td}>
-                <div className={styles.marketName}>{m.name}</div>
+                <div className={styles.marketName}>
+                  <Link className={styles.marketLink} href={`/markets/${m.id}`}>
+                    {m.name}
+                  </Link>
+                </div>
               </td>
               <td className={styles.td}>
                 <div className={styles.marketDesc}>{m.description}</div>

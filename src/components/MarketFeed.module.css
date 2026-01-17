@@ -36,6 +36,16 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
 
+.marketLink {
+  color: rgba(2, 255, 129, 0.95);
+  text-decoration: none;
+}
+
+.marketLink:hover {
+  text-decoration: underline;
+  text-shadow: 0 0 10px rgba(2, 255, 129, 0.25);
+}
+
 .marketDesc {
   margin-top: 6px;
   font-size: 12px;
