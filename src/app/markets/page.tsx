@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAccount } from 'wagmi';
+import { useAccount, useConnect } from 'wagmi';
 import { usePear } from '@/hooks/usePear';
 import { executePosition } from '@/integrations/pear/positions';
 import { MarketCard } from '@/components/MarketCard';
@@ -12,15 +12,14 @@ import { BalancesPanel } from '@/components/BalancesPanel';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import type { ResolvedPairs } from '@/integrations/pear/types';
-import { WalletConnectModal } from '@/components/WalletConnectModal';
 
 export default function MarketsPage() {
   const { isConnected } = useAccount();
+  const { connectAsync, connectors, isPending: isConnecting } = useConnect();
   const { accessToken, isAuthenticated, isAuthenticating, authenticate } = usePear();
   const { perpUsdc } = useVaultBalances(accessToken);
   const { markets: validatedMarkets } = useValidatedMarkets();
   const [positionsRefreshKey, setPositionsRefreshKey] = useState(0);
-  const [connectModalOpen, setConnectModalOpen] = useState(false);
 
   const [betModalOpen, setBetModalOpen] = useState(false);
   const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
@@ -31,7 +30,11 @@ export default function MarketsPage() {
   const handleBet = (marketId: string, side: 'long' | 'short', resolvedPairs?: ResolvedPairs) => {
     if (!isAuthenticated) {
       if (!isConnected) {
-        setConnectModalOpen(true);
+        const metaMaskConnector = connectors.find((c) => c.id === 'metaMask') ?? connectors[0];
+        connectAsync({ connector: metaMaskConnector }).catch((e) => {
+          console.error(e);
+          toast.error((e as Error).message || 'Failed to connect MetaMask');
+        });
         return;
       }
       // Fix #1: Show user-friendly error messages
@@ -101,7 +104,11 @@ export default function MarketsPage() {
             <button
               onClick={() => {
                 if (!isConnected) {
-                  setConnectModalOpen(true);
+                  const metaMaskConnector = connectors.find((c) => c.id === 'metaMask') ?? connectors[0];
+                  connectAsync({ connector: metaMaskConnector }).catch((e) => {
+                    console.error(e);
+                    toast.error((e as Error).message || 'Failed to connect MetaMask');
+                  });
                   return;
                 }
                 authenticate().catch(err => {
@@ -115,7 +122,7 @@ export default function MarketsPage() {
                   }
                 });
               }}
-              disabled={isAuthenticating}
+              disabled={isAuthenticating || isConnecting}
               className="bg-war-green text-black font-bold px-4 py-2 text-sm hover:opacity-80 disabled:opacity-50"
             >
               {!isConnected ? 'CONNECT METAMASK →' : (isAuthenticating ? '[ SIGNING... ]' : 'AUTHENTICATE →')}
@@ -189,8 +196,6 @@ export default function MarketsPage() {
         onClose={() => setBetModalOpen(false)}
         onConfirm={handleConfirmBet}
       />
-
-      <WalletConnectModal isOpen={connectModalOpen} onClose={() => setConnectModalOpen(false)} />
     </main>
   );
 }
