@@ -57,6 +57,10 @@ export function PearSetupCard() {
             Sign a message to create your trading session with Pear Protocol.
             Your agent wallet will be created automatically.
           </p>
+          <div className="mt-2 text-xs font-mono text-gray-500">
+            Detected chainId: <span className="text-white">{chainId}</span>
+            {chainId === arbitrum.id ? <span className="text-pear-lime"> (Arbitrum ✓)</span> : null}
+          </div>
         </div>
 
         {isConnected && chainId !== arbitrum.id && (

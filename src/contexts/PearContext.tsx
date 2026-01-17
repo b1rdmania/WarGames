@@ -163,7 +163,8 @@ export function PearProvider({ children }: { children: ReactNode }) {
         err.message?.includes('must match the active chainId')
       ) {
         const mapped = new Error(
-          `Wallet network mismatch. Pear auth signing requires Arbitrum (chainId ${arbitrum.id}). Please switch and retry.`
+          `Wallet network mismatch. Pear auth signing requires Arbitrum (chainId ${arbitrum.id}). ` +
+            `Your wallet is currently on chainId ${activeChainId}. Please switch and retry.`
         );
         setError(mapped);
         throw mapped;
