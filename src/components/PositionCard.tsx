@@ -83,6 +83,57 @@ export function PositionCard({
         </div>
       </div>
 
+      {/* Basket Composition (for multi-asset positions) */}
+      {position.longAssets && position.longAssets.length > 1 && (
+        <div className="mb-4 tm-box">
+          <div className="text-xs font-mono text-gray-300 mb-3">[ BASKET COMPOSITION ]</div>
+
+          {/* Long Side */}
+          <div className="mb-4">
+            <div className="text-xs font-mono text-pear-lime mb-2">
+              {position.side === 'long' ? '↑ Long Side (Your Bet)' : '↓ Short Side (Hedging)'}
+            </div>
+            <div className="space-y-2">
+              {position.longAssets.map((asset, idx) => (
+                <div key={idx} className="flex items-center justify-between text-xs font-mono">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-400">•</span>
+                    <span className="text-white font-bold">{asset.coin}</span>
+                    <span className="text-gray-500">{(asset.size / position.longAssets!.reduce((sum, a) => sum + a.size, 0) * 100).toFixed(1)}%</span>
+                  </div>
+                  <div className="text-gray-400">
+                    ${asset.size.toFixed(2)} @ ${asset.entryPrice.toFixed(2)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Short Side */}
+          {position.shortAssets && position.shortAssets.length > 0 && (
+            <div>
+              <div className="text-xs font-mono text-red-400 mb-2">
+                {position.side === 'long' ? '↓ Short Side (Hedging)' : '↑ Long Side (Your Bet)'}
+              </div>
+              <div className="space-y-2">
+                {position.shortAssets.map((asset, idx) => (
+                  <div key={idx} className="flex items-center justify-between text-xs font-mono">
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">•</span>
+                      <span className="text-white font-bold">{asset.coin}</span>
+                      <span className="text-gray-500">{(asset.size / position.shortAssets!.reduce((sum, a) => sum + a.size, 0) * 100).toFixed(1)}%</span>
+                    </div>
+                    <div className="text-gray-400">
+                      ${asset.size.toFixed(2)} @ ${asset.entryPrice.toFixed(2)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Risk Parameters (if set) */}
       {(position.marginUsed || position.stopLoss || position.takeProfit) && (
         <div className="grid grid-cols-3 gap-3 mb-4">
