@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useAccount, useChainId, useSignTypedData, useSwitchChain } from 'wagmi';
 import { arbitrum } from 'wagmi/chains';
-import { hyperEVM } from '@/lib/wagmi';
 import {
   authenticateWithPear,
   getAuthEip712Message,
@@ -138,18 +137,8 @@ export function usePear() {
 
       setAgentWallet(wallet.address || null);
 
-      // Demo UX: keep the user on HyperEVM after setup.
-      // (Auth signing happens on domain.chainId, but trading UX should be HyperEVM-native.)
-      if (switchChainAsync && activeChainId !== hyperEVM.id) {
-        setStatusLine(`SWITCH CHAIN: ${hyperEVM.id}`);
-        emitDebugLog({ level: 'info', scope: 'chain', message: 'Switching back to HyperEVM', data: { to: hyperEVM.id } });
-        try {
-          await switchChainAsync({ chainId: hyperEVM.id });
-        } catch {
-          // Non-fatal: user can stay on current chain and still trade via Pear API.
-          emitDebugLog({ level: 'warn', scope: 'chain', message: 'Switch back to HyperEVM failed (non-fatal)' });
-        }
-      }
+      // Keep user on Arbitrum (where they signed) - no need to switch chains
+      // Trading happens server-side via Pear API regardless of MetaMask chain
 
       setStatusLine('READY');
       emitDebugLog({ level: 'info', scope: 'setup', message: 'RUN SETUP ready' });

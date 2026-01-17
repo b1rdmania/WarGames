@@ -5,7 +5,6 @@ import { arbitrum } from 'wagmi/chains';
 import { usePear } from '@/hooks/usePear';
 import { PEAR_CONFIG } from '@/integrations/pear/config';
 import toast from 'react-hot-toast';
-import { hyperEVM } from '@/lib/wagmi';
 
 export function PearTerminalPanel({
   onRequestConnect,
@@ -49,8 +48,8 @@ export function PearTerminalPanel({
         </div>
         <div className="flex justify-between gap-4">
           <span className="text-gray-500">CHAIN</span>
-          <span className="text-white">
-            {requiredChainId ? `${chainId} (need ${requiredChainId})` : `${chainId}`}
+          <span className={`${chainId === arbitrum.id ? 'text-war-green' : 'text-yellow-400'}`}>
+            {chainId === arbitrum.id ? `${chainId} (Arbitrum ✓)` : `${chainId}`}
           </span>
         </div>
         <div className="flex justify-between gap-4">
@@ -76,12 +75,12 @@ export function PearTerminalPanel({
         </div>
       )}
 
-      {/* App preference: keep users on HyperEVM for the demo UX. */}
-      {isConnected && chainId !== hyperEVM.id && (
+      {/* Keep users on Arbitrum (where Pear auth signing happens) */}
+      {isConnected && chainId !== arbitrum.id && (
         <div className="mt-4 border border-yellow-500/40 p-3 text-xs text-yellow-200">
           <div className="font-mono mb-2">WRONG NETWORK</div>
           <div className="text-gray-200">
-            For the demo, keep the wallet on <span className="text-white font-bold">HyperEVM (chainId {hyperEVM.id})</span>.
+            Please switch to <span className="text-white font-bold">Arbitrum (chainId {arbitrum.id})</span> for Pear auth.
             You are currently on chainId <span className="text-white font-bold">{chainId}</span>.
           </div>
           <div className="mt-3 flex gap-2">
@@ -89,9 +88,9 @@ export function PearTerminalPanel({
               onClick={() => {
                 (async () => {
                   try {
-                    if (!switchChainAsync) throw new Error('Wallet does not support programmatic chain switching');
-                    await switchChainAsync({ chainId: hyperEVM.id });
-                    toast.success('Switched to HyperEVM');
+                    if (!switchChainAsync) throw new Error('Wallet does not support chain switching');
+                    await switchChainAsync({ chainId: arbitrum.id });
+                    toast.success('Switched to Arbitrum');
                   } catch (e) {
                     console.error(e);
                     toast.error((e as Error).message || 'Failed to switch chain');
@@ -100,11 +99,8 @@ export function PearTerminalPanel({
               }}
               className="bg-war-green text-war-dark font-bold px-3 py-2 text-xs hover:opacity-80"
             >
-              SWITCH TO HYPEREVM
+              SWITCH TO ARBITRUM
             </button>
-          </div>
-          <div className="mt-2 text-[11px] text-gray-400">
-            Note: Pear auth signing uses Arbitrum per `docs/pear-docs/AUTHENTICATION.md` (domain.chainId from `/auth/eip712-message`). RUN SETUP will switch temporarily.
           </div>
         </div>
       )}
