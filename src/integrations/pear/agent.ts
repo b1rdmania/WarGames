@@ -40,6 +40,9 @@ export async function createAgentWallet(accessToken: string): Promise<AgentWalle
   });
 
   if (!response.ok) {
+    if (response.status === 401) {
+      throw new Error('Unauthorized creating agent wallet. Please re-authenticate (signature) and try again.');
+    }
     const error = await response.json().catch(() => ({}));
     throw new Error(error.error || error.message || 'Failed to create agent wallet');
   }

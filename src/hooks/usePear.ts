@@ -22,11 +22,17 @@ export function usePear() {
 
   // Load token on mount
   useEffect(() => {
-    if (!isConnected || typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return;
+    if (!isConnected || !address) {
+      setAccessToken(null);
+      setAgentWallet(null);
+      clearAuthTokens();
+      return;
+    }
 
     // Pull a valid token (auto-refresh if near-expiry). If we can't, clear local state.
     (async () => {
-      const token = await getValidAccessToken();
+      const token = await getValidAccessToken(address);
       if (!token) {
         setAccessToken(null);
         setAgentWallet(null);
@@ -39,7 +45,7 @@ export function usePear() {
     })().catch((err) => {
       console.error('Failed to initialize Pear auth:', err);
     });
-  }, [isConnected]);
+  }, [isConnected, address]);
 
   async function loadAgentWallet(token: string) {
     try {
@@ -70,7 +76,7 @@ export function usePear() {
       const result = await authenticateWithPear(address, signTypedDataAsync);
 
       setAccessToken(result.accessToken);
-      saveAuthTokens(result.accessToken, result.refreshToken, result.expiresIn);
+      saveAuthTokens(result.accessToken, result.refreshToken, result.expiresIn, address);
 
       // Check/create agent wallet
       let wallet = await getAgentWallet(result.accessToken);

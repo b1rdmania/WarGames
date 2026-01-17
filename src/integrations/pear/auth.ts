@@ -2,6 +2,7 @@ import { PEAR_CONFIG } from './config';
 import type { PearAuthResponse } from './types';
 
 const EXPIRY_BUFFER_MS = 60_000; // refresh 60s before expiry
+const USER_ADDR_KEY = 'pear_user_address';
 
 export async function authenticateWithPear(
   userAddress: string,
@@ -59,13 +60,26 @@ export async function authenticateWithPear(
   };
 }
 
-export function saveAuthTokens(accessToken: string, refreshToken: string, expiresIn: number) {
+export function saveAuthTokens(
+  accessToken: string,
+  refreshToken: string,
+  expiresIn: number,
+  userAddress?: string
+) {
   if (typeof window !== 'undefined') {
     localStorage.setItem('pear_access_token', accessToken);
     localStorage.setItem('pear_refresh_token', refreshToken);
     // Pear returns expiresIn in seconds (e.g. 900). Store expiry in ms.
     localStorage.setItem('pear_token_expiry', String(Date.now() + expiresIn * 1000));
+    if (userAddress) {
+      localStorage.setItem(USER_ADDR_KEY, userAddress.toLowerCase());
+    }
   }
+}
+
+export function getStoredUserAddress(): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem(USER_ADDR_KEY);
 }
 
 export function getAccessToken(): string | null {
@@ -88,7 +102,14 @@ function getTokenExpiryMs(): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-export async function getValidAccessToken(): Promise<string | null> {
+export async function getValidAccessToken(expectedUserAddress?: string): Promise<string | null> {
+  // If the connected wallet changed, do NOT reuse a JWT from a different address.
+  const storedAddr = getStoredUserAddress();
+  if (expectedUserAddress && storedAddr && storedAddr !== expectedUserAddress.toLowerCase()) {
+    clearAuthTokens();
+    return null;
+  }
+
   const accessToken = getAccessToken();
   const expiryMs = getTokenExpiryMs();
 
@@ -125,6 +146,7 @@ export function clearAuthTokens() {
     localStorage.removeItem('pear_access_token');
     localStorage.removeItem('pear_refresh_token');
     localStorage.removeItem('pear_token_expiry');
+    localStorage.removeItem(USER_ADDR_KEY);
   }
 }
 
@@ -153,7 +175,8 @@ export async function refreshAccessToken(): Promise<string> {
   }
 
   const data = await response.json();
-  saveAuthTokens(data.accessToken, data.refreshToken, data.expiresIn);
+  // Preserve stored user address (if any) during refresh.
+  saveAuthTokens(data.accessToken, data.refreshToken, data.expiresIn, getStoredUserAddress() ?? undefined);
 
   return data.accessToken;
 }
