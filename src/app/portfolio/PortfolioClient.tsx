@@ -94,19 +94,6 @@ export default function PortfolioClient() {
       <RiskShell
         subtitle="SETUP"
         nav={<TerminalTopNav />}
-        right={
-          isConnected && address ? (
-            <button
-              onClick={() => disconnect()}
-              className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
-              title="Disconnect"
-            >
-              {address.slice(0, 6)}…{address.slice(-4)}
-            </button>
-          ) : (
-            <div className="text-xs font-mono text-gray-500">NOT CONNECTED</div>
-          )
-        }
       >
         {!isConnected ? (
           <div className="pear-border bg-black/40 p-6">
@@ -146,19 +133,6 @@ export default function PortfolioClient() {
     <RiskShell
       subtitle="PORTFOLIO"
       nav={<TerminalTopNav />}
-      right={
-        isConnected && address ? (
-          <button
-            onClick={() => disconnect()}
-            className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
-            title="Disconnect"
-          >
-            {address.slice(0, 6)}…{address.slice(-4)}
-          </button>
-        ) : (
-          <div className="text-xs font-mono text-gray-500">—</div>
-        )
-      }
     >
       <div className="mb-6">
         <div className="text-3xl font-mono font-bold tracking-widest text-pear-lime">PORTFOLIO</div>
