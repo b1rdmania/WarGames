@@ -195,14 +195,10 @@ export default function MarketsClient() {
               onClick={() => {
                 (async () => {
                   try {
-                    const eth: any = (window as any).ethereum;
-                    const isMetaMask =
-                      Boolean(eth?.isMetaMask) ||
-                      (Array.isArray(eth?.providers) && eth.providers.some((p: any) => Boolean(p?.isMetaMask)));
-
                     const metaMaskConn = connectors.find((c) => c.id === 'metaMask');
                     const injectedConn = connectors.find((c) => c.id === 'injected');
-                    const chosen = (isMetaMask && metaMaskConn) ? metaMaskConn : injectedConn ?? metaMaskConn;
+                    // Prefer generic injected wallets (Rabby/Coinbase/etc). Only fall back to MetaMask if it's the only option.
+                    const chosen = injectedConn ?? metaMaskConn;
 
                     if (!chosen) {
                       toast.error('No wallet connector available');
