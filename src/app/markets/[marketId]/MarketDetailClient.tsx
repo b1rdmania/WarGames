@@ -1,17 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
-import toast from 'react-hot-toast';
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { useMemo } from 'react';
 import { RiskShell } from '@/components/RiskShell';
 import { TerminalTopNav } from '@/components/TerminalTopNav';
-import { PearSetupCard } from '@/components/PearSetupCard';
-import { BetSlip } from '@/components/BetSlip';
 import { getMarketNarrative } from '@/components/MarketDetail';
-import { usePear } from '@/contexts/PearContext';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
-import { useVaultBalances } from '@/hooks/useVaultBalances';
 
 function titleCase(s: string) {
   return s
@@ -28,73 +22,9 @@ function formatBasket(assets: { asset: string; weight?: number }[]) {
 }
 
 export default function MarketDetailClient({ marketId }: { marketId: string }) {
-  const { isConnected, address } = useAccount();
-  const { connectAsync, connectors, isPending } = useConnect();
-  const { disconnect } = useDisconnect();
-  const { accessToken, isAuthenticated } = usePear();
-  const { perpUsdc } = useVaultBalances(accessToken);
   const { markets } = useValidatedMarkets();
-
   const market = useMemo(() => markets.find((m) => m.id === marketId) ?? null, [markets, marketId]);
-
-  const [betSlipOpen, setBetSlipOpen] = useState(false);
-  const [betSlipSide, setBetSlipSide] = useState<'long' | 'short' | null>(null);
-
   const pageTitle = market ? `${titleCase(market.id)} — ${market.name.toUpperCase()}` : 'MARKET';
-
-  // Unauthenticated view (same flow as /markets)
-  if (!isAuthenticated) {
-    return (
-      <RiskShell
-        subtitle="SETUP"
-        nav={<TerminalTopNav />}
-        right={
-          isConnected && address ? (
-            <button
-              onClick={() => disconnect()}
-              className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
-              title="Disconnect"
-            >
-              {address.slice(0, 6)}…{address.slice(-4)}
-            </button>
-          ) : (
-            <div className="text-xs font-mono text-gray-500">NOT CONNECTED</div>
-          )
-        }
-      >
-        {!isConnected ? (
-          <div className="pear-border bg-black/40 p-6">
-            <div className="text-sm font-mono text-gray-300 mb-3">[ CONNECT WALLET ]</div>
-            <div className="text-sm text-gray-400 mb-4">Connect your wallet to trade.</div>
-            <button
-              disabled={isPending}
-              onClick={() => {
-                (async () => {
-                  try {
-                    const connector = connectors[0];
-                    if (!connector) {
-                      toast.error('No wallet connector available');
-                      return;
-                    }
-
-                    await connectAsync({ connector });
-                  } catch (e) {
-                    console.error(e);
-                    toast.error((e as Error).message || 'Failed to connect wallet');
-                  }
-                })();
-              }}
-              className="tm-btn w-full disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
-            </button>
-          </div>
-        ) : (
-          <PearSetupCard />
-        )}
-      </RiskShell>
-    );
-  }
 
   if (!market) {
     return (
@@ -118,19 +48,6 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
     <RiskShell
       subtitle="MARKET"
       nav={<TerminalTopNav />}
-      right={
-        isConnected && address ? (
-          <button
-            onClick={() => disconnect()}
-            className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
-            title="Disconnect"
-          >
-            {address.slice(0, 6)}…{address.slice(-4)}
-          </button>
-        ) : (
-          <div className="text-xs font-mono text-gray-500">—</div>
-        )
-      }
     >
       <div className="mb-6">
         <div className="text-3xl md:text-5xl font-mono font-bold tracking-widest text-pear-lime">
@@ -171,32 +88,17 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
         </div>
 
         <div className="pear-border bg-black/40 p-6">
-          <div className="text-sm font-mono text-gray-300 mb-4">[ ORDER ]</div>
-          <div className="text-xs font-mono text-gray-500 mb-2">Stake (USDC)</div>
-          <div className="text-xs font-mono text-gray-500 mb-4">Available perp: {perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '—'}</div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              className="tm-btn w-full py-4"
-              onClick={() => {
-                setBetSlipSide('long');
-                setBetSlipOpen(true);
-              }}
-            >
-              YES
-            </button>
-            <button
-              type="button"
-              className="tm-btn tm-btn-danger w-full py-4"
-              onClick={() => {
-                setBetSlipSide('short');
-                setBetSlipOpen(true);
-              }}
-            >
-              NO
-            </button>
+          <div className="text-sm font-mono text-gray-300 mb-4">[ PLACE BET ]</div>
+          <div className="text-xs font-mono text-gray-400 mb-4">
+            Ready to trade this narrative? Head to the TRADE page to connect your wallet and execute.
           </div>
+
+          <Link
+            href="/trade"
+            className="block text-center tm-btn w-full py-4"
+          >
+            GO TO TRADE
+          </Link>
         </div>
       </div>
 
@@ -269,21 +171,6 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
           </Link>
         </div>
       </div>
-
-      <BetSlip
-        isOpen={betSlipOpen}
-        market={market}
-        side={betSlipSide}
-        balance={perpUsdc}
-        accessToken={accessToken ?? ''}
-        onClose={() => {
-          setBetSlipOpen(false);
-          setBetSlipSide(null);
-        }}
-        onPlaced={() => {
-          // No-op here; the positions list lives on /markets.
-        }}
-      />
     </RiskShell>
   );
 }
