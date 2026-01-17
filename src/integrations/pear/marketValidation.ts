@@ -1,9 +1,10 @@
-import type { PearMarketConfig, ResolvedPairs } from './types';
+import type { PearMarketConfig, ResolvedBasket, ResolvedPairs } from './types';
 
 export type ValidatedMarket = PearMarketConfig & {
-  resolvedPairs: ResolvedPairs;
   isRemapped: boolean;
   remapReason?: string;
+  resolvedPairs?: ResolvedPairs;
+  resolvedBasket?: ResolvedBasket;
 };
 
 function pickFallbackPair(symbols: Set<string>): ResolvedPairs {
@@ -25,28 +26,75 @@ export function validateNarrativeMarkets(
   const fallback = pickFallbackPair(activeSymbols);
 
   return markets.map((m) => {
-    const longOk = activeSymbols.has(m.pairs.long);
-    const shortOk = activeSymbols.has(m.pairs.short);
-    const ok = longOk && shortOk;
+    // Normalize symbol set once for resilient comparisons
+    const activeUpper = activeSymbols.size ? new Set(Array.from(activeSymbols).map((s) => s.toUpperCase())) : activeSymbols;
 
-    if (ok) {
+    // Basket markets: validate each leg, remap to a safe fallback pair-as-basket if needed.
+    if (m.basket) {
+      const missing: string[] = [];
+      for (const a of m.basket.long) {
+        if (!activeUpper.has(a.asset.toUpperCase())) missing.push(a.asset);
+      }
+      for (const a of m.basket.short) {
+        if (!activeUpper.has(a.asset.toUpperCase())) missing.push(a.asset);
+      }
+
+      const ok = missing.length === 0;
+      if (ok) {
+        return {
+          ...m,
+          resolvedBasket: { ...m.basket },
+          isRemapped: false,
+        };
+      }
+
+      // Safe demo behavior: collapse to a tradable 1v1 basket using the fallback pair.
+      const resolvedBasket: ResolvedBasket = {
+        long: [{ asset: fallback.long, weight: 1.0 }],
+        short: [{ asset: fallback.short, weight: 1.0 }],
+      };
+
       return {
         ...m,
-        resolvedPairs: { ...m.pairs },
-        isRemapped: false,
+        resolvedBasket,
+        isRemapped: true,
+        remapReason: `Unsupported basket ticker(s): ${Array.from(new Set(missing)).join(', ')}`,
       };
     }
 
-    const missing = [
-      ...(longOk ? [] : [`${m.pairs.long}`]),
-      ...(shortOk ? [] : [`${m.pairs.short}`]),
-    ];
+    // Pair markets (backward compatible)
+    if (m.pairs) {
+      const longOk = activeUpper.has(m.pairs.long.toUpperCase());
+      const shortOk = activeUpper.has(m.pairs.short.toUpperCase());
+      const ok = longOk && shortOk;
 
+      if (ok) {
+        return {
+          ...m,
+          resolvedPairs: { ...m.pairs },
+          isRemapped: false,
+        };
+      }
+
+      const missing = [
+        ...(longOk ? [] : [`${m.pairs.long}`]),
+        ...(shortOk ? [] : [`${m.pairs.short}`]),
+      ];
+
+      return {
+        ...m,
+        resolvedPairs: fallback,
+        isRemapped: true,
+        remapReason: missing.length ? `Unsupported ticker(s): ${missing.join(', ')}` : 'Unsupported pair',
+      };
+    }
+
+    // No pairs/basket: remap to fallback pair.
     return {
       ...m,
       resolvedPairs: fallback,
       isRemapped: true,
-      remapReason: missing.length ? `Unsupported ticker(s): ${missing.join(', ')}` : 'Unsupported pair',
+      remapReason: 'Invalid market config (no pairs/basket)',
     };
   });
 }

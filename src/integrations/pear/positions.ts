@@ -97,6 +97,7 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
     // If the legs match pairs.long/pairs.short, we call it BET UP (side: long).
     // If swapped, it's BET DOWN (side: short).
     for (const m of MARKETS) {
+      if (!m.pairs) continue;
       if (m.pairs.long === longCoin && m.pairs.short === shortCoin) {
         return { marketId: m.id, side: 'long' };
       }

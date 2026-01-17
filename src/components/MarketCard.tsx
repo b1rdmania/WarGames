@@ -15,12 +15,27 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
   const categoryColors = {
     geopolitical: 'bg-red-900/20 border-red-500/30',
     tech: 'bg-blue-900/20 border-blue-500/30',
+    macro: 'bg-amber-900/10 border-amber-500/25',
   };
 
   const categoryLabels = {
     geopolitical: 'GEOPOLITICAL',
     tech: 'TECH/INDUSTRY',
+    macro: 'MACRO',
   };
+
+  const pairs = market.resolvedPairs ?? market.pairs;
+
+  const formatBasketLabel = (assets: { asset: string }[]) => {
+    const names = assets.map((a) => a.asset).filter(Boolean);
+    if (names.length === 0) return 'BASKET';
+    const shown = names.slice(0, 4);
+    const suffix = names.length > shown.length ? '…' : '';
+    return `${shown.join('+')}${suffix}`;
+  };
+
+  const longLabel = pairs?.long ?? (market.basket ? formatBasketLabel(market.basket.long) : '—');
+  const shortLabel = pairs?.short ?? (market.basket ? formatBasketLabel(market.basket.short) : '—');
 
   return (
     <div className="bg-black/40 pear-border p-4 hover:pear-glow transition-colors">
@@ -49,11 +64,11 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
         )}
         <div className="flex justify-between items-center">
           <div>
-            <div className="text-green-400">↑ {(market.resolvedPairs ?? market.pairs).long}</div>
+            <div className="text-green-400">↑ {longLabel}</div>
           </div>
           <div className="text-gray-600">vs</div>
           <div className="text-right">
-            <div className="text-red-400">↓ {(market.resolvedPairs ?? market.pairs).short}</div>
+            <div className="text-red-400">↓ {shortLabel}</div>
           </div>
         </div>
       </div>

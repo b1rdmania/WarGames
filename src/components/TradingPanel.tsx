@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
-import type { PearMarketConfig } from '@/integrations/pear/types';
+import type { PearMarketConfig, ResolvedBasket, ResolvedPairs } from '@/integrations/pear/types';
 import { executePosition } from '@/integrations/pear/positions';
 
 export function TradingPanel({
@@ -12,7 +12,14 @@ export function TradingPanel({
   onPlaced,
 }: {
   accessToken: string;
-  markets: PearMarketConfig[];
+  markets: Array<
+    PearMarketConfig & {
+      resolvedPairs?: ResolvedPairs;
+      resolvedBasket?: ResolvedBasket;
+      isRemapped?: boolean;
+      remapReason?: string;
+    }
+  >;
   balance: string | null;
   onPlaced: () => void;
 }) {
@@ -27,6 +34,22 @@ export function TradingPanel({
   const canAfford = balanceNum === null || !Number.isFinite(balanceNum) || amountNum === null ? true : balanceNum >= amountNum;
 
   if (!market) return null;
+
+  const formatBasketLabel = (assets: { asset: string }[]) => {
+    const names = assets.map((a) => a.asset).filter(Boolean);
+    if (names.length === 0) return 'BASKET';
+    const shown = names.slice(0, 4);
+    const suffix = names.length > shown.length ? '…' : '';
+    return `${shown.join('+')}${suffix}`;
+  };
+
+  const effectivePairs = market.resolvedPairs ?? market.pairs;
+  const effectiveBasket = market.resolvedBasket ?? market.basket;
+
+  const longLabel =
+    effectivePairs?.long ?? (effectiveBasket ? formatBasketLabel(effectiveBasket.long) : '—');
+  const shortLabel =
+    effectivePairs?.short ?? (effectiveBasket ? formatBasketLabel(effectiveBasket.short) : '—');
 
   return (
     <div className="pear-border bg-black/40 p-6 sticky top-6">
@@ -55,7 +78,7 @@ export function TradingPanel({
           <div className="text-xs text-gray-500 mb-2 font-mono uppercase tracking-wider">Trading Pair</div>
           <div className="flex items-center justify-between">
             <div className="text-sm font-mono text-white">
-              {market.pairs.long} / {market.pairs.short}
+              {longLabel} / {shortLabel}
             </div>
             <div className="text-xs text-pear-lime font-mono">
               {market.leverage}x Leverage
@@ -90,9 +113,9 @@ export function TradingPanel({
           </div>
           <p className="text-xs text-gray-500 mt-2 font-mono">
             {side === 'long' ? (
-              <>Long {market.pairs.long} / Short {market.pairs.short}</>
+              <>Long {longLabel} / Short {shortLabel}</>
             ) : (
-              <>Long {market.pairs.short} / Short {market.pairs.long}</>
+              <>Long {shortLabel} / Short {longLabel}</>
             )}
           </p>
         </div>
@@ -143,6 +166,8 @@ export function TradingPanel({
                   side,
                   amount,
                   leverage: market.leverage,
+                  resolvedPairs: market.resolvedPairs,
+                  resolvedBasket: market.resolvedBasket,
                 });
                 toast.success('Position opened! 🎉');
                 setAmount('10');

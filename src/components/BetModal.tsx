@@ -23,18 +23,33 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
   const market = getMarketById(marketId);
   if (!market) return null;
 
+  const formatBasketLabel = (assets: { asset: string }[]) => {
+    const names = assets.map((a) => a.asset).filter(Boolean);
+    if (names.length === 0) return 'BASKET';
+    const shown = names.slice(0, 4);
+    const suffix = names.length > shown.length ? '…' : '';
+    return `${shown.join('+')}${suffix}`;
+  };
+
+  const tokenForSide = (m: PearMarketConfig, s: 'long' | 'short') => {
+    if (m.pairs) return s === 'long' ? m.pairs.long : m.pairs.short;
+    if (m.basket) return formatBasketLabel(s === 'long' ? m.basket.long : m.basket.short);
+    return '—';
+  };
+
+  const longToken = tokenForSide(market, 'long');
+  const shortToken = tokenForSide(market, 'short');
+
   const sideConfig = {
     long: {
       label: 'BET UP',
       color: 'text-green-400',
-      bgColor: 'bg-green-600',
-      token: market.pairs.long,
+      token: longToken,
     },
     short: {
       label: 'BET DOWN',
       color: 'text-red-400',
-      bgColor: 'bg-red-600',
-      token: market.pairs.short,
+      token: shortToken,
     },
   };
 
