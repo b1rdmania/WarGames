@@ -31,6 +31,8 @@ export default function MarketsClient() {
   const { markets: validatedMarkets } = useValidatedMarkets();
   const [positions, setPositions] = useState<PearPosition[]>([]);
   const [loadingPositions, setLoadingPositions] = useState(false);
+  const [refreshingPositions, setRefreshingPositions] = useState(false);
+  const [hasLoadedPositions, setHasLoadedPositions] = useState(false);
   const [portfolioDetailsOpen, setPortfolioDetailsOpen] = useState(false);
   const [betSlipOpen, setBetSlipOpen] = useState(false);
   const [betSlipMarketId, setBetSlipMarketId] = useState<string | null>(null);
@@ -43,21 +45,28 @@ export default function MarketsClient() {
   useEffect(() => {
     if (!accessToken) return;
 
-    const loadPositions = async () => {
-      setLoadingPositions(true);
+    const loadPositions = async (opts?: { silent?: boolean }) => {
+      const silent = Boolean(opts?.silent);
+      if (!silent) setLoadingPositions(true);
+      else setRefreshingPositions(true);
       try {
         const pos = await getActivePositions(accessToken);
         setPositions(pos);
+        setHasLoadedPositions(true);
       } catch (err) {
         console.error('Failed to load positions:', err);
         emitDebugLog({ level: 'error', scope: 'positions', message: 'load failed', data: { message: (err as Error).message } });
       } finally {
-        setLoadingPositions(false);
+        if (!silent) setLoadingPositions(false);
+        setRefreshingPositions(false);
       }
     };
 
-    loadPositions();
-    const interval = setInterval(loadPositions, 10000);
+    // Initial load: show a loading state. Subsequent refreshes are silent to avoid layout jumps.
+    loadPositions({ silent: false });
+
+    // Fallback polling: keep it slow since we also refresh via WebSocket.
+    const interval = setInterval(() => loadPositions({ silent: true }), 60000);
     return () => clearInterval(interval);
   }, [accessToken]);
 
@@ -71,11 +80,15 @@ export default function MarketsClient() {
       timer = window.setTimeout(async () => {
         timer = null;
         try {
+          setRefreshingPositions(true);
           const pos = await getActivePositions(accessToken);
           setPositions(pos);
+          setHasLoadedPositions(true);
           emitDebugLog({ level: 'info', scope: 'positions', message: 'refreshed from ws' });
         } catch (e) {
           emitDebugLog({ level: 'warn', scope: 'positions', message: 'ws refresh failed', data: { message: (e as Error).message } });
+        } finally {
+          setRefreshingPositions(false);
         }
       }, 750);
     };
@@ -250,9 +263,14 @@ export default function MarketsClient() {
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-5">
           <div>
-            <div className="text-sm font-mono text-gray-300 mb-3">[ ACTIVE POSITIONS ]</div>
+            <div className="flex items-center justify-between text-sm font-mono text-gray-300 mb-3">
+              <div>[ ACTIVE POSITIONS ]</div>
+              {hasLoadedPositions && refreshingPositions ? (
+                <div className="text-[10px] text-gray-500">UPDATING…</div>
+              ) : null}
+            </div>
 
-            {loadingPositions ? (
+            {loadingPositions && !hasLoadedPositions ? (
               <div className="pear-border bg-black/40 p-6 font-mono text-sm text-gray-400">
                 Loading…
               </div>
@@ -268,7 +286,11 @@ export default function MarketsClient() {
                     position={pos}
                     accessToken={accessToken}
                     onClose={() => {
-                      getActivePositions(accessToken).then(setPositions);
+                      // Silent refresh so we don't cause the page to jump.
+                      getActivePositions(accessToken).then((next) => {
+                        setPositions(next);
+                        setHasLoadedPositions(true);
+                      });
                     }}
                   />
                 ))}
@@ -304,7 +326,10 @@ export default function MarketsClient() {
         }}
         onPlaced={() => {
           if (!accessToken) return;
-          getActivePositions(accessToken).then(setPositions);
+          getActivePositions(accessToken).then((next) => {
+            setPositions(next);
+            setHasLoadedPositions(true);
+          });
         }}
       />
     </RiskShell>
