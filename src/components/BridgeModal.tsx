@@ -56,7 +56,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
           <h2 className="text-xl font-bold pear-text">BRIDGE → HYPEREVM</h2>
           <button
             onClick={handleClose}
-            className="text-gray-500 hover:text-pear-lime text-xl"
+            className="tm-btn px-3 py-2"
           >
             ✕
           </button>
@@ -66,13 +66,13 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
         <div className="space-y-4">
           {/* Amount Input */}
           <div>
-            <div className="text-xs text-gray-500 mb-2">AMOUNT (in native token: ETH/MATIC/etc)</div>
+            <div className="tm-label mb-2">Amount (native: ETH/MATIC/etc)</div>
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.01"
-              className="w-full bg-black/30 pear-border px-3 py-2 text-pear-lime font-mono focus:outline-none"
+              className="tm-control"
               disabled={status === 'executing'}
               step="0.01"
             />
@@ -83,7 +83,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
             <button
               onClick={handleFindRoutes}
               disabled={!amount || parseFloat(amount) <= 0}
-              className="w-full pear-border text-pear-lime font-mono py-2 hover:pear-glow disabled:opacity-30"
+              className="w-full tm-btn disabled:opacity-30"
             >
               → FIND ROUTES
             </button>
@@ -106,7 +106,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
                 <button
                   key={index}
                   onClick={() => handleExecute(route)}
-                  className="w-full pear-border bg-black/20 hover:pear-glow p-3 text-left"
+                  className="w-full tm-btn text-left"
                 >
                   <div className="flex justify-between items-center">
                     <div>

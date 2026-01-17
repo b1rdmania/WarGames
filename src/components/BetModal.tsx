@@ -83,7 +83,7 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
           <h2 className="text-lg font-bold pear-text">PLACE BET</h2>
           <button
             onClick={handleClose}
-            className="text-gray-500 hover:text-pear-lime"
+            className="tm-btn px-3 py-2"
             disabled={isExecuting}
           >
             ✕
@@ -93,8 +93,8 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
         {/* Content */}
         <div className="space-y-4">
           {/* Market Info */}
-          <div className="border-b border-gray-700 pb-3">
-            <div className="text-sm text-gray-500 mb-1">{market.name}</div>
+          <div className="pb-3 pear-border border-x-0 border-t-0">
+            <div className="text-sm text-gray-400 mb-1 font-mono">{market.name}</div>
             <div className={`font-mono ${config.color}`}>
               {config.label} {config.token}
             </div>
@@ -102,13 +102,13 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
 
           {/* Bet Amount */}
           <div>
-            <div className="text-xs text-gray-500 mb-2">BET AMOUNT (USDC)</div>
+            <div className="tm-label mb-2">Bet Amount (USDC)</div>
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="10"
-              className="w-full bg-black/30 pear-border px-3 py-2 text-pear-lime font-mono focus:outline-none"
+              className="tm-control"
               disabled={isExecuting}
             />
           </div>
@@ -152,17 +152,15 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
             <button
               onClick={handleClose}
               disabled={isExecuting}
-              className="flex-1 pear-border text-gray-300 py-2 text-sm font-mono hover:pear-glow disabled:opacity-30"
+              className="flex-1 tm-btn text-gray-300 disabled:opacity-30"
             >
               CANCEL
             </button>
             <button
               onClick={handleConfirm}
               disabled={isExecuting || !amount || parseFloat(amount) <= 0 || !hasSufficientPerpUsdc}
-              className={`flex-1 pear-border py-2 text-sm font-mono disabled:opacity-30 ${
-                side === 'long'
-                  ? 'bg-pear-lime/10 text-pear-lime hover:pear-glow'
-                  : 'bg-red-500/10 text-red-300 hover:shadow-[0_0_10px_rgba(239,68,68,0.15)]'
+              className={`flex-1 tm-btn disabled:opacity-30 ${
+                side === 'short' ? 'tm-btn-danger' : ''
               }`}
             >
               {isExecuting ? 'EXECUTING...' : 'CONFIRM'}
