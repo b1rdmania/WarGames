@@ -37,6 +37,16 @@ export function PositionsPanel({ accessToken, refreshKey }: PositionsPanelProps)
     }
   }, [accessToken, loadPositions, refreshKey]);
 
+  // Lightweight "realtime": poll positions so the demo feels alive without WebSocket.
+  useEffect(() => {
+    if (!accessToken) return;
+    const interval = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      loadPositions().catch(() => {});
+    }, 15_000);
+    return () => window.clearInterval(interval);
+  }, [accessToken, loadPositions]);
+
   const handleClose = async (positionId: string) => {
     if (!accessToken) return;
 

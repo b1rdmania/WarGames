@@ -32,6 +32,16 @@ export function useVaultBalances(accessToken: string | null) {
     refresh();
   }, [accessToken, refresh]);
 
+  // Lightweight "realtime": poll balances so the demo updates without needing WebSocket.
+  useEffect(() => {
+    if (!accessToken) return;
+    const interval = window.setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
+      refresh().catch(() => {});
+    }, 15_000);
+    return () => window.clearInterval(interval);
+  }, [accessToken, refresh]);
+
   const spotUsdc = useMemo(() => balances?.spotBalances?.USDC ?? null, [balances]);
   const perpUsdc = useMemo(() => balances?.perpBalances?.USDC ?? null, [balances]);
 
