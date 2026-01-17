@@ -27,28 +27,10 @@ export default function MarketsPage() {
 
   if (!isAuthenticated) {
     return (
-      <main className="min-h-screen flex items-center justify-center p-4">
+      <main className="min-h-screen flex items-center justify-center p-6">
         <div className="max-w-2xl w-full">
-          {/* Debug Toggle */}
-          <div className="mb-4 text-right">
-            <button
-              onClick={() => setShowDebug(!showDebug)}
-              className="text-xs px-3 py-1 border border-gray-700 text-gray-400 hover:text-pear-lime hover:border-pear-lime"
-            >
-              {showDebug ? 'HIDE DEBUG' : 'SHOW DEBUG'}
-            </button>
-          </div>
-
-          {/* Debug Panel */}
-          {showDebug && (
-            <div className="mb-6 space-y-4">
-              <PearTerminalPanel onRequestConnect={() => setConnectModalOpen(true)} />
-              <DebugConsole />
-            </div>
-          )}
-
           {/* Welcome Card */}
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700 rounded-lg p-12 text-center shadow-2xl">
+          <div className="bg-gradient-to-br from-pear-panel to-pear-panel-light border border-pear-lime/30 rounded-2xl p-12 text-center shadow-2xl">
             <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-pear-lime to-pear-lime-light bg-clip-text text-transparent">
               WAR.MARKET
             </h1>
@@ -63,25 +45,46 @@ export default function MarketsPage() {
                 </p>
                 <button
                   onClick={() => setConnectModalOpen(true)}
-                  className="bg-pear-lime hover:bg-pear-lime-light text-pear-dark font-bold px-8 py-4 rounded-lg text-lg transition-colors shadow-lg"
+                  className="bg-pear-lime hover:bg-pear-lime-light text-pear-dark font-bold px-8 py-4 rounded-lg text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   Connect Wallet
                 </button>
               </div>
             ) : (
               <div>
-                <p className="text-gray-400 mb-4">
+                <p className="text-gray-400 mb-2">
                   Wallet connected! Now authenticate with Pear Protocol.
+                </p>
+                <p className="text-sm text-gray-500 mb-6">
+                  Click below to sign a message and create your trading session
                 </p>
                 <button
                   onClick={() => setShowDebug(true)}
-                  className="bg-pear-lime hover:bg-pear-lime-light text-pear-dark font-bold px-8 py-4 rounded-lg text-lg transition-colors"
+                  className="bg-pear-lime hover:bg-pear-lime-light text-pear-dark font-bold px-8 py-4 rounded-lg text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105"
                 >
-                  Show Setup Panel
+                  Authenticate
                 </button>
               </div>
             )}
           </div>
+
+          {/* Debug toggle - subtle, bottom right */}
+          <div className="mt-6 text-center">
+            <button
+              onClick={() => setShowDebug(!showDebug)}
+              className="text-xs text-gray-600 hover:text-pear-lime transition-colors"
+            >
+              {showDebug ? '▼ Hide Debug' : '▲ Show Debug'}
+            </button>
+          </div>
+
+          {/* Debug Panel - slides in */}
+          {showDebug && (
+            <div className="mt-6 space-y-4 animate-in slide-in-from-bottom">
+              <PearTerminalPanel onRequestConnect={() => setConnectModalOpen(true)} />
+              <DebugConsole />
+            </div>
+          )}
         </div>
         <WalletConnectModal isOpen={connectModalOpen} onClose={() => setConnectModalOpen(false)} />
       </main>
@@ -89,31 +92,14 @@ export default function MarketsPage() {
   }
 
   return (
-    <main className="max-w-7xl mx-auto p-6 space-y-6">
+    <main className="max-w-7xl mx-auto p-6 pb-20">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-white mb-1">Markets</h1>
           <p className="text-gray-400">Manage your positions and place new bets</p>
         </div>
-        <button
-          onClick={() => setShowDebug(!showDebug)}
-          className="text-xs px-4 py-2 border border-gray-700 text-gray-400 hover:text-pear-lime hover:border-pear-lime rounded"
-        >
-          {showDebug ? 'HIDE DEBUG' : 'SHOW DEBUG'}
-        </button>
       </div>
-
-      {/* Debug Panels */}
-      {showDebug && (
-        <div className="grid md:grid-cols-2 gap-4 p-4 bg-gray-900 border border-gray-700 rounded-lg">
-          <PearTerminalPanel onRequestConnect={() => setConnectModalOpen(true)} />
-          <div className="space-y-4">
-            <BalancesPanel accessToken={accessToken} />
-            <DebugConsole />
-          </div>
-        </div>
-      )}
 
       {/* Main Content: 2 Column Layout */}
       <div className="grid lg:grid-cols-3 gap-6">
@@ -142,6 +128,31 @@ export default function MarketsPage() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Debug Drawer - Fixed to bottom */}
+      <div className="fixed bottom-0 left-0 right-0 z-50">
+        {showDebug && (
+          <div className="bg-pear-panel border-t border-pear-lime/30 shadow-2xl animate-in slide-in-from-bottom">
+            <div className="max-w-7xl mx-auto p-6">
+              <div className="grid md:grid-cols-2 gap-4">
+                <PearTerminalPanel onRequestConnect={() => setConnectModalOpen(true)} />
+                <div className="space-y-4">
+                  <BalancesPanel accessToken={accessToken} />
+                  <DebugConsole />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Debug Toggle - Floating Button */}
+        <button
+          onClick={() => setShowDebug(!showDebug)}
+          className="absolute bottom-4 right-4 bg-pear-panel border border-pear-lime/30 text-pear-lime px-4 py-2 rounded-full text-xs hover:bg-pear-panel-light transition-all shadow-lg"
+        >
+          {showDebug ? '▼ Hide Debug' : '▲ Debug'}
+        </button>
       </div>
 
       <WalletConnectModal isOpen={connectModalOpen} onClose={() => setConnectModalOpen(false)} />
