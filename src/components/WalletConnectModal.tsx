@@ -1,0 +1,76 @@
+'use client';
+
+import toast from 'react-hot-toast';
+import { useConnect } from 'wagmi';
+
+interface WalletConnectModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function labelForConnector(id: string, name: string) {
+  if (id === 'metaMask') return 'MetaMask';
+  if (id === 'injected') return name || 'Injected Wallets';
+  return name || id;
+}
+
+export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps) {
+  const { connectAsync, connectors, isPending } = useConnect();
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
+      <div className="bg-war-dark neon-border max-w-md w-full p-6">
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <div className="text-sm text-war-green font-mono">[ CONNECT WALLET ]</div>
+            <div className="text-xs text-gray-500 mt-1">
+              Choose a wallet. MetaMask is available alongside other injected wallets.
+            </div>
+          </div>
+          <button onClick={onClose} className="text-gray-500 hover:text-white">
+            ✕
+          </button>
+        </div>
+
+        <div className="space-y-2">
+          {connectors
+            .filter((c) => c.id === 'metaMask' || c.id === 'injected')
+            .map((connector) => (
+              <button
+                key={connector.uid}
+                disabled={isPending}
+                onClick={() => {
+                  (async () => {
+                    try {
+                      await connectAsync({ connector });
+                      toast.success(`Connected: ${labelForConnector(connector.id, connector.name)}`);
+                      onClose();
+                    } catch (e) {
+                      console.error(e);
+                      toast.error((e as Error).message || 'Failed to connect wallet');
+                    }
+                  })();
+                }}
+                className="w-full flex items-center justify-between neon-border text-war-green px-4 py-3 text-sm hover:neon-glow disabled:opacity-50"
+              >
+                <span>{labelForConnector(connector.id, connector.name)}</span>
+                <span className="text-xs text-gray-500">{connector.id === 'injected' ? 'Rabby/Phantom/etc' : 'MetaMask'}</span>
+              </button>
+            ))}
+        </div>
+
+        <div className="mt-4">
+          <button
+            onClick={onClose}
+            className="w-full border border-gray-700 text-gray-300 py-2 text-sm hover:border-gray-500"
+          >
+            CANCEL
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+

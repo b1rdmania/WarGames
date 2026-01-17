@@ -1,6 +1,6 @@
 import { createConfig, http } from 'wagmi';
 import { mainnet, arbitrum, base, optimism } from 'wagmi/chains';
-import { metaMask } from 'wagmi/connectors';
+import { injected, metaMask } from 'wagmi/connectors';
 
 // Define HyperEVM chain
 export const hyperEVM = {
@@ -24,8 +24,9 @@ export const hyperEVM = {
 export const config = createConfig({
   chains: [mainnet, arbitrum, base, optimism, hyperEVM],
   connectors: [
-    // Force MetaMask (avoid the multi-wallet injected picker like Rabby/Phantom).
+    // Allow multi-wallet connect, but include MetaMask explicitly.
     metaMask(),
+    injected(),
   ],
   transports: {
     [mainnet.id]: http(),

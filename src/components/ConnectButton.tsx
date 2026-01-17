@@ -1,12 +1,13 @@
 'use client';
 
-import toast from 'react-hot-toast';
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { useState } from 'react';
+import { useAccount, useDisconnect } from 'wagmi';
+import { WalletConnectModal } from './WalletConnectModal';
 
 export function ConnectButton() {
   const { address, isConnected } = useAccount();
-  const { connectAsync, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
+  const [open, setOpen] = useState(false);
 
   if (isConnected && address) {
     return (
@@ -19,24 +20,15 @@ export function ConnectButton() {
     );
   }
 
-  const metaMaskConnector = connectors.find((c) => c.id === 'metaMask') ?? connectors[0];
-
   return (
-    <button
-      onClick={() => {
-        (async () => {
-          try {
-            await connectAsync({ connector: metaMaskConnector });
-          } catch (e) {
-            console.error(e);
-            toast.error((e as Error).message || 'Failed to connect MetaMask');
-          }
-        })();
-      }}
-      disabled={isPending}
-      className="px-4 py-2 bg-war-green text-war-dark font-bold hover:opacity-80 transition-opacity disabled:opacity-50"
-    >
-      {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
-    </button>
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className="px-4 py-2 bg-war-green text-war-dark font-bold hover:opacity-80 transition-opacity"
+      >
+        CONNECT WALLET
+      </button>
+      <WalletConnectModal isOpen={open} onClose={() => setOpen(false)} />
+    </>
   );
 }
