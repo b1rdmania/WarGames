@@ -36,6 +36,12 @@ WAR.MARKET lets users bet on macro narratives through leveraged pair trades. Ins
 - **Trading:** Pear Protocol API
 - **Settlement:** Hyperliquid (via Pear execution engine)
 
+## 🗄️ Archived reference (not part of submission)
+
+This workspace previously included an older HIP-3 prototype called **RiskMarkets** used as a UX reference only.
+
+- It has been moved to `../archive/RiskMarkets/` locally and is **not part of the `war-markets` app repo**.
+
 ## 🚀 Getting Started
 
 ### Prerequisites

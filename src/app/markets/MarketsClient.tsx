@@ -17,9 +17,11 @@ import { AssetPriceTicker } from '@/components/AssetPriceTicker';
 import { MARKETS } from '@/integrations/pear/markets';
 import { getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
+import { connectPearWebsocket } from '@/integrations/pear/websocket';
+import { emitDebugLog } from '@/lib/debugLog';
 
 export default function MarketsClient() {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const { accessToken, isAuthenticated } = usePear();
   const { perpUsdc } = useVaultBalances(accessToken);
   const { markets: validatedMarkets } = useValidatedMarkets();
@@ -40,6 +42,7 @@ export default function MarketsClient() {
         setPositions(pos);
       } catch (err) {
         console.error('Failed to load positions:', err);
+        emitDebugLog({ level: 'error', scope: 'positions', message: 'load failed', data: { message: (err as Error).message } });
       } finally {
         setLoadingPositions(false);
       }
@@ -49,6 +52,37 @@ export default function MarketsClient() {
     const interval = setInterval(loadPositions, 10000);
     return () => clearInterval(interval);
   }, [accessToken]);
+
+  // WebSocket: trigger faster refreshes on position events (still keep polling as fallback).
+  useEffect(() => {
+    if (!accessToken || !address) return;
+
+    let timer: number | null = null;
+    const triggerRefresh = () => {
+      if (timer) return;
+      timer = window.setTimeout(async () => {
+        timer = null;
+        try {
+          const pos = await getActivePositions(accessToken);
+          setPositions(pos);
+          emitDebugLog({ level: 'info', scope: 'positions', message: 'refreshed from ws' });
+        } catch (e) {
+          emitDebugLog({ level: 'warn', scope: 'positions', message: 'ws refresh failed', data: { message: (e as Error).message } });
+        }
+      }, 750);
+    };
+
+    const ws = connectPearWebsocket({
+      address,
+      channels: ['positions'],
+      onMessage: () => triggerRefresh(),
+    });
+
+    return () => {
+      if (timer) window.clearTimeout(timer);
+      ws.close();
+    };
+  }, [accessToken, address]);
 
   // Unauthenticated view
   if (!isAuthenticated) {
