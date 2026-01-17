@@ -6,47 +6,70 @@ export default function AboutPage() {
   return (
     <RiskShell subtitle="ABOUT" nav={<TerminalTopNav />}>
       <div className="pear-border bg-black/40 p-6">
-        <div className="text-2xl md:text-3xl font-mono font-bold tracking-widest text-pear-lime">WAR.MARKET</div>
+        <div className="text-2xl md:text-3xl font-mono font-bold tracking-widest text-pear-lime">ABOUT WAR.MARKET</div>
         <div className="mt-2 text-sm font-mono text-gray-400">
-          Narrative trading on Hyperliquid. Bet on macro themes as leveraged long/short baskets.
+          A terminal for trading global stress. Narrative baskets executed via Pear on Hyperliquid.
         </div>
 
         <div className="mt-6 space-y-5 text-sm font-mono text-gray-400 leading-relaxed">
           <div>
-            <div className="text-pear-lime font-bold tracking-widest mb-2">HYPERLIQUID LONDON HACKATHON</div>
+            <div className="text-pear-lime font-bold tracking-widest mb-2">THE PROBLEM</div>
             <div>
-              Built in 3 days for the Hyperliquid London Community Hackathon (Jan 16-18, 2026).
-              Competing in <span className="text-white">Pear Execution API</span> and <span className="text-white">LI.FI Onboarding</span> tracks.
+              Trading global risk is fragmented. Oil, FX, tech beta, and “risk‑off” all live in separate silos.
+              You react to noise instead of the signal.
             </div>
           </div>
 
           <div>
-            <div className="text-pear-lime font-bold tracking-widest mb-2">THE IDEA</div>
+            <div className="text-pear-lime font-bold tracking-widest mb-2">THE RESPONSE</div>
             <div>
-              Trade narratives, not tickers. Instead of picking individual assets, bet on macro themes like
-              "AI Bubble Pop" or "Taiwan Strait Crisis" — expressed as weighted long/short baskets
-              executed atomically via Pear Protocol on Hyperliquid.
+              WAR.MARKET creates one view. You see the stress signal. You trade the stress signal.
+              No interpretation layer — just volatility packaged into clear long/short structures.
+            </div>
+          </div>
+
+          <div>
+            <div className="text-pear-lime font-bold tracking-widest mb-2">THE MARKETS</div>
+            <div className="space-y-2">
+              <div>Each market is a readable macro narrative expressed as a leveraged long/short basket.</div>
+              <div>
+                You’re betting on <span className="text-white">relative performance</span>, not absolute direction.
+              </div>
             </div>
           </div>
 
           <div>
             <div className="text-pear-lime font-bold tracking-widest mb-2">HOW IT WORKS</div>
             <div className="space-y-2">
-              <div><span className="text-white">1.</span> Connect wallet on HyperEVM</div>
-              <div><span className="text-white">2.</span> Authenticate with Pear (creates agent wallet)</div>
-              <div><span className="text-white">3.</span> Pick a narrative market, choose YES or NO</div>
-              <div><span className="text-white">4.</span> Pear executes the basket on Hyperliquid</div>
+              <div><span className="text-white">1.</span> Browse markets (intel only)</div>
+              <div><span className="text-white">2.</span> Connect wallet when you want to trade</div>
+              <div><span className="text-white">3.</span> Authenticate with Pear (non‑custodial agent wallet)</div>
+              <div><span className="text-white">4.</span> Pear executes basket legs on Hyperliquid</div>
+              <div><span className="text-white">5.</span> Monitor + cash out from the terminal</div>
             </div>
           </div>
 
           <div>
-            <div className="text-pear-lime font-bold tracking-widest mb-2">TECH STACK</div>
+            <div className="text-pear-lime font-bold tracking-widest mb-2">THE ENGINE</div>
             <div className="space-y-1">
-              <div><span className="text-white">Pear Protocol</span> — Pair trading execution + agent wallets</div>
-              <div><span className="text-white">Hyperliquid</span> — Settlement layer for perps</div>
-              <div><span className="text-white">LI.FI</span> — Cross-chain bridging to HyperEVM</div>
-              <div><span className="text-white">Next.js + wagmi</span> — Frontend</div>
+              <div><span className="text-white">Pear Protocol</span> — execution + agent wallets</div>
+              <div><span className="text-white">Hyperliquid</span> — perp settlement layer</div>
+              <div><span className="text-white">Next.js + wagmi</span> — terminal UI</div>
             </div>
+          </div>
+
+          <div>
+            <div className="text-pear-lime font-bold tracking-widest mb-2">WHO IT’S FOR</div>
+            <div className="space-y-1">
+              <div>Traders who want a clean signal.</div>
+              <div>People who want macro hedges without TradFi rails.</div>
+              <div>Degens who prefer one button and a thesis.</div>
+            </div>
+          </div>
+
+          <div>
+            <div className="text-pear-lime font-bold tracking-widest mb-2">THE GOAL</div>
+            <div>A clean way to trade global stress.</div>
           </div>
 
           <div>
@@ -81,17 +104,19 @@ export default function AboutPage() {
               <a className="text-pear-lime underline" href="https://hyperliquid.xyz" target="_blank" rel="noreferrer">
                 Hyperliquid
               </a>
-              <a className="text-pear-lime underline" href="https://li.fi" target="_blank" rel="noreferrer">
-                LI.FI
-              </a>
             </div>
           </div>
 
           <div>
-            <div className="text-pear-lime font-bold tracking-widest mb-2">START TRADING</div>
-            <Link className="text-pear-lime underline" href="/trade">
-              Go to TRADE →
-            </Link>
+            <div className="text-pear-lime font-bold tracking-widest mb-2">START</div>
+            <div className="flex flex-wrap gap-4">
+              <Link className="text-pear-lime underline" href="/markets">
+                Browse MARKETS →
+              </Link>
+              <Link className="text-pear-lime underline" href="/trade">
+                Open TRADE →
+              </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -105,7 +105,7 @@ export function BetSlip({
         </div>
 
         <div className="mt-4">
-          <div className="tm-label mb-2">Stake (USDC)</div>
+          <div className="tm-label mb-2">Size (USDC)</div>
           <div className="grid grid-cols-4 gap-2">
             {presets.map((p) => (
               <button

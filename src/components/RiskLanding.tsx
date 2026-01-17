@@ -24,14 +24,16 @@ export function RiskLanding() {
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.logo}>WAR.MARKET</div>
-          <div className={styles.tagline}>The Global Tension Terminal.</div>
-          <div className={`${styles.tagline} ${styles.taglineSmall}`}>Narrative pair trading on mainnet</div>
+          <div className={styles.tagline}>A terminal for trading global stress.</div>
+          <div className={`${styles.tagline} ${styles.taglineSmall}`}>
+            Macro tension, packaged into tradable long/short baskets.
+          </div>
 
           <div className={styles.ctaSection}>
             <Link href="/markets" className={`${styles.btn} ${styles.btnPrimary}`}>
               LAUNCH APP
             </Link>
-            <div className={styles.poweredBy}>Powered by Pear Protocol · Hyperliquid</div>
+            <div className={styles.poweredBy}>Powered by Pear Protocol execution · Hyperliquid settlement</div>
           </div>
         </div>
       </section>
@@ -39,16 +41,18 @@ export function RiskLanding() {
       <section className={styles.explainerStrip} aria-label="How it works">
         <div className={styles.explainerGrid}>
           <div className={styles.explainerItem}>
-            <h3>[NARRATIVE MARKETS]</h3>
-            <p>Pick a story, pick a direction, and express the view with a leveraged pair.</p>
+            <h3>[THE SIGNAL]</h3>
+            <p>
+              Oil, rates, tech, war. It’s all one regime. WAR.MARKET collapses the noise into readable stress baskets.
+            </p>
           </div>
           <div className={styles.explainerItem}>
-            <h3>[NON-CUSTODIAL]</h3>
-            <p>You sign. Pear creates an agent wallet. Trades execute on your behalf.</p>
+            <h3>[HOW IT TRADES]</h3>
+            <p>You sign once. Pear spins up an agent wallet and executes the basket legs non‑custodially.</p>
           </div>
           <div className={styles.explainerItem}>
-            <h3>[MAINNET]</h3>
-            <p>Designed for a fast demo loop: place → watch → close.</p>
+            <h3>[THE INTERFACE]</h3>
+            <p>Browse markets as pure intel. Trade only from the terminal when you’re ready.</p>
           </div>
         </div>
       </section>

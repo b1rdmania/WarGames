@@ -125,7 +125,7 @@ export function BetSlipPanel({
 
       {/* Stake Input */}
       <div className="mb-4">
-        <div className="tm-label mb-2">Stake (USDC)</div>
+        <div className="tm-label mb-2">Size (USDC)</div>
         <div className="grid grid-cols-4 gap-2 mb-2">
           {presets.map((p) => (
             <button
