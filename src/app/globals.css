@@ -24,6 +24,15 @@ html {
 body {
   background-color: var(--pear-dark);
   color: #ffffff;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+}
+
+/* RiskMarkets-style terminal typography */
+h1, h2, h3 {
+  font-family: var(--font-display), var(--font-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 @layer utilities {

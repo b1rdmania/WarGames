@@ -1,11 +1,24 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { IBM_Plex_Mono, Space_Mono } from "next/font/google";
 import { WalletProvider } from "@/components/WalletProvider";
 import { PearProvider } from "@/contexts/PearContext";
 import { Navbar } from "@/components/Navbar";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "WAR.MARKET - Trade Risk Indices",
@@ -18,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="min-h-screen bg-pear-dark text-white font-sans antialiased">
+    <html lang="en" className={`${ibmPlexMono.variable} ${spaceMono.variable}`}>
+      <body className="min-h-screen bg-pear-dark text-white font-mono antialiased">
         <WalletProvider>
           <PearProvider>
             <Navbar />

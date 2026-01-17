@@ -9,19 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Pear Protocol Branding
-        'pear-dark': '#060902',
-        'pear-panel': '#0e140f',
-        'pear-panel-light': '#141c15',
-        'pear-lime': '#a2db5c',
-        'pear-lime-light': '#bde689',
+        // Terminal theme (single source of truth)
+        'pear-dark': '#0a0a0a',
+        'pear-panel': '#121212',
+        'pear-panel-light': '#171717',
+        'pear-lime': '#02ff81',
+        'pear-lime-light': '#7dffc2',
         'pear-gray': '#a0a0a0',
         'pear-gray-dark': '#717171',
         'pear-accent': '#334128',
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-geist-mono)', 'Fragment Mono', 'monospace'],
+        sans: ['var(--font-display)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
     },
   },
