@@ -5,13 +5,14 @@ import { PEAR_CONFIG } from './config';
  * We only need one thing: a set of tradable asset symbols (coins/tickers).
  */
 export async function getActiveAssetSymbols(): Promise<Set<string>> {
-  const res = await fetch(`${PEAR_CONFIG.apiUrl}/markets/active`, {
+  // Browser CORS can block direct calls to Pear. Proxy through our Next.js API route.
+  const res = await fetch(`/api/pear/markets/active`, {
     headers: { 'Content-Type': 'application/json' },
-  });
+  }).catch(() => null);
 
   // If this endpoint ever changes / becomes unavailable, we still want the app to work.
   // Return an empty set and let the caller fall back to safe defaults.
-  if (!res.ok) return new Set();
+  if (!res || !res.ok) return new Set();
 
   const data = await res.json().catch(() => null);
   if (!data) return new Set();
