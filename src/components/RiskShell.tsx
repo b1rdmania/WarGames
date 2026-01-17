@@ -46,7 +46,12 @@ export function RiskShell({
                 x
               </a>
               <span className={styles.footerSep}>·</span>
-              <span className={styles.footerRight}>music made in wario.style</span>
+              <span className={styles.footerRight}>
+                music made in{' '}
+                <a className={styles.footerLink} href="https://wario.style" target="_blank" rel="noreferrer">
+                  wario.style
+                </a>
+              </span>
             </div>
           </footer>
         </div>
