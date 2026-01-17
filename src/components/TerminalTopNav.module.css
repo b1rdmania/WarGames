@@ -1,0 +1,42 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.link {
+  color: rgba(224, 224, 224, 0.55);
+  text-decoration: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.link:hover {
+  color: rgba(2, 255, 129, 0.9);
+  text-shadow: 0 0 10px rgba(2, 255, 129, 0.25);
+}
+
+.active {
+  color: rgba(2, 255, 129, 1);
+}
+
+.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    gap: 16px;
+  }
+  .link {
+    font-size: 11px;
+  }
+}
+

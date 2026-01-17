@@ -105,13 +105,40 @@
 }
 
 .header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 0 18px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(18, 18, 18, 0.9);
   border-bottom: 1px solid rgba(2, 255, 129, 0.2);
-  margin-bottom: 18px;
+  backdrop-filter: blur(6px);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 0;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+
+.headerRight {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 140px;
 }
 
 .title {
@@ -186,6 +213,14 @@
     align-items: flex-start;
   }
   .footerLinks {
+    justify-content: flex-start;
+  }
+
+  .headerInner {
+    gap: 10px;
+  }
+
+  .nav {
     justify-content: flex-start;
   }
 }

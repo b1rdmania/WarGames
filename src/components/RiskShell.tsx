@@ -4,11 +4,13 @@ import styles from './RiskShell.module.css';
 export function RiskShell({
   title = 'WAR.MARKET',
   subtitle = 'TERMINAL',
+  nav,
   right,
   children,
 }: {
   title?: string;
   subtitle?: string;
+  nav?: ReactNode;
   right?: ReactNode;
   children: ReactNode;
 }) {
@@ -19,15 +21,20 @@ export function RiskShell({
       <div className={styles.noise} />
 
       <div className={styles.content}>
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <div>
-              <div className={styles.title}>{title}</div>
-              <div className={styles.subtitle}>{subtitle}</div>
+        <div className={styles.header}>
+          <div className={styles.container}>
+            <div className={styles.headerInner}>
+              <div className={styles.brand}>
+                <div className={styles.title}>{title}</div>
+                <div className={styles.subtitle}>{subtitle}</div>
+              </div>
+              {nav ? <div className={styles.nav}>{nav}</div> : null}
+              <div className={styles.headerRight}>{right}</div>
             </div>
-            {right}
           </div>
+        </div>
 
+        <div className={styles.container}>
           {children}
 
           <footer className={styles.footer}>

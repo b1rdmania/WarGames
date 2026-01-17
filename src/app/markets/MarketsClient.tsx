@@ -17,6 +17,7 @@ import { PortfolioSummary } from '@/components/PortfolioSummary';
 import { PortfolioLine } from '@/components/PortfolioLine';
 import { AssetPriceTicker } from '@/components/AssetPriceTicker';
 import { RiskShell } from '@/components/RiskShell';
+import { TerminalTopNav } from '@/components/TerminalTopNav';
 import { getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
 import { connectPearWebsocket } from '@/integrations/pear/websocket';
@@ -168,6 +169,7 @@ export default function MarketsClient() {
     return (
       <RiskShell
         subtitle="SETUP"
+        nav={<TerminalTopNav />}
         right={
           isConnected && address ? (
             <button
@@ -230,6 +232,7 @@ export default function MarketsClient() {
   return (
     <RiskShell
       subtitle="MARKETS"
+      nav={<TerminalTopNav />}
       right={
         isConnected && address ? (
           <button
@@ -246,6 +249,13 @@ export default function MarketsClient() {
     >
       <div className="-mt-2 mb-4">
         <AssetPriceTicker />
+      </div>
+
+      <div className="mb-6">
+        <div className="text-3xl font-mono font-bold tracking-widest text-pear-lime">MARKETS</div>
+        <div className="mt-2 text-sm font-mono text-gray-500">
+          Trade synthetic macro-volatility indices built from neutral feeds.
+        </div>
       </div>
 
       <PortfolioLine
