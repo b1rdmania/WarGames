@@ -8,9 +8,12 @@ import { executePosition } from '@/integrations/pear/positions';
 import { MarketCard } from '@/components/MarketCard';
 import { BetModal } from '@/components/BetModal';
 import { PositionsPanel } from '@/components/PositionsPanel';
+import { BalancesPanel } from '@/components/BalancesPanel';
+import { useVaultBalances } from '@/hooks/useVaultBalances';
 
 export default function MarketsPage() {
   const { accessToken, isAuthenticated, isAuthenticating, authenticate } = usePear();
+  const { perpUsdc } = useVaultBalances(accessToken);
 
   const [betModalOpen, setBetModalOpen] = useState(false);
   const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
@@ -101,9 +104,12 @@ export default function MarketsPage() {
 
       {/* Positions Panel */}
       {isAuthenticated && (
-        <div className="mb-6">
-          <div className="text-sm text-war-green mb-3 font-mono">[ YOUR BETS ]</div>
-          <PositionsPanel accessToken={accessToken} />
+        <div className="mb-6 space-y-4">
+          <BalancesPanel accessToken={accessToken} />
+          <div>
+            <div className="text-sm text-war-green mb-3 font-mono">[ YOUR BETS ]</div>
+            <PositionsPanel accessToken={accessToken} />
+          </div>
         </div>
       )}
 
@@ -157,6 +163,7 @@ export default function MarketsPage() {
         isOpen={betModalOpen}
         marketId={selectedMarket}
         side={selectedSide}
+        perpUsdc={perpUsdc}
         onClose={() => setBetModalOpen(false)}
         onConfirm={handleConfirmBet}
       />

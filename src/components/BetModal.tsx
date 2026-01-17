@@ -8,11 +8,12 @@ interface BetModalProps {
   isOpen: boolean;
   marketId: string | null;
   side: 'long' | 'short' | null;
+  perpUsdc?: string | null;
   onClose: () => void;
   onConfirm: (marketId: string, side: 'long' | 'short', amount: string) => Promise<void>;
 }
 
-export function BetModal({ isOpen, marketId, side, onClose, onConfirm }: BetModalProps) {
+export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm }: BetModalProps) {
   const [amount, setAmount] = useState('');
   const [isExecuting, setIsExecuting] = useState(false);
   const [error, setError] = useState<string>();
@@ -67,6 +68,13 @@ export function BetModal({ isOpen, marketId, side, onClose, onConfirm }: BetModa
   const leverage = market.leverage;
   const effectiveExposure = amount ? (parseFloat(amount) * leverage).toFixed(2) : '0.00';
 
+  const perpUsdcNum = perpUsdc ? Number(perpUsdc) : null;
+  const amountNum = amount ? Number(amount) : null;
+  const hasSufficientPerpUsdc =
+    perpUsdcNum === null || !Number.isFinite(perpUsdcNum) || amountNum === null
+      ? true
+      : perpUsdcNum >= amountNum;
+
   return (
     <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
       <div className="bg-war-dark neon-border max-w-md w-full p-6">
@@ -117,6 +125,21 @@ export function BetModal({ isOpen, marketId, side, onClose, onConfirm }: BetModa
             </div>
           </div>
 
+          {/* Funding / readiness */}
+          <div className="border border-gray-700 p-3 text-xs">
+            <div className="flex justify-between">
+              <span className="text-gray-500">Perp USDC available:</span>
+              <span className="text-white">
+                {perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '—'}
+              </span>
+            </div>
+            {!hasSufficientPerpUsdc && (
+              <div className="mt-2 text-yellow-500">
+                Insufficient perp USDC for this bet amount. Fund perp collateral before betting.
+              </div>
+            )}
+          </div>
+
           {/* Error */}
           {error && (
             <div className="border border-red-500/50 p-2 text-xs text-red-400">
@@ -135,7 +158,7 @@ export function BetModal({ isOpen, marketId, side, onClose, onConfirm }: BetModa
             </button>
             <button
               onClick={handleConfirm}
-              disabled={isExecuting || !amount || parseFloat(amount) <= 0}
+              disabled={isExecuting || !amount || parseFloat(amount) <= 0 || !hasSufficientPerpUsdc}
               className={`flex-1 ${config.bgColor} text-white font-bold py-2 text-sm hover:opacity-80 disabled:opacity-30`}
             >
               {isExecuting ? 'EXECUTING...' : 'CONFIRM'}
