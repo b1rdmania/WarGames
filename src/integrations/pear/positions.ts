@@ -83,6 +83,9 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
 
   const positions = await response.json();
 
+  // Debug: Log raw position data
+  console.log('📊 Raw positions from Pear API:', JSON.stringify(positions, null, 2));
+
   const deriveMarket = (pos: any): { marketId: string; side: 'long' | 'short' } => {
     const longCoin = pos?.longAssets?.[0]?.coin;
     const shortCoin = pos?.shortAssets?.[0]?.coin;

@@ -105,12 +105,12 @@ export function PositionCard({
 
       {/* View on Pear Protocol */}
       <a
-        href={`https://www.pear.garden/position/${position.id}`}
+        href="https://app.pear.garden/dashboard"
         target="_blank"
         rel="noopener noreferrer"
         className="block text-center text-sm text-pear-lime hover:text-pear-lime-light mb-4 transition-colors font-medium"
       >
-        View on Pear Protocol ↗
+        View on Pear Dashboard ↗
       </a>
 
       {/* Close button */}
