@@ -4,7 +4,7 @@
 // to avoid hydration mismatches caused by wallet extensions/wagmi connection state.
 
 import { useState, useEffect } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { usePear } from '@/contexts/PearContext';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
@@ -24,6 +24,7 @@ import toast from 'react-hot-toast';
 
 export default function MarketsClient() {
   const { isConnected, address } = useAccount();
+  const { disconnect } = useDisconnect();
   const { accessToken, isAuthenticated } = usePear();
   const { perpUsdc } = useVaultBalances(accessToken);
   const { markets: validatedMarkets } = useValidatedMarkets();
@@ -102,8 +103,8 @@ export default function MarketsClient() {
             icon: '✅',
             style: {
               background: '#000',
-              color: '#a2db5c',
-              border: '1px solid #a2db5c33',
+              color: '#02ff81',
+              border: '1px solid #02ff8133',
               fontFamily: 'monospace',
             },
           });
@@ -122,8 +123,8 @@ export default function MarketsClient() {
             icon: '🎯',
             style: {
               background: '#000',
-              color: '#a2db5c',
-              border: '1px solid #a2db5c33',
+              color: '#02ff81',
+              border: '1px solid #02ff8133',
               fontFamily: 'monospace',
             },
           });
@@ -150,13 +151,21 @@ export default function MarketsClient() {
       <RiskShell
         subtitle="SETUP"
         right={
-          <div className="text-xs font-mono text-gray-400">
-            {address ? `${address.slice(0, 6)}…${address.slice(-4)}` : 'NOT CONNECTED'}
-          </div>
+          isConnected && address ? (
+            <button
+              onClick={() => disconnect()}
+              className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
+              title="Disconnect"
+            >
+              {address.slice(0, 6)}…{address.slice(-4)}
+            </button>
+          ) : (
+            <div className="text-xs font-mono text-gray-500">NOT CONNECTED</div>
+          )
         }
       >
         {!isConnected ? (
-          <div className="border border-pear-lime/20 bg-black/40 p-6">
+          <div className="pear-border bg-black/40 p-6">
             <div className="text-sm font-mono text-gray-300 mb-3">[ CONNECT WALLET ]</div>
             <div className="text-sm text-gray-400 mb-4">
               Connect your wallet to authenticate with Pear and create an agent wallet.
@@ -182,9 +191,17 @@ export default function MarketsClient() {
     <RiskShell
       subtitle="MARKETS"
       right={
-        <div className="text-xs font-mono text-gray-400">
-          {address ? `${address.slice(0, 6)}…${address.slice(-4)}` : '—'}
-        </div>
+        isConnected && address ? (
+          <button
+            onClick={() => disconnect()}
+            className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
+            title="Disconnect"
+          >
+            {address.slice(0, 6)}…{address.slice(-4)}
+          </button>
+        ) : (
+          <div className="text-xs font-mono text-gray-500">—</div>
+        )
       }
     >
       <div className="-mt-2 mb-4">
@@ -200,11 +217,11 @@ export default function MarketsClient() {
             <div className="text-sm font-mono text-gray-300 mb-3">[ ACTIVE POSITIONS ]</div>
 
             {loadingPositions ? (
-              <div className="border border-pear-lime/20 bg-black/40 p-6 font-mono text-sm text-gray-400">
+              <div className="pear-border bg-black/40 p-6 font-mono text-sm text-gray-400">
                 Loading…
               </div>
             ) : positions.length === 0 ? (
-              <div className="border border-pear-lime/20 bg-black/40 p-6 font-mono text-sm text-gray-400">
+              <div className="pear-border bg-black/40 p-6 font-mono text-sm text-gray-400">
                 No active positions.
               </div>
             ) : accessToken ? (

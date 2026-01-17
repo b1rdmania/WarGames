@@ -8,9 +8,8 @@ export function AssetPriceTicker() {
   const { prices, isConnected } = useLiveMarketData(address);
 
   return (
-    <div className="bg-gradient-to-r from-black/40 via-black/30 to-black/40 border-y border-pear-lime/10 py-3 mb-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide">
+    <div className="pear-border bg-black/40 py-2 overflow-hidden">
+      <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide px-4">
           {/* Live connection indicator */}
           {isConnected && (
             <div className="flex items-center gap-1.5 pr-4 border-r border-pear-lime/20">
@@ -35,7 +34,6 @@ export function AssetPriceTicker() {
               </span>
             </div>
           ))}
-        </div>
       </div>
     </div>
   );

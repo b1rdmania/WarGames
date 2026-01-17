@@ -8,7 +8,7 @@ export function Navbar() {
   const pathname = usePathname();
 
   // Landing page is a full-screen hero; hide the app chrome there.
-  if (pathname === '/') return null;
+  if (pathname === '/' || pathname.startsWith('/markets')) return null;
 
   return (
     <nav className="border-b pear-border bg-pear-panel">
