@@ -4,14 +4,25 @@ export interface PearAuthResponse {
   expiresIn: number;
 }
 
+export interface BasketAsset {
+  asset: string;
+  weight: number;
+}
+
 export interface PearMarketConfig {
   id: string;
   name: string;
   description: string;
-  category: 'geopolitical' | 'tech';
-  pairs: {
-    long: string;  // Token symbol for long side
-    short: string; // Token symbol for short side
+  category: 'geopolitical' | 'tech' | 'macro';
+  // Simple pairs (backward compatible)
+  pairs?: {
+    long: string;
+    short: string;
+  };
+  // OR multi-asset baskets
+  basket?: {
+    long: BasketAsset[];
+    short: BasketAsset[];
   };
   leverage: number;
 }
@@ -19,6 +30,11 @@ export interface PearMarketConfig {
 export interface ResolvedPairs {
   long: string;
   short: string;
+}
+
+export interface ResolvedBasket {
+  long: BasketAsset[];
+  short: BasketAsset[];
 }
 
 export interface PearPosition {
@@ -65,4 +81,5 @@ export interface ExecutePositionParams {
   amount: string;
   leverage: number;
   resolvedPairs?: ResolvedPairs;
+  resolvedBasket?: ResolvedBasket;
 }

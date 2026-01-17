@@ -12,26 +12,28 @@ export async function executePosition(
     throw new Error('Market not found');
   }
 
-  const pairs = params.resolvedPairs ?? market.pairs;
+  let longAssets, shortAssets;
+
+  // Handle basket markets
+  if (params.resolvedBasket || market.basket) {
+    const basket = params.resolvedBasket ?? market.basket!;
+    longAssets = params.side === 'long' ? basket.long : basket.short;
+    shortAssets = params.side === 'long' ? basket.short : basket.long;
+  }
+  // Handle simple pair markets (backward compatible)
+  else {
+    const pairs = params.resolvedPairs ?? market.pairs!;
+    longAssets = [{ asset: params.side === 'long' ? pairs.long : pairs.short, weight: 1.0 }];
+    shortAssets = [{ asset: params.side === 'long' ? pairs.short : pairs.long, weight: 1.0 }];
+  }
 
   const requestBody = {
     slippage: 0.01, // 1%
     executionType: 'MARKET',
     leverage: params.leverage,
     usdValue: parseFloat(params.amount),
-    longAssets: [
-      {
-        // Pear API spec uses `asset` key.
-        asset: params.side === 'long' ? pairs.long : pairs.short,
-        weight: 1.0,
-      },
-    ],
-    shortAssets: [
-      {
-        asset: params.side === 'long' ? pairs.short : pairs.long,
-        weight: 1.0,
-      },
-    ],
+    longAssets,
+    shortAssets,
   };
 
   // Log request for debugging
