@@ -79,3 +79,17 @@ Goal: restructure the app into a simple, judge-friendly flow with clear separati
 - `/portfolio` shows balances + positions; refresh does not cause layout jumps.
 - Wallet connect defaults to injected wallets (not MetaMask-first).
 
+## Music tracks (top bar selector)
+
+The terminal pages include a **MUSIC** selector in the sticky top bar.
+
+Expected files:
+- `public/music/1.mp3`
+- `public/music/2.mp3`
+- `public/music/3.mp3`
+- `public/music/4.mp3`
+
+Notes:
+- Music is **disabled on `/`** (splash has its own splash-only audio).
+- Music defaults to **muted** until the user selects a track (browser autoplay rules).
+

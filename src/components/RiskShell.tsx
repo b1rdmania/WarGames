@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import styles from './RiskShell.module.css';
+import { MusicControls } from './MusicControls';
 
 export function RiskShell({
   title = 'WAR.MARKET',
@@ -29,7 +30,12 @@ export function RiskShell({
                 <div className={styles.subtitle}>{subtitle}</div>
               </div>
               {nav ? <div className={styles.nav}>{nav}</div> : null}
-              <div className={styles.headerRight}>{right}</div>
+              <div className={styles.headerRight}>
+                <div className={styles.headerWidgets}>
+                  <MusicControls />
+                  {right}
+                </div>
+              </div>
             </div>
           </div>
         </div>
