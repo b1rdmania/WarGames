@@ -14,6 +14,7 @@ import { useVaultBalances } from '@/hooks/useVaultBalances';
 export default function MarketsPage() {
   const { accessToken, isAuthenticated, isAuthenticating, authenticate } = usePear();
   const { perpUsdc } = useVaultBalances(accessToken);
+  const [positionsRefreshKey, setPositionsRefreshKey] = useState(0);
 
   const [betModalOpen, setBetModalOpen] = useState(false);
   const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
@@ -54,8 +55,11 @@ export default function MarketsPage() {
       leverage: 3, // Default leverage
     });
 
-    // Refresh positions after execution
-    window.location.reload(); // Simple refresh for now
+    setBetModalOpen(false);
+    setSelectedMarket(null);
+    setSelectedSide(null);
+    setPositionsRefreshKey((k) => k + 1);
+    toast.success('Bet placed');
   };
 
   const filteredMarkets = activeTab === 'all'
@@ -108,7 +112,7 @@ export default function MarketsPage() {
           <BalancesPanel accessToken={accessToken} />
           <div>
             <div className="text-sm text-war-green mb-3 font-mono">[ YOUR BETS ]</div>
-            <PositionsPanel accessToken={accessToken} />
+            <PositionsPanel accessToken={accessToken} refreshKey={positionsRefreshKey} />
           </div>
         </div>
       )}

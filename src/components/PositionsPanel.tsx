@@ -1,26 +1,22 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import toast from 'react-hot-toast';
 import { getActivePositions, closePosition } from '@/integrations/pear/positions';
 import { getMarketById } from '@/integrations/pear/markets';
 import type { PearPosition } from '@/integrations/pear/types';
 
 interface PositionsPanelProps {
   accessToken: string | null;
+  refreshKey?: number;
 }
 
-export function PositionsPanel({ accessToken }: PositionsPanelProps) {
+export function PositionsPanel({ accessToken, refreshKey }: PositionsPanelProps) {
   const [positions, setPositions] = useState<PearPosition[]>([]);
   const [loading, setLoading] = useState(false);
   const [closingId, setClosingId] = useState<string>();
 
-  useEffect(() => {
-    if (accessToken) {
-      loadPositions();
-    }
-  }, [accessToken]);
-
-  const loadPositions = async () => {
+  const loadPositions = useCallback(async () => {
     if (!accessToken) return;
 
     setLoading(true);
@@ -29,10 +25,17 @@ export function PositionsPanel({ accessToken }: PositionsPanelProps) {
       setPositions(data);
     } catch (error) {
       console.error('Failed to load positions:', error);
+      toast.error((error as Error).message || 'Failed to load positions');
     } finally {
       setLoading(false);
     }
-  };
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (accessToken) {
+      loadPositions();
+    }
+  }, [accessToken, loadPositions, refreshKey]);
 
   const handleClose = async (positionId: string) => {
     if (!accessToken) return;
@@ -41,9 +44,10 @@ export function PositionsPanel({ accessToken }: PositionsPanelProps) {
     try {
       await closePosition(accessToken, positionId);
       await loadPositions(); // Reload positions
+      toast.success('Position closed');
     } catch (error) {
       console.error('Failed to close position:', error);
-      alert('Failed to close position: ' + (error as Error).message);
+      toast.error('Failed to close position: ' + (error as Error).message);
     } finally {
       setClosingId(undefined);
     }
@@ -67,14 +71,32 @@ export function PositionsPanel({ accessToken }: PositionsPanelProps) {
 
   if (positions.length === 0) {
     return (
-      <div className="bg-war-panel neon-border p-6 text-center">
-        <p className="text-gray-400">No active positions</p>
+      <div className="bg-war-panel neon-border p-6">
+        <div className="flex items-center justify-between gap-4">
+          <p className="text-gray-400">No active positions</p>
+          <button
+            onClick={() => loadPositions()}
+            disabled={loading}
+            className="neon-border text-war-green px-3 py-2 text-xs hover:neon-glow disabled:opacity-50"
+          >
+            REFRESH
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="space-y-4">
+      <div className="flex justify-end">
+        <button
+          onClick={() => loadPositions()}
+          disabled={loading}
+          className="neon-border text-war-green px-3 py-2 text-xs hover:neon-glow disabled:opacity-50"
+        >
+          REFRESH
+        </button>
+      </div>
       {positions.map((position) => {
         const market = getMarketById(position.marketId);
         const pnl = parseFloat(position.pnl);
