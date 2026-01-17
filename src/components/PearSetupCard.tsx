@@ -2,11 +2,14 @@
 
 import { usePear } from '@/contexts/PearContext';
 import toast from 'react-hot-toast';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId, useSwitchChain } from 'wagmi';
+import { arbitrum } from 'wagmi/chains';
 
 export function PearSetupCard() {
   const { address, isConnected } = useAccount();
   const { runSetup, isAuthenticating, statusLine, agentWallet } = usePear();
+  const chainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
 
   return (
     <div className="pear-border bg-black/40 p-6">
@@ -55,6 +58,36 @@ export function PearSetupCard() {
             Your agent wallet will be created automatically.
           </p>
         </div>
+
+        {isConnected && chainId !== arbitrum.id && (
+          <div className="border border-yellow-500/40 p-4 text-xs text-yellow-200">
+            <div className="font-mono mb-2">WRONG NETWORK</div>
+            <div className="text-gray-200">
+              Pear auth signing requires <span className="text-white font-bold">Arbitrum (chainId {arbitrum.id})</span>. You
+              are currently on chainId <span className="text-white font-bold">{chainId}</span>.
+            </div>
+            <div className="mt-3">
+              <button
+                type="button"
+                className="tm-btn"
+                onClick={() => {
+                  (async () => {
+                    try {
+                      if (!switchChainAsync) throw new Error('Wallet does not support chain switching');
+                      await switchChainAsync({ chainId: arbitrum.id });
+                      toast.success('Switched to Arbitrum');
+                    } catch (e) {
+                      console.error(e);
+                      toast.error((e as Error).message || 'Failed to switch chain');
+                    }
+                  })();
+                }}
+              >
+                SWITCH TO ARBITRUM
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Action button */}
         <button

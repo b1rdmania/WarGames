@@ -109,7 +109,10 @@ export function PearProvider({ children }: { children: ReactNode }) {
           if (!switchChainAsync) {
             throw new Error(`Please switch your wallet network to chainId ${domainChainId} and retry.`);
           }
-          await switchChainAsync({ chainId: domainChainId });
+          const switched = await switchChainAsync({ chainId: domainChainId });
+          if (switched?.id !== domainChainId) {
+            throw new Error(`Failed to switch wallet network to chainId ${domainChainId}. Please switch manually and retry.`);
+          }
         }
       }
 
@@ -159,7 +162,11 @@ export function PearProvider({ children }: { children: ReactNode }) {
         err.message?.includes('Provided chainId') &&
         err.message?.includes('must match the active chainId')
       ) {
-        setError(new Error(`Wallet network mismatch. Pear auth signing requires Arbitrum (chainId ${arbitrum.id}). Please switch and retry.`));
+        const mapped = new Error(
+          `Wallet network mismatch. Pear auth signing requires Arbitrum (chainId ${arbitrum.id}). Please switch and retry.`
+        );
+        setError(mapped);
+        throw mapped;
       }
       throw err;
     } finally {
