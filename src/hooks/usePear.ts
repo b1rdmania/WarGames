@@ -15,6 +15,7 @@ import {
 } from '@/integrations/pear/auth';
 import { getAgentWallet, createAgentWallet } from '@/integrations/pear/agent';
 import { PearApiError } from '@/integrations/pear/errors';
+import { emitDebugLog } from '@/lib/debugLog';
 
 export function usePear() {
   const { address, isConnected } = useAccount();
@@ -79,8 +80,15 @@ export function usePear() {
     setRequiredChainId(null);
 
     try {
+      emitDebugLog({ level: 'info', scope: 'setup', message: 'RUN SETUP start' });
       setStatusLine('AUTH: /auth/eip712-message');
       const { eip712Data, clientId } = await getAuthEip712Message(address);
+      emitDebugLog({
+        level: 'info',
+        scope: 'auth',
+        message: 'EIP712 message fetched',
+        data: { clientId, domainChainId: eip712Data?.domain?.chainId },
+      });
       const domainChainId = Number(eip712Data?.domain?.chainId);
       if (Number.isFinite(domainChainId)) {
         setRequiredChainId(domainChainId);
@@ -88,6 +96,7 @@ export function usePear() {
         // Spec: docs/pear-docs/AUTHENTICATION.md
         if (activeChainId !== domainChainId) {
           setStatusLine(`SWITCH CHAIN: ${domainChainId}`);
+          emitDebugLog({ level: 'warn', scope: 'chain', message: 'Switching for auth signing', data: { from: activeChainId, to: domainChainId } });
           if (!switchChainAsync) {
             throw new Error(`Please switch your wallet network to chainId ${domainChainId} and retry.`);
           }
@@ -102,6 +111,7 @@ export function usePear() {
         primaryType: eip712Data.primaryType,
         message: eip712Data.message,
       });
+      emitDebugLog({ level: 'info', scope: 'auth', message: 'EIP712 signature obtained' });
 
       setStatusLine('AUTH: /auth/login');
       const result = await loginWithEip712Signature({
@@ -111,15 +121,18 @@ export function usePear() {
         timestamp: eip712Data.message.timestamp,
       });
       setStatusLine('AUTH: TOKEN RECEIVED');
+      emitDebugLog({ level: 'info', scope: 'auth', message: 'Auth ok (token received)', data: { expiresIn: result.expiresIn } });
 
       setAccessToken(result.accessToken);
       saveAuthTokens(result.accessToken, result.refreshToken, result.expiresIn, address);
 
       setStatusLine('AGENT: /agentWallet (GET)');
+      emitDebugLog({ level: 'info', scope: 'agent', message: 'GET /agentWallet' });
       let wallet = await getAgentWallet(result.accessToken);
 
       if (!wallet.exists && createIfMissing) {
         setStatusLine('AGENT: /agentWallet (POST)');
+        emitDebugLog({ level: 'info', scope: 'agent', message: 'POST /agentWallet' });
         wallet = await createAgentWallet(result.accessToken);
       }
 
@@ -129,18 +142,22 @@ export function usePear() {
       // (Auth signing happens on domain.chainId, but trading UX should be HyperEVM-native.)
       if (switchChainAsync && activeChainId !== hyperEVM.id) {
         setStatusLine(`SWITCH CHAIN: ${hyperEVM.id}`);
+        emitDebugLog({ level: 'info', scope: 'chain', message: 'Switching back to HyperEVM', data: { to: hyperEVM.id } });
         try {
           await switchChainAsync({ chainId: hyperEVM.id });
         } catch {
           // Non-fatal: user can stay on current chain and still trade via Pear API.
+          emitDebugLog({ level: 'warn', scope: 'chain', message: 'Switch back to HyperEVM failed (non-fatal)' });
         }
       }
 
       setStatusLine('READY');
+      emitDebugLog({ level: 'info', scope: 'setup', message: 'RUN SETUP ready' });
     } catch (err) {
       setStatusLine('ERROR');
       setError(err as Error);
       if (err instanceof PearApiError) setLastApiError(err);
+      emitDebugLog({ level: 'error', scope: 'setup', message: 'RUN SETUP failed', data: { message: (err as Error)?.message } });
       // Map the common viem chainId mismatch into an actionable instruction.
       if (
         err instanceof Error &&

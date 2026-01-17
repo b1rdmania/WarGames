@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import type { PearMarketConfig } from '@/integrations/pear/types';
 import { executePosition } from '@/integrations/pear/positions';
+import { emitDebugLog } from '@/lib/debugLog';
 
 export function TradeTerminal({
   accessToken,
@@ -103,10 +104,17 @@ export function TradeTerminal({
                   amount,
                   leverage: market.leverage,
                 });
+                emitDebugLog({
+                  level: 'info',
+                  scope: 'trade',
+                  message: 'Position submitted',
+                  data: { marketId: market.id, side, amount, leverage: market.leverage },
+                });
                 toast.success('Bet placed');
                 onPlaced();
               } catch (e) {
                 console.error(e);
+                emitDebugLog({ level: 'error', scope: 'trade', message: 'Position submit failed', data: { message: (e as Error).message } });
                 toast.error((e as Error).message || 'Failed to place bet');
               } finally {
                 setSubmitting(false);

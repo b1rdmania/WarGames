@@ -12,6 +12,7 @@ import { WalletConnectModal } from '@/components/WalletConnectModal';
 import { PearTerminalPanel } from '@/components/PearTerminalPanel';
 import { TradeTerminal } from '@/components/TradeTerminal';
 import { MARKETS } from '@/integrations/pear/markets';
+import { DebugConsole } from '@/components/DebugConsole';
 
 export default function MarketsPage() {
   const { isConnected } = useAccount();
@@ -34,6 +35,10 @@ export default function MarketsPage() {
 
       <div className="mb-6">
         <PearTerminalPanel onRequestConnect={() => setConnectModalOpen(true)} />
+      </div>
+
+      <div className="mb-6">
+        <DebugConsole />
       </div>
 
       {/* Positions Panel */}

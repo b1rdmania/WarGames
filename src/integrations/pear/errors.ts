@@ -18,6 +18,16 @@ export async function toPearApiError(res: Response, endpoint: string): Promise<P
     (body as any)?.error ||
     (body as any)?.message ||
     `Request failed (${res.status})`;
+  // Client-side logging (safe): avoid secrets; include endpoint/status/body shape.
+  if (typeof window !== 'undefined') {
+    const { emitDebugLog } = await import('@/lib/debugLog');
+    emitDebugLog({
+      level: res.status >= 500 ? 'error' : 'warn',
+      scope: 'pear',
+      message: `${res.status} ${endpoint}`,
+      data: body,
+    });
+  }
   return new PearApiError({ endpoint, status: res.status, message, body });
 }
 
