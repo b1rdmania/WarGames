@@ -1,0 +1,108 @@
+.shell {
+  /* Scoped terminal theme vars */
+  --rm-dark-bg: #0a0a0a;
+  --rm-dark-panel: #121212;
+  --rm-neon-green: #02ff81;
+  --rm-text-primary: #e0e0e0;
+  --rm-text-secondary: #888888;
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--rm-dark-bg);
+  color: var(--rm-text-primary);
+  overflow-x: hidden;
+}
+
+.noise {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px);
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  z-index: 5;
+}
+
+.mapBackground {
+  position: fixed;
+  inset: 0;
+  opacity: 0.12;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(2, 255, 129, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 80% 30%, rgba(244, 201, 93, 0.10) 0%, transparent 60%),
+    radial-gradient(circle at 50% 70%, rgba(2, 255, 129, 0.08) 0%, transparent 50%);
+  background-size: cover, cover, cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(0.5px);
+}
+
+@keyframes scanLine {
+  0% {
+    transform: translateY(-100vh);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.scanLine {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to bottom, transparent, var(--rm-neon-green), transparent);
+  animation: scanLine 10s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0 18px;
+  border-bottom: 1px solid rgba(2, 255, 129, 0.2);
+  margin-bottom: 18px;
+}
+
+.title {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--rm-neon-green);
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 12px;
+  color: var(--rm-text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.panel {
+  background: rgba(18, 18, 18, 0.85);
+  border: 1px solid rgba(2, 255, 129, 0.22);
+  padding: 18px;
+}
+
