@@ -86,7 +86,7 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
         <div className="mt-4">
           <button
             onClick={onClose}
-            className="w-full border border-gray-700 text-gray-300 py-2 text-sm hover:border-gray-500"
+            className="w-full pear-border text-gray-300 py-2 text-sm font-mono hover:pear-glow"
           >
             CANCEL
           </button>

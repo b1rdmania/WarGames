@@ -19,6 +19,28 @@
   background: var(--rm-dark-bg);
   color: var(--rm-text-primary);
   overflow-x: hidden;
+
+  /* Prevent iOS/Safari from rendering native light form controls inside the terminal */
+  color-scheme: dark;
+}
+
+/* Strip native control appearance within the terminal shell (iOS/Safari “white” selects/buttons) */
+.shell input,
+.shell select,
+.shell textarea,
+.shell button {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+.shell select {
+  background-image: none;
+}
+
+.shell option {
+  background: #000;
+  color: #fff;
 }
 
 .noise {

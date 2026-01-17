@@ -23,7 +23,7 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
   };
 
   return (
-    <div className="bg-pear-dark border border-pear-lime/30 p-4 hover:border-pear-lime transition-colors">
+    <div className="bg-black/40 pear-border p-4 hover:pear-glow transition-colors">
       {/* Header */}
       <div className="flex justify-between items-start mb-3 text-xs">
         <span className="text-gray-500">{categoryLabels[market.category]}</span>
@@ -41,7 +41,7 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
       </p>
 
       {/* Pair Display */}
-      <div className="border border-gray-700 p-2 mb-3 text-xs">
+      <div className="pear-border bg-black/20 p-2 mb-3 text-xs font-mono">
         {market.isRemapped && (
           <div className="text-[10px] text-yellow-500 mb-2">
             REMAPPED UNDERLYING (demo safety): {market.remapReason}
@@ -62,13 +62,13 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
       <div className="grid grid-cols-2 gap-2">
         <button
           onClick={() => onBet(market.id, 'long', market.resolvedPairs ?? market.pairs)}
-          className="bg-green-600 hover:bg-green-500 text-white text-sm font-bold py-2"
+          className="pear-border bg-pear-lime/10 text-pear-lime text-sm font-mono py-2 hover:pear-glow"
         >
           UP ↑
         </button>
         <button
           onClick={() => onBet(market.id, 'short', market.resolvedPairs ?? market.pairs)}
-          className="bg-red-600 hover:bg-red-500 text-white text-sm font-bold py-2"
+          className="border border-red-400/30 bg-red-500/10 text-red-300 text-sm font-mono py-2 hover:shadow-[0_0_10px_rgba(239,68,68,0.15)]"
         >
           DOWN ↓
         </button>

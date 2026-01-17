@@ -108,13 +108,13 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="10"
-              className="w-full bg-black border border-pear-lime/30 px-3 py-2 text-pear-lime font-mono focus:outline-none focus:border-pear-lime"
+              className="w-full bg-black/30 pear-border px-3 py-2 text-pear-lime font-mono focus:outline-none"
               disabled={isExecuting}
             />
           </div>
 
           {/* Leverage Info */}
-          <div className="border border-gray-700 p-3 text-xs">
+          <div className="pear-border bg-black/20 p-3 text-xs font-mono">
             <div className="flex justify-between mb-1">
               <span className="text-gray-500">Leverage:</span>
               <span className="text-pear-lime">{leverage}x</span>
@@ -126,7 +126,7 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
           </div>
 
           {/* Funding / readiness */}
-          <div className="border border-gray-700 p-3 text-xs">
+          <div className="pear-border bg-black/20 p-3 text-xs font-mono">
             <div className="flex justify-between">
               <span className="text-gray-500">Perp USDC available:</span>
               <span className="text-white">
@@ -152,14 +152,18 @@ export function BetModal({ isOpen, marketId, side, perpUsdc, onClose, onConfirm 
             <button
               onClick={handleClose}
               disabled={isExecuting}
-              className="flex-1 border border-gray-700 text-gray-400 py-2 text-sm hover:border-gray-500 disabled:opacity-30"
+              className="flex-1 pear-border text-gray-300 py-2 text-sm font-mono hover:pear-glow disabled:opacity-30"
             >
               CANCEL
             </button>
             <button
               onClick={handleConfirm}
               disabled={isExecuting || !amount || parseFloat(amount) <= 0 || !hasSufficientPerpUsdc}
-              className={`flex-1 ${config.bgColor} text-white font-bold py-2 text-sm hover:opacity-80 disabled:opacity-30`}
+              className={`flex-1 pear-border py-2 text-sm font-mono disabled:opacity-30 ${
+                side === 'long'
+                  ? 'bg-pear-lime/10 text-pear-lime hover:pear-glow'
+                  : 'bg-red-500/10 text-red-300 hover:shadow-[0_0_10px_rgba(239,68,68,0.15)]'
+              }`}
             >
               {isExecuting ? 'EXECUTING...' : 'CONFIRM'}
             </button>

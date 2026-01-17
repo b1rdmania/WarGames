@@ -72,7 +72,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="0.01"
-              className="w-full bg-black border border-pear-lime/30 px-3 py-2 text-pear-lime font-mono focus:outline-none focus:border-pear-lime"
+              className="w-full bg-black/30 pear-border px-3 py-2 text-pear-lime font-mono focus:outline-none"
               disabled={status === 'executing'}
               step="0.01"
             />
@@ -83,7 +83,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
             <button
               onClick={handleFindRoutes}
               disabled={!amount || parseFloat(amount) <= 0}
-              className="w-full bg-pear-lime text-black font-bold py-2 hover:opacity-80 disabled:opacity-30"
+              className="w-full pear-border text-pear-lime font-mono py-2 hover:pear-glow disabled:opacity-30"
             >
               → FIND ROUTES
             </button>
@@ -91,7 +91,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
 
           {/* Loading State */}
           {status === 'fetching-routes' && (
-            <div className="border border-pear-lime/30 p-4 text-center">
+            <div className="pear-border bg-black/20 p-4 text-center">
               <p className="text-pear-lime font-mono">[ SEARCHING ROUTES... ]</p>
             </div>
           )}
@@ -106,7 +106,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
                 <button
                   key={index}
                   onClick={() => handleExecute(route)}
-                  className="w-full border border-pear-lime/30 hover:border-pear-lime p-3 text-left"
+                  className="w-full pear-border bg-black/20 hover:pear-glow p-3 text-left"
                 >
                   <div className="flex justify-between items-center">
                     <div>
@@ -126,7 +126,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
 
           {/* Executing State */}
           {status === 'executing' && (
-            <div className="border border-pear-lime p-4">
+            <div className="pear-border bg-black/20 p-4">
               <p className="text-pear-lime font-mono mb-2">[ EXECUTING... ]</p>
               <p className="text-xs text-gray-500">Do not close this window</p>
               {txHash && (
@@ -142,7 +142,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
 
           {/* Success State */}
           {status === 'success' && (
-            <div className="border border-pear-lime p-4">
+            <div className="pear-border bg-black/20 p-4">
               <p className="text-pear-lime font-bold mb-2">✓ COMPLETE</p>
               <p className="text-xs text-gray-500 mb-4">Funds bridged to HyperEVM</p>
               {txHash && (
@@ -152,7 +152,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
               )}
               <button
                 onClick={handleClose}
-                className="w-full bg-pear-lime text-black font-bold py-2"
+                className="w-full pear-border text-pear-lime font-mono py-2 hover:pear-glow"
               >
                 CLOSE
               </button>
@@ -171,7 +171,7 @@ export function BridgeModal({ isOpen, onClose }: BridgeModalProps) {
                   reset();
                   setSelectedRoute(undefined);
                 }}
-                className="w-full bg-pear-lime text-black font-bold py-2"
+                className="w-full pear-border text-pear-lime font-mono py-2 hover:pear-glow"
               >
                 RETRY
               </button>

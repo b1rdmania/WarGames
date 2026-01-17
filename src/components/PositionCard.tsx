@@ -93,7 +93,7 @@ export function PositionCard({
             </div>
           )}
           {position.stopLoss && (
-            <div className="bg-black/20 p-3 border border-red-400/10">
+            <div className="bg-red-500/10 p-3 border border-red-400/30">
               <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-1">Stop Loss</div>
               <div className="text-sm text-red-400 font-mono">
                 {position.stopLoss.type === 'PERCENTAGE' ? `${position.stopLoss.value}%` : `$${position.stopLoss.value}`}

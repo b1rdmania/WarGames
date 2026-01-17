@@ -39,7 +39,7 @@ export function TradingPanel({
           <select
             value={marketId}
             onChange={(e) => setMarketId(e.target.value)}
-            className="w-full bg-black/30 border border-pear-lime/20 px-4 py-3 text-white focus:border-pear-lime focus:outline-none"
+            className="w-full bg-black/30 pear-border px-4 py-3 text-white focus:outline-none"
           >
             {markets.map((m) => (
               <option key={m.id} value={m.id} className="bg-pear-dark">
@@ -104,7 +104,7 @@ export function TradingPanel({
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full bg-black/30 border border-pear-lime/20 px-4 py-3 text-white text-lg font-mono focus:border-pear-lime focus:outline-none"
+            className="w-full bg-black/30 pear-border px-4 py-3 text-white text-lg font-mono focus:outline-none"
             placeholder="10"
           />
           {balance && (
