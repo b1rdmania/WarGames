@@ -34,7 +34,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [selectedTrackId, setSelectedTrackId] = useState<number>(1);
-  const [muted, setMuted] = useState<boolean>(true); // default muted until user opts in (autoplay rules)
+  const [muted, setMuted] = useState<boolean>(false); // attempt autoplay on main app pages
 
   const selectedTrack = useMemo(
     () => TRACKS.find((t) => t.id === selectedTrackId) ?? TRACKS[0],
