@@ -172,7 +172,7 @@ export default function MarketsClient() {
             </div>
             <button
               onClick={() => setConnectModalOpen(true)}
-              className="w-full pear-border pear-text py-3 font-mono text-sm hover:pear-glow"
+              className="tm-btn w-full"
             >
               CONNECT WALLET
             </button>

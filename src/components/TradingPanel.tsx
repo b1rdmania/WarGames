@@ -35,11 +35,11 @@ export function TradingPanel({
       <div className="space-y-6">
         {/* Market selector */}
         <div>
-          <label className="block text-xs font-mono text-gray-500 mb-2 uppercase tracking-wider">Market</label>
+          <label className="block tm-label mb-2">Market</label>
           <select
             value={marketId}
             onChange={(e) => setMarketId(e.target.value)}
-            className="w-full bg-black/30 pear-border px-4 py-3 text-white focus:outline-none"
+            className="tm-control"
           >
             {markets.map((m) => (
               <option key={m.id} value={m.id} className="bg-pear-dark">
@@ -65,24 +65,24 @@ export function TradingPanel({
 
         {/* Direction */}
         <div>
-          <label className="block text-xs font-mono text-gray-500 mb-2 uppercase tracking-wider">Direction</label>
+          <label className="block tm-label mb-2">Direction</label>
           <div className="grid grid-cols-2 gap-3">
             <button
               onClick={() => setSide('long')}
-              className={`py-3 font-mono text-sm transition-all border ${
+              className={`tm-btn w-full ${
                 side === 'long'
-                  ? 'bg-pear-lime/15 text-pear-lime border-pear-lime/40'
-                  : 'bg-black/30 text-gray-400 hover:bg-black/50 border-pear-lime/15'
+                  ? ''
+                  : 'text-gray-400 border-pear-lime/20'
               }`}
             >
               ↑ BET UP
             </button>
             <button
               onClick={() => setSide('short')}
-              className={`py-3 font-mono text-sm transition-all border ${
+              className={`tm-btn tm-btn-danger w-full ${
                 side === 'short'
-                  ? 'bg-red-500/15 text-red-300 border-red-400/40'
-                  : 'bg-black/30 text-gray-400 hover:bg-black/50 border-pear-lime/15'
+                  ? ''
+                  : 'text-gray-400 border-pear-lime/20'
               }`}
             >
               ↓ BET DOWN
@@ -99,12 +99,12 @@ export function TradingPanel({
 
         {/* Amount */}
         <div>
-          <label className="block text-xs font-mono text-gray-500 mb-2 uppercase tracking-wider">Amount (USDC)</label>
+          <label className="block tm-label mb-2">Amount (USDC)</label>
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full bg-black/30 pear-border px-4 py-3 text-white text-lg font-mono focus:outline-none"
+            className="tm-control"
             placeholder="10"
           />
           {balance && (

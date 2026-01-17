@@ -65,7 +65,7 @@ export function PearSetupCard() {
             });
           }}
           disabled={isAuthenticating || !isConnected}
-          className="w-full pear-border pear-text py-3 font-mono text-sm hover:pear-glow disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full tm-btn disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isAuthenticating ? (
             'AUTHENTICATING…'

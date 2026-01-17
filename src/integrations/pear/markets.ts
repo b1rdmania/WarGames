@@ -1,133 +1,129 @@
 import type { PearMarketConfig } from './types';
 
 export const MARKETS: PearMarketConfig[] = [
-  // === GEOPOLITICAL NARRATIVES ===
+  // === GEOPOLITICAL BASKETS ===
 
   {
-    id: 'gulf-tech-pivot',
-    name: 'Gulf Tech Pivot',
-    description: 'Saudi Vision 2030 - will Gulf states escape oil dependency?',
+    id: 'taiwan-strait-crisis',
+    name: 'Taiwan Strait Crisis',
+    description: 'US chip independence vs TSMC supply chain dependency',
     category: 'geopolitical',
-    pairs: {
-      long: 'NVDA',  // Tech proxy (no QQQ on Pear)
-      short: 'OIL',
+    basket: {
+      long: [
+        { asset: 'INTC', weight: 0.40 },  // US fab buildout
+        { asset: 'AMD', weight: 0.30 },   // US chip design
+        { asset: 'ORCL', weight: 0.30 },  // US infrastructure
+      ],
+      short: [
+        { asset: 'NVDA', weight: 0.40 },  // 100% TSMC reliant
+        { asset: 'AAPL', weight: 0.35 },  // iPhone chips from Taiwan
+        { asset: 'TSLA', weight: 0.25 },  // Auto chips from Taiwan
+      ],
     },
     leverage: 3,
   },
+
   {
-    id: 'brics-de-dollarization',
-    name: 'BRICS De-Dollarization',
-    description: 'Gold-backed BRICS currency threatens USD hegemony',
+    id: 'ai-bubble-pop',
+    name: 'AI Bubble Pop',
+    description: 'Value plays vs AI hype concentration risk',
     category: 'geopolitical',
-    pairs: {
-      long: 'GOLD',
-      short: 'SPX',  // USD proxy (no UUP on Pear)
+    basket: {
+      long: [
+        { asset: 'GOLD', weight: 0.35 },   // Safe haven
+        { asset: 'INTC', weight: 0.30 },   // Cheap valuation
+        { asset: 'COIN', weight: 0.20 },   // Alternative tech narrative
+        { asset: 'MSTR', weight: 0.15 },   // Bitcoin corporate play
+      ],
+      short: [
+        { asset: 'NVDA', weight: 0.55 },   // H100 bubble, 50x P/E
+        { asset: 'META', weight: 0.25 },   // AI capex burn, no ROI
+        { asset: 'GOOGL', weight: 0.20 },  // AI arms race spending
+      ],
     },
     leverage: 2,
   },
+
   {
-    id: 'chip-sovereignty',
-    name: 'Chip Sovereignty',
-    description: 'US/EU reshoring vs Taiwan semiconductor dominance',
+    id: 'middle-east-oil-shock',
+    name: 'Middle East Oil Shock',
+    description: 'Regional conflict drives oil spike and capital flight',
     category: 'geopolitical',
-    pairs: {
-      long: 'INTC',  // US chip manufacturing
-      short: 'NVDA', // Taiwan TSMC-dependent
-    },
-    leverage: 3,
-  },
-  {
-    id: 'resource-nationalism',
-    name: 'Resource Nationalism',
-    description: 'Lithium triangle controls EV supply chains',
-    category: 'geopolitical',
-    pairs: {
-      long: 'GOLD',  // Resource commodity proxy
-      short: 'TSLA', // EV industry at risk
-    },
-    leverage: 3,
-  },
-  {
-    id: 'digital-gold-war',
-    name: 'Digital Gold War',
-    description: 'Bitcoin vs gold as crisis store of value',
-    category: 'geopolitical',
-    pairs: {
-      long: 'BTC',
-      short: 'GOLD',
+    basket: {
+      long: [
+        { asset: 'OIL', weight: 0.50 },    // Supply disruption
+        { asset: 'GOLD', weight: 0.30 },   // Safe haven flight
+        { asset: 'BTC', weight: 0.20 },    // Capital preservation
+      ],
+      short: [
+        { asset: 'SPX', weight: 0.50 },    // Risk-off selloff
+        { asset: 'TSLA', weight: 0.30 },   // Oil spike kills EV economics
+        { asset: 'BABA', weight: 0.20 },   // EM contagion
+      ],
     },
     leverage: 3,
   },
 
-  // === MACRO / TECH NARRATIVES ===
+  // === MACRO BASKETS ===
 
   {
-    id: 'ai-bubble',
-    name: 'AI Bubble',
-    description: 'Is NVDA overvalued vs the market?',
-    category: 'macro',
-    pairs: {
-      long: 'NVDA',
-      short: 'SPX',
-    },
-    leverage: 3,
-  },
-  {
-    id: 'mag7-reign',
-    name: 'Mag 7 Reign',
-    description: 'Big Tech concentration vs diversification',
+    id: 'mag7-concentration',
+    name: 'Mag 7 Concentration',
+    description: 'Big Tech dominance vs market diversification',
     category: 'macro',
     basket: {
       long: [
-        { asset: 'AAPL', weight: 0.15 },
-        { asset: 'MSFT', weight: 0.15 },
-        { asset: 'GOOGL', weight: 0.15 },
-        { asset: 'META', weight: 0.15 },
-        { asset: 'NVDA', weight: 0.15 },
-        { asset: 'AMZN', weight: 0.15 },
-        { asset: 'TSLA', weight: 0.10 },
+        { asset: 'AAPL', weight: 0.143 },
+        { asset: 'MSFT', weight: 0.143 },
+        { asset: 'GOOGL', weight: 0.143 },
+        { asset: 'AMZN', weight: 0.143 },
+        { asset: 'NVDA', weight: 0.143 },
+        { asset: 'META', weight: 0.143 },
+        { asset: 'TSLA', weight: 0.142 },
       ],
-      short: [{ asset: 'SPX', weight: 1.0 }],
+      short: [
+        { asset: 'SPX', weight: 1.0 },     // Broad market diversification
+      ],
     },
     leverage: 2,
   },
+
   {
-    id: 'safe-haven-flight',
-    name: 'Safe Haven Flight',
-    description: 'Gold vs equities in market turmoil',
+    id: 'risk-on-risk-off',
+    name: 'Risk On/Risk Off',
+    description: 'High beta tech vs safe haven assets',
     category: 'macro',
-    pairs: {
-      long: 'GOLD',
-      short: 'SPX',
-    },
-    leverage: 2,
-  },
-
-  // === CRYPTO NARRATIVES ===
-
-  {
-    id: 'the-flippening',
-    name: 'The Flippening',
-    description: 'Will ETH overtake BTC?',
-    category: 'tech',
-    pairs: {
-      long: 'ETH',
-      short: 'BTC',
+    basket: {
+      long: [
+        { asset: 'NVDA', weight: 0.40 },   // Ultimate risk-on
+        { asset: 'TSLA', weight: 0.30 },   // Volatile growth
+        { asset: 'COIN', weight: 0.30 },   // Crypto proxy
+      ],
+      short: [
+        { asset: 'GOLD', weight: 0.60 },   // Classic safe haven
+        { asset: 'BTC', weight: 0.40 },    // Digital safe haven
+      ],
     },
     leverage: 3,
   },
+
+  // === CRYPTO BASKETS ===
+
   {
-    id: 'alt-season',
-    name: 'Alt Season',
-    description: 'Alts vs Bitcoin dominance',
+    id: 'crypto-infrastructure-war',
+    name: 'Crypto Infrastructure War',
+    description: 'Smart contract platforms vs Bitcoin maximalism',
     category: 'tech',
     basket: {
       long: [
-        { asset: 'SOL', weight: 0.35 },
-        { asset: 'ETH', weight: 0.35 },
-        { asset: 'HYPE', weight: 0.30 },
+        { asset: 'ETH', weight: 0.25 },    // Dominant L1
+        { asset: 'SOL', weight: 0.25 },    // High performance
+        { asset: 'AVAX', weight: 0.25 },   // Subnet architecture
+        { asset: 'SUI', weight: 0.25 },    // Move-based L1
       ],
-      short: [{ asset: 'BTC', weight: 1.0 }],
+      short: [
+        { asset: 'BTC', weight: 1.0 },     // Store of value maximalism
+      ],
     },
     leverage: 3,
   },

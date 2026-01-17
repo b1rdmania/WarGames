@@ -153,7 +153,7 @@ export function PositionCard({
           }
         }}
         disabled={closing}
-        className="w-full pear-border text-pear-lime py-3 font-mono text-sm hover:pear-glow disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full tm-btn disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {closing ? (
           'CLOSING…'

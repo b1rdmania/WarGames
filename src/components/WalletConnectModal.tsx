@@ -65,7 +65,7 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
                     }
                   })();
                 }}
-                className="w-full flex items-center justify-between pear-border text-pear-lime px-4 py-3 text-sm hover:pear-glow disabled:opacity-50"
+                className="w-full flex items-center justify-between tm-btn disabled:opacity-50"
               >
                 <span>{labelForConnector(connector.id, connector.name)}</span>
                 <span className="text-xs text-gray-500">
@@ -86,7 +86,7 @@ export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps)
         <div className="mt-4">
           <button
             onClick={onClose}
-            className="w-full pear-border text-gray-300 py-2 text-sm font-mono hover:pear-glow"
+            className="w-full tm-btn text-gray-300"
           >
             CANCEL
           </button>
