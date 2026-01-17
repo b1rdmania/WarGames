@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import type { PearMarketConfig, ResolvedBasket, ResolvedPairs } from '@/integrations/pear/types';
 import { executePosition } from '@/integrations/pear/positions';
+import { MarketDetail } from '@/components/MarketDetail';
 
 export function TradingPanel({
   accessToken,
@@ -27,6 +28,7 @@ export function TradingPanel({
   const [side, setSide] = useState<'long' | 'short'>('long');
   const [amount, setAmount] = useState('10');
   const [submitting, setSubmitting] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const market = useMemo(() => markets.find((m) => m.id === marketId) ?? null, [markets, marketId]);
   const balanceNum = balance ? Number(balance) : null;
@@ -71,7 +73,22 @@ export function TradingPanel({
             ))}
           </select>
           <p className="text-xs text-gray-500 mt-2 font-mono">{market.description}</p>
+
+          {/* View Details Toggle */}
+          <button
+            onClick={() => setShowDetails(!showDetails)}
+            className="text-xs font-mono text-pear-lime hover:underline mt-2"
+          >
+            {showDetails ? '▼ Hide Details' : '▶ View Market Details'}
+          </button>
         </div>
+
+        {/* Market Details (Expandable) */}
+        {showDetails && (
+          <div className="animate-fadeIn">
+            <MarketDetail market={market} />
+          </div>
+        )}
 
         {/* Market Info */}
         <div className="tm-box">
