@@ -32,7 +32,8 @@ function cleanSymbol(s: string) {
 export default function MarketDetailClient({ marketId }: { marketId: string }) {
   const { markets } = useValidatedMarkets();
   const market = useMemo(() => markets.find((m) => m.id === marketId) ?? null, [markets, marketId]);
-  const pageTitle = market ? `${titleCase(market.id)} — ${market.name.toUpperCase()}` : 'MARKET';
+  const pageTitle = market ? market.name.toUpperCase() : 'MARKET';
+  const pageKicker = market ? titleCase(market.id) : '';
 
   if (!market) {
     return (
@@ -58,10 +59,12 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
       nav={<TerminalTopNav />}
     >
       <div className="mb-6">
-        <div className="text-3xl md:text-5xl font-mono font-bold tracking-widest text-pear-lime">
-          {pageTitle}
+        <div className="text-3xl md:text-5xl font-mono font-bold tracking-widest text-pear-lime">{pageTitle}</div>
+        <div className="mt-2 text-sm font-mono text-gray-500">
+          <span className="text-gray-400">{pageKicker}</span>
+          <span className="text-gray-600"> · </span>
+          <span>{market.description}</span>
         </div>
-        <div className="mt-2 text-sm font-mono text-gray-500">{market.description}</div>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">

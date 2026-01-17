@@ -27,21 +27,16 @@ export function MarketFeedReadOnly({
         <thead>
           <tr>
             <th className={styles.th}>MARKET</th>
-            <th className={styles.th}>UNDERLYING</th>
-            <th className={styles.th}>LONG</th>
-            <th className={styles.th}>SHORT</th>
             <th className={styles.th}>THESIS</th>
             <th className={styles.th}>TAGS</th>
-            <th className={styles.th} style={{ textAlign: 'right' }}>
-              DETAILS
-            </th>
+            <th className={styles.th} style={{ textAlign: 'right' }}>DETAILS</th>
           </tr>
         </thead>
         <tbody>
           {markets.map((m) => {
             const pairs = m.resolvedPairs ?? m.pairs;
             const basket = m.resolvedBasket ?? m.basket;
-            const underlying = pairs
+            const punchline = pairs
               ? `${cleanSymbol(pairs.long)} vs ${cleanSymbol(pairs.short)}`
               : basket
                 ? `${basket.long.map((x) => cleanSymbol(x.asset)).join(' + ')} vs ${basket.short.map((x) => cleanSymbol(x.asset)).join(' + ')}`
@@ -55,18 +50,8 @@ export function MarketFeedReadOnly({
                       {m.name}
                     </Link>
                   </div>
-                </td>
-                <td className={styles.td}>
-                  <div className={styles.underlying}>{underlying}</div>
-                </td>
-                <td className={styles.td}>
-                  <div className={styles.legs}>
-                    {pairs ? cleanSymbol(pairs.long) : basket ? formatBasketShort(basket.long) : '—'}
-                  </div>
-                </td>
-                <td className={styles.td}>
-                  <div className={styles.legs}>
-                    {pairs ? cleanSymbol(pairs.short) : basket ? formatBasketShort(basket.short) : '—'}
+                  <div className={styles.marketMeta}>
+                    <span className={styles.metaTag}>{punchline}</span>
                   </div>
                 </td>
                 <td className={styles.td}>
@@ -74,9 +59,9 @@ export function MarketFeedReadOnly({
                 </td>
                 <td className={styles.td}>
                   <div className={styles.badges}>
-                    <span className="tm-label">{m.category}</span>
-                    <span className="tm-label text-pear-lime">{m.leverage}x</span>
-                    {m.isRemapped && <span className="tm-label text-yellow-200">DEMO</span>}
+                    <span className="tm-label">[{m.category}]</span>
+                    <span className="tm-label text-pear-lime">[{m.leverage}X]</span>
+                    {m.isRemapped && <span className="tm-label text-yellow-200">[DEMO]</span>}
                   </div>
                 </td>
                 <td className={styles.td}>
