@@ -61,32 +61,6 @@ export async function loginWithEip712Signature(args: {
   return { accessToken: data.accessToken, refreshToken: data.refreshToken, expiresIn: data.expiresIn };
 }
 
-export async function authenticateWithPear(
-  userAddress: string,
-  signTypedData: (args: any) => Promise<string>
-): Promise<PearAuthResponse> {
-  // Spec: docs/pear-docs/AUTHENTICATION.md
-  const normalizedAddress = userAddress.toLowerCase();
-  // Step 1: Get EIP712 message from server
-  const { eip712Data, clientId } = await getAuthEip712Message(normalizedAddress);
-
-  // Step 2: Sign the message
-  const signature = await signTypedData({
-    domain: eip712Data.domain,
-    types: eip712Data.types,
-    primaryType: eip712Data.primaryType,
-    message: eip712Data.message,
-  });
-
-  // Step 3: Login with signature
-  return await loginWithEip712Signature({
-    address: normalizedAddress,
-    clientId,
-    signature,
-    timestamp: eip712Data.message.timestamp,
-  });
-}
-
 export function saveAuthTokens(
   accessToken: string,
   refreshToken: string,
