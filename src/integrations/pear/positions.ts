@@ -1,6 +1,7 @@
 import { PEAR_CONFIG } from './config';
 import { getMarketById, MARKETS } from './markets';
 import type { PearPosition, ExecutePositionParams } from './types';
+import { emitDebugLog } from '@/lib/debugLog';
 
 export async function executePosition(
   accessToken: string,
@@ -33,6 +34,14 @@ export async function executePosition(
     ],
   };
 
+  // Log request for debugging
+  emitDebugLog({
+    level: 'info',
+    scope: 'trade',
+    message: 'POST /positions REQUEST',
+    data: { url: `${PEAR_CONFIG.apiUrl}/positions`, body: requestBody }
+  });
+
   const response = await fetch(`${PEAR_CONFIG.apiUrl}/positions`, {
     method: 'POST',
     headers: {
@@ -42,12 +51,21 @@ export async function executePosition(
     body: JSON.stringify(requestBody),
   });
 
+  const responseData = await response.json().catch(() => ({}));
+
+  // Log response for debugging
+  emitDebugLog({
+    level: response.ok ? 'info' : 'error',
+    scope: 'trade',
+    message: `POST /positions RESPONSE (${response.status})`,
+    data: responseData
+  });
+
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.error || error.message || 'Failed to execute position');
+    throw new Error(responseData.error || responseData.message || `HTTP ${response.status}: ${JSON.stringify(responseData)}`);
   }
 
-  return await response.json();
+  return responseData;
 }
 
 export async function getActivePositions(accessToken: string): Promise<PearPosition[]> {
