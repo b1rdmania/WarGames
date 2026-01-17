@@ -38,6 +38,9 @@ export function SplashAudio() {
     };
 
     void tryPlay();
+    // Best-effort retries (some browsers need a tick after hydration / canplay).
+    window.requestAnimationFrame(() => void tryPlay());
+    window.setTimeout(() => void tryPlay(), 250);
     window.addEventListener('pointerdown', onFirstInteract);
     window.addEventListener('keydown', onFirstInteract);
 
@@ -53,6 +56,6 @@ export function SplashAudio() {
     };
   }, []);
 
-  return <audio ref={audioRef} src="/splash.mp3" preload="auto" />;
+  return <audio ref={audioRef} src="/splash.mp3" preload="auto" autoPlay playsInline loop />;
 }
 
