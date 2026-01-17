@@ -83,6 +83,34 @@ export function PositionCard({
         </div>
       </div>
 
+      {/* Risk Parameters (if set) */}
+      {(position.marginUsed || position.stopLoss || position.takeProfit) && (
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          {position.marginUsed && (
+            <div className="bg-black/20 p-3 pear-border">
+              <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-1">Margin</div>
+              <div className="text-sm text-white font-mono">${Number(position.marginUsed).toFixed(2)}</div>
+            </div>
+          )}
+          {position.stopLoss && (
+            <div className="bg-black/20 p-3 border border-red-400/10">
+              <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-1">Stop Loss</div>
+              <div className="text-sm text-red-400 font-mono">
+                {position.stopLoss.type === 'PERCENTAGE' ? `${position.stopLoss.value}%` : `$${position.stopLoss.value}`}
+              </div>
+            </div>
+          )}
+          {position.takeProfit && (
+            <div className="bg-black/20 p-3 pear-border">
+              <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-1">Take Profit</div>
+              <div className="text-sm text-pear-lime font-mono">
+                {position.takeProfit.type === 'PERCENTAGE' ? `${position.takeProfit.value}%` : `$${position.takeProfit.value}`}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Performance Indicators */}
       <div className="flex items-center justify-between text-xs font-mono text-gray-500 mb-4 px-1">
         <div className="flex items-center gap-4">

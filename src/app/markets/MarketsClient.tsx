@@ -20,6 +20,7 @@ import { getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
 import { connectPearWebsocket } from '@/integrations/pear/websocket';
 import { emitDebugLog } from '@/lib/debugLog';
+import toast from 'react-hot-toast';
 
 export default function MarketsClient() {
   const { isConnected, address } = useAccount();
@@ -83,6 +84,64 @@ export default function MarketsClient() {
       if (timer) window.clearTimeout(timer);
       ws.close();
     };
+  }, [accessToken, address]);
+
+  // WebSocket: notifications for real-time alerts
+  useEffect(() => {
+    if (!accessToken || !address) return;
+
+    const ws = connectPearWebsocket({
+      address,
+      channels: ['notifications'],
+      onMessage: (data) => {
+        emitDebugLog({ level: 'info', scope: 'notifications', message: 'received', data });
+
+        // Show toast notifications based on event type
+        if (data.type === 'position_filled' || data.event === 'fill') {
+          toast.success('Position filled!', {
+            icon: '✅',
+            style: {
+              background: '#000',
+              color: '#a2db5c',
+              border: '1px solid #a2db5c33',
+              fontFamily: 'monospace',
+            },
+          });
+        } else if (data.type === 'stop_loss_triggered' || data.event === 'stop_loss') {
+          toast.error('Stop loss triggered', {
+            icon: '⚠️',
+            style: {
+              background: '#000',
+              color: '#ef4444',
+              border: '1px solid #ef444433',
+              fontFamily: 'monospace',
+            },
+          });
+        } else if (data.type === 'take_profit_hit' || data.event === 'take_profit') {
+          toast.success('Take profit hit!', {
+            icon: '🎯',
+            style: {
+              background: '#000',
+              color: '#a2db5c',
+              border: '1px solid #a2db5c33',
+              fontFamily: 'monospace',
+            },
+          });
+        } else if (data.type === 'liquidation' || data.event === 'liquidation') {
+          toast.error('Position liquidated', {
+            icon: '💥',
+            style: {
+              background: '#000',
+              color: '#ef4444',
+              border: '1px solid #ef444433',
+              fontFamily: 'monospace',
+            },
+          });
+        }
+      },
+    });
+
+    return () => ws.close();
   }, [accessToken, address]);
 
   // Unauthenticated view

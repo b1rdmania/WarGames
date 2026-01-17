@@ -33,6 +33,30 @@ export interface PearPosition {
   timestamp: number;
   longAsset?: string;
   shortAsset?: string;
+  // Enhanced fields from API
+  marginUsed?: string;
+  stopLoss?: {
+    type: 'PERCENTAGE' | 'DOLLAR' | 'POSITION_VALUE';
+    value: number;
+  };
+  takeProfit?: {
+    type: 'PERCENTAGE' | 'DOLLAR' | 'POSITION_VALUE';
+    value: number;
+  };
+  longAssets?: Array<{
+    coin: string;
+    entryPrice: number;
+    size: number;
+    leverage: number;
+    fundingPaid: number;
+  }>;
+  shortAssets?: Array<{
+    coin: string;
+    entryPrice: number;
+    size: number;
+    leverage: number;
+    fundingPaid: number;
+  }>;
 }
 
 export interface ExecutePositionParams {

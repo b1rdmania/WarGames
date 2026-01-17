@@ -118,6 +118,12 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
     pnl: pos.unrealizedPnl.toString(),
     pnlPercent: pos.unrealizedPnlPercentage.toString(),
     timestamp: new Date(pos.createdAt).getTime(),
+    // Enhanced fields
+    marginUsed: pos.marginUsed?.toString(),
+    stopLoss: pos.stopLoss,
+    takeProfit: pos.takeProfit,
+    longAssets: pos.longAssets,
+    shortAssets: pos.shortAssets,
   }));
 }
 
