@@ -15,7 +15,6 @@ import { PositionCard } from '@/components/PositionCard';
 import { PortfolioSummary } from '@/components/PortfolioSummary';
 import { AssetPriceTicker } from '@/components/AssetPriceTicker';
 import { RiskShell } from '@/components/RiskShell';
-import { NukeUiButton } from '@/components/NukeUiButton';
 import { MARKETS } from '@/integrations/pear/markets';
 import { getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
@@ -153,21 +152,15 @@ export default function MarketsClient() {
         subtitle="SETUP"
         right={
           isConnected && address ? (
-            <div className="flex items-center gap-2">
-              <NukeUiButton />
-              <button
-                onClick={() => disconnect()}
-                className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
-                title="Disconnect"
-              >
-                {address.slice(0, 6)}…{address.slice(-4)}
-              </button>
-            </div>
+            <button
+              onClick={() => disconnect()}
+              className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
+              title="Disconnect"
+            >
+              {address.slice(0, 6)}…{address.slice(-4)}
+            </button>
           ) : (
-            <div className="flex items-center gap-2">
-              <NukeUiButton />
-              <div className="text-xs font-mono text-gray-500">NOT CONNECTED</div>
-            </div>
+            <div className="text-xs font-mono text-gray-500">NOT CONNECTED</div>
           )
         }
       >
@@ -199,21 +192,15 @@ export default function MarketsClient() {
       subtitle="MARKETS"
       right={
         isConnected && address ? (
-          <div className="flex items-center gap-2">
-            <NukeUiButton />
-            <button
-              onClick={() => disconnect()}
-              className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
-              title="Disconnect"
-            >
-              {address.slice(0, 6)}…{address.slice(-4)}
-            </button>
-          </div>
+          <button
+            onClick={() => disconnect()}
+            className="pear-border text-pear-lime px-3 py-2 text-xs font-mono hover:pear-glow"
+            title="Disconnect"
+          >
+            {address.slice(0, 6)}…{address.slice(-4)}
+          </button>
         ) : (
-          <div className="flex items-center gap-2">
-            <NukeUiButton />
-            <div className="text-xs font-mono text-gray-500">—</div>
-          </div>
+          <div className="text-xs font-mono text-gray-500">—</div>
         )
       }
     >
