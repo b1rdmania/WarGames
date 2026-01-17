@@ -142,11 +142,14 @@ export function PearProvider({ children }: { children: ReactNode }) {
         emitDebugLog({ level: 'warn', scope: 'chain', message: 'Switching for auth signing', data: { from: activeChainId, to: domainChainId } });
         if (switchChainAsync) {
           try {
-            await switchChainAsync({ chainId: domainChainId });
-            // Brief pause to let wallet state sync after chain switch
-            await new Promise(r => setTimeout(r, 500));
+            console.log('🔄 Requesting chain switch to', domainChainId);
+            const result = await switchChainAsync({ chainId: domainChainId });
+            console.log('🔄 Chain switch result:', result);
+            // Longer pause to let wallet state sync after chain switch
+            await new Promise(r => setTimeout(r, 1000));
           } catch (switchErr) {
             // If switch fails, user may need to add the network or switch manually
+            console.error('🔄 Chain switch failed:', switchErr);
             emitDebugLog({ level: 'error', scope: 'chain', message: 'Chain switch failed', data: { error: (switchErr as Error)?.message } });
             throw new Error(`Please switch to Arbitrum (chainId ${domainChainId}) in your wallet and retry.`);
           }
