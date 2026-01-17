@@ -71,17 +71,13 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
               onClick={() => {
                 (async () => {
                   try {
-                    const metaMaskConn = connectors.find((c) => c.id === 'metaMask');
-                    const injectedConn = connectors.find((c) => c.id === 'injected');
-                    // Prefer generic injected wallets (Rabby/Coinbase/etc). Only fall back to MetaMask if it's the only option.
-                    const chosen = injectedConn ?? metaMaskConn;
-
-                    if (!chosen) {
+                    const connector = connectors[0];
+                    if (!connector) {
                       toast.error('No wallet connector available');
                       return;
                     }
 
-                    await connectAsync({ connector: chosen });
+                    await connectAsync({ connector });
                   } catch (e) {
                     console.error(e);
                     toast.error((e as Error).message || 'Failed to connect wallet');
