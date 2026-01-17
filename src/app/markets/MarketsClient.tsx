@@ -14,6 +14,7 @@ import { TradingPanel } from '@/components/TradingPanel';
 import { PositionCard } from '@/components/PositionCard';
 import { PortfolioSummary } from '@/components/PortfolioSummary';
 import { AssetPriceTicker } from '@/components/AssetPriceTicker';
+import { RiskShell } from '@/components/RiskShell';
 import { MARKETS } from '@/integrations/pear/markets';
 import { getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
@@ -87,103 +88,99 @@ export default function MarketsClient() {
   // Unauthenticated view
   if (!isAuthenticated) {
     return (
-      <main className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-pear-dark via-pear-dark to-pear-panel">
-        <div className="max-w-2xl w-full space-y-10">
-          <div className="text-center space-y-4">
-            <h1 className="text-6xl font-bold text-white mb-4">WAR.MARKET</h1>
-            <p className="text-xl text-gray-300">Trade narrative markets with leverage</p>
+      <RiskShell
+        subtitle="SETUP"
+        right={
+          <div className="text-xs font-mono text-gray-400">
+            {address ? `${address.slice(0, 6)}…${address.slice(-4)}` : 'NOT CONNECTED'}
           </div>
-
-          {!isConnected ? (
-            <div className="bg-gradient-to-br from-pear-panel via-pear-panel-light to-pear-panel rounded-2xl p-10 border border-pear-lime/30 shadow-2xl text-center space-y-6">
-              <p className="text-lg text-gray-300">Connect your wallet to start trading</p>
-              <button
-                onClick={() => setConnectModalOpen(true)}
-                className="bg-pear-lime hover:bg-pear-lime-light text-pear-dark font-bold px-10 py-4 rounded-xl text-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 w-full"
-              >
-                Connect Wallet
-              </button>
+        }
+      >
+        {!isConnected ? (
+          <div className="border border-pear-lime/20 bg-black/40 p-6">
+            <div className="text-sm font-mono text-gray-300 mb-3">[ CONNECT WALLET ]</div>
+            <div className="text-sm text-gray-400 mb-4">
+              Connect your wallet to authenticate with Pear and create an agent wallet.
             </div>
-          ) : (
-            <PearSetupCard />
-          )}
-        </div>
+            <button
+              onClick={() => setConnectModalOpen(true)}
+              className="w-full pear-border pear-text py-3 font-mono text-sm hover:pear-glow"
+            >
+              CONNECT WALLET
+            </button>
+          </div>
+        ) : (
+          <PearSetupCard />
+        )}
 
         <WalletConnectModal isOpen={connectModalOpen} onClose={() => setConnectModalOpen(false)} />
-      </main>
+      </RiskShell>
     );
   }
 
   // Authenticated view
   return (
-    <main className="min-h-screen bg-gradient-to-b from-pear-dark via-pear-dark to-pear-panel/50">
-      {/* Asset Price Ticker */}
-      <AssetPriceTicker />
+    <RiskShell
+      subtitle="MARKETS"
+      right={
+        <div className="text-xs font-mono text-gray-400">
+          {address ? `${address.slice(0, 6)}…${address.slice(-4)}` : '—'}
+        </div>
+      }
+    >
+      <div className="-mt-2 mb-4">
+        <AssetPriceTicker />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        <div className="mb-6">
-          <h1 className="text-4xl font-bold text-white mb-2">Markets</h1>
-          <p className="text-lg text-gray-300">Manage your positions and place new bets</p>
+      {/* Portfolio Summary */}
+      {positions.length > 0 && <PortfolioSummary positions={positions} balance={perpUsdc} />}
+
+      <div className="grid lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-5">
+          <div>
+            <div className="text-sm font-mono text-gray-300 mb-3">[ ACTIVE POSITIONS ]</div>
+
+            {loadingPositions ? (
+              <div className="border border-pear-lime/20 bg-black/40 p-6 font-mono text-sm text-gray-400">
+                Loading…
+              </div>
+            ) : positions.length === 0 ? (
+              <div className="border border-pear-lime/20 bg-black/40 p-6 font-mono text-sm text-gray-400">
+                No active positions.
+              </div>
+            ) : accessToken ? (
+              <div className="space-y-4">
+                {positions.map((pos) => (
+                  <PositionCard
+                    key={pos.id}
+                    position={pos}
+                    accessToken={accessToken}
+                    onClose={() => {
+                      getActivePositions(accessToken).then(setPositions);
+                    }}
+                  />
+                ))}
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        {/* Portfolio Summary */}
-        {positions.length > 0 && (
-          <PortfolioSummary positions={positions} balance={perpUsdc} />
-        )}
-
-        <div className="grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
-            <div>
-              <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                <span className="w-2.5 h-2.5 bg-pear-lime rounded-full animate-pulse shadow-lg shadow-pear-lime/50" />
-                Active Positions
-              </h2>
-
-              {loadingPositions ? (
-                <div className="bg-gradient-to-br from-pear-panel-light to-pear-panel border border-pear-lime/20 rounded-2xl p-16 text-center">
-                  <div className="w-12 h-12 border-3 border-pear-lime border-t-transparent rounded-full animate-spin mx-auto mb-6" />
-                  <p className="text-lg text-gray-300">Loading positions...</p>
-                </div>
-              ) : positions.length === 0 ? (
-                <div className="bg-gradient-to-br from-pear-panel-light to-pear-panel border border-pear-lime/20 rounded-2xl p-16 text-center space-y-3">
-                  <div className="text-5xl mb-4">📊</div>
-                  <p className="text-xl text-gray-300 font-semibold">No active positions</p>
-                  <p className="text-base text-gray-400">Place your first bet to get started →</p>
-                </div>
-              ) : accessToken ? (
-                <div className="space-y-4">
-                  {positions.map((pos) => (
-                    <PositionCard
-                      key={pos.id}
-                      position={pos}
-                      accessToken={accessToken}
-                      onClose={() => {
-                        getActivePositions(accessToken).then(setPositions);
-                      }}
-                    />
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          <div className="lg:col-span-1">
-            {accessToken && (
-              <TradingPanel
-                accessToken={accessToken}
-                markets={effectiveMarkets}
-                balance={perpUsdc}
-                onPlaced={() => {
-                  getActivePositions(accessToken).then(setPositions);
-                }}
-              />
-            )}
-          </div>
+        <div className="lg:col-span-1">
+          {accessToken && (
+            <TradingPanel
+              accessToken={accessToken}
+              markets={effectiveMarkets}
+              balance={perpUsdc}
+              onPlaced={() => {
+                getActivePositions(accessToken).then(setPositions);
+              }}
+            />
+          )}
         </div>
       </div>
 
       <WalletConnectModal isOpen={connectModalOpen} onClose={() => setConnectModalOpen(false)} />
-    </main>
+    </RiskShell>
   );
 }
 

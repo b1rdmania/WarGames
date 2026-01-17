@@ -29,17 +29,17 @@ export function TradingPanel({
   if (!market) return null;
 
   return (
-    <div className="bg-gradient-to-br from-pear-panel via-pear-panel-light to-pear-panel rounded-2xl p-6 border border-pear-lime/30 sticky top-6">
-      <h2 className="text-2xl font-bold text-white mb-6">Place Bet</h2>
+    <div className="border border-pear-lime/20 bg-black/40 p-6 sticky top-6">
+      <div className="text-sm font-mono text-gray-300 mb-4">[ PLACE BET ]</div>
 
       <div className="space-y-6">
         {/* Market selector */}
         <div>
-          <label className="block text-sm font-medium text-gray-400 mb-2">Market</label>
+          <label className="block text-xs font-mono text-gray-500 mb-2 uppercase tracking-wider">Market</label>
           <select
             value={marketId}
             onChange={(e) => setMarketId(e.target.value)}
-            className="w-full bg-black/30 border border-pear-lime/20 rounded-lg px-4 py-3 text-white focus:border-pear-lime focus:outline-none focus:ring-2 focus:ring-pear-lime/20"
+            className="w-full bg-black/30 border border-pear-lime/20 px-4 py-3 text-white focus:border-pear-lime focus:outline-none"
           >
             {markets.map((m) => (
               <option key={m.id} value={m.id} className="bg-pear-dark">
@@ -47,17 +47,17 @@ export function TradingPanel({
               </option>
             ))}
           </select>
-          <p className="text-xs text-gray-500 mt-2">{market.description}</p>
+          <p className="text-xs text-gray-500 mt-2 font-mono">{market.description}</p>
         </div>
 
         {/* Market Info */}
-        <div className="bg-pear-lime/5 border border-pear-lime/20 rounded-lg p-3">
-          <div className="text-xs text-gray-400 mb-2">Trading Pair</div>
+        <div className="border border-pear-lime/10 bg-black/20 p-3">
+          <div className="text-xs text-gray-500 mb-2 font-mono uppercase tracking-wider">Trading Pair</div>
           <div className="flex items-center justify-between">
-            <div className="text-sm font-semibold text-white">
+            <div className="text-sm font-mono text-white">
               {market.pairs.long} / {market.pairs.short}
             </div>
-            <div className="text-xs text-pear-lime font-bold">
+            <div className="text-xs text-pear-lime font-mono">
               {market.leverage}x Leverage
             </div>
           </div>
@@ -65,30 +65,30 @@ export function TradingPanel({
 
         {/* Direction */}
         <div>
-          <label className="block text-sm font-medium text-gray-400 mb-2">Direction</label>
+          <label className="block text-xs font-mono text-gray-500 mb-2 uppercase tracking-wider">Direction</label>
           <div className="grid grid-cols-2 gap-3">
             <button
               onClick={() => setSide('long')}
-              className={`py-4 rounded-lg font-bold transition-all ${
+              className={`py-3 font-mono text-sm transition-all border ${
                 side === 'long'
-                  ? 'bg-pear-lime text-pear-dark shadow-lg shadow-pear-lime/30'
-                  : 'bg-black/30 text-gray-400 hover:bg-black/50 border border-pear-lime/10'
+                  ? 'bg-pear-lime/15 text-pear-lime border-pear-lime/40'
+                  : 'bg-black/30 text-gray-400 hover:bg-black/50 border-pear-lime/15'
               }`}
             >
               ↑ BET UP
             </button>
             <button
               onClick={() => setSide('short')}
-              className={`py-4 rounded-lg font-bold transition-all ${
+              className={`py-3 font-mono text-sm transition-all border ${
                 side === 'short'
-                  ? 'bg-red-500 text-white shadow-lg shadow-red-500/30'
-                  : 'bg-black/30 text-gray-400 hover:bg-black/50 border border-pear-lime/10'
+                  ? 'bg-red-500/15 text-red-300 border-red-400/40'
+                  : 'bg-black/30 text-gray-400 hover:bg-black/50 border-pear-lime/15'
               }`}
             >
               ↓ BET DOWN
             </button>
           </div>
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="text-xs text-gray-500 mt-2 font-mono">
             {side === 'long' ? (
               <>Long {market.pairs.long} / Short {market.pairs.short}</>
             ) : (
@@ -99,33 +99,33 @@ export function TradingPanel({
 
         {/* Amount */}
         <div>
-          <label className="block text-sm font-medium text-gray-400 mb-2">Amount (USDC)</label>
+          <label className="block text-xs font-mono text-gray-500 mb-2 uppercase tracking-wider">Amount (USDC)</label>
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="w-full bg-black/30 border border-pear-lime/20 rounded-lg px-4 py-3 text-white text-xl font-bold focus:border-pear-lime focus:outline-none focus:ring-2 focus:ring-pear-lime/20"
+            className="w-full bg-black/30 border border-pear-lime/20 px-4 py-3 text-white text-lg font-mono focus:border-pear-lime focus:outline-none"
             placeholder="10"
           />
           {balance && (
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-gray-500 mt-2 font-mono">
               Available: ${Number(balance).toFixed(2)}
             </p>
           )}
           {!canAfford && (
-            <p className="text-xs text-red-400 mt-2">⚠️ Insufficient balance</p>
+            <p className="text-xs text-red-400 mt-2 font-mono">INSUFFICIENT BALANCE</p>
           )}
         </div>
 
         {/* Summary */}
-        <div className="bg-black/30 rounded-lg p-4 border border-pear-lime/10">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-400">Leverage</span>
-            <span className="text-pear-lime font-bold">{market.leverage}x</span>
+        <div className="bg-black/20 p-4 border border-pear-lime/10">
+          <div className="flex items-center justify-between text-sm font-mono">
+            <span className="text-gray-400">LEVERAGE</span>
+            <span className="text-pear-lime">{market.leverage}x</span>
           </div>
-          <div className="flex items-center justify-between text-sm mt-2">
-            <span className="text-gray-400">Notional Value</span>
-            <span className="text-white font-bold">
+          <div className="flex items-center justify-between text-sm mt-2 font-mono">
+            <span className="text-gray-400">NOTIONAL</span>
+            <span className="text-white">
               ${amountNum && market.leverage ? (amountNum * market.leverage).toFixed(2) : '0.00'}
             </span>
           </div>
@@ -155,9 +155,9 @@ export function TradingPanel({
               }
             })();
           }}
-          className="w-full bg-pear-lime hover:bg-pear-lime-light disabled:bg-gray-700 disabled:cursor-not-allowed text-pear-dark font-bold py-4 rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] disabled:scale-100 disabled:shadow-none text-lg"
+          className="w-full pear-border pear-text py-3 font-mono text-sm hover:pear-glow disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {submitting ? 'Placing Bet...' : 'Place Bet'}
+          {submitting ? 'PLACING…' : 'PLACE BET'}
         </button>
       </div>
     </div>
