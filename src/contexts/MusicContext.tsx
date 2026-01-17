@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
 type Track = { id: number; url: string; label: string };
@@ -39,6 +39,42 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const selectedTrack = useMemo(
     () => TRACKS.find((t) => t.id === selectedTrackId) ?? TRACKS[0],
     [selectedTrackId]
+  );
+
+  const hardSwitch = useCallback(
+    async (nextTrackId: number, nextMuted: boolean) => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      if (isSplash) return; // splash handled by SplashAudio component
+
+      const next = TRACKS.find((t) => t.id === nextTrackId) ?? TRACKS[0];
+      try {
+        audio.pause();
+        audio.currentTime = 0;
+      } catch {
+        // ignore
+      }
+
+      audio.loop = true;
+      audio.volume = 1.0;
+      audio.muted = nextMuted;
+      audio.src = next.url;
+      try {
+        audio.load();
+      } catch {
+        // ignore
+      }
+
+      // If user is unmuting / selecting track, attempt play right away (best chance to bypass autoplay restrictions).
+      if (!nextMuted) {
+        try {
+          await audio.play();
+        } catch {
+          // still may be blocked; will be handled by interaction listeners in the effect below
+        }
+      }
+    },
+    [isSplash]
   );
 
   // Load persisted settings once.
@@ -81,6 +117,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       try {
         audio.pause();
         audio.currentTime = 0;
+        audio.src = '';
       } catch {
         // ignore
       }
@@ -89,6 +126,12 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
     // Set source to the selected track.
     if (audio.src !== window.location.origin + selectedTrack.url) {
+      try {
+        audio.pause();
+        audio.currentTime = 0;
+      } catch {
+        // ignore
+      }
       audio.src = selectedTrack.url;
       try {
         audio.load();
@@ -127,20 +170,47 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     };
   }, [isSplash, muted, selectedTrack.url]);
 
+  const setTrack = useCallback(
+    (id: number) => {
+      if (!TRACKS.some((t) => t.id === id)) return;
+      // Selecting a track implies intent to listen.
+      setMuted(false);
+      setSelectedTrackId(id);
+      // Hard switch immediately during the click gesture.
+      void hardSwitch(id, false);
+    },
+    [hardSwitch]
+  );
+
+  const toggleMuted = useCallback(() => {
+    setMuted((m) => {
+      const next = !m;
+      // If unmuting, try to start immediately; if muting, pause to match expected behavior.
+      if (next) {
+        const audio = audioRef.current;
+        if (audio) {
+          try {
+            audio.pause();
+          } catch {
+            // ignore
+          }
+        }
+      } else {
+        void hardSwitch(selectedTrackId, false);
+      }
+      return next;
+    });
+  }, [hardSwitch, selectedTrackId]);
+
   const value: MusicState = useMemo(
     () => ({
       tracks: TRACKS,
       selectedTrackId,
       muted,
-      setTrack: (id: number) => {
-        if (!TRACKS.some((t) => t.id === id)) return;
-        setSelectedTrackId(id);
-        // Selecting a track implies intent to listen.
-        setMuted(false);
-      },
-      toggleMuted: () => setMuted((m) => !m),
+      setTrack,
+      toggleMuted,
     }),
-    [muted, selectedTrackId]
+    [muted, selectedTrackId, setTrack, toggleMuted]
   );
 
   return (
