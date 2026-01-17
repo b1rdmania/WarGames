@@ -4,18 +4,19 @@ import Link from 'next/link';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import styles from './MarketFeed.module.css';
 
-function formatBasketShort(assets: { asset: string; weight?: number }[]) {
-  return assets
-    .slice(0, 4)
-    .map((a) => `${a.asset}${typeof a.weight === 'number' ? `(${Math.round(a.weight * 100)})` : ''}`)
-    .join(' · ');
+function formatBasketCompact(assets: { asset: string; weight?: number }[]) {
+  if (assets.length === 1) return assets[0].asset;
+  if (assets.length <= 2) return assets.map(a => a.asset).join('+');
+  return `${assets[0].asset}+${assets.length - 1} more`;
 }
 
 export function MarketFeed({
   markets,
+  selectedMarketId,
   onPick,
 }: {
   markets: ValidatedMarket[];
+  selectedMarketId?: string | null;
   onPick: (market: ValidatedMarket, side: 'long' | 'short') => void; // long=YES, short=NO
 }) {
   return (
@@ -24,86 +25,67 @@ export function MarketFeed({
         <thead>
           <tr>
             <th className={styles.th}>MARKET</th>
-            <th className={styles.th}>UNDERLYING</th>
-            <th className={styles.th}>LONG</th>
-            <th className={styles.th}>SHORT</th>
-            <th className={styles.th}>THESIS</th>
-            <th className={styles.th}>TAGS</th>
-            <th className={styles.th} style={{ textAlign: 'right' }}>
-              ACTIONS
-            </th>
+            <th className={styles.th}>PAIR</th>
+            <th className={styles.th} style={{ textAlign: 'right' }}>BET</th>
           </tr>
         </thead>
         <tbody>
-          {markets.map((m) => (
-            (() => {
-              const pairs = m.resolvedPairs ?? m.pairs;
-              const basket = m.resolvedBasket ?? m.basket;
-              const underlying = pairs
-                ? `${pairs.long} vs ${pairs.short}`
-                : basket
-                  ? `${basket.long.map((x) => x.asset).join(' + ')} vs ${basket.short.map((x) => x.asset).join(' + ')}`
-                  : '—';
-              return (
-            <tr key={m.id} className={styles.row}>
-              <td className={styles.td}>
-                <div className={styles.marketName}>
-                  <Link className={styles.marketLink} href={`/markets/${m.id}`}>
-                    {m.name}
-                  </Link>
-                </div>
-              </td>
-              <td className={styles.td}>
-                <div className={styles.underlying}>{underlying}</div>
-              </td>
-              <td className={styles.td}>
-                <div className={styles.legs}>
-                  {pairs ? pairs.long : basket ? formatBasketShort(basket.long) : '—'}
-                </div>
-              </td>
-              <td className={styles.td}>
-                <div className={styles.legs}>
-                  {pairs ? pairs.short : basket ? formatBasketShort(basket.short) : '—'}
-                </div>
-              </td>
-              <td className={styles.td}>
-                <div className={styles.marketDesc}>{m.description}</div>
-              </td>
-              <td className={styles.td}>
-                <div className={styles.badges}>
-                  <span className="tm-label">{m.category}</span>
-                  <span className="tm-label text-pear-lime">{m.leverage}x</span>
-                  {m.isRemapped && <span className="tm-label text-yellow-200">DEMO</span>}
-                </div>
-              </td>
-              <td className={styles.td}>
-                <div className={styles.actionButtons}>
-                  <button
-                    type="button"
-                    className={styles.btnAction}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onPick(m, 'long');
-                    }}
-                  >
-                    YES
-                  </button>
-                  <button
-                    type="button"
-                    className={`${styles.btnAction} ${styles.btnShort}`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onPick(m, 'short');
-                    }}
-                  >
-                    NO
-                  </button>
-                </div>
-              </td>
-            </tr>
-              );
-            })()
-          ))}
+          {markets.map((m) => {
+            const pairs = m.resolvedPairs ?? m.pairs;
+            const basket = m.resolvedBasket ?? m.basket;
+            const longLabel = pairs ? pairs.long : basket ? formatBasketCompact(basket.long) : '—';
+            const shortLabel = pairs ? pairs.short : basket ? formatBasketCompact(basket.short) : '—';
+            return (
+              <tr key={m.id} className={`${styles.row} ${selectedMarketId === m.id ? styles.rowSelected : ''}`}>
+                <td className={styles.td}>
+                  <div className={styles.marketName}>
+                    <Link className={styles.marketLink} href={`/markets/${m.id}`}>
+                      {m.name}
+                    </Link>
+                  </div>
+                  <div className={styles.marketMeta}>
+                    <span className={styles.metaTag}>{m.leverage}x</span>
+                    {m.category === 'crypto' ? (
+                      <span className={styles.metaTagLive}>24/7</span>
+                    ) : (
+                      <span className={styles.metaTagClosed} title="Mon-Fri 9:30am-4pm ET only">WEEKDAYS</span>
+                    )}
+                  </div>
+                </td>
+                <td className={styles.td}>
+                  <div className={styles.pairDisplay}>
+                    <span className={styles.longSide}>{longLabel}</span>
+                    <span className={styles.vs}>vs</span>
+                    <span className={styles.shortSide}>{shortLabel}</span>
+                  </div>
+                </td>
+                <td className={styles.td}>
+                  <div className={styles.actionButtons}>
+                    <button
+                      type="button"
+                      className={styles.btnAction}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onPick(m, 'long');
+                      }}
+                    >
+                      YES
+                    </button>
+                    <button
+                      type="button"
+                      className={`${styles.btnAction} ${styles.btnShort}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onPick(m, 'short');
+                      }}
+                    >
+                      NO
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

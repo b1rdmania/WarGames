@@ -7,7 +7,7 @@ import { RiskShell } from '@/components/RiskShell';
 import { TerminalTopNav } from '@/components/TerminalTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import { MarketFeed } from '@/components/MarketFeed';
-import { BetSlip } from '@/components/BetSlip';
+import { BetSlipPanel } from '@/components/BetSlipPanel';
 import { PortfolioLine } from '@/components/PortfolioLine';
 import { usePear } from '@/contexts/PearContext';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
@@ -21,9 +21,8 @@ export default function TradeClient() {
   const { perpUsdc } = useVaultBalances(accessToken);
   const { markets: effectiveMarkets } = useValidatedMarkets();
 
-  const [betSlipOpen, setBetSlipOpen] = useState(false);
-  const [betSlipMarketId, setBetSlipMarketId] = useState<string | null>(null);
-  const [betSlipSide, setBetSlipSide] = useState<'long' | 'short' | null>(null);
+  const [selectedMarketId, setSelectedMarketId] = useState<string | null>(null);
+  const [selectedSide, setSelectedSide] = useState<'long' | 'short' | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
   if (!isAuthenticated) {
@@ -109,32 +108,35 @@ export default function TradeClient() {
         onToggleDetails={() => setDetailsOpen((v) => !v)}
       />
 
-      <div className="mt-6">
-        <MarketFeed
-          markets={effectiveMarkets ?? []}
-          onPick={(m, s) => {
-            setBetSlipMarketId(m.id);
-            setBetSlipSide(s);
-            setBetSlipOpen(true);
-          }}
-        />
-      </div>
+      <div className="mt-6 grid lg:grid-cols-[1fr_380px] gap-6">
+        <div className="min-w-0">
+          <MarketFeed
+            markets={effectiveMarkets ?? []}
+            selectedMarketId={selectedMarketId}
+            onPick={(m, s) => {
+              setSelectedMarketId(m.id);
+              setSelectedSide(s);
+            }}
+          />
+        </div>
 
-      <BetSlip
-        isOpen={betSlipOpen}
-        market={(effectiveMarkets ?? []).find((m: any) => m.id === betSlipMarketId) ?? null}
-        side={betSlipSide}
-        balance={perpUsdc}
-        accessToken={accessToken ?? ''}
-        onClose={() => {
-          setBetSlipOpen(false);
-          setBetSlipMarketId(null);
-          setBetSlipSide(null);
-        }}
-        onPlaced={() => {
-          // Portfolio lives on /portfolio
-        }}
-      />
+        <div className="lg:sticky lg:top-4 self-start">
+          <BetSlipPanel
+            market={(effectiveMarkets ?? []).find((m) => m.id === selectedMarketId) ?? null}
+            side={selectedSide}
+            balance={perpUsdc}
+            accessToken={accessToken ?? ''}
+            onSideChange={(s) => setSelectedSide(s)}
+            onClear={() => {
+              setSelectedMarketId(null);
+              setSelectedSide(null);
+            }}
+            onPlaced={() => {
+              // Keep market selected after placing, user can place again or clear
+            }}
+          />
+        </div>
+      </div>
     </RiskShell>
   );
 }

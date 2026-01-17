@@ -24,7 +24,8 @@ export async function getActiveAssetSymbols(): Promise<Set<string>> {
     const s = v.trim();
     if (!s) return;
     // Keep it conservative: only collect "ticker-like" strings.
-    if (!/^[A-Za-z0-9._-]{2,16}$/.test(s)) return;
+    // Allow colons for prefixed symbols (xyz:NVDA, vntl:MAG7, km:US500, etc.)
+    if (!/^[A-Za-z0-9._:-]{2,20}$/.test(s)) return;
     out.add(s);
   };
 
@@ -38,20 +39,22 @@ export async function getActiveAssetSymbols(): Promise<Set<string>> {
 
     const obj = node as Record<string, unknown>;
 
-    // Common keys we’ve seen: coin / asset / symbol
+    // Common keys we've seen: coin / asset / symbol
     add(obj.coin);
     add(obj.asset);
     add(obj.symbol);
     add(obj.ticker);
 
-    // Common arrays: longAssets/shortAssets/legs/assets
+    // Common arrays: longAssets/shortAssets/legs/assets/active
     scan(obj.longAssets);
     scan(obj.shortAssets);
     scan(obj.legs);
     scan(obj.assets);
+    scan(obj.active);  // Pear API wraps markets in "active" array
   };
 
   scan(data);
+  console.log(`[activeMarkets] Found ${out.size} symbols`);
   return out;
 }
 

@@ -64,7 +64,22 @@ export async function executePosition(
   });
 
   if (!response.ok) {
-    throw new Error(responseData.error || responseData.message || `HTTP ${response.status}: ${JSON.stringify(responseData)}`);
+    // Log full details for debugging
+    console.error('Pear API error:', response.status, response.statusText);
+    console.error('Request was:', JSON.stringify(requestBody, null, 2));
+    console.error('Response body:', JSON.stringify(responseData, null, 2));
+
+    // Check if this might be a market hours issue (500 with equity assets)
+    const hasEquityAssets = [...longAssets, ...shortAssets].some(
+      (a: any) => a.asset?.startsWith('xyz:') || a.asset?.startsWith('km:') || a.asset?.startsWith('vntl:')
+    );
+
+    if (response.status === 500 && hasEquityAssets) {
+      throw new Error('Market closed fml. Stocks/indices only trade Mon-Fri 9:30am-4pm ET. Try a crypto market (24/7).');
+    }
+
+    const errorMsg = responseData?.error || responseData?.message || responseData?.detail || response.statusText || `HTTP ${response.status}`;
+    throw new Error(errorMsg);
   }
 
   return responseData;

@@ -25,9 +25,15 @@ export function validateNarrativeMarkets(
 ): ValidatedMarket[] {
   const fallback = pickFallbackPair(activeSymbols);
 
+  // Debug: log active symbols count
+  console.log(`[validation] Active symbols: ${activeSymbols.size}`);
+
+  // Normalize symbol set ONCE outside the loop
+  const activeUpper = activeSymbols.size
+    ? new Set(Array.from(activeSymbols).map((s) => s.toUpperCase()))
+    : new Set<string>();
+
   return markets.map((m) => {
-    // Normalize symbol set once for resilient comparisons
-    const activeUpper = activeSymbols.size ? new Set(Array.from(activeSymbols).map((s) => s.toUpperCase())) : activeSymbols;
 
     // Basket markets: validate each leg, remap to a safe fallback pair-as-basket if needed.
     if (m.basket) {

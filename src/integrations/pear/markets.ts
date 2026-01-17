@@ -1,7 +1,13 @@
 import type { PearMarketConfig } from './types';
 
+// Pear Protocol symbol prefixes:
+// - xyz: = traditional equities/commodities (xyz:NVDA, xyz:GOLD, etc.) - WEEKDAYS ONLY
+// - vntl: = thematic indices (vntl:MAG7, vntl:SEMIS, etc.) - WEEKDAYS ONLY
+// - km: = market indices (km:US500, km:USTECH, etc.) - WEEKDAYS ONLY
+// - No prefix = native crypto (BTC, ETH, SOL, etc.) - 24/7
+
 export const MARKETS: PearMarketConfig[] = [
-  // === GEOPOLITICAL BASKETS ===
+  // === GEOPOLITICAL/MACRO (WEEKDAYS ONLY) ===
 
   {
     id: 'taiwan-strait-crisis',
@@ -10,14 +16,14 @@ export const MARKETS: PearMarketConfig[] = [
     category: 'geopolitical',
     basket: {
       long: [
-        { asset: 'INTC', weight: 0.40 },  // US fab buildout
-        { asset: 'AMD', weight: 0.30 },   // US chip design
-        { asset: 'ORCL', weight: 0.30 },  // US infrastructure
+        { asset: 'xyz:INTC', weight: 0.40 },
+        { asset: 'xyz:AMD', weight: 0.30 },
+        { asset: 'xyz:ORCL', weight: 0.30 },
       ],
       short: [
-        { asset: 'NVDA', weight: 0.40 },  // 100% TSMC reliant
-        { asset: 'AAPL', weight: 0.35 },  // iPhone chips from Taiwan
-        { asset: 'TSLA', weight: 0.25 },  // Auto chips from Taiwan
+        { asset: 'xyz:NVDA', weight: 0.40 },
+        { asset: 'xyz:AAPL', weight: 0.35 },
+        { asset: 'xyz:TSLA', weight: 0.25 },
       ],
     },
     leverage: 3,
@@ -30,15 +36,15 @@ export const MARKETS: PearMarketConfig[] = [
     category: 'geopolitical',
     basket: {
       long: [
-        { asset: 'GOLD', weight: 0.35 },   // Safe haven
-        { asset: 'INTC', weight: 0.30 },   // Cheap valuation
-        { asset: 'COIN', weight: 0.20 },   // Alternative tech narrative
-        { asset: 'MSTR', weight: 0.15 },   // Bitcoin corporate play
+        { asset: 'xyz:GOLD', weight: 0.35 },
+        { asset: 'xyz:INTC', weight: 0.30 },
+        { asset: 'xyz:COIN', weight: 0.20 },
+        { asset: 'xyz:MSTR', weight: 0.15 },
       ],
       short: [
-        { asset: 'NVDA', weight: 0.55 },   // H100 bubble, 50x P/E
-        { asset: 'META', weight: 0.25 },   // AI capex burn, no ROI
-        { asset: 'GOOGL', weight: 0.20 },  // AI arms race spending
+        { asset: 'xyz:NVDA', weight: 0.55 },
+        { asset: 'xyz:META', weight: 0.25 },
+        { asset: 'xyz:GOOGL', weight: 0.20 },
       ],
     },
     leverage: 2,
@@ -51,41 +57,17 @@ export const MARKETS: PearMarketConfig[] = [
     category: 'geopolitical',
     basket: {
       long: [
-        { asset: 'OIL', weight: 0.50 },    // Supply disruption
-        { asset: 'GOLD', weight: 0.30 },   // Safe haven flight
-        { asset: 'BTC', weight: 0.20 },    // Capital preservation
+        { asset: 'xyz:CL', weight: 0.50 },
+        { asset: 'xyz:GOLD', weight: 0.30 },
+        { asset: 'BTC', weight: 0.20 },
       ],
       short: [
-        { asset: 'SPX', weight: 0.50 },    // Risk-off selloff
-        { asset: 'TSLA', weight: 0.30 },   // Oil spike kills EV economics
-        { asset: 'BABA', weight: 0.20 },   // EM contagion
+        { asset: 'km:US500', weight: 0.50 },
+        { asset: 'xyz:TSLA', weight: 0.30 },
+        { asset: 'xyz:BABA', weight: 0.20 },
       ],
     },
     leverage: 3,
-  },
-
-  // === MACRO BASKETS ===
-
-  {
-    id: 'mag7-concentration',
-    name: 'Mag 7 Concentration',
-    description: 'Big Tech dominance vs market diversification',
-    category: 'macro',
-    basket: {
-      long: [
-        { asset: 'AAPL', weight: 0.143 },
-        { asset: 'MSFT', weight: 0.143 },
-        { asset: 'GOOGL', weight: 0.143 },
-        { asset: 'AMZN', weight: 0.143 },
-        { asset: 'NVDA', weight: 0.143 },
-        { asset: 'META', weight: 0.143 },
-        { asset: 'TSLA', weight: 0.142 },
-      ],
-      short: [
-        { asset: 'SPX', weight: 1.0 },     // Broad market diversification
-      ],
-    },
-    leverage: 2,
   },
 
   {
@@ -95,38 +77,56 @@ export const MARKETS: PearMarketConfig[] = [
     category: 'macro',
     basket: {
       long: [
-        { asset: 'NVDA', weight: 0.40 },   // Ultimate risk-on
-        { asset: 'TSLA', weight: 0.30 },   // Volatile growth
-        { asset: 'COIN', weight: 0.30 },   // Crypto proxy
+        { asset: 'xyz:NVDA', weight: 0.40 },
+        { asset: 'xyz:TSLA', weight: 0.30 },
+        { asset: 'xyz:COIN', weight: 0.30 },
       ],
       short: [
-        { asset: 'GOLD', weight: 0.60 },   // Classic safe haven
-        { asset: 'BTC', weight: 0.40 },    // Digital safe haven
+        { asset: 'xyz:GOLD', weight: 0.60 },
+        { asset: 'BTC', weight: 0.40 },
       ],
     },
     leverage: 3,
   },
 
-  // === CRYPTO BASKETS ===
+  // === CRYPTO (24/7 TRADING) ===
 
   {
-    id: 'crypto-infrastructure-war',
-    name: 'Crypto Infrastructure War',
-    description: 'Smart contract platforms vs Bitcoin maximalism',
-    category: 'tech',
-    basket: {
-      long: [
-        { asset: 'ETH', weight: 0.25 },    // Dominant L1
-        { asset: 'SOL', weight: 0.25 },    // High performance
-        { asset: 'AVAX', weight: 0.25 },   // Subnet architecture
-        { asset: 'SUI', weight: 0.25 },    // Move-based L1
-      ],
-      short: [
-        { asset: 'BTC', weight: 1.0 },     // Store of value maximalism
-      ],
+    id: 'eth-vs-btc',
+    name: 'The Flippening',
+    description: 'ETH overtakes BTC as dominant crypto asset',
+    category: 'crypto',
+    pairs: {
+      long: 'ETH',
+      short: 'BTC',
     },
     leverage: 3,
   },
+
+  {
+    id: 'sol-vs-eth',
+    name: 'Solana Surge',
+    description: 'Solana outperforms Ethereum on speed and adoption',
+    category: 'crypto',
+    pairs: {
+      long: 'SOL',
+      short: 'ETH',
+    },
+    leverage: 3,
+  },
+
+  {
+    id: 'hype-vs-btc',
+    name: 'HYPE Train',
+    description: 'Hyperliquid native token vs Bitcoin',
+    category: 'crypto',
+    pairs: {
+      long: 'HYPE',
+      short: 'BTC',
+    },
+    leverage: 3,
+  },
+
 ];
 
 export function getMarketById(id: string): PearMarketConfig | undefined {
