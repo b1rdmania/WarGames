@@ -105,9 +105,17 @@ function getTokenExpiryMs(): number | null {
 export async function getValidAccessToken(expectedUserAddress?: string): Promise<string | null> {
   // If the connected wallet changed, do NOT reuse a JWT from a different address.
   const storedAddr = getStoredUserAddress();
-  if (expectedUserAddress && storedAddr && storedAddr !== expectedUserAddress.toLowerCase()) {
-    clearAuthTokens();
-    return null;
+  if (expectedUserAddress) {
+    // If we have tokens but no stored address, it's an old/legacy session and we can't safely
+    // assert the token belongs to the connected wallet. Force re-auth once.
+    if (!storedAddr) {
+      clearAuthTokens();
+      return null;
+    }
+    if (storedAddr !== expectedUserAddress.toLowerCase()) {
+      clearAuthTokens();
+      return null;
+    }
   }
 
   const accessToken = getAccessToken();

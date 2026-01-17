@@ -13,6 +13,10 @@ export async function getAgentWallet(accessToken: string): Promise<AgentWalletIn
     },
   });
 
+  if (response.status === 401) {
+    throw new Error('Unauthorized fetching agent wallet. Please re-authenticate (signature) and try again.');
+  }
+
   if (response.status === 404) {
     return { address: '', exists: false };
   }
