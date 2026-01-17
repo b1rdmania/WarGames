@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useAccount, useChainId, useSignTypedData, useSwitchChain } from 'wagmi';
 import { arbitrum } from 'wagmi/chains';
+import { hyperEVM } from '@/lib/wagmi';
 import {
   authenticateWithPear,
   getAuthEip712Message,
@@ -123,6 +124,18 @@ export function usePear() {
       }
 
       setAgentWallet(wallet.address || null);
+
+      // Demo UX: keep the user on HyperEVM after setup.
+      // (Auth signing happens on domain.chainId, but trading UX should be HyperEVM-native.)
+      if (switchChainAsync && activeChainId !== hyperEVM.id) {
+        setStatusLine(`SWITCH CHAIN: ${hyperEVM.id}`);
+        try {
+          await switchChainAsync({ chainId: hyperEVM.id });
+        } catch {
+          // Non-fatal: user can stay on current chain and still trade via Pear API.
+        }
+      }
+
       setStatusLine('READY');
     } catch (err) {
       setStatusLine('ERROR');
@@ -134,7 +147,7 @@ export function usePear() {
         err.message?.includes('Provided chainId') &&
         err.message?.includes('must match the active chainId')
       ) {
-        setError(new Error(`Wallet network mismatch. Pear auth requires Arbitrum (chainId ${arbitrum.id}). Please switch and retry.`));
+        setError(new Error(`Wallet network mismatch. Pear auth signing requires Arbitrum (chainId ${arbitrum.id}). Please switch and retry.`));
       }
       throw err;
     } finally {

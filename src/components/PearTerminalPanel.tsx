@@ -5,6 +5,7 @@ import { arbitrum } from 'wagmi/chains';
 import { usePear } from '@/hooks/usePear';
 import { PEAR_CONFIG } from '@/integrations/pear/config';
 import toast from 'react-hot-toast';
+import { hyperEVM } from '@/lib/wagmi';
 
 export function PearTerminalPanel({
   onRequestConnect,
@@ -75,11 +76,12 @@ export function PearTerminalPanel({
         </div>
       )}
 
-      {isConnected && chainId !== arbitrum.id && (
+      {/* App preference: keep users on HyperEVM for the demo UX. */}
+      {isConnected && chainId !== hyperEVM.id && (
         <div className="mt-4 border border-yellow-500/40 p-3 text-xs text-yellow-200">
           <div className="font-mono mb-2">WRONG NETWORK</div>
           <div className="text-gray-200">
-            Pear auth requires <span className="text-white font-bold">Arbitrum (chainId {arbitrum.id})</span>.
+            For the demo, keep the wallet on <span className="text-white font-bold">HyperEVM (chainId {hyperEVM.id})</span>.
             You are currently on chainId <span className="text-white font-bold">{chainId}</span>.
           </div>
           <div className="mt-3 flex gap-2">
@@ -88,8 +90,8 @@ export function PearTerminalPanel({
                 (async () => {
                   try {
                     if (!switchChainAsync) throw new Error('Wallet does not support programmatic chain switching');
-                    await switchChainAsync({ chainId: arbitrum.id });
-                    toast.success('Switched to Arbitrum');
+                    await switchChainAsync({ chainId: hyperEVM.id });
+                    toast.success('Switched to HyperEVM');
                   } catch (e) {
                     console.error(e);
                     toast.error((e as Error).message || 'Failed to switch chain');
@@ -98,11 +100,11 @@ export function PearTerminalPanel({
               }}
               className="bg-war-green text-war-dark font-bold px-3 py-2 text-xs hover:opacity-80"
             >
-              SWITCH TO ARBITRUM
+              SWITCH TO HYPEREVM
             </button>
           </div>
           <div className="mt-2 text-[11px] text-gray-400">
-            Spec ref: `docs/pear-docs/AUTHENTICATION.md` (domain.chainId from `/auth/eip712-message`)
+            Note: Pear auth signing uses Arbitrum per `docs/pear-docs/AUTHENTICATION.md` (domain.chainId from `/auth/eip712-message`). RUN SETUP will switch temporarily.
           </div>
         </div>
       )}
