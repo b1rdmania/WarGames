@@ -67,6 +67,35 @@ export function PearSetupCard() {
           </p>
         </div>
 
+        {/* Debug info - visible */}
+        <div className="bg-black/40 border border-gray-700 rounded-lg p-4 font-mono text-xs space-y-2">
+          <div className="text-gray-500 mb-2">Debug Info:</div>
+          <div className="flex justify-between">
+            <span className="text-gray-400">isAuthenticated:</span>
+            <span className={isAuthenticated ? 'text-pear-lime' : 'text-red-400'}>
+              {isAuthenticated ? 'true' : 'false'}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-400">accessToken:</span>
+            <span className={accessToken ? 'text-pear-lime' : 'text-red-400'}>
+              {accessToken ? 'present' : 'missing'}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-400">isConnected:</span>
+            <span className={isConnected ? 'text-pear-lime' : 'text-red-400'}>
+              {isConnected ? 'true' : 'false'}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-400">agentWallet:</span>
+            <span className={agentWallet ? 'text-pear-lime' : 'text-gray-600'}>
+              {agentWallet ? 'created' : 'none'}
+            </span>
+          </div>
+        </div>
+
         {/* Action button */}
         <button
           onClick={() => {
