@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './RiskLanding.module.css';
+import { SplashAudio } from './SplashAudio';
 
 export function RiskLanding() {
   return (
@@ -11,6 +12,7 @@ export function RiskLanding() {
 
       {/* Video hero (optional). If no mp4 is present, the fallback still gives the same look. */}
       <section className={styles.videoHero} aria-label="WAR.MARKET hero">
+        <SplashAudio />
         <div className={styles.videoFallback} />
         <video autoPlay muted loop playsInline preload="metadata" className={styles.heroVideo}>
           <source src="/splash.mp4" type="video/mp4" />
