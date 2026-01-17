@@ -98,15 +98,6 @@ export function PositionsPanel({ accessToken, refreshKey }: PositionsPanelProps)
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end">
-        <button
-          onClick={() => loadPositions()}
-          disabled={loading}
-          className="neon-border text-war-green px-3 py-2 text-xs hover:neon-glow disabled:opacity-50"
-        >
-          REFRESH
-        </button>
-      </div>
       {positions.map((position) => {
         const market = getMarketById(position.marketId);
         const pnl = parseFloat(position.pnl);
@@ -116,15 +107,15 @@ export function PositionsPanel({ accessToken, refreshKey }: PositionsPanelProps)
         return (
           <div
             key={position.id}
-            className="bg-war-panel neon-border p-6"
+            className="bg-war-panel border-2 border-war-green/30 p-6 hover:border-war-green/50 transition-all"
           >
-            <div className="flex justify-between items-start mb-4">
+            <div className="flex justify-between items-start mb-6">
               <div>
-                <h3 className="font-bold neon-text mb-1">
+                <h3 className="text-2xl font-bold neon-text mb-2">
                   {market?.name || (position.longAsset && position.shortAsset ? `${position.longAsset} vs ${position.shortAsset}` : 'Unknown Market')}
                 </h3>
-                <div className={`text-sm font-bold ${
-                  position.side === 'long' ? 'text-green-400' : 'text-red-400'
+                <div className={`inline-block px-3 py-1 text-sm font-bold ${
+                  position.side === 'long' ? 'bg-green-500/20 text-green-400 border border-green-500' : 'bg-red-500/20 text-red-400 border border-red-500'
                 }`}>
                   {position.side === 'long' ? '↑ BET UP' : '↓ BET DOWN'}
                 </div>
@@ -132,30 +123,35 @@ export function PositionsPanel({ accessToken, refreshKey }: PositionsPanelProps)
               <button
                 onClick={() => handleClose(position.id)}
                 disabled={closingId === position.id}
-                className="bg-gray-700 hover:bg-gray-600 text-white text-sm font-bold px-4 py-2 transition-colors disabled:opacity-50"
+                className="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 transition-colors disabled:opacity-50 text-sm"
               >
-                {closingId === position.id ? 'CLOSING...' : 'CLOSE'}
+                {closingId === position.id ? 'CLOSING...' : 'CLOSE POSITION'}
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            {/* P&L Banner */}
+            <div className={`mb-4 p-4 border-2 ${
+              isProfitable ? 'bg-green-500/10 border-green-500' : 'bg-red-500/10 border-red-500'
+            }`}>
+              <div className="text-xs text-gray-400 mb-1">PROFIT & LOSS</div>
+              <div className={`text-3xl font-bold ${isProfitable ? 'text-green-400' : 'text-red-400'}`}>
+                {isProfitable ? '+' : ''}${pnl.toFixed(2)} USDC
+                <span className="text-lg ml-2">({isProfitable ? '+' : ''}{pnlPercent.toFixed(2)}%)</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
               <div>
                 <div className="text-xs text-gray-500 mb-1">BET SIZE</div>
-                <div className="text-white font-bold">${position.size}</div>
+                <div className="text-white font-bold text-lg">${position.size}</div>
               </div>
               <div>
                 <div className="text-xs text-gray-500 mb-1">ENTRY PRICE</div>
-                <div className="text-white">${position.entryPrice}</div>
+                <div className="text-white text-lg">${position.entryPrice}</div>
               </div>
               <div>
                 <div className="text-xs text-gray-500 mb-1">CURRENT PRICE</div>
-                <div className="text-white">${position.currentPrice}</div>
-              </div>
-              <div>
-                <div className="text-xs text-gray-500 mb-1">P&L</div>
-                <div className={`font-bold ${isProfitable ? 'text-green-400' : 'text-red-400'}`}>
-                  {isProfitable ? '+' : ''}{pnl.toFixed(2)} ({pnlPercent.toFixed(2)}%)
-                </div>
+                <div className="text-white text-lg">${position.currentPrice}</div>
               </div>
             </div>
           </div>
