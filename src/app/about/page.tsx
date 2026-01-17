@@ -50,13 +50,30 @@ export default function AboutPage() {
           </div>
 
           <div>
+            <div className="text-pear-lime font-bold tracking-widest mb-2">BUILT BY</div>
+            <div>
+              <a className="text-pear-lime underline" href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
+                @b1rdmania
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div className="text-pear-lime font-bold tracking-widest mb-2">MUSIC</div>
+            <div>
+              Created with{' '}
+              <a className="text-pear-lime underline" href="https://wario.style" target="_blank" rel="noreferrer">
+                wario.style
+              </a>
+              {' '}— a Gameboy MIDI emulator I built over Xmas.
+            </div>
+          </div>
+
+          <div>
             <div className="text-pear-lime font-bold tracking-widest mb-2">LINKS</div>
             <div className="flex flex-wrap gap-4">
               <a className="text-pear-lime underline" href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer">
                 GitHub
-              </a>
-              <a className="text-pear-lime underline" href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
-                @b1rdmania
               </a>
               <a className="text-pear-lime underline" href="https://pearprotocol.io" target="_blank" rel="noreferrer">
                 Pear Protocol
