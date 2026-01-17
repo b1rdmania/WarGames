@@ -111,7 +111,7 @@ export function PositionsPanel({ accessToken, refreshKey }: PositionsPanelProps)
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="font-bold neon-text mb-1">
-                  {market?.name || 'Unknown Market'}
+                  {market?.name || (position.longAsset && position.shortAsset ? `${position.longAsset} vs ${position.shortAsset}` : 'Unknown Market')}
                 </h3>
                 <div className={`text-sm font-bold ${
                   position.side === 'long' ? 'text-green-400' : 'text-red-400'

@@ -1,10 +1,14 @@
 'use client';
 
-import type { PearMarketConfig } from '@/integrations/pear/types';
+import type { PearMarketConfig, ResolvedPairs } from '@/integrations/pear/types';
 
 interface MarketCardProps {
-  market: PearMarketConfig;
-  onBet: (marketId: string, side: 'long' | 'short') => void;
+  market: PearMarketConfig & {
+    resolvedPairs?: ResolvedPairs;
+    isRemapped?: boolean;
+    remapReason?: string;
+  };
+  onBet: (marketId: string, side: 'long' | 'short', resolvedPairs?: ResolvedPairs) => void;
 }
 
 export function MarketCard({ market, onBet }: MarketCardProps) {
@@ -38,13 +42,18 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
 
       {/* Pair Display */}
       <div className="border border-gray-700 p-2 mb-3 text-xs">
+        {market.isRemapped && (
+          <div className="text-[10px] text-yellow-500 mb-2">
+            REMAPPED UNDERLYING (demo safety): {market.remapReason}
+          </div>
+        )}
         <div className="flex justify-between items-center">
           <div>
-            <div className="text-green-400">↑ {market.pairs.long}</div>
+            <div className="text-green-400">↑ {(market.resolvedPairs ?? market.pairs).long}</div>
           </div>
           <div className="text-gray-600">vs</div>
           <div className="text-right">
-            <div className="text-red-400">↓ {market.pairs.short}</div>
+            <div className="text-red-400">↓ {(market.resolvedPairs ?? market.pairs).short}</div>
           </div>
         </div>
       </div>
@@ -52,13 +61,13 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
       {/* Action Buttons */}
       <div className="grid grid-cols-2 gap-2">
         <button
-          onClick={() => onBet(market.id, 'long')}
+          onClick={() => onBet(market.id, 'long', market.resolvedPairs ?? market.pairs)}
           className="bg-green-600 hover:bg-green-500 text-white text-sm font-bold py-2"
         >
           UP ↑
         </button>
         <button
-          onClick={() => onBet(market.id, 'short')}
+          onClick={() => onBet(market.id, 'short', market.resolvedPairs ?? market.pairs)}
           className="bg-red-600 hover:bg-red-500 text-white text-sm font-bold py-2"
         >
           DOWN ↓

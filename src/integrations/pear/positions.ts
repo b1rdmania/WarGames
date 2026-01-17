@@ -11,6 +11,8 @@ export async function executePosition(
     throw new Error('Market not found');
   }
 
+  const pairs = params.resolvedPairs ?? market.pairs;
+
   const requestBody = {
     slippage: 0.01, // 1%
     executionType: 'MARKET',
@@ -19,13 +21,13 @@ export async function executePosition(
     longAssets: [
       {
         // Pear API spec uses `asset` key.
-        asset: params.side === 'long' ? market.pairs.long : market.pairs.short,
+        asset: params.side === 'long' ? pairs.long : pairs.short,
         weight: 1.0,
       },
     ],
     shortAssets: [
       {
-        asset: params.side === 'long' ? market.pairs.short : market.pairs.long,
+        asset: params.side === 'long' ? pairs.short : pairs.long,
         weight: 1.0,
       },
     ],
@@ -87,6 +89,8 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
   return positions.map((pos: any) => ({
     id: pos.positionId,
     ...deriveMarket(pos),
+    longAsset: pos?.longAssets?.[0]?.coin,
+    shortAsset: pos?.shortAssets?.[0]?.coin,
     size: pos.positionValue.toString(),
     entryPrice: pos.entryRatio.toString(),
     currentPrice: pos.markRatio.toString(),

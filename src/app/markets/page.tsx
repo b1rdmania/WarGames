@@ -3,25 +3,28 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { usePear } from '@/hooks/usePear';
-import { MARKETS } from '@/integrations/pear/markets';
 import { executePosition } from '@/integrations/pear/positions';
 import { MarketCard } from '@/components/MarketCard';
 import { BetModal } from '@/components/BetModal';
 import { PositionsPanel } from '@/components/PositionsPanel';
 import { BalancesPanel } from '@/components/BalancesPanel';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
+import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
+import type { ResolvedPairs } from '@/integrations/pear/types';
 
 export default function MarketsPage() {
   const { accessToken, isAuthenticated, isAuthenticating, authenticate } = usePear();
   const { perpUsdc } = useVaultBalances(accessToken);
+  const { markets: validatedMarkets } = useValidatedMarkets();
   const [positionsRefreshKey, setPositionsRefreshKey] = useState(0);
 
   const [betModalOpen, setBetModalOpen] = useState(false);
   const [selectedMarket, setSelectedMarket] = useState<string | null>(null);
   const [selectedSide, setSelectedSide] = useState<'long' | 'short' | null>(null);
+  const [selectedResolvedPairs, setSelectedResolvedPairs] = useState<ResolvedPairs | null>(null);
   const [activeTab, setActiveTab] = useState<'geopolitical' | 'tech' | 'all'>('all');
 
-  const handleBet = (marketId: string, side: 'long' | 'short') => {
+  const handleBet = (marketId: string, side: 'long' | 'short', resolvedPairs?: ResolvedPairs) => {
     if (!isAuthenticated) {
       // Fix #1: Show user-friendly error messages
       authenticate().catch(err => {
@@ -40,6 +43,7 @@ export default function MarketsPage() {
 
     setSelectedMarket(marketId);
     setSelectedSide(side);
+    setSelectedResolvedPairs(resolvedPairs ?? null);
     setBetModalOpen(true);
   };
 
@@ -53,18 +57,20 @@ export default function MarketsPage() {
       side,
       amount,
       leverage: 3, // Default leverage
+      resolvedPairs: selectedResolvedPairs ?? undefined,
     });
 
     setBetModalOpen(false);
     setSelectedMarket(null);
     setSelectedSide(null);
+    setSelectedResolvedPairs(null);
     setPositionsRefreshKey((k) => k + 1);
     toast.success('Bet placed');
   };
 
   const filteredMarkets = activeTab === 'all'
-    ? MARKETS
-    : MARKETS.filter(m => m.category === activeTab);
+    ? validatedMarkets
+    : validatedMarkets.filter(m => m.category === activeTab);
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8">

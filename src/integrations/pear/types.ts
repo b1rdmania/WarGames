@@ -16,6 +16,11 @@ export interface PearMarketConfig {
   leverage: number;
 }
 
+export interface ResolvedPairs {
+  long: string;
+  short: string;
+}
+
 export interface PearPosition {
   id: string;
   marketId: string;
@@ -26,6 +31,8 @@ export interface PearPosition {
   pnl: string;
   pnlPercent: string;
   timestamp: number;
+  longAsset?: string;
+  shortAsset?: string;
 }
 
 export interface ExecutePositionParams {
@@ -33,4 +40,5 @@ export interface ExecutePositionParams {
   side: 'long' | 'short';
   amount: string;
   leverage: number;
+  resolvedPairs?: ResolvedPairs;
 }
