@@ -175,6 +175,27 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
+
+          <div className="tp-rule mt-8" />
+
+          <div className="tp-section">
+            <div className="tp-h">ROADMAP</div>
+            <ul className="tp-bullets tp-body">
+              <li>Win hackathon</li>
+              <li>UX redesign for production</li>
+              <li>Audit / codebase review</li>
+              <li>Quant advice on market structures</li>
+              <li>Integrate charts from HL</li>
+              <li>Custom historic charts per market</li>
+              <li>Build GTM team of rabid degens</li>
+              <li>Launch X</li>
+              <li>Go LIVE</li>
+              <li>$WAR token</li>
+              <li>Raise stake for HIP-3 auction</li>
+              <li>HIP-3 markets for novel WAR indices</li>
+              <li>World Peace</li>
+            </ul>
+          </div>
         </div>
       </div>
     </RiskShell>
