@@ -109,6 +109,27 @@ export default function AboutPage() {
 
           <div className="tp-rule mt-8" />
 
+          <div className="tp-section">
+            <div className="tp-h">ROADMAP</div>
+            <ul className="tp-bullets tp-body">
+              <li>Win hackathon</li>
+              <li>UX redesign for production</li>
+              <li>Audit / codebase review</li>
+              <li>Quant advice on market structures</li>
+              <li>Integrate charts from HL</li>
+              <li>Custom historic charts per market</li>
+              <li>Build GTM team of rabid degens</li>
+              <li>Launch X</li>
+              <li>Go LIVE</li>
+              <li>$WAR token</li>
+              <li>Raise stake for HIP-3 auction</li>
+              <li>HIP-3 markets for novel WAR indices</li>
+              <li>World Peace</li>
+            </ul>
+          </div>
+
+          <div className="tp-rule mt-8" />
+
           <div className="tp-section grid gap-8 md:grid-cols-2">
             <div>
               <div className="tp-h">BUILT BY</div>
@@ -124,8 +145,8 @@ export default function AboutPage() {
                   Created with{' '}
                   <a className="text-pear-lime underline" href="https://wario.style" target="_blank" rel="noreferrer">
                     wario.style
-                  </a>
-                  {' '}— a Gameboy MIDI emulator I built over Xmas.
+                  </a>{' '}
+                  — a Gameboy MIDI emulator I built over Xmas.
                 </div>
               </div>
             </div>
@@ -163,38 +184,20 @@ export default function AboutPage() {
 
               <div className="tp-section">
                 <div className="tp-h">START</div>
-                <div className="tp-body flex flex-wrap items-center">
-                  <Link className="text-pear-lime underline" href="/markets">
-                    Browse MARKETS →
-                  </Link>
-                  <span className="mx-3 text-gray-600">·</span>
-                  <Link className="text-pear-lime underline" href="/trade">
-                    Open TRADE →
-                  </Link>
-                </div>
+                <ul className="tp-bullets tp-body">
+                  <li>
+                    <Link className="text-pear-lime underline" href="/markets">
+                      Browse MARKETS →
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="text-pear-lime underline" href="/trade">
+                      Open TRADE →
+                    </Link>
+                  </li>
+                </ul>
               </div>
             </div>
-          </div>
-
-          <div className="tp-rule mt-8" />
-
-          <div className="tp-section">
-            <div className="tp-h">ROADMAP</div>
-            <ul className="tp-bullets tp-body">
-              <li>Win hackathon</li>
-              <li>UX redesign for production</li>
-              <li>Audit / codebase review</li>
-              <li>Quant advice on market structures</li>
-              <li>Integrate charts from HL</li>
-              <li>Custom historic charts per market</li>
-              <li>Build GTM team of rabid degens</li>
-              <li>Launch X</li>
-              <li>Go LIVE</li>
-              <li>$WAR token</li>
-              <li>Raise stake for HIP-3 auction</li>
-              <li>HIP-3 markets for novel WAR indices</li>
-              <li>World Peace</li>
-            </ul>
           </div>
         </div>
       </div>
