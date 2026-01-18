@@ -144,7 +144,7 @@ export default function AboutPage() {
                 <span className="mx-3 text-gray-600">·</span>
                 <a
                   className="text-pear-lime underline whitespace-nowrap"
-                  href="https://pearprotocol.io"
+                  href="https://www.pear.garden/"
                   target="_blank"
                   rel="noreferrer"
                 >

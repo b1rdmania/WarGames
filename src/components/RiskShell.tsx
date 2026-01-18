@@ -57,7 +57,7 @@ export function RiskShell({
               </a>
             </div>
             <div className={styles.footerPear}>
-              <a className={styles.footerPearLink} href="https://pearprotocol.io" target="_blank" rel="noreferrer">
+              <a className={styles.footerPearLink} href="https://www.pear.garden/" target="_blank" rel="noreferrer">
                 <Image
                   src="/pearwordmark.png"
                   alt="Pear Protocol"

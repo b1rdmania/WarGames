@@ -66,7 +66,7 @@ export function RiskLanding() {
           </Link>
         </div>
         <div className={styles.footerRight}>
-          <a href="https://pearprotocol.io" target="_blank" rel="noreferrer" className={styles.footerPear}>
+          <a href="https://www.pear.garden/" target="_blank" rel="noreferrer" className={styles.footerPear}>
             <Image src="/pearwordmark.png" alt="Pear Protocol" width={120} height={24} />
             <span>Created on Pear Protocol</span>
           </a>
