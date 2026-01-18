@@ -2,6 +2,8 @@
 
 Trade narratives. Not tickers.
 
+![WAR.MARKET](./public/ghimage.png)
+
 Built for the **Hyperliquid London Community Hackathon** (Jan 16–18, 2026).
 
 Live: `https://www.war.market`
@@ -86,6 +88,11 @@ NEXT_PUBLIC_NETWORK=mainnet
 - This is a hackathon build. It is not audited. Use small size.
 - iOS is gated to `/ios`. This UI is built for laptop/desktop.
 - Markets pages are browse-only on purpose. Trading happens on `/trade`.
+
+## Hackathon track + deck
+
+- Track: **Pear Execution API**
+- Deck: `https://www.war.market/deck`
 
 ## Credits
 
