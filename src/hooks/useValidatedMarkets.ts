@@ -27,7 +27,12 @@ export function useValidatedMarkets() {
   }, []);
 
   const markets: ValidatedMarket[] = useMemo(() => {
-    return validateNarrativeMarkets(MARKETS, activeSymbols ?? new Set());
+    // Important: avoid flashing the fallback pair (BTC/ETH) while we are still
+    // loading active symbols. We only remap once we have a real symbol set.
+    if (activeSymbols === null) {
+      return MARKETS.map((m) => ({ ...m, isRemapped: false })) as ValidatedMarket[];
+    }
+    return validateNarrativeMarkets(MARKETS, activeSymbols);
   }, [activeSymbols]);
 
   return {

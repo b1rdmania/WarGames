@@ -12,7 +12,7 @@
 
 .th {
   text-align: left;
-  padding: 16px;
+  padding: 14px 14px;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -22,9 +22,9 @@
 }
 
 .td {
-  padding: 16px;
+  padding: 12px 14px;
   border-bottom: 1px solid rgba(2, 255, 129, 0.12);
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 .row:hover {
@@ -44,6 +44,7 @@
 .marketName {
   color: #fff;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  line-height: 1.15;
 }
 
 .marketLink {
@@ -59,7 +60,7 @@
 .marketMeta {
   display: flex;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .metaTag {
@@ -87,6 +88,7 @@
   gap: 8px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .underlying {
@@ -138,10 +140,11 @@
   display: flex;
   gap: 10px;
   justify-content: flex-end;
+  white-space: nowrap;
 }
 
 .btnAction {
-  padding: 10px 18px;
+  padding: 9px 14px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   font-size: 12px;
   font-weight: 600;
