@@ -28,6 +28,120 @@ body {
     monospace;
 }
 
+/* Terminal content pages (About / Deck / docs-style pages) */
+.tp-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tp-frame {
+  border: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.35);
+  padding: 40px;
+}
+
+@media (max-width: 768px) {
+  .tp-frame {
+    padding: 24px;
+  }
+}
+
+.tp-hero {
+  padding-bottom: 18px;
+}
+
+.tp-title {
+  font-family: var(--font-display), var(--font-mono), ui-monospace, monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pear-lime);
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 1.05;
+}
+
+.tp-lede {
+  margin-top: 10px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  color: #a1a1aa; /* zinc-400-ish */
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.tp-rule {
+  height: 1px;
+  background: rgba(var(--pear-lime-rgb), 0.18);
+}
+
+.tp-section {
+  margin-top: 22px;
+}
+
+.tp-h {
+  font-family: var(--font-display), var(--font-mono), ui-monospace, monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--pear-lime);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.tp-body {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  color: #a1a1aa;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.tp-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tp-bullets li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.tp-bullets li::before {
+  content: "*";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--pear-lime);
+  opacity: 0.9;
+}
+
+.tp-bullets li + li {
+  margin-top: 8px;
+}
+
+.tp-kv {
+  display: grid;
+  gap: 8px;
+}
+
+.tp-kv-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.tp-kv-k {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pear-gray-dark);
+}
+
+.tp-kv-v {
+  font-size: 13px;
+  color: #fff;
+}
+
 /* RiskMarkets-style terminal typography */
 h1, h2, h3 {
   font-family: var(--font-display), var(--font-mono), ui-monospace, monospace;
@@ -101,6 +215,10 @@ h1, h2, h3 {
   background: rgba(0, 0, 0, 0.20);
   border: 1px solid var(--border-color);
   padding: 12px;
+  box-shadow:
+    inset 0 1px 0 rgba(var(--pear-lime-rgb), 0.10),
+    0 0 18px rgba(var(--pear-lime-rgb), 0.06);
+  backdrop-filter: blur(1px);
 }
 
 .tm-k {

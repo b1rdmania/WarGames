@@ -161,8 +161,8 @@ export default function DeckPage() {
 
   return (
     <RiskShell subtitle="DECK" showMusic={false} right={null}>
-      <div className="mx-auto max-w-[1200px]">
-        <div className="pear-border bg-black/35 p-10 md:p-12 min-h-[62vh] flex flex-col justify-between">
+      <div className="tp-wrap">
+        <div className="tp-frame min-h-[62vh] flex flex-col justify-between">
           <div className="flex items-center justify-between gap-4">
             <div className="text-xs font-mono text-gray-500 uppercase tracking-[0.18em]">
               {slide.kicker ?? 'WAR.MARKET DECK'}
