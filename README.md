@@ -1,169 +1,96 @@
 # WAR.MARKET
 
-> Bet on narratives that move markets
+Trade narratives. Not tickers.
 
-A narrative markets platform built for the **Hyperliquid London Community Hackathon** (Jan 16-18, 2026).
+Built for the **Hyperliquid London Community Hackathon** (Jan 16–18, 2026).
 
-## 🎯 What is WAR.MARKET?
+Live: `https://war-markets.vercel.app`
 
-WAR.MARKET lets users bet on macro narratives through leveraged pair trades. Instead of traditional trading interfaces, we use betting language and mobile-first UX to target Gen Z users with intuitive position taking on geopolitical and tech trends.
+## What this is
 
-### Example Markets
+WAR.MARKET is a war-room terminal for trading global stress.
 
-**Geopolitical:**
-- 🇺🇸 Trump 2024 Crypto Impact: BTC vs SPY
-- 🇺🇦 Ukraine Reconstruction Boom: EWU vs LMT
-- 🌍 Middle East Energy Shift: ICLN vs USO
+You don’t pick one coin and pray.
+You pick a story and trade it as a leveraged long/short basket.
 
-**Tech/Industry:**
-- 🤖 AI vs Crypto: NVDA vs BTC
-- ⚛️ Quantum Computing Threat: IBM vs ETH
-- 🌐 Decentralized Social Media: LENS vs META
+Execution runs through **Pear Protocol**.
+Settlement happens on **Hyperliquid**.
 
-## 🏆 Hackathon Track (submission focus)
+## What you can do
 
-### Pear Protocol Track ($3,500)
-**Execute pair/basket trades via Pear Execution API**
+- Browse narrative markets (intel only)
+- Authenticate with Pear (EIP‑712)
+- Create a non‑custodial agent wallet
+- Place a trade (BET UP / BET DOWN)
+- Track P&L and cash out
 
-- Non-custodial agent wallets
-- EIP-712 authentication
-- Leveraged narrative positions (2–3x)
+## Site map
 
-## 🛠️ Tech Stack
+- `/` — splash / landing
+- `/markets` — browse-only market list
+- `/markets/[id]` — market dossier (browse-only)
+- `/trade` — the trading terminal (auth + execution)
+- `/portfolio` — positions + P&L
 
-- **Frontend:** Next.js (App Router), TypeScript, Tailwind CSS
-- **Wallet:** wagmi + viem
-- **Trading:** Pear Protocol API
-- **Settlement:** Hyperliquid (via Pear execution engine)
+## 60‑second demo flow
 
-## 🗄️ Archived reference (not part of submission)
+1. Go to `/markets` and click a market.
+2. Read the dossier. Pick a narrative.
+3. Go to `/trade`.
+4. Connect wallet.
+5. Click **AUTHENTICATE WITH PEAR** and sign.
+6. Place a small bet.
+7. Go to `/portfolio`. Watch it move. Cash out.
 
-This workspace previously included an older HIP-3 prototype called **RiskMarkets** used as a UX reference only.
+## Local run
 
-- It has been moved to `../archive/RiskMarkets/` locally and is **not part of the `war-markets` app repo**.
-
-## 🚀 Getting Started
-
-### Prerequisites
+Requirements:
 
 - Node.js 18+
-- npm or yarn
-- MetaMask or compatible wallet
+- A wallet (MetaMask / Rabby / Coinbase Wallet)
 
-### Installation
+Run:
 
 ```bash
-# Clone the repository
 git clone https://github.com/b1rdmania/WarGames.git
 cd WarGames
-
-# Install dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your configuration
+# env
+cp .env.example .env.local || true
 
-# Run development server
 npm run dev
 ```
 
-Visit `http://localhost:3000`
+Open `http://localhost:3000`.
 
-### Environment Variables
+## Env vars
 
 ```env
+# Pear hackathon client id
 NEXT_PUBLIC_PEAR_CLIENT_ID=HLHackathon1
+
+# mainnet | testnet
 NEXT_PUBLIC_NETWORK=mainnet
 ```
 
-## 📱 User Flow
+## Tech
 
-1. **Connect wallet**
-2. **Authenticate** - Sign EIP-712 message with Pear
-3. **Agent wallet** - Create + approve agent wallet (required for execution)
-4. **Fund trading collateral** - Ensure you have sufficient USDC available for execution (spot/perp balances)
-5. **Browse markets** - Pick a narrative
-6. **Place bet** - BET UP / BET DOWN
-7. **Track positions** - View P&L and close
+- Next.js (App Router) + TypeScript
+- wagmi + viem
+- Pear Execution API (auth, agent wallets, positions)
+- Hyperliquid settlement (via Pear)
 
-## 🎨 Design Philosophy
+## Notes (read this)
 
-### Betting Language (Gen Z Focus)
-- ✅ "BET UP/DOWN" instead of "Long/Short"
-- ✅ "PLACE BET" instead of "Execute Position"
-- ✅ "BET AMOUNT" instead of "Position Size"
+- This is a hackathon build. It is not audited. Use small size.
+- iOS is gated to `/ios`. This UI is built for laptop/desktop.
+- Markets pages are browse-only on purpose. Trading happens on `/trade`.
 
-### Terminal Aesthetic
-- Neon green (#02FF81) on dark backgrounds
-- IBM Plex Mono font
-- High contrast, minimal design
-- Mobile-first responsive layout
+## Credits
 
-## 🏗️ Architecture
+Made by [@b1rdmania](https://x.com/b1rdmania).
 
-```
-User Wallet
-    ↓
-Pear Agent Wallet → HyperCore Trading
-```
+Music made in [`wario.style`](https://wario.style).
 
-### Key Components
-
-- **MarketCard**: Narrative market display with betting UI
-- **BetModal**: Position entry with leverage calculation
-- **PositionsPanel**: Active positions with P&L tracking
-
-### Integrations
-
-**src/integrations/pear/**
-- auth.ts - EIP-712 authentication
-- agent.ts - Agent wallet management
-- positions.ts - Position execution and tracking
-- markets.ts - Market configuration
-
-## 🧪 Testing
-
-```bash
-# Run build check
-npm run build
-
-# Run development server
-npm run dev
-```
-
-## 📦 Deployment
-
-```bash
-# Build for production
-npm run build
-
-# Start production server
-npm start
-```
-
-## 🎥 Demo Video
-
-[Link to 3-minute demo video]
-
-## 🤝 Contributing
-
-Built for Hyperliquid London Community Hackathon 2026.
-
-Team:
-- [@b1rdmania](https://github.com/b1rdmania)
-- Claude Code (AI pair programmer)
-
-## 📄 License
-
-MIT
-
-## 🔗 Links
-
-- [Hyperliquid](https://hyperliquid.xyz)
-- [Pear Protocol](https://pearprotocol.io)
-- [GitHub Repo](https://github.com/b1rdmania/WarGames)
-
----
-
-**Built with ⚡️ for Hyperliquid London Community Hackathon**
+Repo: `https://github.com/b1rdmania/WarGames`
