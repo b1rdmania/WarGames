@@ -93,6 +93,7 @@ NEXT_PUBLIC_NETWORK=mainnet
 
 - Track: **Pear Execution API**
 - Deck: `https://www.war.market/deck`
+- Docs: `./docs/README.md` (working notes archived)
 
 ## Credits
 
