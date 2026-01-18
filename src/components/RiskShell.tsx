@@ -51,7 +51,11 @@ export function RiskShell({
           {children}
 
           <footer className={styles.footer}>
-            <div className={styles.footerLeft}>made by b1rdmania</div>
+            <div className={styles.footerLeft}>
+              <a className={styles.footerLink} href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
+                made by b1rdmania
+              </a>
+            </div>
             <div className={styles.footerPear}>
               <a className={styles.footerPearLink} href="https://pearprotocol.io" target="_blank" rel="noreferrer">
                 <Image
