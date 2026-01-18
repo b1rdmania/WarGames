@@ -115,24 +115,42 @@ export default function AboutPage() {
 
             <div>
               <div className="tp-h">LINKS</div>
-              <div className="tp-body flex flex-wrap gap-4">
-                <a className="text-pear-lime underline" href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer">
+              <div className="tp-body flex flex-wrap items-center">
+                <a
+                  className="text-pear-lime underline whitespace-nowrap"
+                  href="https://github.com/b1rdmania/WarGames"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   GitHub
                 </a>
-                <a className="text-pear-lime underline" href="https://pearprotocol.io" target="_blank" rel="noreferrer">
+                <span className="mx-3 text-gray-600">·</span>
+                <a
+                  className="text-pear-lime underline whitespace-nowrap"
+                  href="https://pearprotocol.io"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Pear Protocol
                 </a>
-                <a className="text-pear-lime underline" href="https://hyperliquid.xyz" target="_blank" rel="noreferrer">
+                <span className="mx-3 text-gray-600">·</span>
+                <a
+                  className="text-pear-lime underline whitespace-nowrap"
+                  href="https://hyperliquid.xyz"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Hyperliquid
                 </a>
               </div>
 
               <div className="tp-section">
                 <div className="tp-h">START</div>
-                <div className="tp-body flex flex-wrap gap-4">
+                <div className="tp-body flex flex-wrap items-center">
                   <Link className="text-pear-lime underline" href="/markets">
                     Browse MARKETS →
                   </Link>
+                  <span className="mx-3 text-gray-600">·</span>
                   <Link className="text-pear-lime underline" href="/trade">
                     Open TRADE →
                   </Link>
