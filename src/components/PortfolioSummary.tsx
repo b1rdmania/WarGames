@@ -20,7 +20,7 @@ export function PortfolioSummary({
 
   return (
     <div className="pear-border bg-black/40 p-6 mb-6">
-      <div className="text-sm font-mono text-gray-300 mb-4">[ PORTFOLIO ]</div>
+      <div className="text-sm font-mono text-pear-lime mb-4">[ PORTFOLIO ]</div>
 
       {/* RiskMarkets-style quadrant table */}
       <div className="border border-[rgba(2,255,129,0.18)] bg-black/20">

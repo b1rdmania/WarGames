@@ -13,10 +13,10 @@ function cleanCoin(raw?: string): string | null {
   return s;
 }
 
-function compactCoins(list?: Array<{ coin: string }>, max = 3): string | null {
+function compactCoins(list?: Array<{ coin?: string; asset?: string }>, max = 3): string | null {
   if (!list || list.length === 0) return null;
   const coins = list
-    .map((a) => cleanCoin(a.coin))
+    .map((a) => cleanCoin(a.coin ?? a.asset))
     .filter((x): x is string => Boolean(x));
   if (coins.length === 0) return null;
   if (coins.length <= max) return coins.join('+');
@@ -38,8 +38,10 @@ export function PositionCard({
   const isProfitable = pnl >= 0;
 
   // Map position assets to our narrative market
-  const longAsset = cleanCoin(position.longAsset) ?? compactCoins(position.longAssets) ?? '—';
-  const shortAsset = cleanCoin(position.shortAsset) ?? compactCoins(position.shortAssets) ?? '—';
+  const longAsset = cleanCoin(position.longAsset) ?? compactCoins(position.longAssets as any) ?? '—';
+  const shortAsset = cleanCoin(position.shortAsset) ?? compactCoins(position.shortAssets as any) ?? '—';
+  const actualLong = compactCoins(position.longAssets as any) ?? cleanCoin(position.longAsset) ?? '—';
+  const actualShort = compactCoins(position.shortAssets as any) ?? cleanCoin(position.shortAsset) ?? '—';
   const market =
     position.longAsset && position.shortAsset
       ? getMarketByAssets(position.longAsset, position.shortAsset)
@@ -61,18 +63,16 @@ export function PositionCard({
     <div className="pear-border bg-black/40 p-6">
       <div className="flex items-start justify-between mb-5">
         <div className="flex-1">
-          <div className="text-sm font-mono text-gray-300 mb-2">[ POSITION ]</div>
+          <div className="text-sm font-mono text-pear-lime mb-2">[ POSITION ]</div>
           <div className="text-lg font-mono text-white mb-1">{displayName}</div>
           <div className="text-xs font-mono text-gray-500 mb-3">{displayDescription}</div>
           <div className="flex items-center gap-3">
-            <span className={`text-[10px] font-mono px-3 py-1 border tracking-widest uppercase ${
-              position.side === 'long'
-                ? 'bg-pear-lime/10 text-pear-lime border-pear-lime/30'
-                : 'bg-red-500/10 text-red-300 border-red-400/30'
-            }`}>
-              {position.side === 'long' ? '↑ BET UP' : '↓ BET DOWN'}
+            <span className="text-[10px] font-mono px-3 py-1 border tracking-widest uppercase bg-black/20 border-[rgba(2,255,129,0.18)] text-gray-300">
+              BET:
+              <span className="ml-2 text-pear-lime">LONG</span> <span className="text-white">{actualLong}</span>
+              <span className="mx-2 text-gray-600">/</span>
+              <span className="text-red-300">SHORT</span> <span className="text-white">{actualShort}</span>
             </span>
-            <span className="text-xs text-gray-400 font-mono">{longAsset} vs {shortAsset}</span>
           </div>
         </div>
 
@@ -186,7 +186,8 @@ export function PositionCard({
             {priceChange >= 0 ? '+' : ''}{priceChange.toFixed(2)}%
             </span>
           </span>
-          <span className="ml-2">Opened {timeDisplay}</span>
+          <span className="text-gray-600">·</span>
+          <span>Opened {timeDisplay}</span>
         </div>
         <div className="text-gray-500">
           Current: {currentPrice.toFixed(4)}

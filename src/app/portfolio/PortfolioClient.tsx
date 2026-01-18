@@ -158,7 +158,7 @@ export default function PortfolioClient() {
 
         <div className="mt-6">
           <div className="flex items-center justify-between text-sm font-mono text-gray-300 mb-3">
-            <div>[ ACTIVE POSITIONS ]</div>
+            <div className="text-pear-lime">[ ACTIVE POSITIONS ]</div>
             <div className="flex items-center gap-3">
               {hasLoadedPositions && refreshingPositions ? (
                 <div className="text-[10px] text-gray-500">UPDATING…</div>
