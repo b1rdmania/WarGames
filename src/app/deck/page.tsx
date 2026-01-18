@@ -9,50 +9,66 @@ type Slide = {
   body: React.ReactNode;
 };
 
+const TOTAL = 5;
+
 const SLIDES: Slide[] = [
   {
     kicker: 'Hyperliquid London Hackathon · Jan 16–18, 2026',
     title: 'WAR.MARKET',
     body: (
-      <div className="space-y-4 text-sm text-gray-300 leading-relaxed">
-        <div>Trade narratives. Not tickers.</div>
-        <div className="text-gray-400">
+      <div className="space-y-6">
+        <div className="text-4xl md:text-6xl font-mono font-extrabold tracking-widest text-white">
+          TRADE NARRATIVES.
+          <br />
+          <span className="text-pear-lime">NOT TICKERS.</span>
+        </div>
+        <div className="text-lg md:text-xl font-mono text-gray-300 leading-relaxed">
           Pear executes the basket. Hyperliquid settles it.
         </div>
-        <div className="text-xs text-gray-500">
+        <div className="text-sm font-mono text-gray-500">
           Live: <span className="text-white">https://www.war.market</span>
         </div>
       </div>
     ),
   },
   {
-    kicker: 'Slide 2 / 5',
     title: 'THE PROBLEM',
     body: (
-      <div className="space-y-3 text-sm text-gray-300 leading-relaxed">
+      <div className="space-y-5 text-xl md:text-2xl font-mono text-gray-200 leading-snug">
         <div>Traders think in stories.</div>
         <div>Markets move in pairs.</div>
-        <div>But the UI is tickers and noise.</div>
+        <div>
+          But the UI is{' '}
+          <span className="text-red-300">tickers and noise</span>.
+        </div>
         <div className="text-gray-400">So people trade the wrong thing.</div>
       </div>
     ),
   },
   {
-    kicker: 'Slide 3 / 5',
     title: 'THE SOLUTION',
     body: (
-      <div className="space-y-3 text-sm text-gray-300 leading-relaxed">
-        <div>WAR.MARKET is a war-room terminal for trading global stress.</div>
-        <div>We turn a thesis into a basket:</div>
-        <div className="pl-3 border-l border-pear-lime/30">
-          <div>
-            <span className="text-pear-lime">LONG</span> the winners
+      <div className="space-y-6 font-mono">
+        <div className="text-xl md:text-2xl text-gray-200 leading-snug">
+          WAR.MARKET is a war-room terminal for trading global stress.
+        </div>
+
+        <div className="text-lg md:text-xl text-gray-300">
+          We turn a thesis into a basket.
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="pear-border bg-black/30 p-5">
+            <div className="text-xs text-gray-500 uppercase tracking-[0.18em] mb-2">LONG</div>
+            <div className="text-pear-lime text-2xl font-extrabold tracking-widest">WINNERS</div>
           </div>
-          <div>
-            <span className="text-red-300">SHORT</span> the casualties
+          <div className="pear-border bg-black/30 p-5">
+            <div className="text-xs text-gray-500 uppercase tracking-[0.18em] mb-2">SHORT</div>
+            <div className="text-red-300 text-2xl font-extrabold tracking-widest">CASUALTIES</div>
           </div>
         </div>
-        <div className="text-gray-400">One button. One position. One thesis.</div>
+
+        <div className="text-gray-400 text-lg">One button. One position. One thesis.</div>
 
         <div className="pear-border bg-black/30 p-4">
           <div className="text-xs text-gray-500 uppercase tracking-[0.18em] mb-2">
@@ -75,11 +91,10 @@ const SLIDES: Slide[] = [
     ),
   },
   {
-    kicker: 'Slide 4 / 5',
     title: 'HOW IT WORKS',
     body: (
-      <div className="space-y-3 text-sm text-gray-300 leading-relaxed">
-        <div className="pear-border bg-black/30 p-4 font-mono text-sm">
+      <div className="space-y-5 font-mono">
+        <div className="pear-border bg-black/30 p-6 text-lg md:text-xl leading-relaxed">
           1) Browse <span className="text-white">/markets</span> (intel only)
           <br />
           2) Go to <span className="text-white">/trade</span> (connect wallet)
@@ -90,17 +105,16 @@ const SLIDES: Slide[] = [
           <br />
           5) Track + cash out in <span className="text-white">/portfolio</span>
         </div>
-        <div className="text-xs text-gray-500">
+        <div className="text-sm text-gray-500">
           Note: iOS is gated. This is a laptop/desktop terminal.
         </div>
       </div>
     ),
   },
   {
-    kicker: 'Slide 5 / 5',
     title: 'WHY IT MATTERS',
     body: (
-      <div className="space-y-3 text-sm text-gray-300 leading-relaxed">
+      <div className="space-y-5 font-mono">
         <div className="text-gray-300">
           <span className="text-pear-lime">✓</span> Real execution (not a mock)
         </div>
@@ -110,7 +124,7 @@ const SLIDES: Slide[] = [
         <div className="text-gray-300">
           <span className="text-pear-lime">✓</span> Tight demo loop: auth → trade → P&amp;L → cash out
         </div>
-        <div className="text-gray-400">Built in 3 days. Shipped to mainnet.</div>
+        <div className="text-gray-400 text-lg">Built in 3 days. Shipped to mainnet.</div>
         <div className="pt-2 text-xs text-gray-400">
           Repo: <span className="text-white">https://github.com/b1rdmania/WarGames</span>
           <br />
@@ -129,7 +143,7 @@ export default function DeckPage() {
   const [idx, setIdx] = useState(0);
 
   const slide = useMemo(() => SLIDES[idx]!, [idx]);
-  const total = SLIDES.length;
+  const total = TOTAL;
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -148,22 +162,23 @@ export default function DeckPage() {
 
   return (
     <RiskShell subtitle="DECK" showMusic={false} right={null}>
-      <div className="mx-auto max-w-[980px]">
-        <div className="pear-border bg-black/40 p-6">
+      <div className="mx-auto max-w-[1200px]">
+        <div className="pear-border bg-black/35 p-10 md:p-12 min-h-[62vh] flex flex-col justify-between">
           <div className="flex items-center justify-between gap-4">
             <div className="text-xs font-mono text-gray-500 uppercase tracking-[0.18em]">
-              {slide.kicker ?? `Slide ${idx + 1} / ${total}`}
+              {slide.kicker ?? 'WAR.MARKET DECK'}
             </div>
             <div className="text-xs font-mono text-gray-500">
               {idx + 1}/{total}
             </div>
           </div>
 
-          <div className="mt-6 text-3xl md:text-5xl font-mono font-bold tracking-widest text-pear-lime">
-            {slide.title}
+          <div className="mt-10">
+            <div className="text-4xl md:text-6xl font-mono font-extrabold tracking-widest text-pear-lime">
+              {slide.title}
+            </div>
+            <div className="mt-8">{slide.body}</div>
           </div>
-
-          <div className="mt-6">{slide.body}</div>
 
           <div className="mt-10 flex items-center justify-between gap-3">
             <button
