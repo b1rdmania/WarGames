@@ -52,7 +52,7 @@
 
 ## Slide 8 — Links (snappy)
 
-- Live: `https://war-markets.vercel.app`
+- Live: `https://www.war.market`
 - Repo: `https://github.com/b1rdmania/WarGames`
 
 ## Appendix (optional) — Current status checklist

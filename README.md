@@ -4,7 +4,7 @@ Trade narratives. Not tickers.
 
 Built for the **Hyperliquid London Community Hackathon** (Jan 16–18, 2026).
 
-Live: `https://war-markets.vercel.app`
+Live: `https://www.war.market`
 
 ## What this is
 

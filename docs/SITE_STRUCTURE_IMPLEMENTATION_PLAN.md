@@ -72,7 +72,7 @@ Goal: restructure the app into a simple, judge-friendly flow with clear separati
 
 ## Smoke Test Checklist (manual)
 
-- `war-markets.vercel.app/` loads splash; CTA goes to `/trade`.
+- `www.war.market/` loads splash; CTA goes to `/trade`.
 - `/markets` loads the table and market links work.
 - `/markets/[marketId]` loads and YES/NO opens BetSlip.
 - `/trade` shows connect/setup when unauthenticated; after setup, YES/NO opens BetSlip.

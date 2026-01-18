@@ -4,8 +4,8 @@ Trade narratives. Not tickers.
 
 Hyperliquid London Hackathon · Jan 16–18, 2026
 
-Live: `https://war-markets.vercel.app`
-Hidden deck: `https://war-markets.vercel.app/briefing`
+Live: `https://www.war.market`
+Hidden deck: `https://www.war.market/briefing`
 
 ---
 
@@ -65,7 +65,7 @@ People trade narratives as a single action.
 
 ## LINKS
 
-- Live: `https://war-markets.vercel.app`
+- Live: `https://www.war.market`
 - Repo: `https://github.com/b1rdmania/WarGames`
 - X: `https://x.com/b1rdmania`
 - Music: `https://wario.style`

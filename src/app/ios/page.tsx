@@ -23,7 +23,7 @@ export default function IOSLandingPage() {
           <div className="mt-8 grid gap-3">
             <a
               className="tm-btn w-full text-center"
-              href="https://war-markets.vercel.app"
+              href="https://www.war.market"
               target="_blank"
               rel="noreferrer"
             >

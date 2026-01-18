@@ -67,7 +67,7 @@ export default function BriefingPage() {
             <section>
               <div className="text-pear-lime font-bold tracking-widest mb-2">LINKS</div>
               <div className="text-sm text-gray-300 leading-relaxed">
-                Live: <span className="text-white">https://war-markets.vercel.app</span>
+                Live: <span className="text-white">https://www.war.market</span>
                 <br />
                 Repo: <span className="text-white">https://github.com/b1rdmania/WarGames</span>
                 <br />
