@@ -53,6 +53,24 @@ const SLIDES: Slide[] = [
           </div>
         </div>
         <div className="text-gray-400">One button. One position. One thesis.</div>
+
+        <div className="pear-border bg-black/30 p-4">
+          <div className="text-xs text-gray-500 uppercase tracking-[0.18em] mb-2">
+            Example market
+          </div>
+          <div className="text-pear-lime font-bold tracking-widest">TAIWAN STRAIT CRISIS</div>
+          <div className="mt-2 text-xs text-gray-400">
+            Thesis: US chip independence vs TSMC supply chain dependency
+          </div>
+          <div className="mt-3 text-sm">
+            <div>
+              <span className="text-pear-lime">LONG</span>: INTC (40%) · AMD (30%) · ORCL (30%)
+            </div>
+            <div>
+              <span className="text-red-300">SHORT</span>: NVDA (40%) · AAPL (35%) · TSLA (25%)
+            </div>
+          </div>
+        </div>
       </div>
     ),
   },
@@ -83,11 +101,16 @@ const SLIDES: Slide[] = [
     title: 'WHY IT MATTERS',
     body: (
       <div className="space-y-3 text-sm text-gray-300 leading-relaxed">
-        <div>This is real execution.</div>
-        <div>Pear runs the basket. Hyperliquid settles it.</div>
-        <div className="text-gray-400">
-          The UX stays readable under stress. That’s the product.
+        <div className="text-gray-300">
+          <span className="text-pear-lime">✓</span> Real execution (not a mock)
         </div>
+        <div className="text-gray-300">
+          <span className="text-pear-lime">✓</span> New behavior: narrative → basket → one position
+        </div>
+        <div className="text-gray-300">
+          <span className="text-pear-lime">✓</span> Tight demo loop: auth → trade → P&amp;L → cash out
+        </div>
+        <div className="text-gray-400">Built in 3 days. Shipped to mainnet.</div>
         <div className="pt-2 text-xs text-gray-400">
           Repo: <span className="text-white">https://github.com/b1rdmania/WarGames</span>
           <br />
