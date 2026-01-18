@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { connectWalletSafely } from '@/lib/connectWallet';
 
 export function HeaderWalletWidget() {
   const { address, isConnected } = useAccount();
@@ -40,12 +41,7 @@ export function HeaderWalletWidget() {
       onClick={() => {
         (async () => {
           try {
-            const connector = connectors[0];
-            if (!connector) {
-              toast.error('No wallet connector available');
-              return;
-            }
-            await connectAsync({ connector });
+            await connectWalletSafely({ connectors, connectAsync, disconnect });
           } catch (e) {
             toast.error((e as Error).message || 'Failed to connect wallet');
           }
