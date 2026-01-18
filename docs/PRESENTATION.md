@@ -5,7 +5,7 @@ Trade narratives. Not tickers.
 Hyperliquid London Hackathon · Jan 16–18, 2026
 
 Live: `https://www.war.market`
-Hidden deck: `https://www.war.market/briefing`
+Deck: `https://www.war.market/deck`
 
 ---
 
