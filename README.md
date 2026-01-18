@@ -26,6 +26,22 @@ Settlement happens on **Hyperliquid**.
 - Place a trade (BET UP / BET DOWN)
 - Track P&L and cash out
 
+## Roadmap
+
+- Win hackathon
+- UX redesign for production
+- Audit / codebase review
+- Quant advice on market structures
+- Integrate charts from HL
+- Custom historic charts per market
+- Build GTM team of rabid degens
+- Launch X
+- Go LIVE
+- $WAR token
+- Raise stake for HIP-3 auction
+- HIP-3 markets for novel WAR indices
+- World Peace
+
 ## Site map
 
 - `/` — splash / landing
@@ -94,22 +110,6 @@ NEXT_PUBLIC_NETWORK=mainnet
 - Track: **Pear Execution API**
 - Deck: `https://www.war.market/deck`
 - Docs: `./docs/README.md` (working notes archived)
-
-## Roadmap
-
-- Win hackathon
-- UX redesign for production
-- Audit / codebase review
-- Quant advice on market structures
-- Integrate charts from HL
-- Custom historic charts per market
-- Build GTM team of rabid degens
-- Launch X
-- Go LIVE
-- $WAR token
-- Raise stake for HIP-3 auction
-- HIP-3 markets for novel WAR indices
-- World Peace
 
 ## Credits
 
