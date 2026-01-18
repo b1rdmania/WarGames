@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { RiskShell } from '@/components/RiskShell';
 
 type Slide = {
   title: string;
@@ -123,8 +124,8 @@ export default function DeckPage() {
   }, [total]);
 
   return (
-    <main className="min-h-screen bg-pear-dark text-white">
-      <div className="mx-auto max-w-[980px] px-6 py-12">
+    <RiskShell subtitle="DECK" showMusic={false} right={null}>
+      <div className="mx-auto max-w-[980px]">
         <div className="pear-border bg-black/40 p-6">
           <div className="flex items-center justify-between gap-4">
             <div className="text-xs font-mono text-gray-500 uppercase tracking-[0.18em]">
@@ -166,7 +167,7 @@ export default function DeckPage() {
           </div>
         </div>
       </div>
-    </main>
+    </RiskShell>
   );
 }
 

@@ -9,12 +9,14 @@ export function RiskShell({
   subtitle = 'TERMINAL',
   nav,
   right,
+  showMusic = true,
   children,
 }: {
   title?: string;
   subtitle?: string;
   nav?: ReactNode;
-  right?: ReactNode;
+  right?: ReactNode | null;
+  showMusic?: boolean;
   children: ReactNode;
 }) {
   return (
@@ -36,8 +38,8 @@ export function RiskShell({
               {nav ? <div className={styles.nav}>{nav}</div> : null}
               <div className={styles.headerRight}>
                 <div className={styles.headerWidgets}>
-                  <MusicControls />
-                  {right ?? <HeaderWalletWidget />}
+                  {showMusic ? <MusicControls /> : null}
+                  {right === undefined ? <HeaderWalletWidget /> : right}
                 </div>
               </div>
             </div>
