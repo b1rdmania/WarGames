@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './RiskLanding.module.css';
 
 export function RiskLanding() {
@@ -64,7 +65,12 @@ export function RiskLanding() {
             Terminal
           </Link>
         </div>
-        <div className={styles.footerRight}>build v0.1</div>
+        <div className={styles.footerRight}>
+          <a href="https://pearprotocol.io" target="_blank" rel="noreferrer" className={styles.footerPear}>
+            <Image src="/pearwordmark.png" alt="Pear Protocol" width={120} height={24} />
+            <span>Created on Pear Protocol</span>
+          </a>
+        </div>
       </footer>
     </main>
   );

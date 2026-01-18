@@ -198,6 +198,34 @@
   gap: 6px;
 }
 
+.footerPear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+}
+
+.footerPearLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: rgba(224, 224, 224, 0.55);
+}
+
+.footerPearLink:hover {
+  text-shadow: 0 0 10px rgba(2, 255, 129, 0.18);
+}
+
+.footerPearLogo {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 10px rgba(2, 255, 129, 0.18));
+}
+
+.footerPearText {
+  white-space: nowrap;
+}
+
 .footerLink {
   color: rgba(2, 255, 129, 0.9);
   text-decoration: none;
@@ -222,6 +250,11 @@
   }
   .footerLinks {
     justify-content: flex-start;
+  }
+
+  .footerPear {
+    justify-content: flex-start;
+    min-width: 0;
   }
 
   .headerInner {

@@ -1,6 +1,23 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { RiskShell } from '@/components/RiskShell';
 import { TerminalTopNav } from '@/components/TerminalTopNav';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'WAR.MARKET is a war-room terminal for trading global stress: narrative long/short baskets executed via Pear Protocol on Hyperliquid.',
+  openGraph: {
+    title: 'About — WAR.MARKET',
+    description:
+      'WAR.MARKET is a war-room terminal for trading global stress: narrative long/short baskets executed via Pear Protocol on Hyperliquid.',
+  },
+  twitter: {
+    title: 'About — WAR.MARKET',
+    description:
+      'WAR.MARKET is a war-room terminal for trading global stress: narrative long/short baskets executed via Pear Protocol on Hyperliquid.',
+  },
+};
 
 export default function AboutPage() {
   return (

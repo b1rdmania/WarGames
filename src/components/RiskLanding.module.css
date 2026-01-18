@@ -387,6 +387,20 @@
   color: var(--rm-text-secondary);
 }
 
+.footerPear {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--rm-text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.footerPear:hover {
+  color: var(--rm-neon-green);
+  text-shadow: 0 0 10px rgba(2, 255, 129, 0.18);
+}
+
 @media (max-width: 768px) {
   .hero {
     padding: 32px 16px;

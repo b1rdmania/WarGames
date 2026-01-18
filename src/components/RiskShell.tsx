@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './RiskShell.module.css';
 import { MusicControls } from './MusicControls';
 import { HeaderWalletWidget } from './HeaderWalletWidget';
@@ -51,6 +52,18 @@ export function RiskShell({
 
           <footer className={styles.footer}>
             <div className={styles.footerLeft}>made by b1rdmania</div>
+            <div className={styles.footerPear}>
+              <a className={styles.footerPearLink} href="https://pearprotocol.io" target="_blank" rel="noreferrer">
+                <Image
+                  src="/pearwordmark.png"
+                  alt="Pear Protocol"
+                  width={120}
+                  height={24}
+                  className={styles.footerPearLogo}
+                />
+                <span className={styles.footerPearText}>Created on Pear Protocol</span>
+              </a>
+            </div>
             <div className={styles.footerLinks}>
               <a
                 className={styles.footerLink}

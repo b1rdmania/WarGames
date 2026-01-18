@@ -21,8 +21,33 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "WAR.MARKET - Trade Risk Indices",
-  description: "Narrative markets on Hyperliquid",
+  metadataBase: new URL("https://www.war.market"),
+  title: {
+    default: "WAR.MARKET",
+    template: "%s — WAR.MARKET",
+  },
+  description: "Trade narratives. Not tickers. A terminal for trading global stress.",
+  openGraph: {
+    type: "website",
+    url: "https://www.war.market",
+    siteName: "WAR.MARKET",
+    title: "WAR.MARKET",
+    description: "Trade narratives. Not tickers. A terminal for trading global stress.",
+    images: [
+      {
+        url: "/ghimage.png",
+        width: 1200,
+        height: 630,
+        alt: "WAR.MARKET",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "WAR.MARKET",
+    description: "Trade narratives. Not tickers. A terminal for trading global stress.",
+    images: ["/ghimage.png"],
+  },
 };
 
 export default function RootLayout({
