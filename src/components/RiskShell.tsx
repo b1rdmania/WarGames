@@ -65,7 +65,6 @@ export function RiskShell({
                   height={24}
                   className={styles.footerPearLogo}
                 />
-                <span className={styles.footerPearText}>Created on Pear Protocol</span>
               </a>
             </div>
             <div className={styles.footerLinks}>

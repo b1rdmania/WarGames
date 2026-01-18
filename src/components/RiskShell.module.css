@@ -222,10 +222,6 @@
   filter: drop-shadow(0 0 10px rgba(2, 255, 129, 0.18));
 }
 
-.footerPearText {
-  white-space: nowrap;
-}
-
 .footerLink {
   color: rgba(2, 255, 129, 0.9);
   text-decoration: none;
