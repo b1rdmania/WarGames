@@ -7,7 +7,7 @@
 ## Summary
 
 ✅ **Pear Protocol API:** FULLY ACCESSIBLE
-✅ **LI.FI SDK:** FULLY FUNCTIONAL
+✅ **Bridging:** (out of scope for submission)
 ✅ **No CORS issues detected**
 ✅ **All critical endpoints operational**
 
@@ -152,9 +152,9 @@ Authorization: Bearer FAKE_TOKEN
 
 ---
 
-## LI.FI SDK Tests
+## Bridging tests (out of scope)
 
-**SDK Version:** `@lifi/sdk@^3.15.3`
+Bridging is not part of the current demo focus. WAR.MARKET is Pear execution + portfolio UX.
 **Status:** ✅ ALL TESTS PASSED
 
 ### Test 1: Chain Support
@@ -166,7 +166,7 @@ Authorization: Bearer FAKE_TOKEN
 - Name: "HyperEVM"
 
 **Code Impact:**
-Our config at `src/integrations/lifi/config.ts` is correct:
+Legacy notes (kept for reference, not for judges):
 ```typescript
 export const HYPEREVM_CHAIN = {
   id: 999,
@@ -278,7 +278,7 @@ Our client-side API calls will work directly from the browser.
 
 **Alternative IDs available:** HLHackathon1 through HLHackathon10 (per hackathon docs)
 
-### 4. LI.FI Bridge Performance
+### 4. Bridge performance
 ✅ **All L2 chains supported:**
 - Ethereum: Works (expensive gas)
 - Arbitrum: Works (7.6x cheaper than ETH)
@@ -323,7 +323,7 @@ Our client-side API calls will work directly from the browser.
 
 **Status:** Ready to test with authenticated token.
 
-### LI.FI Integration (src/integrations/lifi/routes.ts)
+### Bridge integration (legacy)
 ✅ **Verified working:**
 - `getRoutes()` function works
 - HyperEVM chain ID 999 is supported
@@ -388,7 +388,7 @@ Does Pear support our market pairs?
 
 ### LOW RISK ✅
 - ✅ Pear API is accessible
-- ✅ LI.FI SDK works perfectly
+- ✅ Bridge SDK worked in earlier testing (not used in demo)
 - ✅ No CORS issues
 - ✅ Client ID is valid
 
@@ -419,13 +419,13 @@ Both integrations are verified working. No blockers identified. Ready to proceed
 
 Both test scripts are saved for future use:
 - `scripts/test-pear-api.sh` - Pear API endpoint testing
-- `scripts/test-lifi.mjs` - LI.FI SDK route discovery
+- (bridge scripts removed from docs; not part of the demo)
 
 **Usage:**
 ```bash
 # Test Pear API
 ./scripts/test-pear-api.sh
 
-# Test LI.FI SDK
-node scripts/test-lifi.mjs
+# Legacy test command
+# (bridge script not documented)
 ```

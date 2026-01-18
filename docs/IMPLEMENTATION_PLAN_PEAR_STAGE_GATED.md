@@ -16,7 +16,7 @@
 **Goal:** make the submission story obvious (WAR.MARKET = `war-markets/`) and bury non-submission UX reference code.
 
 - Move `RiskMarkets/` → `archive/RiskMarkets/` and label it clearly as “UX reference only.”
-- Make home flow Pear-first (no LI.FI prompts in primary flow).
+- Make home flow Pear-first (no bridge prompts in the primary flow).
 
 **Gate (pass/fail):**
 - Landing on the repo, a judge can quickly find `war-markets/` and is not distracted by HIP-3 tooling.

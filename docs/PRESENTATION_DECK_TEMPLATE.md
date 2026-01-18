@@ -50,6 +50,11 @@
 - Executes real trades via Pear Execution API.
 - Clear failure modes + recovery (signature rejection, insufficient funds, agent not approved).
 
+## Slide 8 — Links (snappy)
+
+- Live: `https://war-markets.vercel.app`
+- Repo: `https://github.com/b1rdmania/WarGames`
+
 ## Appendix (optional) — Current status checklist
 
 - [ ] Auth works end-to-end with token refresh

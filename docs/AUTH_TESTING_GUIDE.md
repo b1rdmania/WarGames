@@ -304,7 +304,7 @@ curl -X POST https://hl-v2.pearprotocol.io/agentWallet \
 
 After completing Stage 2:
 - **Stage 3:** Validate market configurations (test which assets Pear supports)
-- **Stage 4:** Test bridge integration (LI.FI route execution)
+- **Stage 4:** (Optional) Bridging tests are out of scope for this submission
 - **Stage 5:** Test position execution (place actual bets)
 
 ---

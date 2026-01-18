@@ -43,8 +43,8 @@
 - ✅ Unlocks new behavior: narrative-based trading vs pure technical analysis
 - ✅ Target audience: Crypto natives who follow geopolitical/macro trends
 
-### Track 2 (parked for this submission): LI.FI One-Click Onboarding
-We are **not** submitting to the LI.FI track for this checkpoint. The focus is a reliable Pear execution demo and functional trading UX.
+### Track 2: Bridging (out of scope)
+We are not focusing on bridging for this submission. The demo is a reliable Pear execution flow and a functional trading terminal.
 
 ---
 
@@ -80,7 +80,7 @@ We are **not** submitting to the LI.FI track for this checkpoint. The focus is a
 - **Narrative-first** instead of asset-first (bet on stories, not just tickers)
 - **Pair trading** simplifies complex macro bets into single positions
 - **Gen Z UX** - "betting" language instead of "trading" jargon
-- **One-click access** - LI.FI bridge removes HyperEVM onboarding friction
+- **One-click access** - fast setup and clear UX (wallet → Pear auth → trade)
 
 **Target users:**
 - Crypto-native traders following geopolitics

@@ -86,7 +86,7 @@
 │         FEATURES GRID (3 cards)             │
 │                                             │
 │   Leverage    Multi-Chain     Instant       │
-│   3x Pairs    via LI.FI       Settlement    │
+│   3x Pairs    (optional bridge) Settlement  │
 │                                             │
 ├─────────────────────────────────────────────┤
 │                                             │
