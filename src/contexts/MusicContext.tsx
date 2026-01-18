@@ -80,13 +80,12 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   // Load persisted settings once.
   useEffect(() => {
     try {
-      const rawTrack = localStorage.getItem(STORAGE_KEYS.trackId);
-      const rawMuted = localStorage.getItem(STORAGE_KEYS.muted);
-      if (rawTrack) {
-        const n = Number(rawTrack);
-        if (Number.isFinite(n) && TRACKS.some((t) => t.id === n)) setSelectedTrackId(n);
-      }
-      if (rawMuted === 'true' || rawMuted === 'false') setMuted(rawMuted === 'true');
+      // Hackathon UX: always start on Track 1, unmuted, and attempt autoplay.
+      // (Browsers may still block unmuted autoplay until first user interaction.)
+      setSelectedTrackId(1);
+      setMuted(false);
+      localStorage.setItem(STORAGE_KEYS.trackId, '1');
+      localStorage.setItem(STORAGE_KEYS.muted, 'false');
     } catch {
       // ignore
     }
