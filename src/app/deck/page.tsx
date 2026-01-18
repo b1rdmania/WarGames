@@ -32,29 +32,49 @@ const SLIDES: Slide[] = [
     ),
   },
   {
-    title: 'THE PROBLEM',
+    title: 'WHY BUILD THIS',
     body: (
       <div className="space-y-5 text-xl md:text-2xl font-mono text-gray-200 leading-snug">
-        <div>Traders think in stories.</div>
-        <div>Markets move in pairs.</div>
+        <div>EVM chains don’t allow coherent trading of synthetic equities.</div>
         <div>
-          But the UI is{' '}
-          <span className="text-red-300">tickers and noise</span>.
+          Oracle latency is <span className="text-red-300">gameable</span>.
         </div>
-        <div className="text-gray-400">So people trade the wrong thing.</div>
+        <div className="text-gray-400">The result is mush. Not a market.</div>
       </div>
     ),
   },
   {
-    title: 'THE SOLUTION',
+    title: 'WHY HYPERLIQUID',
     body: (
       <div className="space-y-6 font-mono">
         <div className="text-xl md:text-2xl text-gray-200 leading-snug">
-          WAR.MARKET is a war-room terminal for trading global stress.
+          Hyperliquid does real-time trading.
         </div>
 
-        <div className="text-lg md:text-xl text-gray-300">
-          We turn a thesis into a basket.
+        <div className="text-lg md:text-xl text-gray-300 leading-relaxed">
+          HIP‑3 allows new markets (Trade.xyz style, real‑time stocks).
+          <br />
+          It’s a <span className="text-pear-lime">game-changer</span>.
+        </div>
+
+        <div className="text-lg md:text-xl text-gray-400 leading-relaxed">
+          But creating index markets on-chain is expensive.
+          <br />
+          Roughly <span className="text-white">~$20m stake</span> scale to do it “for real”.
+        </div>
+
+        <div className="text-gray-400 text-lg">
+          Pear API gives an <span className="text-white">approximation</span> now.
+        </div>
+      </div>
+    ),
+  },
+  {
+    title: 'WAR.MARKET',
+    body: (
+      <div className="space-y-5 font-mono">
+        <div className="text-xl md:text-2xl text-gray-200 leading-snug">
+          War Markets turns complex financial architecture into a one-click narrative trade platform.
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
@@ -68,11 +88,11 @@ const SLIDES: Slide[] = [
           </div>
         </div>
 
-        <div className="text-gray-400 text-lg">One button. One position. One thesis.</div>
+        <div className="text-gray-400 text-lg">One narrative → one basket → one position.</div>
 
         <div className="pear-border bg-black/30 p-4">
           <div className="text-xs text-gray-500 uppercase tracking-[0.18em] mb-2">
-            Example market
+            Example basket
           </div>
           <div className="text-pear-lime font-bold tracking-widest">TAIWAN STRAIT CRISIS</div>
           <div className="mt-2 text-xs text-gray-400">
@@ -86,27 +106,6 @@ const SLIDES: Slide[] = [
               <span className="text-red-300">SHORT</span>: NVDA (40%) · AAPL (35%) · TSLA (25%)
             </div>
           </div>
-        </div>
-      </div>
-    ),
-  },
-  {
-    title: 'HOW IT WORKS',
-    body: (
-      <div className="space-y-5 font-mono">
-        <div className="pear-border bg-black/30 p-6 text-lg md:text-xl leading-relaxed">
-          1) Browse <span className="text-white">/markets</span> (intel only)
-          <br />
-          2) Go to <span className="text-white">/trade</span> (connect wallet)
-          <br />
-          3) Authenticate with Pear (EIP‑712 → agent wallet)
-          <br />
-          4) Place bet (open position)
-          <br />
-          5) Track + cash out in <span className="text-white">/portfolio</span>
-        </div>
-        <div className="text-sm text-gray-500">
-          Note: iOS is gated. This is a laptop/desktop terminal.
         </div>
       </div>
     ),
