@@ -64,22 +64,33 @@ export async function executePosition(
   });
 
   if (!response.ok) {
-    // Log full details for debugging
-    console.error('Pear API error:', response.status, response.statusText);
-    console.error('Request was:', JSON.stringify(requestBody, null, 2));
-    console.error('Response body:', JSON.stringify(responseData, null, 2));
-
-    // Check if this might be a market hours issue (500 with equity assets)
-    const hasEquityAssets = [...longAssets, ...shortAssets].some(
+    const hasTradFiAssets = [...longAssets, ...shortAssets].some(
       (a: any) => a.asset?.startsWith('xyz:') || a.asset?.startsWith('km:') || a.asset?.startsWith('vntl:')
     );
 
-    if (response.status === 500 && hasEquityAssets) {
-      throw new Error('Market closed fml. Stocks/indices only trade Mon-Fri 9:30am-4pm ET. Try a crypto market (24/7).');
+    const rawMsg =
+      responseData?.error ||
+      responseData?.message ||
+      responseData?.detail ||
+      response.statusText ||
+      `HTTP ${response.status}`;
+
+    const msg = String(rawMsg || '').toLowerCase();
+    const looksLikeMarketHours =
+      msg.includes('market closed') ||
+      msg.includes('closed') ||
+      msg.includes('trading hours') ||
+      msg.includes('outside') ||
+      msg.includes('session');
+
+    // Pear can surface market-hours errors in different shapes/status codes.
+    if (hasTradFiAssets && looksLikeMarketHours && [400, 403, 500].includes(response.status)) {
+      throw new Error(
+        'Markets closed. TradFi only trades Mon–Fri during regular hours (US session). Try a 24/7 crypto market.'
+      );
     }
 
-    const errorMsg = responseData?.error || responseData?.message || responseData?.detail || response.statusText || `HTTP ${response.status}`;
-    throw new Error(errorMsg);
+    throw new Error(rawMsg);
   }
 
   return responseData;
