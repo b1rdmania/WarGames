@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { closePosition } from '@/integrations/pear/positions';
-import { getMarketByAssets } from '@/integrations/pear/markets';
+import { getMarketById } from '@/integrations/pear/markets';
 import type { PearPosition } from '@/integrations/pear/types';
 
 function cleanCoin(raw?: string): string | null {
@@ -38,17 +38,12 @@ export function PositionCard({
   const isProfitable = pnl >= 0;
 
   // Map position assets to our narrative market
-  const longAsset = cleanCoin(position.longAsset) ?? compactCoins(position.longAssets as any) ?? '—';
-  const shortAsset = cleanCoin(position.shortAsset) ?? compactCoins(position.shortAssets as any) ?? '—';
   const actualLong = compactCoins(position.longAssets as any) ?? cleanCoin(position.longAsset) ?? '—';
   const actualShort = compactCoins(position.shortAssets as any) ?? cleanCoin(position.shortAsset) ?? '—';
-  const market =
-    position.longAsset && position.shortAsset
-      ? getMarketByAssets(position.longAsset, position.shortAsset)
-      : undefined;
-  const displayName = market?.name || (longAsset !== '—' && shortAsset !== '—' ? `${longAsset}/${shortAsset}` : 'POSITION');
+  const market = position.marketId && position.marketId !== 'unknown' ? getMarketById(position.marketId) : undefined;
+  const displayName = market?.name || (actualLong !== '—' && actualShort !== '—' ? `${actualLong}/${actualShort}` : 'POSITION');
   const displayDescription =
-    market?.description || `${position.side === 'long' ? 'Long' : 'Short'} ${longAsset} vs ${shortAsset}`;
+    market?.description || `Long ${actualLong} vs Short ${actualShort}`;
 
   // Performance indicators
   const entryPrice = Number(position.entryPrice);

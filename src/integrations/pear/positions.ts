@@ -133,9 +133,16 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
   // Debug: Log raw position data
   console.log('📊 Raw positions from Pear API:', JSON.stringify(positions, null, 2));
 
+  const normCoin = (raw: unknown): string | null => {
+    if (typeof raw !== 'string') return null;
+    const s = raw.split(':').pop()!.trim();
+    if (!s) return null;
+    return s.toUpperCase();
+  };
+
   const deriveMarket = (pos: any): { marketId: string; side: 'long' | 'short' } => {
-    const posLongCoins = (pos?.longAssets ?? []).map((a: any) => a.coin).filter(Boolean);
-    const posShortCoins = (pos?.shortAssets ?? []).map((a: any) => a.coin).filter(Boolean);
+    const posLongCoins = (pos?.longAssets ?? []).map((a: any) => normCoin(a.coin)).filter(Boolean) as string[];
+    const posShortCoins = (pos?.shortAssets ?? []).map((a: any) => normCoin(a.coin)).filter(Boolean) as string[];
 
     if (posLongCoins.length === 0 || posShortCoins.length === 0) {
       return { marketId: 'unknown', side: 'long' };
@@ -152,18 +159,20 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
     for (const m of MARKETS) {
       // Simple pairs
       if (m.pairs) {
-        if (m.pairs.long === posLongCoins[0] && m.pairs.short === posShortCoins[0]) {
+        const pLong = normCoin(m.pairs.long);
+        const pShort = normCoin(m.pairs.short);
+        if (pLong && pShort && pLong === posLongCoins[0] && pShort === posShortCoins[0]) {
           return { marketId: m.id, side: 'long' };
         }
-        if (m.pairs.long === posShortCoins[0] && m.pairs.short === posLongCoins[0]) {
+        if (pLong && pShort && pLong === posShortCoins[0] && pShort === posLongCoins[0]) {
           return { marketId: m.id, side: 'short' };
         }
       }
 
       // Basket markets
       if (m.basket) {
-        const basketLongCoins = m.basket.long.map(a => a.asset);
-        const basketShortCoins = m.basket.short.map(a => a.asset);
+        const basketLongCoins = m.basket.long.map((a) => normCoin(a.asset)).filter(Boolean) as string[];
+        const basketShortCoins = m.basket.short.map((a) => normCoin(a.asset)).filter(Boolean) as string[];
 
         // Check if position matches market's long side
         if (hasOverlap(posLongCoins, basketLongCoins) && hasOverlap(posShortCoins, basketShortCoins)) {
