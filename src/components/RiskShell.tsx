@@ -34,7 +34,12 @@ export function RiskShell({
                 <Link href="/markets" className={styles.title} aria-label="WAR.MARKET home">
                   {title}
                 </Link>
-                <div className={styles.subtitle}>{subtitle}</div>
+                <div className={styles.subtitleRow}>
+                  <div className={styles.subtitle}>{subtitle}</div>
+                  <div className={styles.betaBadge} aria-label="Demo build">
+                    BETA / DEMO
+                  </div>
+                </div>
               </div>
               {nav ? <div className={styles.nav}>{nav}</div> : null}
               <div className={styles.headerRight}>

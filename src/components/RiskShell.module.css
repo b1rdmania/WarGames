@@ -165,6 +165,27 @@
   text-transform: uppercase;
 }
 
+.subtitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.betaBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(244, 201, 93, 0.10);
+  border: 1px solid rgba(244, 201, 93, 0.35);
+  white-space: nowrap;
+}
+
 .panel {
   background: rgba(18, 18, 18, 0.85);
   border: 1px solid rgba(2, 255, 129, 0.22);
