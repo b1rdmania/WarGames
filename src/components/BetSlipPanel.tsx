@@ -171,6 +171,18 @@ export function BetSlipPanel({
           <div className="tm-k">Underlying</div>
           <div className="tm-v">{longLeg} / {shortLeg}</div>
         </div>
+        {!market.isTradable && (
+          <div className="tm-row">
+            <div className="tm-k">Status</div>
+            <div className="tm-v text-yellow-200">INACTIVE</div>
+          </div>
+        )}
+        {!market.isTradable && market.unavailableReason && (
+          <div className="tm-row">
+            <div className="tm-k">Why</div>
+            <div className="tm-v text-yellow-200">{market.unavailableReason}</div>
+          </div>
+        )}
         <div className="tm-row">
           <div className="tm-k">Leverage</div>
           <div className="tm-v text-pear-lime">{market.leverage}x</div>
@@ -179,12 +191,6 @@ export function BetSlipPanel({
           <div className="tm-k">Slippage</div>
           <div className="tm-v">1% max</div>
         </div>
-        {market.isRemapped && market.remapReason && (
-          <div className="tm-row">
-            <div className="tm-k">Mode</div>
-            <div className="tm-v text-yellow-200">DEMO</div>
-          </div>
-        )}
       </div>
 
       {/* Error display */}
@@ -203,10 +209,14 @@ export function BetSlipPanel({
       {/* Submit Button */}
       <button
         className={`tm-btn w-full py-4 ${side === 'short' ? 'tm-btn-danger' : ''}`}
-        disabled={submitting || !canAfford || !side || !!lastError}
+        disabled={submitting || !canAfford || !side || !!lastError || !market.isTradable}
         onClick={async () => {
           if (!side) {
             toast.error('Select YES or NO');
+            return;
+          }
+          if (!market.isTradable) {
+            toast.error('This market is currently inactive');
             return;
           }
           setSubmitting(true);

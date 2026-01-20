@@ -30,7 +30,8 @@ export function useValidatedMarkets() {
     // Important: avoid flashing the fallback pair (BTC/ETH) while we are still
     // loading active symbols. We only remap once we have a real symbol set.
     if (activeSymbols === null) {
-      return MARKETS.map((m) => ({ ...m, isRemapped: false })) as ValidatedMarket[];
+      // Optimistic default: show canonical baskets/pairs immediately; tradability is unknown until validated.
+      return MARKETS.map((m) => ({ ...m, isTradable: true })) as ValidatedMarket[];
     }
     return validateNarrativeMarkets(MARKETS, activeSymbols);
   }, [activeSymbols]);

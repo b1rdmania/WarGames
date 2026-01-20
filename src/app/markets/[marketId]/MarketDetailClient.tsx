@@ -96,11 +96,19 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
                     : '—'}
               </div>
             </div>
-            {market.isRemapped ? (
-              <div className="tm-row">
-                <div className="tm-k">Mode</div>
-                <div className="tm-v text-yellow-200">DEMO REMAP</div>
-              </div>
+            {!market.isTradable ? (
+              <>
+                <div className="tm-row">
+                  <div className="tm-k">Status</div>
+                  <div className="tm-v text-yellow-200">INACTIVE</div>
+                </div>
+                {market.unavailableReason ? (
+                  <div className="tm-row">
+                    <div className="tm-k">Why</div>
+                    <div className="tm-v text-yellow-200">{market.unavailableReason}</div>
+                  </div>
+                ) : null}
+              </>
             ) : null}
           </div>
         </div>

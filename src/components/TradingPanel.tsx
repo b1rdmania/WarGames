@@ -17,8 +17,8 @@ export function TradingPanel({
     PearMarketConfig & {
       resolvedPairs?: ResolvedPairs;
       resolvedBasket?: ResolvedBasket;
-      isRemapped?: boolean;
-      remapReason?: string;
+      isTradable?: boolean;
+      unavailableReason?: string;
     }
   >;
   balance: string | null;

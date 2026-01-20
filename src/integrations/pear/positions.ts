@@ -17,12 +17,31 @@ export async function executePosition(
   // Handle basket markets
   if (params.resolvedBasket || market.basket) {
     const basket = params.resolvedBasket ?? market.basket!;
+    // Safety: refuse "remapped" baskets that don't match the canonical market config.
+    // This prevents silently trading the wrong assets due to any future validation/remap logic.
+    if (params.resolvedBasket && market.basket) {
+      const canonical = new Set([...market.basket.long, ...market.basket.short].map((a) => a.asset.toUpperCase()));
+      const proposed = new Set([...basket.long, ...basket.short].map((a) => a.asset.toUpperCase()));
+      const allProposedAreCanonical = Array.from(proposed).every((s) => canonical.has(s));
+      if (!allProposedAreCanonical) {
+        throw new Error('Refusing to execute: basket legs do not match this market (safety check).');
+      }
+    }
     longAssets = params.side === 'long' ? basket.long : basket.short;
     shortAssets = params.side === 'long' ? basket.short : basket.long;
   }
   // Handle simple pair markets (backward compatible)
   else {
     const pairs = params.resolvedPairs ?? market.pairs!;
+    // Safety: refuse remapped pairs that don't match canonical market config.
+    if (params.resolvedPairs && market.pairs) {
+      const canon = new Set([market.pairs.long.toUpperCase(), market.pairs.short.toUpperCase()]);
+      const prop = new Set([pairs.long.toUpperCase(), pairs.short.toUpperCase()]);
+      const ok = Array.from(prop).every((s) => canon.has(s));
+      if (!ok) {
+        throw new Error('Refusing to execute: pair legs do not match this market (safety check).');
+      }
+    }
     longAssets = [{ asset: params.side === 'long' ? pairs.long : pairs.short, weight: 1.0 }];
     shortAssets = [{ asset: params.side === 'long' ? pairs.short : pairs.long, weight: 1.0 }];
   }

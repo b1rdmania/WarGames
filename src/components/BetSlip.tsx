@@ -164,10 +164,16 @@ export function BetSlip({
                 <div className="tm-k">Leverage</div>
                 <div className="tm-v text-pear-lime">{market.leverage}x</div>
               </div>
-              {market.isRemapped && market.remapReason && (
+              {!market.isTradable && (
                 <div className="tm-row">
-                  <div className="tm-k">Remap</div>
-                  <div className="tm-v text-yellow-200">{market.remapReason}</div>
+                  <div className="tm-k">Status</div>
+                  <div className="tm-v text-yellow-200">INACTIVE</div>
+                </div>
+              )}
+              {!market.isTradable && market.unavailableReason && (
+                <div className="tm-row">
+                  <div className="tm-k">Why</div>
+                  <div className="tm-v text-yellow-200">{market.unavailableReason}</div>
                 </div>
               )}
               <div className="tm-row">
@@ -194,8 +200,12 @@ export function BetSlip({
         <div className="mt-4">
           <button
             className={`tm-btn w-full ${side === 'short' ? 'tm-btn-danger' : ''}`}
-            disabled={submitting || !canAfford || !!lastError}
+            disabled={submitting || !canAfford || !!lastError || !market.isTradable}
             onClick={async () => {
+              if (!market.isTradable) {
+                toast.error('This market is currently inactive');
+                return;
+              }
               setSubmitting(true);
               setLastError(null);
               try {

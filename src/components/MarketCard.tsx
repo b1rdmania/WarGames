@@ -5,8 +5,8 @@ import type { PearMarketConfig, ResolvedPairs } from '@/integrations/pear/types'
 interface MarketCardProps {
   market: PearMarketConfig & {
     resolvedPairs?: ResolvedPairs;
-    isRemapped?: boolean;
-    remapReason?: string;
+    isTradable?: boolean;
+    unavailableReason?: string;
   };
   onBet: (marketId: string, side: 'long' | 'short', resolvedPairs?: ResolvedPairs) => void;
 }
@@ -59,9 +59,9 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
 
       {/* Pair Display */}
       <div className="pear-border bg-black/20 p-2 mb-3 text-xs font-mono">
-        {market.isRemapped && (
+        {market.isTradable === false && (
           <div className="text-[10px] text-yellow-500 mb-2">
-            REMAPPED UNDERLYING (demo safety): {market.remapReason}
+            INACTIVE: {market.unavailableReason ?? 'Not currently tradable'}
           </div>
         )}
         <div className="flex justify-between items-center">
@@ -79,12 +79,14 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
       <div className="grid grid-cols-2 gap-2">
         <button
           onClick={() => onBet(market.id, 'long', market.resolvedPairs ?? market.pairs)}
+          disabled={market.isTradable === false}
           className="pear-border bg-pear-lime/10 text-pear-lime text-sm font-mono py-2 hover:pear-glow"
         >
           UP ↑
         </button>
         <button
           onClick={() => onBet(market.id, 'short', market.resolvedPairs ?? market.pairs)}
+          disabled={market.isTradable === false}
           className="border border-red-400/30 bg-red-500/10 text-red-300 text-sm font-mono py-2 hover:shadow-[0_0_10px_rgba(239,68,68,0.15)]"
         >
           DOWN ↓

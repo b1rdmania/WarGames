@@ -61,7 +61,7 @@ export function MarketFeedReadOnly({
                   <div className={styles.badges}>
                     <span className="tm-label">[{m.category}]</span>
                     <span className="tm-label text-pear-lime">[{m.leverage}X]</span>
-                    {m.isRemapped && <span className="tm-label text-yellow-200">[DEMO]</span>}
+                    {!m.isTradable && <span className="tm-label text-yellow-200">[INACTIVE]</span>}
                   </div>
                 </td>
                 <td className={styles.td}>
