@@ -29,7 +29,7 @@ export default function TradeClient() {
   if (!isAuthenticated) {
     return (
       <RiskShell
-        subtitle="Setup"
+        
         nav={<TerminalTopNav />}
       >
         {!isConnected ? (
@@ -67,7 +67,7 @@ export default function TradeClient() {
 
   return (
     <RiskShell
-      subtitle="Trade"
+      
       nav={<TerminalTopNav />}
     >
       <div className="tp-wrap">

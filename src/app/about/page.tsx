@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <RiskShell subtitle="ABOUT" nav={<TerminalTopNav />}>
+    <RiskShell nav={<TerminalTopNav />}>
       <div className="tp-wrap">
         <div className="tp-frame">
           <div className="tp-hero">

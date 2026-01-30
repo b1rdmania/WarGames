@@ -18,7 +18,6 @@ export default function MarketsClient() {
   // All trading happens on /trade
   return (
     <RiskShell
-      subtitle="Markets"
       nav={<TerminalTopNav />}
     >
       <div className="mb-6">

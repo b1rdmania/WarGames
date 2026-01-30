@@ -93,7 +93,7 @@ export default function PortfolioClient() {
   if (!isAuthenticated) {
     return (
       <RiskShell
-        subtitle="Setup"
+        
         nav={<TerminalTopNav />}
       >
         {!isConnected ? (
@@ -131,7 +131,7 @@ export default function PortfolioClient() {
 
   return (
     <RiskShell
-      subtitle="Portfolio"
+      
       nav={<TerminalTopNav />}
     >
       <div className="tp-wrap">
