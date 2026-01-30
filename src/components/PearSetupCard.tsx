@@ -6,14 +6,13 @@ import { useState } from 'react';
 import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 import { hyperEVM } from '@/lib/wagmi';
 
-// Known chain names for display
 const CHAIN_NAMES: Record<number, string> = {
-  1: 'Ethereum',
-  42161: 'Arbitrum',
-  8453: 'Base',
-  10: 'Optimism',
-  999: 'HyperEVM',
-  14601: 'HyperEVM',
+  1: 'ETHEREUM',
+  42161: 'ARBITRUM',
+  8453: 'BASE',
+  10: 'OPTIMISM',
+  999: 'HYPEREVM',
+  14601: 'HYPEREVM',
 };
 
 export function PearSetupCard({
@@ -28,148 +27,139 @@ export function PearSetupCard({
   const [advancedOpen, setAdvancedOpen] = useState(false);
 
   const isOnHyperEVM = chainId === 999 || chainId === 14601;
-  const chainName = CHAIN_NAMES[chainId] || `Chain ${chainId}`;
+  const chainName = CHAIN_NAMES[chainId] || `CHAIN ${chainId}`;
   const isCompact = variant === 'portfolio';
   const showHyperEvmRecommend = variant !== 'portfolio';
   const hasError = Boolean(error || lastApiError || statusLine === 'ERROR');
 
   return (
-    <div className="tm-box">
-      <div className="space-y-6">
-        {isCompact ? (
-          <div className="space-y-2">
-            <div className="text-sm font-semibold text-brand-amber">Portfolio Access</div>
-            <div className="text-sm text-text-secondary leading-relaxed">
-              Authenticate with Pear to show your trading portfolio. This is a hackathon build — quick, loud, and a bit feral.
-            </div>
-            {hasError ? (
-              <div className="text-xs font-mono text-status-loss">
-                ERROR. Open Advanced for details.
-              </div>
-            ) : null}
-          </div>
-        ) : (
-          <>
-            <div className="flex items-center justify-between gap-4">
-              <div className="text-sm font-semibold text-brand-amber">Setup Status</div>
-              {isAuthenticating && <div className="w-2 h-2 bg-brand-amber rounded-full animate-pulse" />}
-            </div>
+    <div className="panel">
+      <div className="panel-header">PEAR AUTHENTICATION</div>
 
-            <div className="text-sm text-text-secondary">
-              {isAuthenticating ? (
-                <span className="text-brand-amber">Authenticating…</span>
-              ) : statusLine && statusLine !== 'IDLE' && statusLine !== 'READY' ? (
-                statusLine
-              ) : (
-                'Ready to authenticate'
-              )}
-            </div>
-          </>
-        )}
-
-        {!isCompact || advancedOpen ? (
-          <>
-            {/* Info cards */}
-            <div className="border border-border rounded-md overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="p-4 border-b md:border-b-0 md:border-r border-border-subtle">
-                  <div className="tm-k mb-2">Your Wallet</div>
-                  <div className="text-sm text-text-primary font-mono">
-                    {address ? `${address.slice(0, 8)}...${address.slice(-6)}` : '—'}
-                  </div>
-                </div>
-                <div className="p-4">
-                  <div className="tm-k mb-2">Agent Wallet</div>
-                  <div className="text-sm text-text-primary font-mono">
-                    {agentWallet ? (
-                      `${agentWallet.slice(0, 8)}...${agentWallet.slice(-6)}`
-                    ) : (
-                      <span className="text-text-muted">Not created yet</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Helper text */}
-            <div className="border border-border rounded-md p-4">
-              <p className="text-sm text-text-secondary leading-relaxed">
-                Sign a message to create your trading session with Pear Protocol. Your agent wallet will be created automatically.
-              </p>
-              <div className="mt-2 text-xs font-mono text-text-muted">
-                Detected chainId: <span className="text-text-primary">{chainId}</span>
-                {isOnHyperEVM ? (
-                  <span className="text-brand-amber"> ({chainName} ✓)</span>
-                ) : (
-                  <span className="text-text-muted"> ({chainName})</span>
-                )}
-              </div>
-              {(error || lastApiError) ? (
-                <div className="mt-2 text-xs font-mono text-status-loss whitespace-pre-wrap">
-                  {(lastApiError ? `${lastApiError.status} ${lastApiError.endpoint}: ${lastApiError.message}` : error?.message) ?? ''}
-                </div>
-              ) : null}
-            </div>
-
-            {showHyperEvmRecommend && isConnected && !isOnHyperEVM ? (
-              <div className="border border-brand-amber/30 rounded-md p-4">
-                <div className="font-semibold text-sm mb-2 text-brand-amber">Recommended: HyperEVM</div>
-                <div className="text-sm text-text-secondary">
-                  For the best experience, switch to <span className="text-text-primary font-semibold">HyperEVM</span>.
-                </div>
-                <div className="mt-3">
-                  <button
-                    type="button"
-                    className="tm-btn"
-                    onClick={() => {
-                      (async () => {
-                        try {
-                          if (!switchChainAsync) throw new Error('Wallet does not support chain switching');
-                          await switchChainAsync({ chainId: hyperEVM.id });
-                          toast.success('Switched to HyperEVM');
-                        } catch (e) {
-                          console.error(e);
-                          toast.error((e as Error).message || 'Failed to switch - add HyperEVM to your wallet');
-                        }
-                      })();
-                    }}
-                  >
-                    Switch to HyperEVM
-                  </button>
-                </div>
-              </div>
-            ) : null}
-          </>
-        ) : null}
-
-        {/* Action button */}
-        <button
-          onClick={() => {
-            runSetup(true).catch((e) => {
-              console.error(e);
-              toast.error((e as Error).message || 'Setup failed');
-            });
-          }}
-          disabled={isAuthenticating || !isConnected}
-          className="w-full tm-btn tm-btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isAuthenticating ? (
-            'Authenticating…'
-          ) : (
-            'Authenticate with Pear'
+      {/* Status */}
+      <div style={{ marginBottom: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+          <span style={{ fontSize: '12px', color: isAuthenticating ? 'var(--amber)' : hasError ? 'var(--red)' : 'var(--text-secondary)' }}>
+            {isAuthenticating ? 'AUTHENTICATING...' : hasError ? 'ERROR' : statusLine && statusLine !== 'IDLE' && statusLine !== 'READY' ? statusLine : 'READY'}
+          </span>
+          {isAuthenticating && (
+            <span style={{ width: '6px', height: '6px', background: 'var(--amber)', animation: 'pulse 1s infinite' }} />
           )}
-        </button>
-
-        {isCompact ? (
-          <button
-            type="button"
-            className="tm-btn w-full text-xs text-text-secondary"
-            onClick={() => setAdvancedOpen((v) => !v)}
-          >
-            {advancedOpen ? 'Hide Advanced' : 'Advanced'}
-          </button>
-        ) : null}
+        </div>
       </div>
+
+      {(!isCompact || advancedOpen) && (
+        <>
+          {/* Wallet Info */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: 'var(--border)', marginBottom: '16px' }}>
+            <div style={{ padding: '12px', background: 'var(--bg-input)' }}>
+              <div className="label" style={{ marginBottom: '4px' }}>YOUR WALLET</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-primary)' }}>
+                {address ? `${address.slice(0, 8)}...${address.slice(-6)}` : '—'}
+              </div>
+            </div>
+            <div style={{ padding: '12px', background: 'var(--bg-input)' }}>
+              <div className="label" style={{ marginBottom: '4px' }}>AGENT WALLET</div>
+              <div style={{ fontSize: '12px', color: agentWallet ? 'var(--text-primary)' : 'var(--text-muted)' }}>
+                {agentWallet ? `${agentWallet.slice(0, 8)}...${agentWallet.slice(-6)}` : 'NOT CREATED'}
+              </div>
+            </div>
+          </div>
+
+          {/* Chain Info */}
+          <div style={{ padding: '12px', background: 'var(--bg-input)', border: '1px solid var(--border)', marginBottom: '16px' }}>
+            <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '4px' }}>
+              CHAIN: <span style={{ color: isOnHyperEVM ? 'var(--green)' : 'var(--text-primary)' }}>{chainName}</span>
+              {isOnHyperEVM && <span style={{ color: 'var(--green)' }}> ✓</span>}
+            </div>
+            <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
+              Sign message to create trading session. Agent wallet created automatically.
+            </div>
+          </div>
+
+          {/* Error Display */}
+          {(error || lastApiError) && (
+            <div style={{ padding: '12px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--red-dim)', marginBottom: '16px' }}>
+              <div style={{ fontSize: '11px', color: 'var(--red)', wordBreak: 'break-word' }}>
+                {lastApiError ? `${lastApiError.status} ${lastApiError.endpoint}: ${lastApiError.message}` : error?.message}
+              </div>
+            </div>
+          )}
+
+          {/* HyperEVM Recommendation */}
+          {showHyperEvmRecommend && isConnected && !isOnHyperEVM && (
+            <div style={{ padding: '12px', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid var(--amber-dim)', marginBottom: '16px' }}>
+              <div style={{ fontSize: '11px', color: 'var(--amber)', marginBottom: '8px' }}>
+                RECOMMENDED: SWITCH TO HYPEREVM
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  (async () => {
+                    try {
+                      if (!switchChainAsync) throw new Error('CHAIN SWITCH NOT SUPPORTED');
+                      await switchChainAsync({ chainId: hyperEVM.id });
+                      toast.success('SWITCHED TO HYPEREVM');
+                    } catch (e) {
+                      console.error(e);
+                      toast.error((e as Error).message || 'SWITCH FAILED');
+                    }
+                  })();
+                }}
+                style={{
+                  padding: '8px 12px',
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  letterSpacing: '0.06em',
+                  background: 'transparent',
+                  border: '1px solid var(--amber)',
+                  color: 'var(--amber)',
+                  cursor: 'pointer',
+                }}
+              >
+                SWITCH CHAIN
+              </button>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Auth Button */}
+      <button
+        onClick={() => {
+          runSetup(true).catch((e) => {
+            console.error(e);
+            toast.error((e as Error).message || 'SETUP FAILED');
+          });
+        }}
+        disabled={isAuthenticating || !isConnected}
+        className="btn btn-primary"
+        style={{ width: '100%', padding: '12px', opacity: isAuthenticating || !isConnected ? 0.5 : 1 }}
+      >
+        {isAuthenticating ? 'AUTHENTICATING...' : 'AUTHENTICATE WITH PEAR'}
+      </button>
+
+      {/* Advanced Toggle (compact mode) */}
+      {isCompact && (
+        <button
+          type="button"
+          onClick={() => setAdvancedOpen((v) => !v)}
+          style={{
+            width: '100%',
+            marginTop: '8px',
+            padding: '8px',
+            fontSize: '10px',
+            fontWeight: 500,
+            letterSpacing: '0.06em',
+            background: 'transparent',
+            border: '1px solid var(--border)',
+            color: 'var(--text-muted)',
+            cursor: 'pointer',
+          }}
+        >
+          {advancedOpen ? 'HIDE DETAILS' : 'SHOW DETAILS'}
+        </button>
+      )}
     </div>
   );
 }

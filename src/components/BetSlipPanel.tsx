@@ -42,7 +42,6 @@ export function BetSlipPanel({
     };
   }, []);
 
-  // Clear error when market changes
   useEffect(() => {
     setLastError(null);
   }, [market?.id]);
@@ -66,12 +65,10 @@ export function BetSlipPanel({
   // Empty state
   if (!market) {
     return (
-      <div className="tm-box">
-        <div className="text-sm font-semibold text-brand-amber mb-4">Bet Slip</div>
-        <div className="text-center py-8">
-          <div className="text-text-muted text-sm">
-            Select a market and click YES or NO to place a bet
-          </div>
+      <div className="panel">
+        <div className="panel-header">BET SLIP</div>
+        <div style={{ padding: '32px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: '12px' }}>
+          SELECT MARKET + DIRECTION
         </div>
       </div>
     );
@@ -86,68 +83,103 @@ export function BetSlipPanel({
     resolvedPairs?.short ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
 
   return (
-    <div className="tm-box">
-      <div className="flex items-start justify-between gap-3 mb-4">
+    <div className="panel">
+      {/* Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', paddingBottom: '12px', borderBottom: '1px solid var(--border)', marginBottom: '16px' }}>
         <div>
-          <div className="text-sm font-semibold text-brand-amber">Bet Slip</div>
-          <div className="mt-1 text-text-primary font-medium">{market.name}</div>
+          <div style={{ fontSize: '10px', fontWeight: 500, letterSpacing: '0.08em', color: 'var(--text-muted)', marginBottom: '4px' }}>BET SLIP</div>
+          <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>{market.name}</div>
         </div>
-        <button onClick={onClear} className="tm-btn px-2 py-1 text-[10px]" title="Clear selection">
-          Clear
+        <button
+          onClick={onClear}
+          style={{
+            fontSize: '10px',
+            fontWeight: 500,
+            letterSpacing: '0.06em',
+            padding: '4px 8px',
+            background: 'transparent',
+            border: '1px solid var(--border)',
+            color: 'var(--text-muted)',
+            cursor: 'pointer',
+          }}
+        >
+          CLEAR
         </button>
       </div>
 
-      <div className="text-xs text-gray-400 font-mono mb-4">{market.description}</div>
+      {/* Description */}
+      <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.5 }}>
+        {market.description}
+      </div>
 
       {/* Direction Toggle */}
-      <div className="mb-4">
-        <div className="tm-label mb-2">Direction</div>
-        <div className="grid grid-cols-2 gap-2">
+      <div style={{ marginBottom: '16px' }}>
+        <div className="label" style={{ marginBottom: '8px' }}>DIRECTION</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
           <button
             onClick={() => onSideChange('long')}
-            className={`tm-btn w-full py-3 ${side === 'long' ? 'bg-pear-lime/20 border-pear-lime' : ''}`}
+            style={{
+              padding: '12px',
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.06em',
+              background: side === 'long' ? 'rgba(34, 197, 94, 0.15)' : 'transparent',
+              border: `1px solid ${side === 'long' ? 'var(--green)' : 'var(--border)'}`,
+              color: side === 'long' ? 'var(--green)' : 'var(--text-secondary)',
+              cursor: 'pointer',
+            }}
           >
             YES (LONG)
           </button>
           <button
             onClick={() => onSideChange('short')}
-            className={`tm-btn tm-btn-danger w-full py-3 ${side === 'short' ? 'bg-red-500/20 border-red-400' : ''}`}
+            style={{
+              padding: '12px',
+              fontSize: '11px',
+              fontWeight: 600,
+              letterSpacing: '0.06em',
+              background: side === 'short' ? 'rgba(239, 68, 68, 0.15)' : 'transparent',
+              border: `1px solid ${side === 'short' ? 'var(--red)' : 'var(--border)'}`,
+              color: side === 'short' ? 'var(--red)' : 'var(--text-secondary)',
+              cursor: 'pointer',
+            }}
           >
             NO (SHORT)
           </button>
         </div>
         {side && (
-          <div className="mt-2 text-xs text-gray-500 font-mono">
-            {side === 'long' ? `Betting ${longLeg} outperforms ${shortLeg}` : `Betting ${shortLeg} outperforms ${longLeg}`}
+          <div style={{ marginTop: '8px', fontSize: '11px', color: 'var(--text-muted)' }}>
+            {side === 'long' ? `${longLeg} OUTPERFORMS ${shortLeg}` : `${shortLeg} OUTPERFORMS ${longLeg}`}
           </div>
         )}
       </div>
 
-      {/* Stake Input */}
-      <div className="mb-4">
-        <div className="tm-label mb-2">Size (USDC)</div>
-        <div className="grid grid-cols-4 gap-2 mb-2">
+      {/* Size Input */}
+      <div style={{ marginBottom: '16px' }}>
+        <div className="label" style={{ marginBottom: '8px' }}>SIZE (USDC)</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px', marginBottom: '8px' }}>
           {presets.map((p) => (
             <button
               key={p}
               onClick={() => setAmount(String(p))}
-              className={`tm-btn w-full text-xs ${amount === String(p) ? 'bg-pear-lime/20' : ''}`}
               disabled={submitting}
+              style={{
+                padding: '8px',
+                fontSize: '11px',
+                fontWeight: 500,
+                background: amount === String(p) ? 'var(--bg-hover)' : 'transparent',
+                border: `1px solid ${amount === String(p) ? 'var(--border-strong)' : 'var(--border)'}`,
+                color: 'var(--text-secondary)',
+                cursor: submitting ? 'not-allowed' : 'pointer',
+                opacity: submitting ? 0.5 : 1,
+              }}
             >
               ${p}
             </button>
           ))}
-          <button
-            onClick={() => setAmount(String(Math.floor(yoloAmount)))}
-            className="tm-btn tm-btn-danger w-full text-xs"
-            disabled={submitting}
-            title={`YOLO capped at $${yoloCapUsd}`}
-          >
-            YOLO
-          </button>
         </div>
         <input
-          className="tm-control w-full"
+          className="input"
           inputMode="decimal"
           type="number"
           value={amount}
@@ -156,67 +188,80 @@ export function BetSlipPanel({
           disabled={submitting}
         />
         {balance && (
-          <div className="mt-2 text-xs text-gray-500 font-mono">
-            Available: ${Number(balance).toFixed(2)}
+          <div style={{ marginTop: '8px', fontSize: '11px', color: 'var(--text-muted)' }}>
+            AVAILABLE: ${Number(balance).toFixed(2)}
           </div>
         )}
         {!canAfford && (
-          <div className="mt-2 text-xs text-red-300 font-mono">INSUFFICIENT BALANCE</div>
+          <div style={{ marginTop: '8px', fontSize: '11px', color: 'var(--red)' }}>
+            INSUFFICIENT BALANCE
+          </div>
         )}
       </div>
 
       {/* Details */}
-      <div className="mb-4 tm-box text-xs">
-        <div className="tm-row">
-          <div className="tm-k">Underlying</div>
-          <div className="tm-v">{longLeg} / {shortLeg}</div>
+      <div style={{ marginBottom: '16px', padding: '12px', background: 'var(--bg-input)', border: '1px solid var(--border)' }}>
+        <div className="data-row">
+          <span className="data-label">UNDERLYING</span>
+          <span className="data-value">{longLeg} / {shortLeg}</span>
+        </div>
+        <div className="data-row">
+          <span className="data-label">LEVERAGE</span>
+          <span className="data-value" style={{ color: 'var(--amber)' }}>{market.leverage}x</span>
+        </div>
+        <div className="data-row">
+          <span className="data-label">SLIPPAGE</span>
+          <span className="data-value">1% MAX</span>
         </div>
         {!market.isTradable && (
-          <div className="tm-row">
-            <div className="tm-k">Status</div>
-            <div className="tm-v text-yellow-200">INACTIVE</div>
-          </div>
+          <>
+            <div className="data-row">
+              <span className="data-label">STATUS</span>
+              <span className="data-value" style={{ color: 'var(--amber)' }}>INACTIVE</span>
+            </div>
+            {market.unavailableReason && (
+              <div className="data-row">
+                <span className="data-label">REASON</span>
+                <span className="data-value" style={{ color: 'var(--amber)' }}>{market.unavailableReason}</span>
+              </div>
+            )}
+          </>
         )}
-        {!market.isTradable && market.unavailableReason && (
-          <div className="tm-row">
-            <div className="tm-k">Why</div>
-            <div className="tm-v text-yellow-200">{market.unavailableReason}</div>
-          </div>
-        )}
-        <div className="tm-row">
-          <div className="tm-k">Leverage</div>
-          <div className="tm-v text-pear-lime">{market.leverage}x</div>
-        </div>
-        <div className="tm-row">
-          <div className="tm-k">Slippage</div>
-          <div className="tm-v">1% max</div>
-        </div>
       </div>
 
-      {/* Error display */}
+      {/* Error */}
       {lastError && (
-        <div className="mb-4 tm-box border-red-400/30 bg-red-500/10">
-          <div className="text-xs font-mono text-red-300 mb-2">ERROR: {lastError}</div>
+        <div style={{ marginBottom: '16px', padding: '12px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--red-dim)' }}>
+          <div style={{ fontSize: '11px', color: 'var(--red)', marginBottom: '8px' }}>ERROR: {lastError}</div>
           <button
-            className="tm-btn tm-btn-danger w-full text-xs"
             onClick={() => setLastError(null)}
+            style={{
+              width: '100%',
+              padding: '8px',
+              fontSize: '10px',
+              fontWeight: 600,
+              letterSpacing: '0.06em',
+              background: 'transparent',
+              border: '1px solid var(--red)',
+              color: 'var(--red)',
+              cursor: 'pointer',
+            }}
           >
             DISMISS
           </button>
         </div>
       )}
 
-      {/* Submit Button */}
+      {/* Submit */}
       <button
-        className={`tm-btn w-full py-4 ${side === 'short' ? 'tm-btn-danger' : ''}`}
         disabled={submitting || !canAfford || !side || !!lastError || !market.isTradable}
         onClick={async () => {
           if (!side) {
-            toast.error('Select YES or NO');
+            toast.error('SELECT DIRECTION');
             return;
           }
           if (!market.isTradable) {
-            toast.error('This market is currently inactive');
+            toast.error('MARKET INACTIVE');
             return;
           }
           setSubmitting(true);
@@ -231,16 +276,16 @@ export function BetSlipPanel({
               resolvedBasket: market.resolvedBasket,
             });
             if (!mountedRef.current) return;
-            toast.success('Position opened!');
+            toast.success('POSITION OPENED');
             onPlaced();
           } catch (e) {
             if (!mountedRef.current) return;
-            const errMsg = (e as Error).message || 'Failed to execute';
+            const errMsg = (e as Error).message || 'EXECUTION FAILED';
             if (errMsg.includes('401') || errMsg.includes('unauthorized') || errMsg.includes('token')) {
-              setLastError('Session expired. Please re-authenticate.');
-              toast.error('Session expired');
+              setLastError('SESSION EXPIRED');
+              toast.error('SESSION EXPIRED');
             } else {
-              setLastError(errMsg);
+              setLastError(errMsg.toUpperCase());
               toast.error(errMsg);
             }
           } finally {
@@ -249,8 +294,20 @@ export function BetSlipPanel({
             }
           }
         }}
+        style={{
+          width: '100%',
+          padding: '14px',
+          fontSize: '12px',
+          fontWeight: 700,
+          letterSpacing: '0.06em',
+          background: side === 'short' ? 'var(--red)' : 'var(--amber)',
+          border: 'none',
+          color: 'var(--bg-base)',
+          cursor: submitting || !canAfford || !side || !!lastError || !market.isTradable ? 'not-allowed' : 'pointer',
+          opacity: submitting || !canAfford || !side || !!lastError || !market.isTradable ? 0.5 : 1,
+        }}
       >
-        {submitting ? 'SENDING...' : !side ? 'SELECT YES OR NO' : 'SEND IT'}
+        {submitting ? 'EXECUTING...' : !side ? 'SELECT DIRECTION' : 'EXECUTE'}
       </button>
     </div>
   );

@@ -1,7 +1,8 @@
+/* Market Feed Table - Terminal Style */
+
 .wrapper {
-  background: var(--bg-warm, #18171c);
-  border: 1px solid var(--border, #37343e);
-  border-radius: var(--radius-lg, 8px);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -13,113 +14,116 @@
 
 .th {
   text-align: left;
-  padding: 16px;
-  font-size: 11px;
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-muted, #6b6879);
-  border-bottom: 1px solid var(--border, #37343e);
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-strong);
   white-space: nowrap;
-  font-family: var(--font-sans, Inter, sans-serif);
 }
 
 .td {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border-subtle, #2a2830);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
   vertical-align: middle;
+  font-family: var(--font-mono);
+  font-size: 13px;
 }
 
 .row {
-  transition: background 150ms ease;
+  transition: background 100ms linear;
 }
 
 .row:hover {
-  background: var(--bg-surface, #222127);
+  background: var(--bg-hover);
 }
 
 .rowSelected {
-  background: rgba(249, 115, 22, 0.08);
-  border-left: 3px solid var(--amber, #f97316);
+  background: rgba(245, 158, 11, 0.08);
+  border-left: 2px solid var(--amber);
 }
 
 .rowSelected:hover {
-  background: rgba(249, 115, 22, 0.12);
+  background: rgba(245, 158, 11, 0.12);
 }
 
 .marketName {
-  color: var(--text-primary, #e8e6ed);
-  font-family: var(--font-sans, Inter, sans-serif);
-  font-weight: 500;
+  color: var(--text-primary);
+  font-weight: 600;
   line-height: 1.3;
 }
 
 .marketLink {
-  color: var(--amber, #f97316);
+  color: var(--text-primary);
   text-decoration: none;
-  transition: color 150ms ease;
+  transition: color 100ms linear;
 }
 
 .marketLink:hover {
-  color: var(--gold, #fbbf24);
+  color: var(--amber);
 }
 
 .marketMeta {
   display: flex;
-  gap: 8px;
-  margin-top: 6px;
+  gap: 12px;
+  margin-top: 4px;
 }
 
 .metaTag {
-  font-size: 11px;
-  color: var(--text-muted, #6b6879);
-  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .metaTagLive {
-  font-size: 11px;
-  color: var(--profit, #22c55e);
-  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green);
 }
 
 .metaTagClosed {
-  font-size: 11px;
-  color: var(--warning, #eab308);
-  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--amber);
 }
 
 .pairDisplay {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-mono, monospace);
-  font-size: 13px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
 .underlying {
-  font-family: var(--font-mono, monospace);
   font-size: 12px;
-  color: var(--text-secondary, #a8a3b3);
+  color: var(--text-secondary);
   white-space: pre-wrap;
   line-height: 1.4;
 }
 
 .legs {
-  font-family: var(--font-mono, monospace);
   font-size: 12px;
-  color: var(--text-secondary, #a8a3b3);
+  color: var(--text-secondary);
   white-space: pre-wrap;
   line-height: 1.4;
 }
 
 .marketDesc {
-  font-family: var(--font-sans, Inter, sans-serif);
-  font-size: 13px;
-  color: var(--text-secondary, #a8a3b3);
+  font-size: 12px;
+  color: var(--text-secondary);
   white-space: pre-wrap;
   line-height: 1.5;
-  max-width: 44ch;
+  max-width: 40ch;
 }
 
 .badges {
@@ -130,86 +134,89 @@
 }
 
 .longSide {
-  color: var(--profit, #22c55e);
+  color: var(--green);
 }
 
 .vs {
-  color: var(--text-muted, #6b6879);
-  font-size: 11px;
+  color: var(--text-muted);
+  font-size: 10px;
 }
 
 .shortSide {
-  color: var(--loss, #ef4444);
+  color: var(--red);
 }
 
 .actionButtons {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: flex-end;
   white-space: nowrap;
 }
 
 .btnAction {
-  padding: 10px 16px;
-  font-family: var(--font-sans, Inter, sans-serif);
-  font-size: 13px;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 600;
-  border: 1px solid var(--profit, #22c55e);
-  border-radius: var(--radius-md, 6px);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--green);
   background: transparent;
-  color: var(--profit, #22c55e);
+  color: var(--green);
   cursor: pointer;
-  transition: all 150ms ease;
+  transition: all 100ms linear;
 }
 
 .btnAction:hover {
-  background: var(--profit, #22c55e);
-  color: var(--bg-deep, #0e0e10);
+  background: var(--green);
+  color: var(--bg-base);
 }
 
 .btnShort {
-  border-color: var(--loss, #ef4444);
-  color: var(--loss, #ef4444);
+  border-color: var(--red);
+  color: var(--red);
 }
 
 .btnShort:hover {
-  background: var(--loss, #ef4444);
-  color: var(--bg-deep, #0e0e10);
+  background: var(--red);
+  color: var(--bg-base);
 }
 
 .btnView {
-  padding: 10px 16px;
-  font-family: var(--font-sans, Inter, sans-serif);
-  font-size: 13px;
-  font-weight: 500;
-  border: 1px solid var(--amber, #f97316);
-  border-radius: var(--radius-md, 6px);
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--border-strong);
   background: transparent;
-  color: var(--amber, #f97316);
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: all 150ms ease;
+  transition: all 100ms linear;
   text-decoration: none;
 }
 
 .btnView:hover {
-  background: var(--amber, #f97316);
-  color: var(--bg-deep, #0e0e10);
+  border-color: var(--amber);
+  color: var(--amber);
 }
 
 @media (max-width: 768px) {
   .th,
   .td {
-    padding: 12px 10px;
+    padding: 10px 12px;
   }
 
   .actionButtons {
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     align-items: stretch;
   }
 
-  .btnAction {
+  .btnAction,
+  .btnView {
     width: 100%;
-    padding: 10px 12px;
+    text-align: center;
   }
 }
