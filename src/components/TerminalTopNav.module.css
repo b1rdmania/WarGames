@@ -7,17 +7,17 @@
 }
 
 .link {
-  color: var(--text-muted, #6b6879);
+  color: var(--text-secondary, #a8a3b3);
   text-decoration: none;
   font-family: var(--font-sans, Inter, -apple-system, sans-serif);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: color 0.2s ease;
+  letter-spacing: 0;
+  transition: color 0.15s ease;
 }
 
 .link:hover {
-  color: var(--amber, #f97316);
+  color: var(--text-primary, #e8e6ed);
 }
 
 .active {
@@ -25,16 +25,16 @@
 }
 
 .disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
 }
 
 @media (max-width: 768px) {
   .nav {
-    gap: 16px;
+    gap: 20px;
   }
   .link {
-    font-size: 12px;
+    font-size: 13px;
   }
 }

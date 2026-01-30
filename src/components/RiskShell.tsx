@@ -7,14 +7,12 @@ import { HeaderWalletWidget } from './HeaderWalletWidget';
 
 export function RiskShell({
   title = 'war.market',
-  subtitle = 'Terminal',
   nav,
   right,
   showMusic = true,
   children,
 }: {
   title?: string;
-  subtitle?: string;
   nav?: ReactNode;
   right?: ReactNode | null;
   showMusic?: boolean;
@@ -22,10 +20,6 @@ export function RiskShell({
 }) {
   return (
     <div className={styles.shell}>
-      <div className={styles.mapBackground} />
-      <div className={styles.scanLine} />
-      <div className={styles.noise} />
-
       <div className={styles.content}>
         <div className={styles.header}>
           <div className={styles.container}>
@@ -34,12 +28,6 @@ export function RiskShell({
                 <Link href="/markets" className={styles.title} aria-label="war.market home">
                   {title}
                 </Link>
-                <div className={styles.subtitleRow}>
-                  <div className={styles.subtitle}>{subtitle}</div>
-                  <div className={styles.betaBadge} aria-label="Demo build">
-                    BETA / DEMO
-                  </div>
-                </div>
               </div>
               {nav ? <div className={styles.nav}>{nav}</div> : null}
               <div className={styles.headerRight}>

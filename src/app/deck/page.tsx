@@ -160,7 +160,7 @@ export default function DeckPage() {
   }, [total]);
 
   return (
-    <RiskShell subtitle="DECK" showMusic={false} right={null}>
+    <RiskShell showMusic={false} right={null}>
       <div className="tp-wrap">
         <div className="tp-frame min-h-[62vh] flex flex-col justify-between">
           <div className="flex items-center justify-between gap-4">

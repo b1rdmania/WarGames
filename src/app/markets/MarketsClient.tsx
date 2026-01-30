@@ -17,10 +17,7 @@ export default function MarketsClient() {
   // MARKETS is pure browse - no wallet connection, no trading
   // All trading happens on /trade
   return (
-    <RiskShell
-      subtitle="Markets"
-      nav={<TerminalTopNav />}
-    >
+    <RiskShell nav={<TerminalTopNav />}>
       <div className="mb-6">
         <div className="text-3xl font-sans font-semibold tracking-tight text-text-primary">Markets</div>
         <div className="mt-2 text-sm font-sans text-text-muted">

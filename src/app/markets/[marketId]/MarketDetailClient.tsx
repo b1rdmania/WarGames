@@ -38,7 +38,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
 
   if (!market) {
     return (
-      <RiskShell subtitle="MARKET" nav={<TerminalTopNav />}>
+      <RiskShell nav={<TerminalTopNav />}>
         <div className="pear-border bg-black/40 p-6 font-mono text-sm text-gray-400">
           Market not found.{' '}
           <Link href="/markets" className="text-pear-lime underline">
@@ -56,10 +56,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
   const overview = narrative?.overview ?? `${market.name} expresses the narrative: ${market.description}.`;
 
   return (
-    <RiskShell
-      subtitle="MARKET"
-      nav={<TerminalTopNav />}
-    >
+    <RiskShell nav={<TerminalTopNav />}>
       <div className={styles.hero}>
         <div className={styles.kicker}>SYSTEM STATUS: OPERATIONAL · MARKET DOSSIER</div>
         <div className={styles.title}>{pageTitle}</div>
