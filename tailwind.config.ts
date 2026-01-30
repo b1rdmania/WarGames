@@ -9,51 +9,50 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // war.market brand colors
-        'war': {
-          'deep': '#0e0e10',
-          'warm': '#18171c',
-          'surface': '#222127',
-          'elevated': '#2c2a32',
-        },
-        'brand': {
-          'amber': '#f97316',
-          'amber-dim': '#c2590e',
-          'gold': '#fbbf24',
-          'gray': '#4a4752',
-        },
-        'text': {
-          'primary': '#e8e6ed',
-          'secondary': '#a8a3b3',
-          'muted': '#6b6879',
-          'disabled': '#3d3a45',
-        },
-        'status': {
-          'profit': '#22c55e',
-          'profit-dim': '#16a34a',
-          'loss': '#ef4444',
-          'loss-dim': '#dc2626',
-          'warning': '#eab308',
-          'info': '#3b82f6',
-        },
-        'border': {
-          'DEFAULT': '#37343e',
-          'subtle': '#2a2830',
-          'focus': '#f97316',
-        },
-        // Legacy aliases for gradual migration
-        'pear-dark': '#0e0e10',
-        'pear-panel': '#18171c',
-        'pear-panel-light': '#222127',
-        'pear-lime': '#f97316',
-        'pear-lime-light': '#fbbf24',
-        'pear-gray': '#a8a3b3',
-        'pear-gray-dark': '#6b6879',
-        'pear-accent': '#c2590e',
+        // Terminal backgrounds
+        'base': '#0a0a0b',
+        'panel': '#111113',
+        'input': '#18181b',
+        'hover': '#1f1f23',
+
+        // Text
+        'primary': '#fafafa',
+        'secondary': '#a1a1aa',
+        'muted': '#71717a',
+        'disabled': '#3f3f46',
+
+        // Semantic
+        'green': '#22c55e',
+        'green-dim': '#16a34a',
+        'red': '#ef4444',
+        'red-dim': '#dc2626',
+        'amber': '#f59e0b',
+        'amber-dim': '#d97706',
+
+        // Borders
+        'border': '#27272a',
+        'border-strong': '#3f3f46',
+
+        // Legacy aliases
+        'pear-dark': '#0a0a0b',
+        'pear-panel': '#111113',
+        'pear-lime': '#f59e0b',
+        'war-deep': '#0a0a0b',
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        mono: ['var(--font-mono)', 'JetBrains Mono', 'SF Mono', 'monospace'],
+        mono: ['var(--font-mono)', 'JetBrains Mono', 'SF Mono', 'Consolas', 'monospace'],
+      },
+      borderRadius: {
+        'none': '0',
+        DEFAULT: '0',
+      },
+      spacing: {
+        '1': '4px',
+        '2': '8px',
+        '3': '12px',
+        '4': '16px',
+        '6': '24px',
+        '8': '32px',
       },
     },
   },

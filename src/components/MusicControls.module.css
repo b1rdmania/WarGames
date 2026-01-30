@@ -1,56 +1,61 @@
 .root {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.label {
-  font-family: var(--font-mono, JetBrains Mono, monospace);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted, #6b6879);
-}
-
-.btnRow {
-  display: inline-flex;
-  gap: 6px;
+  gap: 8px;
 }
 
 .btn {
-  width: 34px;
-  height: 28px;
-  border: 1px solid var(--border, #37343e);
-  border-radius: 4px;
-  background: var(--bg-surface, #222127);
-  color: var(--text-secondary, #a8a3b3);
-  font-family: var(--font-mono, JetBrains Mono, monospace);
-  font-size: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--green);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 4px 8px;
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  transition: all 100ms linear;
 }
 
 .btn:hover {
-  border-color: var(--amber, #f97316);
-  color: var(--amber, #f97316);
+  border-color: var(--border-strong);
 }
 
-.active {
-  background: rgba(249, 115, 22, 0.15);
-  border-color: var(--amber, #f97316);
-  color: var(--amber, #f97316);
+.btn.muted {
+  color: var(--text-muted);
 }
 
-.muteBtn {
-  width: 40px;
+.trackBtns {
+  display: flex;
+  gap: 2px;
+}
+
+.trackBtn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: all 100ms linear;
+}
+
+.trackBtn:hover {
+  color: var(--text-secondary);
+  border-color: var(--border-strong);
+}
+
+.trackBtn.active {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+  background: var(--bg-hover);
 }
 
 @media (max-width: 768px) {
-  .label {
+  .trackBtns {
     display: none;
-  }
-  .btn {
-    width: 30px;
-    height: 26px;
   }
 }

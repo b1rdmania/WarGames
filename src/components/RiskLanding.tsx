@@ -1,79 +1,80 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from './RiskLanding.module.css';
 
 export function RiskLanding() {
   return (
     <main className={styles.root}>
-      <div className={styles.mapBackground} />
-      <div className={styles.scanLine} />
-      <div className={styles.noise} />
-
-      {/* Video hero */}
-      <section className={styles.videoHero} aria-label="war.market hero">
-        <div className={styles.videoFallback} />
-        <video autoPlay muted loop playsInline preload="metadata" className={styles.heroVideo}>
+      {/* Video section */}
+      <section className={styles.videoSection}>
+        <video autoPlay muted loop playsInline preload="metadata" className={styles.video}>
           <source src="/splash.mp4" type="video/mp4" />
         </video>
-        <div className={styles.scrollIndicator} aria-hidden="true">
-          <div className={styles.scrollIndicatorText}>Scroll</div>
-          <div className={styles.scrollIndicatorArrow} />
+        <div className={styles.videoOverlay} />
+        <div className={styles.scrollHint}>
+          <span>SCROLL</span>
+          <div className={styles.scrollArrow} />
         </div>
       </section>
 
+      {/* Hero */}
       <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <div className={styles.logo}>war.market</div>
-          <div className={styles.tagline}>Trade the tension.</div>
-          <div className={`${styles.tagline} ${styles.taglineSmall}`}>
-            One-click basket trades for macro conviction.
-          </div>
+        <h1 className={styles.title}>WAR.MARKET</h1>
+        <p className={styles.tagline}>TRADE THE TENSION</p>
+        <p className={styles.subtitle}>One-click basket trades for macro conviction.</p>
 
-          <div className={styles.ctaSection}>
-            <Link href="/markets" className={`${styles.btn} ${styles.btnPrimary}`}>
-              Launch App
-            </Link>
-            <div className={styles.poweredBy}>Pear Protocol execution · Hyperliquid settlement</div>
-          </div>
+        <div className={styles.cta}>
+          <Link href="/markets" className={styles.btn}>
+            ENTER TERMINAL
+          </Link>
+        </div>
+
+        <div className={styles.meta}>
+          <span>PEAR PROTOCOL EXECUTION</span>
+          <span className={styles.sep}>|</span>
+          <span>HYPERLIQUID SETTLEMENT</span>
         </div>
       </section>
 
-      <section className={styles.explainerStrip} aria-label="How it works">
-        <div className={styles.explainerGrid}>
-          <div className={styles.explainerItem}>
-            <h3>The Signal</h3>
-            <p>
+      {/* Info grid */}
+      <section className={styles.info}>
+        <div className={styles.infoGrid}>
+          <div className={styles.infoBlock}>
+            <div className={styles.infoHeader}>01 — SIGNAL</div>
+            <p className={styles.infoBody}>
               Macro stress becomes tradeable. Pick a thesis — AI bubble, Taiwan crisis, ETH dominance — and express it as a position.
             </p>
           </div>
-          <div className={styles.explainerItem}>
-            <h3>One Click</h3>
-            <p>
+          <div className={styles.infoBlock}>
+            <div className={styles.infoHeader}>02 — EXECUTE</div>
+            <p className={styles.infoBody}>
               Sign once. Pear creates an agent wallet. The basket executes atomically on Hyperliquid. No manual leg construction.
             </p>
           </div>
-          <div className={styles.explainerItem}>
-            <h3>Your Conviction</h3>
-            <p>
-              Browse markets as intel. Trade when you&apos;re ready. Close when you&apos;re done. Thesis → Position → P&L.
+          <div className={styles.infoBlock}>
+            <div className={styles.infoHeader}>03 — CONVICTION</div>
+            <p className={styles.infoBody}>
+              Browse markets as intel. Trade when ready. Close when done. Thesis → Position → P&L.
             </p>
           </div>
         </div>
       </section>
 
+      {/* Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerLeft}>
-          <span>war.market © 2026</span>
-          <Link href="/markets" className={styles.footerLink}>
-            Markets
-          </Link>
-          <Link href="/about" className={styles.footerLink}>
-            About
-          </Link>
+          <span>WAR.MARKET</span>
+          <span className={styles.sep}>|</span>
+          <a href="https://x.com/b1rdmania" target="_blank" rel="noreferrer" className={styles.footerLink}>
+            B1RDMANIA
+          </a>
         </div>
         <div className={styles.footerRight}>
-          <a href="https://www.pear.garden/" target="_blank" rel="noreferrer" className={styles.footerPear}>
-            <Image src="/pearwordmark.png" alt="Pear Protocol" width={100} height={20} />
+          <Link href="/markets" className={styles.footerLink}>MARKETS</Link>
+          <span className={styles.sep}>|</span>
+          <Link href="/about" className={styles.footerLink}>ABOUT</Link>
+          <span className={styles.sep}>|</span>
+          <a href="https://www.pear.garden/" target="_blank" rel="noreferrer" className={styles.footerLink}>
+            PEAR
           </a>
         </div>
       </footer>

@@ -1,20 +1,15 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import styles from './RiskShell.module.css';
 import { MusicControls } from './MusicControls';
 import { HeaderWalletWidget } from './HeaderWalletWidget';
 
 export function RiskShell({
-  title = 'war.market',
-  subtitle = 'Terminal',
   nav,
   right,
   showMusic = true,
   children,
 }: {
-  title?: string;
-  subtitle?: string;
   nav?: ReactNode;
   right?: ReactNode | null;
   showMusic?: boolean;
@@ -22,81 +17,43 @@ export function RiskShell({
 }) {
   return (
     <div className={styles.shell}>
-      <div className={styles.mapBackground} />
-      <div className={styles.scanLine} />
-      <div className={styles.noise} />
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
+          <Link href="/markets" className={styles.logo}>
+            WAR.MARKET
+          </Link>
 
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <div className={styles.container}>
-            <div className={styles.headerInner}>
-              <div className={styles.brand}>
-                <Link href="/markets" className={styles.title} aria-label="war.market home">
-                  {title}
-                </Link>
-                <div className={styles.subtitleRow}>
-                  <div className={styles.subtitle}>{subtitle}</div>
-                  <div className={styles.betaBadge} aria-label="Demo build">
-                    BETA / DEMO
-                  </div>
-                </div>
-              </div>
-              {nav ? <div className={styles.nav}>{nav}</div> : null}
-              <div className={styles.headerRight}>
-                <div className={styles.headerWidgets}>
-                  {showMusic ? <MusicControls /> : null}
-                  {right === undefined ? <HeaderWalletWidget /> : right}
-                </div>
-              </div>
-            </div>
+          {nav ? <nav className={styles.nav}>{nav}</nav> : null}
+
+          <div className={styles.headerRight}>
+            {showMusic ? <MusicControls /> : null}
+            {right === undefined ? <HeaderWalletWidget /> : right}
           </div>
         </div>
+      </header>
 
-        <div className={styles.container}>
-          {children}
+      <main className={styles.main}>
+        {children}
+      </main>
 
-          <footer className={styles.footer}>
-            <div className={styles.footerLeft}>
-              <a className={styles.footerLink} href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
-                made by b1rdmania
-              </a>
-            </div>
-            <div className={styles.footerPear}>
-              <a className={styles.footerPearLink} href="https://www.pear.garden/" target="_blank" rel="noreferrer">
-                <Image
-                  src="/pearwordmark.png"
-                  alt="Pear Protocol"
-                  width={120}
-                  height={24}
-                  className={styles.footerPearLogo}
-                />
-              </a>
-            </div>
-            <div className={styles.footerLinks}>
-              <a
-                className={styles.footerLink}
-                href="https://github.com/b1rdmania/WarGames"
-                target="_blank"
-                rel="noreferrer"
-              >
-                github
-              </a>
-              <span className={styles.footerSep}>·</span>
-              <a className={styles.footerLink} href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
-                x
-              </a>
-              <span className={styles.footerSep}>·</span>
-              <span className={styles.footerRight}>
-                music made in{' '}
-                <a className={styles.footerLink} href="https://wario.style" target="_blank" rel="noreferrer">
-                  wario.style
-                </a>
-              </span>
-            </div>
-          </footer>
+      <footer className={styles.footer}>
+        <div className={styles.footerLeft}>
+          <span className={styles.footerMuted}>WAR.MARKET</span>
+          <span className={styles.footerSep}>|</span>
+          <a className={styles.footerLink} href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
+            B1RDMANIA
+          </a>
         </div>
-      </div>
+        <div className={styles.footerRight}>
+          <a className={styles.footerLink} href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer">
+            GITHUB
+          </a>
+          <span className={styles.footerSep}>|</span>
+          <a className={styles.footerLink} href="https://www.pear.garden/" target="_blank" rel="noreferrer">
+            PEAR PROTOCOL
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }
-

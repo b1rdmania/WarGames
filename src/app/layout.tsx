@@ -1,21 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { WalletProvider } from "@/components/WalletProvider";
 import { PearProvider } from "@/contexts/PearContext";
 import { MusicProvider } from "@/contexts/MusicContext";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-mono",
   display: "swap",
 });
@@ -23,28 +16,28 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.war.market"),
   title: {
-    default: "war.market",
-    template: "%s — war.market",
+    default: "WAR.MARKET",
+    template: "%s — WAR.MARKET",
   },
   description: "Trade the tension. One-click basket trades for macro conviction.",
   openGraph: {
     type: "website",
     url: "https://www.war.market",
-    siteName: "war.market",
-    title: "war.market",
+    siteName: "WAR.MARKET",
+    title: "WAR.MARKET",
     description: "Trade the tension. One-click basket trades for macro conviction.",
     images: [
       {
         url: "/ghimage.png",
         width: 1200,
         height: 630,
-        alt: "war.market",
+        alt: "WAR.MARKET",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "war.market",
+    title: "WAR.MARKET",
     description: "Trade the tension. One-click basket trades for macro conviction.",
     images: ["/ghimage.png"],
   },
@@ -59,8 +52,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="min-h-screen bg-war-deep text-text-primary font-sans antialiased">
+    <html lang="en" className={jetbrainsMono.variable}>
+      <body>
         <WalletProvider>
           <PearProvider>
             <MusicProvider>
@@ -69,21 +62,23 @@ export default function RootLayout({
                 position="bottom-right"
                 toastOptions={{
                   style: {
-                    background: '#18171c',
-                    color: '#e8e6ed',
-                    border: '1px solid #37343e',
-                    borderRadius: '8px',
+                    background: '#111113',
+                    color: '#fafafa',
+                    border: '1px solid #27272a',
+                    borderRadius: '0',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '12px',
                   },
                   success: {
                     iconTheme: {
                       primary: '#22c55e',
-                      secondary: '#0e0e10',
+                      secondary: '#0a0a0b',
                     },
                   },
                   error: {
                     iconTheme: {
                       primary: '#ef4444',
-                      secondary: '#0e0e10',
+                      secondary: '#0a0a0b',
                     },
                   },
                 }}
