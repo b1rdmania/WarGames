@@ -5,11 +5,11 @@
 }
 
 .label {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-family: var(--font-mono, JetBrains Mono, monospace);
   font-size: 11px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(224, 224, 224, 0.55);
+  color: var(--text-muted, #6b6879);
 }
 
 .btnRow {
@@ -20,23 +20,25 @@
 .btn {
   width: 34px;
   height: 28px;
-  border: 1px solid rgba(2, 255, 129, 0.22);
-  background: rgba(0, 0, 0, 0.25);
-  color: rgba(224, 224, 224, 0.75);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  border: 1px solid var(--border, #37343e);
+  border-radius: 4px;
+  background: var(--bg-surface, #222127);
+  color: var(--text-secondary, #a8a3b3);
+  font-family: var(--font-mono, JetBrains Mono, monospace);
   font-size: 12px;
   cursor: pointer;
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 
 .btn:hover {
-  border-color: rgba(2, 255, 129, 0.5);
+  border-color: var(--amber, #f97316);
+  color: var(--amber, #f97316);
 }
 
 .active {
-  background: rgba(2, 255, 129, 0.18);
-  border-color: rgba(2, 255, 129, 0.65);
-  color: rgba(2, 255, 129, 1);
+  background: rgba(249, 115, 22, 0.15);
+  border-color: var(--amber, #f97316);
+  color: var(--amber, #f97316);
 }
 
 .muteBtn {
@@ -52,4 +54,3 @@
     height: 26px;
   }
 }
-

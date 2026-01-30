@@ -18,13 +18,13 @@ export default function MarketsClient() {
   // All trading happens on /trade
   return (
     <RiskShell
-      subtitle="MARKETS"
+      subtitle="Markets"
       nav={<TerminalTopNav />}
     >
       <div className="mb-6">
-        <div className="text-3xl font-mono font-bold tracking-widest text-pear-lime">MARKETS</div>
-        <div className="mt-2 text-sm font-mono text-gray-500">
-          Browse available narratives. Click any market for details, or go to TRADE to place bets.
+        <div className="text-3xl font-sans font-semibold tracking-tight text-text-primary">Markets</div>
+        <div className="mt-2 text-sm font-sans text-text-muted">
+          Browse available narratives. Click any market for details, or go to Trade to place bets.
         </div>
       </div>
 

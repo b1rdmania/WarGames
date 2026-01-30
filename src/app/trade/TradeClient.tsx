@@ -29,13 +29,13 @@ export default function TradeClient() {
   if (!isAuthenticated) {
     return (
       <RiskShell
-        subtitle="SETUP"
+        subtitle="Setup"
         nav={<TerminalTopNav />}
       >
         {!isConnected ? (
           <div className="tp-wrap">
             <div className="tp-frame">
-              <div className="tp-h">CONNECT WALLET</div>
+              <div className="tp-h">Connect Wallet</div>
               <div className="tp-body">Connect your wallet to authenticate with Pear.</div>
               <div className="mt-4">
                 <button
@@ -53,7 +53,7 @@ export default function TradeClient() {
                   }}
                   className="tm-btn w-full disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
+                  {isPending ? 'Connecting…' : 'Connect Wallet'}
                 </button>
               </div>
             </div>
@@ -67,12 +67,12 @@ export default function TradeClient() {
 
   return (
     <RiskShell
-      subtitle="TRADE"
+      subtitle="Trade"
       nav={<TerminalTopNav />}
     >
       <div className="tp-wrap">
         <div className="tp-hero">
-          <div className="tp-title">TRADE</div>
+          <div className="tp-title">Trade</div>
           <div className="tp-lede">Pick a narrative and place a YES/NO bet.</div>
         </div>
         <div className="tp-rule" />

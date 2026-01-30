@@ -14,21 +14,20 @@ export function TerminalTopNav() {
   return (
     <nav className={styles.nav} aria-label="Primary">
       <Link className={`${styles.link} ${isMarkets ? styles.active : ''}`} href="/markets">
-        MARKETS
+        Markets
       </Link>
 
       <Link className={`${styles.link} ${isTrade ? styles.active : ''}`} href="/trade">
-        TRADE
+        Trade
       </Link>
 
       <Link className={`${styles.link} ${isPortfolio ? styles.active : ''}`} href="/portfolio">
-        PORTFOLIO
+        Portfolio
       </Link>
 
       <Link className={`${styles.link} ${isAbout ? styles.active : ''}`} href="/about">
-        ABOUT
+        About
       </Link>
     </nav>
   );
 }
-

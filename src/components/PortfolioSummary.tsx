@@ -19,38 +19,38 @@ export function PortfolioSummary({
   const profitableCount = positions.filter(p => Number(p.pnl) >= 0).length;
 
   return (
-    <div className="pear-border bg-black/40 p-6 mb-6">
-      <div className="text-sm font-mono text-pear-lime mb-4">[ PORTFOLIO ]</div>
+    <div className="tm-box mb-6">
+      <div className="text-sm font-semibold text-brand-amber mb-4">Portfolio</div>
 
-      {/* RiskMarkets-style quadrant table */}
-      <div className="border border-[rgba(2,255,129,0.18)] bg-black/20">
+      {/* Quadrant layout */}
+      <div className="border border-border rounded-md overflow-hidden">
         <div className="grid grid-cols-2">
-          <div className="p-4 border-b border-r border-[rgba(2,255,129,0.18)]">
-            <div className="tm-k mb-2">Total P&amp;L</div>
-            <div className={`tm-v text-lg ${isProfitable ? 'text-pear-lime' : 'text-red-400'}`}>
+          <div className="p-4 border-b border-r border-border-subtle">
+            <div className="tm-k mb-2">Total P&L</div>
+            <div className={`tm-v text-lg ${isProfitable ? 'text-status-profit' : 'text-status-loss'}`}>
               {isProfitable ? '+' : ''}${totalPnl.toFixed(2)}
             </div>
-            <div className={`text-xs font-mono mt-1 ${isProfitable ? 'text-pear-lime/80' : 'text-red-400/80'}`}>
+            <div className={`text-xs font-mono mt-1 ${isProfitable ? 'text-status-profit/80' : 'text-status-loss/80'}`}>
               {isProfitable ? '+' : ''}{avgPnlPercent.toFixed(2)}%
             </div>
           </div>
 
-          <div className="p-4 border-b border-[rgba(2,255,129,0.18)]">
+          <div className="p-4 border-b border-border-subtle">
             <div className="tm-k mb-2">Positions</div>
             <div className="tm-v text-lg">{positions.length}</div>
-            <div className="text-xs font-mono text-gray-400 mt-1">{profitableCount} winning</div>
+            <div className="text-xs font-mono text-text-muted mt-1">{profitableCount} winning</div>
           </div>
 
-          <div className="p-4 border-r border-[rgba(2,255,129,0.18)]">
+          <div className="p-4 border-r border-border-subtle">
             <div className="tm-k mb-2">Deployed</div>
             <div className="tm-v text-lg">${totalCapital.toFixed(2)}</div>
-            <div className="text-xs font-mono text-gray-400 mt-1">across {positions.length} bets</div>
+            <div className="text-xs font-mono text-text-muted mt-1">across {positions.length} bets</div>
           </div>
 
           <div className="p-4">
             <div className="tm-k mb-2">Available</div>
             <div className="tm-v text-lg">${balance ? Number(balance).toFixed(2) : '0.00'}</div>
-            <div className="text-xs font-mono text-gray-400 mt-1">USDC balance</div>
+            <div className="text-xs font-mono text-text-muted mt-1">USDC balance</div>
           </div>
         </div>
       </div>

@@ -7,22 +7,21 @@
 }
 
 .link {
-  color: rgba(224, 224, 224, 0.55);
+  color: var(--text-muted, #6b6879);
   text-decoration: none;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
   font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  transition: color 0.2s ease, text-shadow 0.2s ease;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
 }
 
 .link:hover {
-  color: rgba(2, 255, 129, 0.9);
-  text-shadow: 0 0 10px rgba(2, 255, 129, 0.25);
+  color: var(--amber, #f97316);
 }
 
 .active {
-  color: rgba(2, 255, 129, 1);
+  color: var(--amber, #f97316);
 }
 
 .disabled {
@@ -36,7 +35,6 @@
     gap: 16px;
   }
   .link {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
-

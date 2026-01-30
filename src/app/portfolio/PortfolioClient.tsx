@@ -93,13 +93,13 @@ export default function PortfolioClient() {
   if (!isAuthenticated) {
     return (
       <RiskShell
-        subtitle="SETUP"
+        subtitle="Setup"
         nav={<TerminalTopNav />}
       >
         {!isConnected ? (
           <div className="tp-wrap">
             <div className="tp-frame">
-              <div className="tp-h">CONNECT WALLET</div>
+              <div className="tp-h">Connect Wallet</div>
               <div className="tp-body">Connect your wallet to view your portfolio.</div>
               <div className="mt-4">
                 <button
@@ -115,9 +115,9 @@ export default function PortfolioClient() {
                       }
                     })();
                   }}
-                  className="tm-btn w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="tm-btn tm-btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
+                  {isPending ? 'Connecting…' : 'Connect Wallet'}
                 </button>
               </div>
             </div>
@@ -131,13 +131,13 @@ export default function PortfolioClient() {
 
   return (
     <RiskShell
-      subtitle="PORTFOLIO"
+      subtitle="Portfolio"
       nav={<TerminalTopNav />}
     >
       <div className="tp-wrap">
         <div className="tp-hero">
-          <div className="tp-title">PORTFOLIO</div>
-          <div className="tp-lede">Positions, P&amp;L, and collateral.</div>
+          <div className="tp-title">Portfolio</div>
+          <div className="tp-lede">Positions, P&L, and collateral.</div>
         </div>
         <div className="tp-rule" />
 
@@ -157,11 +157,11 @@ export default function PortfolioClient() {
         )}
 
         <div className="mt-6">
-          <div className="flex items-center justify-between text-sm font-mono text-gray-300 mb-3">
-            <div className="text-pear-lime">[ ACTIVE POSITIONS ]</div>
+          <div className="flex items-center justify-between text-sm mb-3">
+            <div className="font-semibold text-brand-amber">Active Positions</div>
             <div className="flex items-center gap-3">
               {hasLoadedPositions && refreshingPositions ? (
-                <div className="text-[10px] text-gray-500">UPDATING…</div>
+                <div className="text-[10px] text-text-muted">Updating…</div>
               ) : null}
               <button
                 onClick={async () => {
@@ -179,17 +179,17 @@ export default function PortfolioClient() {
                   }
                 }}
                 disabled={refreshingPositions || !accessToken}
-                className="tm-btn px-3 py-1 text-[10px] disabled:opacity-50"
+                className="tm-btn px-3 py-1 text-xs disabled:opacity-50"
               >
-                {refreshingPositions ? '...' : 'REFRESH'}
+                {refreshingPositions ? '...' : 'Refresh'}
               </button>
             </div>
           </div>
 
           {loadingPositions && !hasLoadedPositions ? (
-            <div className="pear-border bg-black/40 p-6 font-mono text-sm text-gray-400">Loading…</div>
+            <div className="tm-box p-6 text-sm text-text-muted">Loading…</div>
           ) : positions.length === 0 ? (
-            <div className="pear-border bg-black/40 p-6 font-mono text-sm text-gray-400">No active positions.</div>
+            <div className="tm-box p-6 text-sm text-text-muted">No active positions.</div>
           ) : accessToken ? (
             <div className="space-y-4">
               {positions.map((pos) => (

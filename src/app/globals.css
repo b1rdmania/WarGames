@@ -3,41 +3,93 @@
 @tailwind utilities;
 
 :root {
-  /* Terminal theme (single source of truth) */
-  --pear-dark: #0a0a0a;
-  --pear-panel: #121212;
-  --pear-panel-light: #171717;
-  --pear-lime: #02ff81;
-  --pear-lime-light: #7dffc2;
-  --pear-lime-rgb: 2, 255, 129;
-  --pear-gray: #a0a0a0;
-  --pear-gray-dark: #717171;
-  --pear-accent: #334128;
-  --border-color: rgba(2, 255, 129, 0.22);
+  /* war.market brand system */
+
+  /* Backgrounds */
+  --bg-deep: #0e0e10;
+  --bg-warm: #18171c;
+  --bg-surface: #222127;
+  --bg-elevated: #2c2a32;
+
+  /* Text */
+  --text-primary: #e8e6ed;
+  --text-secondary: #a8a3b3;
+  --text-muted: #6b6879;
+  --text-disabled: #3d3a45;
+
+  /* Borders */
+  --border: #37343e;
+  --border-subtle: #2a2830;
+  --border-focus: #f97316;
+
+  /* Brand */
+  --amber: #f97316;
+  --amber-dim: #c2590e;
+  --amber-rgb: 249, 115, 22;
+  --gold: #fbbf24;
+  --mark-gray: #4a4752;
+
+  /* Functional */
+  --profit: #22c55e;
+  --profit-dim: #16a34a;
+  --loss: #ef4444;
+  --loss-dim: #dc2626;
+  --warning: #eab308;
+  --info: #3b82f6;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  /* Legacy aliases */
+  --pear-dark: var(--bg-deep);
+  --pear-panel: var(--bg-warm);
+  --pear-panel-light: var(--bg-surface);
+  --pear-lime: var(--amber);
+  --pear-lime-light: var(--gold);
+  --pear-lime-rgb: var(--amber-rgb);
+  --pear-gray: var(--text-secondary);
+  --pear-gray-dark: var(--text-muted);
+  --pear-accent: var(--amber-dim);
+  --border-color: rgba(var(--amber-rgb), 0.22);
 }
 
 html {
-  /* Prevent iOS/Safari from rendering native light form controls */
   color-scheme: dark;
 }
 
 body {
-  background-color: var(--pear-dark);
-  color: #ffffff;
-  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-    monospace;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
 }
 
-/* Terminal content pages (About / Deck / docs-style pages) */
+/* Terminal content pages */
 .tp-wrap {
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .tp-frame {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   background: rgba(0, 0, 0, 0.35);
   padding: 40px;
+  border-radius: var(--radius-lg);
 }
 
 @media (max-width: 768px) {
@@ -51,26 +103,25 @@ body {
 }
 
 .tp-title {
-  font-family: var(--font-display), var(--font-mono), ui-monospace, monospace;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--pear-lime);
-  font-size: clamp(28px, 4vw, 52px);
-  line-height: 1.05;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.1;
 }
 
 .tp-lede {
   margin-top: 10px;
-  font-family: var(--font-mono), ui-monospace, monospace;
-  color: #a1a1aa; /* zinc-400-ish */
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
   font-size: 16px;
   line-height: 1.6;
 }
 
 .tp-rule {
   height: 1px;
-  background: rgba(var(--pear-lime-rgb), 0.18);
+  background: var(--border);
 }
 
 .tp-section {
@@ -78,20 +129,20 @@ body {
 }
 
 .tp-h {
-  font-family: var(--font-display), var(--font-mono), ui-monospace, monospace;
-  font-weight: 800;
+  font-family: var(--font-sans);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--pear-lime);
-  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--amber);
+  font-size: 12px;
   margin-bottom: 10px;
 }
 
 .tp-body {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  color: #a1a1aa;
-  font-size: 14px;
-  line-height: 1.75;
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 .tp-bullets {
@@ -106,11 +157,11 @@ body {
 }
 
 .tp-bullets li::before {
-  content: "*";
+  content: "→";
   position: absolute;
   left: 0;
   top: 0;
-  color: var(--pear-lime);
+  color: var(--amber);
   opacity: 0.9;
 }
 
@@ -133,71 +184,84 @@ body {
 .tp-kv-k {
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--pear-gray-dark);
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
 }
 
 .tp-kv-v {
-  font-size: 13px;
-  color: #fff;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
 }
 
-/* RiskMarkets-style terminal typography */
+/* Typography */
 h1, h2, h3 {
-  font-family: var(--font-display), var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em;
+}
+
+/* Widget primitives */
+.tm-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-}
-
-/* Terminal widget primitives (buttons / inputs / selects) */
-.tm-label {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--pear-gray-dark);
+  color: var(--text-muted);
 }
 
 .tm-control {
   width: 100%;
-  background: rgba(0, 0, 0, 0.30);
-  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   padding: 12px 16px;
-  color: #fff;
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 14px;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 15px;
   line-height: 1.2;
+  border-radius: var(--radius-md);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .tm-control:focus {
   outline: none;
-  border-color: rgba(var(--pear-lime-rgb), 0.6);
-  box-shadow:
-    0 0 0 2px rgba(var(--pear-lime-rgb), 0.12),
-    0 0 18px rgba(var(--pear-lime-rgb), 0.12);
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(var(--amber-rgb), 0.15);
 }
 
 .tm-btn {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   background: transparent;
-  color: var(--pear-lime);
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 10px 14px;
-  transition: box-shadow 120ms ease, background 120ms ease, border-color 120ms ease, color 120ms ease;
+  color: var(--amber);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  transition: all 150ms ease;
+  cursor: pointer;
 }
 
 .tm-btn:hover {
-  border-color: rgba(var(--pear-lime-rgb), 0.55);
-  background: rgba(var(--pear-lime-rgb), 0.08);
-  box-shadow: 0 0 12px rgba(var(--pear-lime-rgb), 0.18);
+  border-color: var(--amber);
+  background: rgba(var(--amber-rgb), 0.1);
 }
 
 .tm-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.tm-btn-primary {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--bg-deep);
+  font-weight: 600;
+}
+
+.tm-btn-primary:hover {
+  background: var(--amber-dim);
+  border-color: var(--amber-dim);
 }
 
 .tm-btn-danger {
@@ -207,32 +271,30 @@ h1, h2, h3 {
 
 .tm-btn-danger:hover {
   background: rgba(239, 68, 68, 0.10);
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.12);
+  border-color: var(--loss);
 }
 
-/* Sub-table primitives (for the “boxed table” sections) */
+/* Box primitives */
 .tm-box {
-  background: rgba(0, 0, 0, 0.20);
-  border: 1px solid var(--border-color);
-  padding: 12px;
-  box-shadow:
-    inset 0 1px 0 rgba(var(--pear-lime-rgb), 0.10),
-    0 0 18px rgba(var(--pear-lime-rgb), 0.06);
-  backdrop-filter: blur(1px);
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: var(--radius-lg);
 }
 
 .tm-k {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans);
   font-size: 11px;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--pear-gray-dark);
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
 }
 
 .tm-v {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 14px;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .tm-row {
@@ -245,24 +307,47 @@ h1, h2, h3 {
 .tm-row + .tm-row {
   margin-top: 8px;
   padding-top: 8px;
-  border-top: 1px solid rgba(var(--pear-lime-rgb), 0.18);
+  border-top: 1px solid var(--border-subtle);
 }
 
+/* Utility classes */
 @layer utilities {
+  .war-border {
+    border: 1px solid var(--border);
+  }
+
+  .war-text {
+    color: var(--amber);
+  }
+
+  .war-glow {
+    box-shadow: 0 0 20px rgba(var(--amber-rgb), 0.2);
+  }
+
+  /* Legacy aliases */
   .pear-border {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border);
   }
 
   .pear-text {
-    color: var(--pear-lime);
+    color: var(--amber);
   }
 
   .pear-glow {
-    box-shadow: 0 0 10px rgba(var(--pear-lime-rgb), 0.3);
+    box-shadow: 0 0 20px rgba(var(--amber-rgb), 0.2);
   }
 }
 
-/* Normalize native controls (Safari/iOS selects/buttons) */
+/* P&L colors */
+.pnl-positive, .text-profit {
+  color: var(--profit);
+}
+
+.pnl-negative, .text-loss {
+  color: var(--loss);
+}
+
+/* Form normalization */
 html input,
 html select,
 html textarea,
@@ -272,36 +357,34 @@ html button {
   border-radius: 0;
 }
 
-/* Browser defaults can re-introduce “grey button” UI; make terminal buttons transparent by default */
 html button {
   background: transparent;
   color: inherit;
 }
 
-/* Remove native select chrome/arrow background where possible */
 html select {
   background-image: none;
 }
 
 html option {
-  background: #000;
-  color: #fff;
+  background: var(--bg-deep);
+  color: var(--text-primary);
 }
 
-/* Scrollbar styling */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--pear-dark);
+  background: var(--bg-deep);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--pear-lime);
+  background: var(--mark-gray);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--pear-lime-light);
+  background: var(--amber);
 }

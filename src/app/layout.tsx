@@ -1,52 +1,55 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Space_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { WalletProvider } from "@/components/WalletProvider";
 import { PearProvider } from "@/contexts/PearContext";
 import { MusicProvider } from "@/contexts/MusicContext";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
-const ibmPlexMono = IBM_Plex_Mono({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-mono",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sans",
   display: "swap",
 });
 
-const spaceMono = Space_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-display",
+  weight: ["400", "500"],
+  variable: "--font-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.war.market"),
   title: {
-    default: "WAR.MARKET",
-    template: "%s — WAR.MARKET",
+    default: "war.market",
+    template: "%s — war.market",
   },
-  description: "Trade narratives. Not tickers. A terminal for trading global stress.",
+  description: "Trade the tension. One-click basket trades for macro conviction.",
   openGraph: {
     type: "website",
     url: "https://www.war.market",
-    siteName: "WAR.MARKET",
-    title: "WAR.MARKET",
-    description: "Trade narratives. Not tickers. A terminal for trading global stress.",
+    siteName: "war.market",
+    title: "war.market",
+    description: "Trade the tension. One-click basket trades for macro conviction.",
     images: [
       {
         url: "/ghimage.png",
         width: 1200,
         height: 630,
-        alt: "WAR.MARKET",
+        alt: "war.market",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "WAR.MARKET",
-    description: "Trade narratives. Not tickers. A terminal for trading global stress.",
+    title: "war.market",
+    description: "Trade the tension. One-click basket trades for macro conviction.",
     images: ["/ghimage.png"],
+  },
+  icons: {
+    icon: "/favicon.png",
   },
 };
 
@@ -56,13 +59,35 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ibmPlexMono.variable} ${spaceMono.variable}`}>
-      <body className="min-h-screen bg-pear-dark text-white font-mono antialiased">
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="min-h-screen bg-war-deep text-text-primary font-sans antialiased">
         <WalletProvider>
           <PearProvider>
             <MusicProvider>
               {children}
-              <Toaster position="bottom-right" />
+              <Toaster
+                position="bottom-right"
+                toastOptions={{
+                  style: {
+                    background: '#18171c',
+                    color: '#e8e6ed',
+                    border: '1px solid #37343e',
+                    borderRadius: '8px',
+                  },
+                  success: {
+                    iconTheme: {
+                      primary: '#22c55e',
+                      secondary: '#0e0e10',
+                    },
+                  },
+                  error: {
+                    iconTheme: {
+                      primary: '#ef4444',
+                      secondary: '#0e0e10',
+                    },
+                  },
+                }}
+              />
             </MusicProvider>
           </PearProvider>
         </WalletProvider>

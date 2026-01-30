@@ -19,21 +19,20 @@ export function PortfolioLine({
   const isProfitable = pnl >= 0;
 
   return (
-    <div className="pear-border bg-black/40 p-4 flex items-center justify-between gap-4">
-      <div className="font-mono text-sm text-gray-300">
-        BAL <span className="text-white">${bal.toFixed(2)}</span>{' '}
-        <span className="text-gray-600">•</span>{' '}
-        OPEN <span className="text-white">{open}</span>{' '}
-        <span className="text-gray-600">•</span>{' '}
+    <div className="tm-box py-3 px-4 flex items-center justify-between gap-4">
+      <div className="font-mono text-sm text-text-secondary">
+        BAL <span className="text-text-primary">${bal.toFixed(2)}</span>{' '}
+        <span className="text-text-muted">·</span>{' '}
+        OPEN <span className="text-text-primary">{open}</span>{' '}
+        <span className="text-text-muted">·</span>{' '}
         PNL{' '}
-        <span className={isProfitable ? 'text-pear-lime' : 'text-red-300'}>
+        <span className={isProfitable ? 'text-status-profit' : 'text-status-loss'}>
           {isProfitable ? '+' : ''}${pnl.toFixed(2)}
         </span>
       </div>
-      <button className="tm-btn text-gray-300" onClick={onToggleDetails}>
-        {detailsOpen ? 'HIDE' : 'DETAILS'}
+      <button className="tm-btn text-text-secondary text-xs" onClick={onToggleDetails}>
+        {detailsOpen ? 'Hide' : 'Details'}
       </button>
     </div>
   );
 }
-

@@ -8,25 +8,25 @@ export function AssetPriceTicker() {
   const { prices, isConnected } = useLiveMarketData(address);
 
   return (
-    <div className="pear-border bg-black/40 py-2 overflow-hidden">
-      <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide px-4">
+    <div className="tm-box py-2.5 overflow-hidden">
+      <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide px-2">
           {/* Live connection indicator */}
           {isConnected && (
-            <div className="flex items-center gap-1.5 pr-4 border-r border-pear-lime/20">
-              <div className="w-1.5 h-1.5 bg-pear-lime rounded-full animate-pulse" />
-              <span className="text-xs font-mono text-pear-lime uppercase">Live</span>
+            <div className="flex items-center gap-1.5 pr-4 border-r border-border">
+              <div className="w-1.5 h-1.5 bg-brand-amber rounded-full animate-pulse" />
+              <span className="text-xs font-mono text-brand-amber">LIVE</span>
             </div>
           )}
 
           {prices.map((asset) => (
             <div key={asset.symbol} className="flex items-center gap-2 whitespace-nowrap">
-              <span className="text-xs font-mono font-bold text-gray-400">{asset.symbol}</span>
-              <span className="text-sm font-mono text-white">
+              <span className="text-xs font-mono font-bold text-text-muted">{asset.symbol}</span>
+              <span className="text-sm font-mono text-text-primary">
                 ${typeof asset.price === 'number' ? asset.price.toLocaleString() : asset.price}
               </span>
               <span
                 className={`text-xs font-mono font-semibold ${
-                  asset.change24h >= 0 ? 'text-pear-lime' : 'text-red-400'
+                  asset.change24h >= 0 ? 'text-status-profit' : 'text-status-loss'
                 }`}
               >
                 {asset.change24h >= 0 ? '+' : ''}

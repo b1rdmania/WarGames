@@ -6,8 +6,8 @@ import { MusicControls } from './MusicControls';
 import { HeaderWalletWidget } from './HeaderWalletWidget';
 
 export function RiskShell({
-  title = 'WAR.MARKET',
-  subtitle = 'TERMINAL',
+  title = 'war.market',
+  subtitle = 'Terminal',
   nav,
   right,
   showMusic = true,
@@ -31,7 +31,7 @@ export function RiskShell({
           <div className={styles.container}>
             <div className={styles.headerInner}>
               <div className={styles.brand}>
-                <Link href="/markets" className={styles.title} aria-label="WAR.MARKET home">
+                <Link href="/markets" className={styles.title} aria-label="war.market home">
                   {title}
                 </Link>
                 <div className={styles.subtitleRow}>

@@ -9,19 +9,51 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Terminal theme (single source of truth)
-        'pear-dark': '#0a0a0a',
-        'pear-panel': '#121212',
-        'pear-panel-light': '#171717',
-        'pear-lime': '#02ff81',
-        'pear-lime-light': '#7dffc2',
-        'pear-gray': '#a0a0a0',
-        'pear-gray-dark': '#717171',
-        'pear-accent': '#334128',
+        // war.market brand colors
+        'war': {
+          'deep': '#0e0e10',
+          'warm': '#18171c',
+          'surface': '#222127',
+          'elevated': '#2c2a32',
+        },
+        'brand': {
+          'amber': '#f97316',
+          'amber-dim': '#c2590e',
+          'gold': '#fbbf24',
+          'gray': '#4a4752',
+        },
+        'text': {
+          'primary': '#e8e6ed',
+          'secondary': '#a8a3b3',
+          'muted': '#6b6879',
+          'disabled': '#3d3a45',
+        },
+        'status': {
+          'profit': '#22c55e',
+          'profit-dim': '#16a34a',
+          'loss': '#ef4444',
+          'loss-dim': '#dc2626',
+          'warning': '#eab308',
+          'info': '#3b82f6',
+        },
+        'border': {
+          'DEFAULT': '#37343e',
+          'subtle': '#2a2830',
+          'focus': '#f97316',
+        },
+        // Legacy aliases for gradual migration
+        'pear-dark': '#0e0e10',
+        'pear-panel': '#18171c',
+        'pear-panel-light': '#222127',
+        'pear-lime': '#f97316',
+        'pear-lime-light': '#fbbf24',
+        'pear-gray': '#a8a3b3',
+        'pear-gray-dark': '#6b6879',
+        'pear-accent': '#c2590e',
       },
       fontFamily: {
-        sans: ['var(--font-display)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        sans: ['var(--font-sans)', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['var(--font-mono)', 'JetBrains Mono', 'SF Mono', 'monospace'],
       },
     },
   },

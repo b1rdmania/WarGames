@@ -66,10 +66,10 @@ export function BetSlipPanel({
   // Empty state
   if (!market) {
     return (
-      <div className="pear-border bg-black/60 p-5">
-        <div className="text-sm text-pear-lime font-mono mb-4">[ BET SLIP ]</div>
+      <div className="tm-box">
+        <div className="text-sm font-semibold text-brand-amber mb-4">Bet Slip</div>
         <div className="text-center py-8">
-          <div className="text-gray-500 font-mono text-sm">
+          <div className="text-text-muted text-sm">
             Select a market and click YES or NO to place a bet
           </div>
         </div>
@@ -86,14 +86,14 @@ export function BetSlipPanel({
     resolvedPairs?.short ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
 
   return (
-    <div className="pear-border bg-black/60 p-5">
+    <div className="tm-box">
       <div className="flex items-start justify-between gap-3 mb-4">
         <div>
-          <div className="text-sm text-pear-lime font-mono">[ BET SLIP ]</div>
-          <div className="mt-1 text-white font-mono text-base">{market.name}</div>
+          <div className="text-sm font-semibold text-brand-amber">Bet Slip</div>
+          <div className="mt-1 text-text-primary font-medium">{market.name}</div>
         </div>
         <button onClick={onClear} className="tm-btn px-2 py-1 text-[10px]" title="Clear selection">
-          CLEAR
+          Clear
         </button>
       </div>
 

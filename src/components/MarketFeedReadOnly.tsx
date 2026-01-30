@@ -9,13 +9,6 @@ function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
 }
 
-function formatBasketShort(assets: { asset: string; weight?: number }[]) {
-  return assets
-    .slice(0, 4)
-    .map((a) => `${cleanSymbol(a.asset)}${typeof a.weight === 'number' ? `(${Math.round(a.weight * 100)})` : ''}`)
-    .join(' · ');
-}
-
 export function MarketFeedReadOnly({
   markets,
 }: {
@@ -26,10 +19,10 @@ export function MarketFeedReadOnly({
       <table className={styles.table}>
         <thead>
           <tr>
-            <th className={styles.th}>MARKET</th>
-            <th className={styles.th}>THESIS</th>
-            <th className={styles.th}>TAGS</th>
-            <th className={styles.th} style={{ textAlign: 'right' }}>DETAILS</th>
+            <th className={styles.th}>Market</th>
+            <th className={styles.th}>Thesis</th>
+            <th className={styles.th}>Tags</th>
+            <th className={styles.th} style={{ textAlign: 'right' }}>Details</th>
           </tr>
         </thead>
         <tbody>
@@ -59,18 +52,18 @@ export function MarketFeedReadOnly({
                 </td>
                 <td className={styles.td}>
                   <div className={styles.badges}>
-                    <span className="tm-label">[{m.category}]</span>
-                    <span className="tm-label text-pear-lime">[{m.leverage}X]</span>
-                    {!m.isTradable && <span className="tm-label text-yellow-200">[INACTIVE]</span>}
+                    <span className="text-xs text-text-muted font-mono">{m.category}</span>
+                    <span className="text-xs text-brand-amber font-mono">{m.leverage}x</span>
+                    {!m.isTradable && <span className="text-xs text-status-warning font-mono">Inactive</span>}
                   </div>
                 </td>
                 <td className={styles.td}>
                   <div className={styles.actionButtons}>
                     <Link
                       href={`/markets/${m.id}`}
-                      className={styles.btnAction}
+                      className={styles.btnView}
                     >
-                      VIEW
+                      View
                     </Link>
                   </div>
                 </td>

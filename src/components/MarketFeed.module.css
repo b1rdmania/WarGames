@@ -1,6 +1,7 @@
 .wrapper {
-  background: rgba(18, 18, 18, 0.85);
-  border: 1px solid rgba(2, 255, 129, 0.22);
+  background: var(--bg-warm, #18171c);
+  border: 1px solid var(--border, #37343e);
+  border-radius: var(--radius-lg, 8px);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -12,49 +13,55 @@
 
 .th {
   text-align: left;
-  padding: 14px 14px;
-  font-size: 12px;
+  padding: 16px;
+  font-size: 11px;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(224, 224, 224, 0.55);
-  border-bottom: 1px solid rgba(2, 255, 129, 0.12);
+  letter-spacing: 0.06em;
+  color: var(--text-muted, #6b6879);
+  border-bottom: 1px solid var(--border, #37343e);
   white-space: nowrap;
+  font-family: var(--font-sans, Inter, sans-serif);
 }
 
 .td {
-  padding: 12px 14px;
-  border-bottom: 1px solid rgba(2, 255, 129, 0.12);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-subtle, #2a2830);
   vertical-align: middle;
 }
 
+.row {
+  transition: background 150ms ease;
+}
+
 .row:hover {
-  background: rgba(2, 255, 129, 0.05);
-  box-shadow: inset 2px 0 0 rgba(2, 255, 129, 0.9);
+  background: var(--bg-surface, #222127);
 }
 
 .rowSelected {
-  background: rgba(2, 255, 129, 0.12);
-  border-left: 3px solid rgba(2, 255, 129, 1);
+  background: rgba(249, 115, 22, 0.08);
+  border-left: 3px solid var(--amber, #f97316);
 }
 
 .rowSelected:hover {
-  background: rgba(2, 255, 129, 0.15);
+  background: rgba(249, 115, 22, 0.12);
 }
 
 .marketName {
-  color: #fff;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-  line-height: 1.15;
+  color: var(--text-primary, #e8e6ed);
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-weight: 500;
+  line-height: 1.3;
 }
 
 .marketLink {
-  color: rgba(2, 255, 129, 0.95);
+  color: var(--amber, #f97316);
   text-decoration: none;
+  transition: color 150ms ease;
 }
 
 .marketLink:hover {
-  text-decoration: underline;
-  text-shadow: 0 0 10px rgba(2, 255, 129, 0.25);
+  color: var(--gold, #fbbf24);
 }
 
 .marketMeta {
@@ -64,55 +71,54 @@
 }
 
 .metaTag {
-  font-size: 10px;
-  color: rgba(224, 224, 224, 0.5);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-  text-transform: uppercase;
+  font-size: 11px;
+  color: var(--text-muted, #6b6879);
+  font-family: var(--font-mono, monospace);
 }
 
 .metaTagLive {
-  font-size: 10px;
-  color: rgba(2, 255, 129, 0.8);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--profit, #22c55e);
+  font-family: var(--font-mono, monospace);
 }
 
 .metaTagClosed {
-  font-size: 10px;
-  color: rgba(255, 180, 90, 0.8);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--warning, #eab308);
+  font-family: var(--font-mono, monospace);
 }
 
 .pairDisplay {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-family: var(--font-mono, monospace);
   font-size: 13px;
   white-space: nowrap;
 }
 
 .underlying {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-family: var(--font-mono, monospace);
   font-size: 12px;
-  color: rgba(224, 224, 224, 0.78);
+  color: var(--text-secondary, #a8a3b3);
   white-space: pre-wrap;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .legs {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-family: var(--font-mono, monospace);
   font-size: 12px;
-  color: rgba(224, 224, 224, 0.82);
+  color: var(--text-secondary, #a8a3b3);
   white-space: pre-wrap;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 .marketDesc {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-  font-size: 12px;
-  color: rgba(224, 224, 224, 0.85);
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 13px;
+  color: var(--text-secondary, #a8a3b3);
   white-space: pre-wrap;
-  line-height: 1.4;
+  line-height: 1.5;
   max-width: 44ch;
 }
 
@@ -124,16 +130,16 @@
 }
 
 .longSide {
-  color: rgba(2, 255, 129, 0.9);
+  color: var(--profit, #22c55e);
 }
 
 .vs {
-  color: rgba(224, 224, 224, 0.4);
+  color: var(--text-muted, #6b6879);
   font-size: 11px;
 }
 
 .shortSide {
-  color: rgba(255, 90, 90, 0.9);
+  color: var(--loss, #ef4444);
 }
 
 .actionButtons {
@@ -144,40 +150,56 @@
 }
 
 .btnAction {
-  padding: 9px 14px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-  font-size: 12px;
+  padding: 10px 16px;
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 13px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border: 2px solid rgba(2, 255, 129, 1);
+  border: 1px solid var(--profit, #22c55e);
+  border-radius: var(--radius-md, 6px);
   background: transparent;
-  color: rgba(2, 255, 129, 1);
+  color: var(--profit, #22c55e);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 150ms ease;
 }
 
 .btnAction:hover {
-  background: rgba(2, 255, 129, 1);
-  color: #0a0a0a;
-  box-shadow: 0 0 18px rgba(2, 255, 129, 0.25);
+  background: var(--profit, #22c55e);
+  color: var(--bg-deep, #0e0e10);
 }
 
 .btnShort {
-  border-color: rgba(255, 90, 90, 1);
-  color: rgba(255, 90, 90, 1);
+  border-color: var(--loss, #ef4444);
+  color: var(--loss, #ef4444);
 }
 
 .btnShort:hover {
-  background: rgba(255, 90, 90, 1);
-  color: #0a0a0a;
-  box-shadow: 0 0 18px rgba(255, 90, 90, 0.18);
+  background: var(--loss, #ef4444);
+  color: var(--bg-deep, #0e0e10);
+}
+
+.btnView {
+  padding: 10px 16px;
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--amber, #f97316);
+  border-radius: var(--radius-md, 6px);
+  background: transparent;
+  color: var(--amber, #f97316);
+  cursor: pointer;
+  transition: all 150ms ease;
+  text-decoration: none;
+}
+
+.btnView:hover {
+  background: var(--amber, #f97316);
+  color: var(--bg-deep, #0e0e10);
 }
 
 @media (max-width: 768px) {
   .th,
   .td {
-    padding: 12px 8px;
+    padding: 12px 10px;
   }
 
   .actionButtons {
@@ -188,7 +210,6 @@
 
   .btnAction {
     width: 100%;
-    padding: 8px 12px;
+    padding: 10px 12px;
   }
 }
-
