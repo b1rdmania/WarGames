@@ -1,0 +1,355 @@
+/* WAR.MARKET Brand Theme for VitePress */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Brand colors */
+  --war-deep: #0e0e10;
+  --war-warm: #18171c;
+  --war-surface: #222127;
+  --war-elevated: #2c2a32;
+  --war-amber: #f97316;
+  --war-gold: #fbbf24;
+  --war-profit: #22c55e;
+  --war-loss: #ef4444;
+  --war-text-primary: #e8e6ed;
+  --war-text-secondary: #a8a3b3;
+  --war-text-muted: #6b6879;
+  --war-border: #37343e;
+  --war-mark-gray: #4a4752;
+
+  /* VitePress dark theme overrides */
+  --vp-c-bg: var(--war-deep);
+  --vp-c-bg-alt: var(--war-warm);
+  --vp-c-bg-elv: var(--war-surface);
+  --vp-c-bg-soft: var(--war-warm);
+
+  --vp-c-text-1: var(--war-text-primary);
+  --vp-c-text-2: var(--war-text-secondary);
+  --vp-c-text-3: var(--war-text-muted);
+
+  --vp-c-divider: var(--war-border);
+  --vp-c-divider-light: rgba(55, 52, 62, 0.5);
+
+  /* Brand accent (amber) */
+  --vp-c-brand-1: var(--war-amber);
+  --vp-c-brand-2: #ea580c;
+  --vp-c-brand-3: var(--war-gold);
+  --vp-c-brand-soft: rgba(249, 115, 22, 0.15);
+
+  /* Typography */
+  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', monospace;
+
+  /* Sidebar */
+  --vp-sidebar-bg-color: var(--war-warm);
+
+  /* Code blocks */
+  --vp-code-block-bg: var(--war-warm);
+  --vp-code-line-highlight-color: rgba(249, 115, 22, 0.1);
+
+  /* Custom properties for components */
+  --vp-custom-block-tip-border: var(--war-profit);
+  --vp-custom-block-tip-text: var(--war-text-primary);
+  --vp-custom-block-tip-bg: rgba(34, 197, 94, 0.1);
+
+  --vp-custom-block-warning-border: var(--war-amber);
+  --vp-custom-block-warning-text: var(--war-text-primary);
+  --vp-custom-block-warning-bg: rgba(249, 115, 22, 0.1);
+
+  --vp-custom-block-danger-border: var(--war-loss);
+  --vp-custom-block-danger-text: var(--war-text-primary);
+  --vp-custom-block-danger-bg: rgba(239, 68, 68, 0.1);
+
+  --vp-custom-block-info-border: var(--war-mark-gray);
+  --vp-custom-block-info-text: var(--war-text-primary);
+  --vp-custom-block-info-bg: rgba(74, 71, 82, 0.2);
+}
+
+/* Force dark mode */
+html {
+  color-scheme: dark;
+}
+
+/* Navigation */
+.VPNav {
+  background: rgba(14, 14, 16, 0.95) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--war-border) !important;
+}
+
+.VPNavBar {
+  background: transparent !important;
+}
+
+/* Sidebar styling */
+.VPSidebar {
+  background: var(--war-warm) !important;
+  border-right: 1px solid var(--war-border) !important;
+}
+
+/* Hero section */
+.VPHero .name {
+  background: linear-gradient(135deg, var(--war-text-primary) 0%, var(--war-text-secondary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.VPHero .text {
+  color: var(--war-text-secondary);
+}
+
+.VPHero .tagline {
+  color: var(--war-text-muted);
+}
+
+/* Brand button */
+.VPButton.brand {
+  background: var(--war-amber) !important;
+  color: var(--war-deep) !important;
+  border: none !important;
+  font-weight: 600;
+}
+
+.VPButton.brand:hover {
+  background: #ea580c !important;
+}
+
+/* Alt button */
+.VPButton.alt {
+  background: transparent !important;
+  border: 1px solid var(--war-border) !important;
+  color: var(--war-text-primary) !important;
+}
+
+.VPButton.alt:hover {
+  border-color: var(--war-amber) !important;
+  color: var(--war-amber) !important;
+}
+
+/* Feature cards */
+.VPFeature {
+  background: var(--war-warm) !important;
+  border: 1px solid var(--war-border) !important;
+  border-radius: 8px !important;
+}
+
+.VPFeature:hover {
+  border-color: var(--war-amber) !important;
+}
+
+.VPFeature .title {
+  color: var(--war-text-primary) !important;
+}
+
+.VPFeature .details {
+  color: var(--war-text-secondary) !important;
+}
+
+/* Content area */
+.VPDoc {
+  background: var(--war-deep);
+}
+
+/* Headings */
+.vp-doc h1 {
+  color: var(--war-text-primary);
+  border-bottom: 1px solid var(--war-border);
+}
+
+.vp-doc h2 {
+  color: var(--war-text-primary);
+  border-top: 1px solid var(--war-border);
+  padding-top: 24px;
+  margin-top: 40px;
+}
+
+.vp-doc h3, .vp-doc h4 {
+  color: var(--war-text-primary);
+}
+
+/* Links */
+.vp-doc a {
+  color: var(--war-amber);
+}
+
+.vp-doc a:hover {
+  color: var(--war-gold);
+}
+
+/* Tables */
+.vp-doc table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.vp-doc th {
+  background: var(--war-warm);
+  color: var(--war-text-primary);
+  font-weight: 600;
+  border: 1px solid var(--war-border);
+}
+
+.vp-doc td {
+  border: 1px solid var(--war-border);
+  color: var(--war-text-secondary);
+}
+
+.vp-doc tr:nth-child(even) {
+  background: rgba(24, 23, 28, 0.5);
+}
+
+/* Code */
+.vp-doc :not(pre) > code {
+  background: var(--war-warm);
+  color: var(--war-amber);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* Blockquotes */
+.vp-doc blockquote {
+  border-left: 3px solid var(--war-amber);
+  background: var(--war-warm);
+  color: var(--war-text-secondary);
+}
+
+/* Custom blocks (info, tip, warning, danger) */
+.vp-doc .custom-block {
+  border-radius: 8px;
+}
+
+.vp-doc .custom-block.info {
+  background: var(--vp-custom-block-info-bg);
+  border-left: 4px solid var(--war-mark-gray);
+}
+
+.vp-doc .custom-block.tip {
+  background: var(--vp-custom-block-tip-bg);
+  border-left: 4px solid var(--war-profit);
+}
+
+.vp-doc .custom-block.warning {
+  background: var(--vp-custom-block-warning-bg);
+  border-left: 4px solid var(--war-amber);
+}
+
+.vp-doc .custom-block.danger {
+  background: var(--vp-custom-block-danger-bg);
+  border-left: 4px solid var(--war-loss);
+}
+
+.vp-doc .custom-block-title {
+  font-weight: 600;
+}
+
+/* Footer */
+.VPFooter {
+  background: var(--war-warm) !important;
+  border-top: 1px solid var(--war-border) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--war-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--war-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--war-mark-gray);
+}
+
+/* Badge styles */
+.beta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(249, 115, 22, 0.15);
+  color: var(--war-amber);
+  border: 1px solid var(--war-amber);
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.example-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(74, 71, 82, 0.3);
+  color: var(--war-text-muted);
+  border: 1px solid var(--war-mark-gray);
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+/* Icon in text */
+.icon-inline {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: text-bottom;
+  margin-right: 6px;
+}
+
+/* Icon preview in tables */
+.icon-preview {
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  background: var(--war-warm);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+/* Market card style */
+.market-card {
+  background: var(--war-warm);
+  border: 1px solid var(--war-border);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 16px 0;
+}
+
+.market-card:hover {
+  border-color: var(--war-amber);
+}
+
+.market-card h3 {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+/* Section with icon */
+.section-icon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-icon img {
+  width: 28px;
+  height: 28px;
+}

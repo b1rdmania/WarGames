@@ -1,4 +1,8 @@
-# What is war.market
+# <img src="/icons/diamond.svg" class="icon-inline" /> What is war.market
+
+::: warning BETA
+war.market is in beta. Markets shown are examples demonstrating the platform. Trade at your own risk.
+:::
 
 war.market turns macro conviction into one-click basket trades.
 
@@ -8,7 +12,7 @@ We package them. You click YES or NO. The protocol executes the basket atomicall
 
 **Thesis → Position. One click.**
 
-## The problem
+## <img src="/icons/warning.svg" class="icon-inline" /> The problem
 
 Trading macro views is fragmented. A single thesis might require:
 
@@ -20,7 +24,7 @@ Trading macro views is fragmented. A single thesis might require:
 
 Most people give up. The friction kills the trade.
 
-## The solution
+## <img src="/icons/check.svg" class="icon-inline" /> The solution
 
 war.market compresses this into a single action:
 
@@ -31,7 +35,7 @@ war.market compresses this into a single action:
 
 Pear Protocol handles the rest. Agent wallets. Atomic execution. Position management.
 
-## Who it's for
+## <img src="/icons/target.svg" class="icon-inline" /> Who it's for
 
 - Macro traders who see regime shifts coming
 - Geopolitics nerds who read Foreign Affairs
@@ -39,17 +43,17 @@ Pear Protocol handles the rest. Agent wallets. Atomic execution. Position manage
 
 Not beginners. People with conviction who want to act on it.
 
-## How it works
+## <img src="/icons/layers.svg" class="icon-inline" /> How it works
 
 ```
 [Your wallet] → [Pear Agent Wallet] → [Hyperliquid]
 ```
 
-1. Connect your wallet (HyperEVM)
-2. Authenticate with Pear (one signature)
-3. Pear creates a non-custodial agent wallet
-4. You place trades through war.market
-5. Pear executes basket legs on Hyperliquid
-6. You monitor and close from the portfolio
+1. <img src="/icons/wallet.svg" class="icon-inline" /> Connect your wallet (HyperEVM)
+2. <img src="/icons/lock.svg" class="icon-inline" /> Authenticate with Pear (one signature)
+3. <img src="/icons/unlock.svg" class="icon-inline" /> Pear creates a non-custodial agent wallet
+4. <img src="/icons/execute.svg" class="icon-inline" /> You place trades through war.market
+5. <img src="/icons/send.svg" class="icon-inline" /> Pear executes basket legs on Hyperliquid
+6. <img src="/icons/position.svg" class="icon-inline" /> You monitor and close from the portfolio
 
 Your keys. Your funds. Pear just executes.

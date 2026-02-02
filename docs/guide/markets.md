@@ -1,4 +1,8 @@
-# Understanding markets
+# <img src="/icons/chart.svg" class="icon-inline" /> Understanding markets
+
+::: info EXAMPLE MARKETS
+The markets described in these docs are examples demonstrating how war.market works. They represent possible narrative trades, not investment advice.
+:::
 
 ## What is a market
 
@@ -6,7 +10,7 @@ A market is a tradeable narrative.
 
 Not a ticker. Not a pair. A thesis about the world expressed as a leveraged long/short basket.
 
-## Structure
+## <img src="/icons/layers.svg" class="icon-inline" /> Structure
 
 Every market has:
 
@@ -19,7 +23,7 @@ Every market has:
 | Long leg | Assets that win if thesis is true |
 | Short leg | Assets that lose if thesis is true |
 
-## YES vs NO
+## <img src="/icons/arrow-up.svg" class="icon-inline" /><img src="/icons/arrow-down.svg" class="icon-inline" /> YES vs NO
 
 **YES** = You agree with the thesis. You go long the long leg, short the short leg.
 
