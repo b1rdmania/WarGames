@@ -23,16 +23,6 @@ Browse the example markets.
 - [Geopolitical markets](/guide/markets-geopolitical) — Taiwan, AI bubble, oil shock
 - [Crypto markets](/guide/markets-crypto) — ETH/BTC, SOL, HYPE
 
-## <img src="/icons/flame.svg" class="icon-inline" /> Brand
-
-For contributors and partners.
-
-- [Philosophy](/brand/) — Why we built this
-- [Voice](/brand/voice) — How we write
-- [Design system](/brand/design) — Colors, typography, components
-- [Assets](/brand/assets) — Logo, CSS variables
-- [Icons](/brand/icons) — Full icon set
-
 ## <img src="/icons/external.svg" class="icon-inline" /> Links
 
 - [Launch App](https://war.market) — Trade now
