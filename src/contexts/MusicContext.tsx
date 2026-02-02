@@ -34,7 +34,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [selectedTrackId, setSelectedTrackId] = useState<number>(1);
-  const [muted, setMuted] = useState<boolean>(false); // attempt autoplay on main app pages
+  const [muted, setMuted] = useState<boolean>(true); // start muted, user opts in
 
   const selectedTrack = useMemo(
     () => TRACKS.find((t) => t.id === selectedTrackId) ?? TRACKS[0],
@@ -80,12 +80,11 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   // Load persisted settings once.
   useEffect(() => {
     try {
-      // Hackathon UX: always start on Track 1, unmuted, and attempt autoplay.
-      // (Browsers may still block unmuted autoplay until first user interaction.)
+      // Start muted by default - user can opt in to music
       setSelectedTrackId(1);
-      setMuted(false);
+      setMuted(true);
       localStorage.setItem(STORAGE_KEYS.trackId, '1');
-      localStorage.setItem(STORAGE_KEYS.muted, 'false');
+      localStorage.setItem(STORAGE_KEYS.muted, 'true');
     } catch {
       // ignore
     }
