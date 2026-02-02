@@ -63,7 +63,7 @@ export default function GTMPage() {
             <ul className="tp-bullets">
               <li>Announce the Hyperliquid hackathon win with one focused X post strategic RTs to start a War Markets X presence.</li>
               <li>Deliver quant/analysis notes + co-marketing with whoever does that. Articles about HL / HIP3 / geopolitical trading, etc.</li>
-              <li>Focus on clarity around the launch decision before layering other efforts. Keep energy focused until the decision is locked.</li>
+              <li>Might need some UX help—I can do most of it and have started docs and a design refresh, but it's gone from degen to a bit too generic.</li>
             </ul>
           </section>
 
