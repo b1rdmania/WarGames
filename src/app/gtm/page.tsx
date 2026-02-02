@@ -47,6 +47,28 @@ export default function GTMPage() {
 
           <div className="tp-rule" />
 
+          {/* GTM Plan */}
+          <section className="tp-section">
+            <h2 className="tp-h">GTM plan (if we launch)</h2>
+
+            <h3 className="tp-h2">1. Announce the win</h3>
+            <p className="tp-body">
+              One focused X post with strategic RTs. Start a War Markets X presence.
+            </p>
+
+            <h3 className="tp-h2">2. Quant content</h3>
+            <p className="tp-body">
+              Analysis notes and co-marketing with whoever provides quant rationale. Articles about Hyperliquid, HIP3, and geopolitical trading.
+            </p>
+
+            <h3 className="tp-h2">3. Focus</h3>
+            <p className="tp-body">
+              Clarity around the launch decision before layering other efforts. No scattered energy.
+            </p>
+          </section>
+
+          <div className="tp-rule" />
+
           {/* What it's missing */}
           <section className="tp-section">
             <h2 className="tp-h">What it's missing</h2>
@@ -69,28 +91,6 @@ export default function GTMPage() {
             <h3 className="tp-h2">Decision point</h3>
             <p className="tp-body">
               Stay a polished demo—or commit to adding the analysis and partner lift that makes it launch-ready.
-            </p>
-          </section>
-
-          <div className="tp-rule" />
-
-          {/* GTM Plan */}
-          <section className="tp-section">
-            <h2 className="tp-h">GTM plan (if we launch)</h2>
-
-            <h3 className="tp-h2">1. Announce the win</h3>
-            <p className="tp-body">
-              One focused X post with strategic RTs. Start a War Markets X presence.
-            </p>
-
-            <h3 className="tp-h2">2. Quant content</h3>
-            <p className="tp-body">
-              Analysis notes and co-marketing with whoever provides quant rationale. Articles about Hyperliquid, HIP3, and geopolitical trading.
-            </p>
-
-            <h3 className="tp-h2">3. Focus</h3>
-            <p className="tp-body">
-              Clarity around the launch decision before layering other efforts. No scattered energy.
             </p>
           </section>
 
