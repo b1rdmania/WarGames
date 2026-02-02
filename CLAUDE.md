@@ -44,13 +44,20 @@ One-click trading terminal for macro narratives on Hyperliquid via Pear Protocol
 ### Brand Assets
 ```
 /Users/andy/Downloads/warmarket-brand-kit/
-├── README.md                    # Quick reference
+├── README.md                    # Quick reference (points to v2)
+├── FINTECH-V2-GUIDELINES.md     # ← CURRENT design system
 ├── warmarket-philosophy.md      # Voice, principles
-├── warmarket-design-guidelines.md
-├── FINTECH-V2-GUIDELINES.md     # Latest design system
-├── warmarket-mark-final.svg
-├── warmarket-wordmark-final.svg
-└── warmarket-favicon.png
+├── warmarket-mark-final.svg     # Logo mark
+├── warmarket-wordmark-final.svg # Full wordmark
+├── warmarket-favicon.png
+└── _archive/                    # Old versions (preserved)
+
+/Users/andy/Downloads/warmarket-brand-refs/
+├── marks/                       # AI-generated logo explorations (156 files)
+└── ref-*.png                    # AI-generated mood/reference images
+
+/Users/andy/Downloads/warmarket-brand-kit-terminal/
+└── (rejected terminal experiment - preserved for reference)
 ```
 
 ### Documentation
@@ -174,9 +181,24 @@ npm run docs:build       # Build docs
 ## Git Branches
 
 - `main` — Production (deployed to war.market)
-- `fintech-v2` — Brand redesign (merged)
-- `brand-redesign` — Safety net / rollback point
-- `terminal-v1` — Rejected terminal experiment
+- `fintech-v2` — Brand redesign (merged to main)
+- `brand-redesign` — Archive: pre-fintech-v2 checkpoint
+- `terminal-v1` — Archive: rejected terminal experiment
+
+---
+
+## Current vs Deprecated
+
+### CURRENT (use these)
+- Design: `FINTECH-V2-GUIDELINES.md` in brand kit
+- CSS: Tailwind tokens in `tailwind.config.ts`
+- Docs: https://docs.war.market
+
+### DEPRECATED (ignore, kept for history)
+- `--pear-*` CSS variables (legacy aliases, will remove)
+- `warmarket-brand-kit-terminal/` folder
+- `_archive/` folders
+- `terminal-v1` branch
 
 ---
 
