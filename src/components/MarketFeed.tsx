@@ -65,28 +65,34 @@ export function MarketFeed({
                   </div>
                 </td>
                 <td className={styles.td}>
-                  <div className={styles.actionButtons}>
-                    <button
-                      type="button"
-                      className={styles.btnAction}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onPick(m, 'long');
-                      }}
-                    >
-                      YES
-                    </button>
-                    <button
-                      type="button"
-                      className={`${styles.btnAction} ${styles.btnShort}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onPick(m, 'short');
-                      }}
-                    >
-                      NO
-                    </button>
-                  </div>
+                  {m.isTradable ? (
+                    <div className={styles.actionButtons}>
+                      <button
+                        type="button"
+                        className={styles.btnAction}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onPick(m, 'long');
+                        }}
+                      >
+                        YES
+                      </button>
+                      <button
+                        type="button"
+                        className={`${styles.btnAction} ${styles.btnShort}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onPick(m, 'short');
+                        }}
+                      >
+                        NO
+                      </button>
+                    </div>
+                  ) : (
+                    <div className={styles.inactiveLabel} title={m.unavailableReason}>
+                      Inactive
+                    </div>
+                  )}
                 </td>
               </tr>
             );

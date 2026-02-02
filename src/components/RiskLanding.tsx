@@ -29,8 +29,11 @@ export function RiskLanding() {
           </p>
 
           <div className={styles.ctaSection}>
-            <Link href="/markets" className={`${styles.btn} ${styles.btnPrimary}`}>
-              Launch App
+            <Link href="/trade" className={`${styles.btn} ${styles.btnPrimary}`}>
+              Start Trading
+            </Link>
+            <Link href="/markets" className={`${styles.btn} ${styles.btnSecondary}`}>
+              Browse Markets
             </Link>
             <p className={styles.poweredBy}>Pear Protocol execution · Hyperliquid settlement</p>
           </div>

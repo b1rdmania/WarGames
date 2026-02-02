@@ -217,11 +217,7 @@ export function PositionCard({
         disabled={closing}
         className="w-full tm-btn disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {closing ? (
-          'CLOSING…'
-        ) : (
-          'CASH OUT'
-        )}
+        {closing ? 'Closing...' : 'Close Position'}
       </button>
     </div>
   );

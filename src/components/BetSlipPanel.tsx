@@ -250,7 +250,7 @@ export function BetSlipPanel({
           }
         }}
       >
-        {submitting ? 'SENDING...' : !side ? 'SELECT YES OR NO' : 'SEND IT'}
+        {submitting ? 'PLACING...' : !side ? 'SELECT YES OR NO' : 'Place Trade'}
       </button>
     </div>
   );

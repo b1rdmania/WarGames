@@ -178,6 +178,16 @@
   color: var(--bg-deep, #0e0e10);
 }
 
+.inactiveLabel {
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--warning, #f59e0b);
+  text-align: right;
+  padding: 10px 16px;
+  cursor: help;
+}
+
 .btnView {
   padding: 10px 16px;
   font-family: var(--font-sans, Inter, sans-serif);

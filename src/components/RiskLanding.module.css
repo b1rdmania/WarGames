@@ -165,6 +165,18 @@
   transform: translateY(-1px);
 }
 
+.btnSecondary {
+  background: transparent;
+  color: var(--rm-amber);
+  border: 1px solid var(--rm-amber);
+  margin-left: 12px;
+}
+
+.btnSecondary:hover {
+  background: rgba(249, 115, 22, 0.1);
+  transform: translateY(-1px);
+}
+
 .poweredBy {
   font-size: 13px;
   color: var(--rm-text-muted);
