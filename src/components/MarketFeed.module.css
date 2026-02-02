@@ -4,6 +4,7 @@
   border-radius: var(--radius-lg, 8px);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  border-top: 2px solid var(--primary, #f97316);
 }
 
 .table {

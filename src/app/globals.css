@@ -373,7 +373,7 @@ h1, h2, h3 {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--text-muted);
+  color: var(--secondary-muted);
 }
 
 .tm-control {
@@ -444,6 +444,7 @@ h1, h2, h3 {
 .tm-box {
   background: var(--bg-warm);
   border: 1px solid var(--border);
+  border-top: 2px solid var(--primary);
   padding: 16px;
   border-radius: var(--radius-lg);
 }
@@ -454,7 +455,7 @@ h1, h2, h3 {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--text-muted);
+  color: var(--secondary-muted);
 }
 
 .tm-v {
