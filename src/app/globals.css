@@ -79,16 +79,32 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Terminal content pages */
+/* ==========================================================================
+   Content Pages Typography System
+
+   Hierarchy:
+   - tp-title:  36px, 600 — Page titles
+   - tp-h:      20px, 600 — Section headers
+   - tp-h2:     16px, 600 — Subsection headers
+   - tp-body:   15px, 400 — Body text
+   - tp-kv-k:   12px, 500 — Labels (uppercase allowed)
+
+   Rules:
+   - Inter for all text except numeric data
+   - Mono only for prices, percentages, addresses
+   - Amber only for links and buttons, never headers
+   - 48px between major sections
+   ========================================================================== */
+
 .tp-wrap {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .tp-frame {
   border: 1px solid var(--border);
   background: rgba(0, 0, 0, 0.35);
-  padding: 40px;
+  padding: 48px;
   border-radius: var(--radius-lg);
 }
 
@@ -98,53 +114,94 @@ body {
   }
 }
 
+/* Page header area */
 .tp-hero {
-  padding-bottom: 18px;
+  padding-bottom: 32px;
 }
 
+/* Page title — Level 1 */
 .tp-title {
   font-family: var(--font-sans);
+  font-size: 36px;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  font-size: clamp(28px, 4vw, 48px);
   line-height: 1.1;
 }
 
+/* Subtitle / lede */
 .tp-lede {
-  margin-top: 10px;
+  margin-top: 8px;
   font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 400;
   color: var(--text-secondary);
-  font-size: 16px;
   line-height: 1.6;
 }
 
+/* Horizontal rule */
 .tp-rule {
   height: 1px;
   background: var(--border);
+  margin: 48px 0;
 }
 
+/* Section container */
 .tp-section {
-  margin-top: 22px;
+  margin-top: 48px;
 }
 
+.tp-section:first-of-type {
+  margin-top: 0;
+}
+
+/* Section header — Level 2 */
 .tp-h {
   font-family: var(--font-sans);
+  font-size: 20px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--amber);
-  font-size: 12px;
-  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin-bottom: 20px;
 }
 
+/* Subsection header — Level 3 */
+.tp-h2 {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.tp-h2:first-child {
+  margin-top: 0;
+}
+
+/* Body text — Level 4 */
 .tp-body {
   font-family: var(--font-sans);
-  color: var(--text-secondary);
   font-size: 15px;
-  line-height: 1.6;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.65;
 }
 
+.tp-body + .tp-body {
+  margin-top: 16px;
+}
+
+/* Emphasis within body */
+.tp-body strong,
+.tp-body .tp-em {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Bullet lists */
 .tp-bullets {
   list-style: none;
   padding: 0;
@@ -153,7 +210,11 @@ body {
 
 .tp-bullets li {
   position: relative;
-  padding-left: 18px;
+  padding-left: 20px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.65;
 }
 
 .tp-bullets li::before {
@@ -161,37 +222,75 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  color: var(--amber);
-  opacity: 0.9;
+  color: var(--text-muted);
 }
 
 .tp-bullets li + li {
   margin-top: 8px;
 }
 
+/* Key-value tables */
 .tp-kv {
-  display: grid;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .tp-kv-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 32px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-subtle);
   align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
 }
 
+.tp-kv-row:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 640px) {
+  .tp-kv-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+/* Key (label) */
 .tp-kv-k {
-  font-size: 11px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   color: var(--text-muted);
+  line-height: 1.4;
 }
 
+/* Value — INTER, not mono */
 .tp-kv-v {
-  font-size: 14px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 400;
   color: var(--text-primary);
-  font-family: var(--font-mono);
+  line-height: 1.5;
+}
+
+/* Links within content */
+.tp-link {
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tp-link:hover {
+  color: var(--gold);
+}
+
+/* Footer/signature line */
+.tp-footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
 /* Typography */

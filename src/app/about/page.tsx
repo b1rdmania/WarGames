@@ -24,58 +24,62 @@ export default function AboutPage() {
     <RiskShell nav={<TerminalTopNav />}>
       <div className="tp-wrap">
         <div className="tp-frame">
+          {/* Page Header */}
           <div className="tp-hero">
-            <div className="tp-title">ABOUT WAR.MARKET</div>
-            <div className="tp-lede">
-              A terminal for trading global stress.
-              <br />
+            <h1 className="tp-title">About</h1>
+            <p className="tp-lede">
+              A terminal for trading global stress.<br />
               Narrative baskets executed via Pear on Hyperliquid.
-            </div>
+            </p>
           </div>
 
-          <div className="tp-rule" />
+          <div className="tp-rule" style={{ marginTop: 0 }} />
 
-          <div className="tp-section">
-            <div className="tp-h">THE PROBLEM</div>
-            <div className="tp-body">
-              Trading global risk is fragmented. Oil, FX, tech beta, and “risk‑off” all live in separate silos.
+          {/* The Problem */}
+          <section className="tp-section">
+            <h2 className="tp-h">The problem</h2>
+            <p className="tp-body">
+              Trading global risk is fragmented. Oil, FX, tech beta, and "risk‑off" all live in separate silos.
               You react to noise instead of the signal.
-            </div>
-          </div>
+            </p>
+          </section>
 
-          <div className="tp-section">
-            <div className="tp-h">THE RESPONSE</div>
-            <div className="tp-body">
+          {/* The Response */}
+          <section className="tp-section">
+            <h2 className="tp-h">The response</h2>
+            <p className="tp-body">
               WAR.MARKET creates one view. You see the stress signal. You trade the stress signal.
-              No interpretation layer — just volatility packaged into clear long/short structures.
-            </div>
-          </div>
+              No interpretation layer—just volatility packaged into clear long/short structures.
+            </p>
+          </section>
 
-          <div className="tp-section">
-            <div className="tp-h">THE MARKETS</div>
-            <div className="tp-body">
+          {/* The Markets */}
+          <section className="tp-section">
+            <h2 className="tp-h">The markets</h2>
+            <p className="tp-body">
               Each market is a readable macro narrative expressed as a leveraged long/short basket.
-              <br />
-              You’re betting on <span className="text-white">relative performance</span>, not absolute direction.
-            </div>
-          </div>
+              You're betting on <strong>relative performance</strong>, not absolute direction.
+            </p>
+          </section>
 
-          <div className="tp-section">
-            <div className="tp-h">HOW IT WORKS</div>
-            <ul className="tp-bullets tp-body">
+          {/* How It Works */}
+          <section className="tp-section">
+            <h2 className="tp-h">How it works</h2>
+            <ul className="tp-bullets">
               <li>Browse markets (intel only)</li>
               <li>Connect wallet when you want to trade</li>
               <li>Authenticate with Pear (non‑custodial agent wallet)</li>
               <li>Pear executes basket legs on Hyperliquid</li>
               <li>Monitor + cash out from the terminal</li>
             </ul>
-          </div>
+          </section>
 
-          <div className="tp-rule mt-8" />
+          <div className="tp-rule" />
 
-          <div className="tp-section grid gap-8 md:grid-cols-2">
-            <div>
-              <div className="tp-h">THE ENGINE</div>
+          {/* Two-column: Engine + Who It's For */}
+          <div className="grid gap-12 md:grid-cols-2">
+            <section className="tp-section" style={{ marginTop: 0 }}>
+              <h2 className="tp-h">The engine</h2>
               <div className="tp-kv">
                 <div className="tp-kv-row">
                   <div className="tp-kv-k">Execution</div>
@@ -90,29 +94,31 @@ export default function AboutPage() {
                   <div className="tp-kv-v">Next.js + wagmi</div>
                 </div>
               </div>
-            </div>
+            </section>
 
-            <div>
-              <div className="tp-h">WHO IT’S FOR</div>
-              <ul className="tp-bullets tp-body">
-                <li>Traders who want a clean signal.</li>
-                <li>People who want macro hedges without TradFi rails.</li>
-                <li>Degens who prefer one button and a thesis.</li>
+            <section className="tp-section" style={{ marginTop: 0 }}>
+              <h2 className="tp-h">Who it's for</h2>
+              <ul className="tp-bullets">
+                <li>Traders who want a clean signal</li>
+                <li>People who want macro hedges without TradFi rails</li>
+                <li>Degens who prefer one button and a thesis</li>
               </ul>
-            </div>
+            </section>
           </div>
 
-          <div className="tp-section">
-            <div className="tp-h">THE GOAL</div>
-            <div className="tp-body">A clean way to trade global stress.</div>
-          </div>
+          {/* The Goal */}
+          <section className="tp-section">
+            <h2 className="tp-h">The goal</h2>
+            <p className="tp-body">A clean way to trade global stress.</p>
+          </section>
 
-          <div className="tp-rule mt-8" />
+          <div className="tp-rule" />
 
-          <div className="tp-section">
-            <div className="tp-h">ROADMAP</div>
-            <ul className="tp-bullets tp-body">
-              <li>Win hackathon</li>
+          {/* Roadmap */}
+          <section className="tp-section">
+            <h2 className="tp-h">Roadmap</h2>
+            <ul className="tp-bullets">
+              <li><s className="text-[var(--text-muted)]">Win hackathon</s> <span className="text-[var(--profit)] ml-2">✓</span></li>
               <li>UX redesign for production</li>
               <li>Audit / codebase review</li>
               <li>Quant advice on market structures</li>
@@ -126,77 +132,57 @@ export default function AboutPage() {
               <li>HIP-3 markets for novel WAR indices</li>
               <li>World Peace</li>
             </ul>
-          </div>
+          </section>
 
-          <div className="tp-rule mt-8" />
+          <div className="tp-rule" />
 
-          <div className="tp-section grid gap-8 md:grid-cols-2">
+          {/* Two-column: Built By + Links */}
+          <div className="grid gap-12 md:grid-cols-2">
             <div>
-              <div className="tp-h">BUILT BY</div>
-              <div className="tp-body">
-                <a className="text-pear-lime underline" href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
-                  @b1rdmania
-                </a>
-              </div>
+              <section className="tp-section" style={{ marginTop: 0 }}>
+                <h2 className="tp-h">Built by</h2>
+                <p className="tp-body">
+                  <a className="tp-link" href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
+                    @b1rdmania
+                  </a>
+                </p>
+              </section>
 
-              <div className="tp-section">
-                <div className="tp-h">MUSIC</div>
-                <div className="tp-body">
+              <section className="tp-section">
+                <h2 className="tp-h">Music</h2>
+                <p className="tp-body">
                   Created with{' '}
-                  <a className="text-pear-lime underline" href="https://wario.style" target="_blank" rel="noreferrer">
+                  <a className="tp-link" href="https://wario.style" target="_blank" rel="noreferrer">
                     wario.style
-                  </a>{' '}
-                  — a Gameboy MIDI emulator I built over Xmas.
-                </div>
-              </div>
+                  </a>
+                  —a Gameboy MIDI emulator I built over Xmas.
+                </p>
+              </section>
             </div>
 
             <div>
-              <div className="tp-h">LINKS</div>
-              <div className="tp-body flex flex-wrap items-center">
-                <a
-                  className="text-pear-lime underline whitespace-nowrap"
-                  href="https://github.com/b1rdmania/WarGames"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  GitHub
-                </a>
-                <span className="mx-3 text-gray-600">·</span>
-                <a
-                  className="text-pear-lime underline whitespace-nowrap"
-                  href="https://www.pear.garden/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Pear Protocol
-                </a>
-                <span className="mx-3 text-gray-600">·</span>
-                <a
-                  className="text-pear-lime underline whitespace-nowrap"
-                  href="https://hyperliquid.xyz"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Hyperliquid
-                </a>
-              </div>
+              <section className="tp-section" style={{ marginTop: 0 }}>
+                <h2 className="tp-h">Links</h2>
+                <p className="tp-body">
+                  <a className="tp-link" href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer">GitHub</a>
+                  <span className="mx-3 text-[var(--text-muted)]">·</span>
+                  <a className="tp-link" href="https://www.pear.garden/" target="_blank" rel="noreferrer">Pear Protocol</a>
+                  <span className="mx-3 text-[var(--text-muted)]">·</span>
+                  <a className="tp-link" href="https://hyperliquid.xyz" target="_blank" rel="noreferrer">Hyperliquid</a>
+                </p>
+              </section>
 
-              <div className="tp-section">
-                <div className="tp-h">START</div>
-                <ul className="tp-bullets tp-body">
+              <section className="tp-section">
+                <h2 className="tp-h">Start</h2>
+                <ul className="tp-bullets">
                   <li>
-                    <Link className="text-pear-lime underline" href="/markets">
-                      Browse MARKETS →
-                    </Link>
+                    <Link className="tp-link" href="/markets">Browse Markets →</Link>
                   </li>
                   <li>
-                    <Link className="text-pear-lime underline" href="/trade">
-                      Open TRADE →
-                    </Link>
+                    <Link className="tp-link" href="/trade">Open Trade →</Link>
                   </li>
                 </ul>
-              </div>
+              </section>
             </div>
           </div>
         </div>
@@ -204,4 +190,3 @@ export default function AboutPage() {
     </RiskShell>
   );
 }
-

@@ -47,24 +47,34 @@
 
 ### Fonts
 
-- **UI:** Inter
-- **Code/Data:** JetBrains Mono
+- **UI:** Inter — all text except numeric data
+- **Data:** JetBrains Mono — prices, percentages, addresses only
 
 ### Scale
 
-| Use | Size | Weight |
-|-----|------|--------|
-| Page title | 32px | 600 |
-| Section head | 18px | 600 |
-| Body | 15px | 400 |
-| Label | 12px | 500 |
-| Caption | 11px | 500 |
+| Level | Element | Size | Weight | Color |
+|-------|---------|------|--------|-------|
+| 1 | Page title | 36px | 600 | Primary |
+| 2 | Section head | 20px | 600 | Primary |
+| 3 | Subsection | 16px | 600 | Primary |
+| 4 | Body | 15px | 400 | Secondary |
+| 5 | Label | 12px | 500 | Muted |
+
+### Font Usage
+
+**Inter for:** Headings, body, labels, navigation, buttons, table descriptions
+
+**Mono for:** Prices (`$1,234`), percentages (`+12%`), addresses (`0x...`), timestamps
+
+**Never mono for:** Prose, descriptions, headers, or sentences
 
 ### Rules
 
-- No uppercase except single-word labels
-- No letter-spacing on body text
-- Line height 1.5–1.6 for body
+- Uppercase only for single-word labels (STATUS, BALANCE)
+- Sentence case for multi-word headers ("What it is today")
+- Line height: 1.65 for body, 1.3 for heads
+- Section spacing: 48px between major sections
+- Amber for links/buttons only, never headers
 
 ## Spacing
 
