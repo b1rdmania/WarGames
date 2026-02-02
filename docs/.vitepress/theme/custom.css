@@ -152,10 +152,11 @@ html {
   background: var(--war-deep);
 }
 
-/* Headings */
+/* Headings with amber accents */
 .vp-doc h1 {
   color: var(--war-text-primary);
   border-bottom: 1px solid var(--war-border);
+  border-image: linear-gradient(90deg, var(--war-amber) 0%, var(--war-border) 30%) 1;
 }
 
 .vp-doc h2 {
@@ -163,9 +164,39 @@ html {
   border-top: 1px solid var(--war-border);
   padding-top: 24px;
   margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.vp-doc h3, .vp-doc h4 {
+.vp-doc h2::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 24px;
+  background: var(--war-amber);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.vp-doc h3 {
+  color: var(--war-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vp-doc h3::before {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: var(--war-amber);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.vp-doc h4 {
   color: var(--war-text-primary);
 }
 
@@ -176,6 +207,21 @@ html {
 
 .vp-doc a:hover {
   color: var(--war-gold);
+}
+
+/* List item markers */
+.vp-doc ul > li::marker {
+  color: var(--war-amber);
+}
+
+.vp-doc ol > li::marker {
+  color: var(--war-amber);
+}
+
+/* Strong/bold text */
+.vp-doc strong {
+  color: var(--war-amber);
+  font-weight: 600;
 }
 
 /* Tables */
@@ -242,6 +288,14 @@ html {
 
 .vp-doc .custom-block-title {
   font-weight: 600;
+}
+
+/* Horizontal rules with amber gradient */
+.vp-doc hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, var(--war-amber) 0%, var(--war-border) 20%, var(--war-border) 100%);
+  margin: 32px 0;
 }
 
 /* Footer */

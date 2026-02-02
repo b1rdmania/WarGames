@@ -103,6 +103,65 @@ Information and metadata. Use for timestamps, info states, subtle accents.
 
 ---
 
+## Amber Accents
+
+Amber brings warmth and brand identity throughout the interface. Use it strategically:
+
+### Section Headers
+4px amber bar before each h2:
+```css
+.tp-h::before {
+  width: 4px;
+  height: 20px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+```
+
+### Subsection Headers
+6px amber dot before each h3:
+```css
+.tp-h2::before {
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+```
+
+### Emphasis
+`<strong>` text uses amber, not white:
+```css
+strong { color: var(--primary); }
+```
+
+### List Markers
+Bullet arrows and list markers in amber:
+```css
+li::before { color: var(--primary); }
+```
+
+### Horizontal Rules
+Amber gradient fade on left edge:
+```css
+hr {
+  background: linear-gradient(90deg,
+    var(--primary) 0%,
+    var(--border) 20%);
+}
+```
+
+### Key-Value Tables
+Amber left border on data tables:
+```css
+.tp-kv {
+  border-left: 2px solid var(--primary);
+  padding-left: 20px;
+}
+```
+
+---
+
 ## Spacing
 
 Base unit: 4px

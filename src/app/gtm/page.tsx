@@ -25,10 +25,10 @@ export default function GTMPage() {
           <section className="tp-section">
             <h2 className="tp-h">Lead-in</h2>
             <p className="tp-body">
-              <strong>WAR.MARKET</strong> is the Hyperliquid hackathon winner proving composability and showcasing Pear Protocol. It is the narrative trading terminal with multi-asset baskets running on Hyper-EVM + Pear rails.
+              <strong>WAR.MARKET</strong> is the Hyperliquid hackathon winner proving composability and showcasing Pear Protocol. It's a narrative trading terminal with multi-asset baskets running on Hyper-EVM + Pear rails.
             </p>
             <p className="tp-body">
-              <strong>The question now:</strong> move it from a functional demo into a working product, and if so, what GTM lift and angles are required?
+              <strong>The question now:</strong> move it from a functional demo into a working product—and if so, what GTM lift and angles are required?
             </p>
           </section>
 
@@ -37,24 +37,12 @@ export default function GTMPage() {
           {/* What it is today */}
           <section className="tp-section">
             <h2 className="tp-h">What it is today</h2>
-            <div className="tp-kv">
-              <div className="tp-kv-row">
-                <div className="tp-kv-k">Composability proof</div>
-                <div className="tp-kv-v">Narrative baskets (Taiwan Strait, Commodities Shock, etc.) live in read-only mode; "Go to Trade" opens Pear execution</div>
-              </div>
-              <div className="tp-kv-row">
-                <div className="tp-kv-k">Full funnel</div>
-                <div className="tp-kv-v">Landing → Markets → Detail → Trade → Portfolio</div>
-              </div>
-              <div className="tp-kv-row">
-                <div className="tp-kv-k">HIP3 demo</div>
-                <div className="tp-kv-v">The experience demonstrates HIP3 markets composability</div>
-              </div>
-              <div className="tp-kv-row">
-                <div className="tp-kv-k">Stage</div>
-                <div className="tp-kv-v">Proof-of-concept—browse the story, test the rails, but not yet partner-grade live product</div>
-              </div>
-            </div>
+            <p className="tp-body">
+              A <strong>composability proof</strong>. Narrative baskets like Taiwan Strait and Commodities Shock live in read-only mode. Users browse the thesis, then "Go to Trade" opens Pear execution. The full funnel works: Landing → Markets → Detail → Trade → Portfolio.
+            </p>
+            <p className="tp-body">
+              It demonstrates <strong>HIP3 markets composability</strong>—but it's still a proof-of-concept. Browse the story, test the rails, but not yet partner-grade live product.
+            </p>
           </section>
 
           <div className="tp-rule" />
@@ -75,12 +63,12 @@ export default function GTMPage() {
 
             <h3 className="tp-h2">Partner support</h3>
             <p className="tp-body">
-              I am strategic, not a community-builder. I can automate promo (X post + targeted RTs) but this will need a wingman or partner to roll it out coherently and own the visibility operations.
+              I'm strategic, not a community-builder. I can automate promo (X post + targeted RTs) but this needs a wingman or partner to roll it out coherently and own visibility operations.
             </p>
 
             <h3 className="tp-h2">Decision point</h3>
             <p className="tp-body">
-              Stay a polished demo or commit to adding the analysis + partner lift that makes it launch-ready.
+              Stay a polished demo—or commit to adding the analysis and partner lift that makes it launch-ready.
             </p>
           </section>
 
@@ -91,21 +79,19 @@ export default function GTMPage() {
             <h2 className="tp-h">GTM plan (if we launch)</h2>
 
             <h3 className="tp-h2">1. Announce the win</h3>
-            <ul className="tp-bullets">
-              <li>One focused X post + strategic RTs</li>
-              <li>Start a War Markets X presence</li>
-            </ul>
+            <p className="tp-body">
+              One focused X post with strategic RTs. Start a War Markets X presence.
+            </p>
 
             <h3 className="tp-h2">2. Quant content</h3>
-            <ul className="tp-bullets">
-              <li>Analysis notes + co-marketing with whoever provides that</li>
-              <li>Articles about HL / HIP3 / geopolitical trading</li>
-            </ul>
+            <p className="tp-body">
+              Analysis notes and co-marketing with whoever provides quant rationale. Articles about Hyperliquid, HIP3, and geopolitical trading.
+            </p>
 
             <h3 className="tp-h2">3. Focus</h3>
-            <ul className="tp-bullets">
-              <li>Clarity around the launch decision before layering other efforts</li>
-            </ul>
+            <p className="tp-body">
+              Clarity around the launch decision before layering other efforts. No scattered energy.
+            </p>
           </section>
 
           <div className="tp-rule" />
@@ -113,24 +99,9 @@ export default function GTMPage() {
           {/* Future angles */}
           <section className="tp-section">
             <h2 className="tp-h">Future angles</h2>
-            <div className="tp-kv">
-              <div className="tp-kv-row">
-                <div className="tp-kv-k">HIP3 market</div>
-                <div className="tp-kv-v">Spin the idea into its own HIP3 market</div>
-              </div>
-              <div className="tp-kv-row">
-                <div className="tp-kv-k">Composability</div>
-                <div className="tp-kv-v">Explore composability with other Hyper-EVM builds</div>
-              </div>
-              <div className="tp-kv-row">
-                <div className="tp-kv-k">Commodities</div>
-                <div className="tp-kv-v">Go deeper into real commodities basket thesis if buzz continues</div>
-              </div>
-              <div className="tp-kv-row">
-                <div className="tp-kv-k">Scale trigger</div>
-                <div className="tp-kv-v">~5k Twitter unlocks optional plays, but GTM keeps focus tight on launch readiness for now</div>
-              </div>
-            </div>
+            <p className="tp-body">
+              <strong>HIP3 market:</strong> Spin the idea into its own HIP3 market. <strong>Composability:</strong> Explore integration with other Hyper-EVM builds. <strong>Commodities:</strong> Go deeper into real commodities basket thesis if buzz continues. <strong>Scale trigger:</strong> ~5k Twitter followers unlocks optional plays, but GTM keeps focus tight on launch readiness for now.
+            </p>
           </section>
 
           <div className="tp-rule" />
