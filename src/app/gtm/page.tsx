@@ -72,21 +72,12 @@ export default function GTMPage() {
           {/* Links */}
           <section className="tp-section">
             <h2 className="tp-h">Links</h2>
-            <p className="tp-body">
-              <a className="tp-link" href="https://war.market" target="_blank" rel="noreferrer">Live demo</a>
-              <span className="mx-3 text-[var(--text-muted)]">·</span>
-              <a className="tp-link" href="https://docs.war.market" target="_blank" rel="noreferrer">Documentation</a>
-              <span className="mx-3 text-[var(--text-muted)]">·</span>
-              <a className="tp-link" href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer">Source</a>
-            </p>
+            <ul className="tp-bullets">
+              <li><a className="tp-link" href="https://war.market" target="_blank" rel="noreferrer">Live demo</a></li>
+              <li><a className="tp-link" href="https://docs.war.market" target="_blank" rel="noreferrer">Documentation</a></li>
+              <li><a className="tp-link" href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer">Source</a></li>
+            </ul>
           </section>
-
-          <div className="tp-rule" />
-
-          {/* Footer */}
-          <footer className="tp-footer">
-            war.market · Hyperliquid Hackathon Winner · Pear Protocol Execution
-          </footer>
         </div>
       </div>
     </RiskShell>
