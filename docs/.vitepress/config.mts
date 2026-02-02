@@ -54,6 +54,7 @@ export default defineConfig({
             { text: 'Voice', link: '/brand/voice' },
             { text: 'Design system', link: '/brand/design' },
             { text: 'Assets', link: '/brand/assets' },
+            { text: 'Icons', link: '/brand/icons' },
           ]
         }
       ]
