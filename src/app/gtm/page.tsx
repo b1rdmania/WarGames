@@ -25,10 +25,7 @@ export default function GTMPage() {
           <section className="tp-section">
             <h2 className="tp-h">Lead-in</h2>
             <p className="tp-body">
-              <strong>WAR.MARKET</strong> is the Hyperliquid hackathon winner proving composability and showcasing Pear Protocol. It's a narrative trading terminal with multi-asset baskets running on Hyper-EVM + Pear rails.
-            </p>
-            <p className="tp-body">
-              <strong>The question now:</strong> move it from a functional demo into a working product—and if so, what GTM lift and angles are required?
+              <strong>WAR.MARKET</strong> is the Hyperliquid hackathon winner proving composability and showcasing Pear Protocol. It is the narrative trading terminal demo that proves multi-asset baskets on Hyper-EVM + Pear rails. The question now: move it from a functional demo into a working product—and if so, what GTM lift and angles are required?
             </p>
           </section>
 
@@ -37,39 +34,11 @@ export default function GTMPage() {
           {/* What it is today */}
           <section className="tp-section">
             <h2 className="tp-h">What it is today</h2>
-            <p className="tp-body">
-              A <strong>composability proof</strong>. Narrative baskets like Taiwan Strait and Commodities Shock live in read-only mode. Users browse the thesis, then "Go to Trade" opens Pear execution. The full funnel works: Landing → Markets → Detail → Trade → Portfolio.
-            </p>
-            <p className="tp-body">
-              It demonstrates <strong>HIP3 markets composability</strong>—but it's still a proof-of-concept. Browse the story, test the rails, but not yet partner-grade live product.
-            </p>
-          </section>
-
-          <div className="tp-rule" />
-
-          {/* GTM Plan */}
-          <section className="tp-section">
-            <h2 className="tp-h">GTM plan (if we launch)</h2>
-
-            <h3 className="tp-h2">1. Announce the win</h3>
-            <p className="tp-body">
-              One focused X post with strategic RTs. Start a War Markets X presence.
-            </p>
-
-            <h3 className="tp-h2">2. Quant content</h3>
-            <p className="tp-body">
-              Analysis notes and co-marketing with whoever provides quant rationale. Articles about Hyperliquid, HIP3, and geopolitical trading.
-            </p>
-
-            <h3 className="tp-h2">3. Focus</h3>
-            <p className="tp-body">
-              Clarity around the launch decision before layering other efforts. No scattered energy.
-            </p>
-
-            <h3 className="tp-h2">4. Future angles</h3>
-            <p className="tp-body">
-              <strong>HIP3 market:</strong> Spin the idea into its own HIP3 market. <strong>Composability:</strong> Explore integration with other Hyper-EVM builds. <strong>Commodities:</strong> Go deeper into real commodities basket thesis if buzz continues. <strong>Scale trigger:</strong> ~5k Twitter followers unlocks optional plays, but GTM keeps focus tight on launch readiness for now.
-            </p>
+            <ul className="tp-bullets">
+              <li>Functional Hyperliquid composability proof: narrative baskets (Taiwan Strait, Commodities Shock, etc.) live in read-only mode; "GO TO TRADE" opens Pear execution.</li>
+              <li>Flow exists from landing → markets → detail → trade → portfolio. The experience demonstrates HIP3 markets composability.</li>
+              <li>Proof-of-concept stage—browse the story, test the rails, but it is not yet a partner-grade live product.</li>
+            </ul>
           </section>
 
           <div className="tp-rule" />
@@ -77,26 +46,35 @@ export default function GTMPage() {
           {/* What it's missing */}
           <section className="tp-section">
             <h2 className="tp-h">What it's missing</h2>
+            <ul className="tp-bullets">
+              <li>Basket composition still "me + AI." The markets/baskets need structured financial analysis: scenario logic, risk posture, and quant-style rationale for each weight/leverage pairing.</li>
+              <li>Narrative packaging: users need to immediately understand the risk/return story and what makes each basket move under stress.</li>
+              <li>Visibility partner: I am strategic, not a community-builder. I can automate promo (X post + targeted RTs), but this needs a wingman or partner to roll it out coherently and own visibility operations.</li>
+              <li>Decision point: stay a polished demo or commit to adding the analysis + partner lift that makes it launch-ready.</li>
+            </ul>
+          </section>
 
-            <h3 className="tp-h2">Quant rationale</h3>
-            <p className="tp-body">
-              Basket composition is still "me + AI." The markets need structured financial analysis: scenario logic, risk posture, and quant-style rationale for each weight/leverage pairing.
-            </p>
+          <div className="tp-rule" />
 
-            <h3 className="tp-h2">Narrative packaging</h3>
-            <p className="tp-body">
-              Users need to immediately understand the risk/return story and what makes each basket move under stress.
-            </p>
+          {/* GTM Plan */}
+          <section className="tp-section">
+            <h2 className="tp-h">GTM plan (if we launch)</h2>
+            <ul className="tp-bullets">
+              <li>Announce the Hyperliquid hackathon win with one focused X post and strategic RTs to start a War Markets X presence.</li>
+              <li>Deliver quant/analysis notes + co-marketing with whoever does that. Articles about HL / HIP3 / geopolitical trading, etc.</li>
+              <li>Focus on clarity around the launch decision before layering other efforts. Keep energy focused until the decision is locked.</li>
+            </ul>
+          </section>
 
-            <h3 className="tp-h2">Partner support</h3>
-            <p className="tp-body">
-              I'm strategic, not a community-builder. I can automate promo (X post + targeted RTs) but this needs a wingman or partner to roll it out coherently and own visibility operations.
-            </p>
+          <div className="tp-rule" />
 
-            <h3 className="tp-h2">Decision point</h3>
-            <p className="tp-body">
-              Stay a polished demo—or commit to adding the analysis and partner lift that makes it launch-ready.
-            </p>
+          {/* Future angles */}
+          <section className="tp-section">
+            <h2 className="tp-h">Future angles</h2>
+            <ul className="tp-bullets">
+              <li>Spin the idea into its own HIP3 market, explore composability with other Hyper-EVM builds, or go deeper into a real commodities basket thesis if that buzz continues.</li>
+              <li>Hitting ~5k on Twitter unlocks optional plays, but the GTM plan keeps the focus tight on launch readiness for now.</li>
+            </ul>
           </section>
 
           <div className="tp-rule" />
