@@ -1,46 +1,41 @@
----
-layout: home
+# <img src="/icons/diamond.svg" class="icon-inline" /> Documentation
 
-hero:
-  name: war.market
-  text: Trade narratives, not tickers.
-  tagline: One-click basket trades for macro conviction.
-  actions:
-    - theme: brand
-      text: Get Started
-      link: /guide/
-    - theme: alt
-      text: View App
-      link: https://war.market
+::: warning BETA
+war.market is in beta. Markets shown are examples demonstrating the platform. Trade at your own risk.
+:::
 
-features:
-  - icon: 🎯
-    title: Pick a thesis
-    details: Taiwan crisis. AI bubble. ETH dominance. Find the narrative that matches your conviction.
-  - icon: ⚡
-    title: One signature
-    details: Connect wallet. Sign once. Pear creates an agent wallet and executes the basket atomically.
-  - icon: 📊
-    title: Trade your view
-    details: YES or NO. Long or short. Your thesis becomes a position with real P&L.
----
+Welcome to the war.market docs. Everything you need to understand and use the platform.
 
-<style>
-.beta-notice {
-  background: rgba(249, 115, 22, 0.1);
-  border: 1px solid #f97316;
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin: 32px auto;
-  max-width: 600px;
-  text-align: center;
-}
-.beta-notice strong {
-  color: #f97316;
-}
-</style>
+## <img src="/icons/book.svg" class="icon-inline" /> Guide
 
-<div class="beta-notice">
-  <strong>Beta Release</strong><br>
-  Markets shown are examples demonstrating the platform. Trade at your own risk.
-</div>
+Learn how war.market works and start trading.
+
+- [What is war.market](/guide/) — The concept
+- [How it works](/guide/how-it-works) — Technical flow
+- [Your first trade](/guide/first-trade) — Step by step
+- [Understanding markets](/guide/markets) — Structure and mechanics
+- [Risk](/guide/risk) — What you need to know
+
+## <img src="/icons/chart.svg" class="icon-inline" /> Markets
+
+Browse the example markets.
+
+- [Geopolitical markets](/guide/markets-geopolitical) — Taiwan, AI bubble, oil shock
+- [Crypto markets](/guide/markets-crypto) — ETH/BTC, SOL, HYPE
+
+## <img src="/icons/flame.svg" class="icon-inline" /> Brand
+
+For contributors and partners.
+
+- [Philosophy](/brand/) — Why we built this
+- [Voice](/brand/voice) — How we write
+- [Design system](/brand/design) — Colors, typography, components
+- [Assets](/brand/assets) — Logo, CSS variables
+- [Icons](/brand/icons) — Full icon set
+
+## <img src="/icons/external.svg" class="icon-inline" /> Links
+
+- [Launch App](https://war.market) — Trade now
+- [GitHub](https://github.com/b1rdmania/WarGames) — Source code
+- [Pear Protocol](https://pear.garden) — Execution layer
+- [Hyperliquid](https://hyperliquid.xyz) — Settlement layer

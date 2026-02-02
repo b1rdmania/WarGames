@@ -14,15 +14,16 @@ export default defineConfig({
     logo: '/logo.svg',
 
     nav: [
+      { text: 'Docs', link: '/' },
       { text: 'Guide', link: '/guide/' },
       { text: 'Brand', link: '/brand/' },
       { text: 'App', link: 'https://war.market' },
     ],
 
     sidebar: {
-      '/guide/': [
+      '/': [
         {
-          text: 'Getting Started',
+          text: 'Guide',
           items: [
             { text: 'What is war.market', link: '/guide/' },
             { text: 'How it works', link: '/guide/how-it-works' },
@@ -44,9 +45,7 @@ export default defineConfig({
             { text: 'Managing positions', link: '/guide/positions' },
             { text: 'Risk', link: '/guide/risk' },
           ]
-        }
-      ],
-      '/brand/': [
+        },
         {
           text: 'Brand',
           items: [
