@@ -307,10 +307,10 @@ html {
 /* Icon in text */
 .icon-inline {
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  vertical-align: text-bottom;
-  margin-right: 6px;
+  width: 34px;
+  height: 34px;
+  vertical-align: middle;
+  margin-right: 10px;
 }
 
 /* Icon preview in tables */
