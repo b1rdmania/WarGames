@@ -4,15 +4,14 @@ import Image from 'next/image';
 import styles from './RiskShell.module.css';
 import { MusicControls } from './MusicControls';
 import { HeaderWalletWidget } from './HeaderWalletWidget';
+import { WarMark } from './WarMark';
 
 export function RiskShell({
-  title = 'war.market',
   nav,
   right,
   showMusic = true,
   children,
 }: {
-  title?: string;
   nav?: ReactNode;
   right?: ReactNode | null;
   showMusic?: boolean;
@@ -25,8 +24,9 @@ export function RiskShell({
           <div className={styles.container}>
             <div className={styles.headerInner}>
               <div className={styles.brand}>
-                <Link href="/markets" className={styles.title} aria-label="war.market home">
-                  {title}
+                <Link href="/markets" className={styles.brandLink} aria-label="war.market home">
+                  <WarMark size={28} className={styles.brandMark} />
+                  <span className={styles.brandText}>war.market</span>
                 </Link>
               </div>
               {nav ? <div className={styles.nav}>{nav}</div> : null}

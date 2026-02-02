@@ -99,18 +99,28 @@
   min-width: 0;
 }
 
-.title {
+.brandLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.brandLink:hover {
+  opacity: 0.85;
+}
+
+.brandMark {
+  flex-shrink: 0;
+}
+
+.brandText {
   font-family: var(--font-sans, Inter, -apple-system, sans-serif);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--rm-text-primary);
-  text-decoration: none;
-  font-size: 20px;
-  transition: color 0.15s ease;
-}
-
-.title:hover {
-  color: var(--rm-amber);
+  font-size: 18px;
 }
 
 .panel {
@@ -208,5 +218,13 @@
 
   .nav {
     justify-content: flex-start;
+  }
+
+  .brandText {
+    display: none;
+  }
+
+  .brand {
+    min-width: auto;
   }
 }

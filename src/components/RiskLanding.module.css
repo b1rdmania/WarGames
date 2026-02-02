@@ -110,6 +110,10 @@
   max-width: 640px;
 }
 
+.logoMark {
+  margin-bottom: 20px;
+}
+
 .logo {
   margin-bottom: 24px;
   font-size: 48px;

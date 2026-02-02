@@ -9,6 +9,7 @@ import { PearSetupCard } from '@/components/PearSetupCard';
 import { PortfolioSummary } from '@/components/PortfolioSummary';
 import { PortfolioLine } from '@/components/PortfolioLine';
 import { PositionCard } from '@/components/PositionCard';
+import { WarMark } from '@/components/WarMark';
 import { usePear } from '@/contexts/PearContext';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getActivePositions } from '@/integrations/pear/positions';
@@ -181,9 +182,15 @@ export default function PortfolioClient() {
           </div>
 
           {loadingPositions && !hasLoadedPositions ? (
-            <div className="tm-box p-6 text-sm text-text-muted">Loading…</div>
+            <div className="tm-box p-8 flex flex-col items-center justify-center gap-4">
+              <WarMark size={40} animate />
+              <span className="text-sm text-text-muted">Loading positions...</span>
+            </div>
           ) : positions.length === 0 ? (
-            <div className="tm-box p-6 text-sm text-text-muted">No active positions.</div>
+            <div className="tm-box p-8 flex flex-col items-center justify-center gap-4">
+              <WarMark size={40} className="opacity-40" />
+              <span className="text-sm text-text-muted">No active positions.</span>
+            </div>
           ) : accessToken ? (
             <div className="space-y-4">
               {positions.map((pos) => (

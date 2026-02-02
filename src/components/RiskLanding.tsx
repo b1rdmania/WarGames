@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './RiskLanding.module.css';
+import { WarMark } from './WarMark';
 
 export function RiskLanding() {
   return (
@@ -18,6 +19,9 @@ export function RiskLanding() {
 
       <section className={styles.hero}>
         <div className={styles.heroContent}>
+          <div className={styles.logoMark}>
+            <WarMark size={64} />
+          </div>
           <div className={styles.logo}>war.market</div>
           <p className={styles.tagline}>Trade the tension.</p>
           <p className={`${styles.tagline} ${styles.taglineSmall}`}>
