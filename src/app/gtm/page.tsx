@@ -65,6 +65,11 @@ export default function GTMPage() {
             <p className="tp-body">
               Clarity around the launch decision before layering other efforts. No scattered energy.
             </p>
+
+            <h3 className="tp-h2">4. Future angles</h3>
+            <p className="tp-body">
+              <strong>HIP3 market:</strong> Spin the idea into its own HIP3 market. <strong>Composability:</strong> Explore integration with other Hyper-EVM builds. <strong>Commodities:</strong> Go deeper into real commodities basket thesis if buzz continues. <strong>Scale trigger:</strong> ~5k Twitter followers unlocks optional plays, but GTM keeps focus tight on launch readiness for now.
+            </p>
           </section>
 
           <div className="tp-rule" />
@@ -91,16 +96,6 @@ export default function GTMPage() {
             <h3 className="tp-h2">Decision point</h3>
             <p className="tp-body">
               Stay a polished demo—or commit to adding the analysis and partner lift that makes it launch-ready.
-            </p>
-          </section>
-
-          <div className="tp-rule" />
-
-          {/* Future angles */}
-          <section className="tp-section">
-            <h2 className="tp-h">Future angles</h2>
-            <p className="tp-body">
-              <strong>HIP3 market:</strong> Spin the idea into its own HIP3 market. <strong>Composability:</strong> Explore integration with other Hyper-EVM builds. <strong>Commodities:</strong> Go deeper into real commodities basket thesis if buzz continues. <strong>Scale trigger:</strong> ~5k Twitter followers unlocks optional plays, but GTM keeps focus tight on launch readiness for now.
             </p>
           </section>
 
