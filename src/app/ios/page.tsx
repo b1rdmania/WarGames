@@ -21,14 +21,9 @@ export default function IOSLandingPage() {
           </div>
 
           <div className="mt-8 grid gap-3">
-            <a
-              className="tm-btn w-full text-center"
-              href="https://www.war.market"
-              target="_blank"
-              rel="noreferrer"
-            >
-              COPY LINK / OPEN ON DESKTOP
-            </a>
+            <Link className="tm-btn tm-btn-primary w-full text-center" href="/markets">
+              OPEN ANYWAY
+            </Link>
             <Link className="tm-btn w-full text-center" href="/">
               BACK TO SPLASH
             </Link>

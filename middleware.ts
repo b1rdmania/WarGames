@@ -10,13 +10,15 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Only gate normal pages. Never gate Next internals, assets, or API routes.
+  // GTM page is allowed on mobile for partner calls.
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/ios') ||
     pathname === '/favicon.ico' ||
     pathname.startsWith('/music') ||
-    pathname.startsWith('/splash')
+    pathname.startsWith('/splash') ||
+    pathname.startsWith('/gtm')
   ) {
     return NextResponse.next();
   }

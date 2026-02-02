@@ -4,6 +4,10 @@
 
 ### Mark
 
+<div style="background: var(--vp-c-bg-soft); padding: 32px; border-radius: 8px; text-align: center; margin: 24px 0;">
+  <img src="/mark.svg" alt="war.market mark" style="width: 128px; height: 128px;" />
+</div>
+
 The war.market mark is a flame inside a diamond. It represents conflict, energy, and precision.
 
 Colors:
@@ -13,7 +17,11 @@ Colors:
 
 ### Wordmark
 
-The wordmark is "war.market" set in Inter 600.
+<div style="background: var(--vp-c-bg-soft); padding: 32px; border-radius: 8px; text-align: center; margin: 24px 0;">
+  <img src="/wordmark.svg" alt="war.market wordmark" style="height: 64px;" />
+</div>
+
+The wordmark is "war.market" set in Inter 500.
 
 The dot is part of the name. It's the domain.
 
@@ -41,9 +49,10 @@ Minimum 16px around the logo in any direction.
 
 ## Downloads
 
-::: info Coming soon
-Asset downloads will be available here.
-:::
+<div style="display: flex; gap: 16px; margin: 24px 0;">
+  <a href="/mark.svg" download style="padding: 12px 20px; background: var(--war-amber); color: #0e0e10; border-radius: 6px; text-decoration: none; font-weight: 600;">Download Mark</a>
+  <a href="/wordmark.svg" download style="padding: 12px 20px; border: 1px solid var(--war-border); color: var(--war-amber); border-radius: 6px; text-decoration: none; font-weight: 500;">Download Wordmark</a>
+</div>
 
 ## CSS variables
 
