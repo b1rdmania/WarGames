@@ -1,93 +1,122 @@
 # Design system
 
-## Colors
+## Color Tiers
+
+### Primary: Amber
+Heat, urgency, action. Use for CTAs and key interactive elements.
+
+| Token | Hex | Use |
+|-------|-----|-----|
+| `--primary` | `#f97316` | Primary buttons, key CTAs |
+| `--primary-hover` | `#ea580c` | Hover states |
+| `--primary-soft` | `rgba(249,115,22,0.12)` | Subtle backgrounds |
+
+### Secondary: Violet
+Depth and sophistication. Use for labels, secondary accents, metadata.
+
+| Token | Hex | Use |
+|-------|-----|-----|
+| `--secondary` | `#a78bfa` | Secondary buttons, accents |
+| `--secondary-hover` | `#8b5cf6` | Hover states |
+| `--secondary-muted` | `#8b8b9e` | Labels, subtle text |
+| `--secondary-soft` | `rgba(167,139,250,0.1)` | Highlight backgrounds |
+
+### Tertiary: Slate Blue
+Information and metadata. Use for timestamps, info states, subtle accents.
+
+| Token | Hex | Use |
+|-------|-----|-----|
+| `--tertiary` | `#60a5fa` | Info states, links |
+| `--tertiary-muted` | `#94a3b8` | Metadata, captions |
+| `--tertiary-soft` | `rgba(96,165,250,0.1)` | Info backgrounds |
 
 ### Backgrounds
 
-| Name | Hex | Use |
-|------|-----|-----|
-| Deep | `#0e0e10` | Page background |
-| Warm | `#18171c` | Cards, panels |
-| Surface | `#222127` | Inputs, hover states |
-| Elevated | `#2c2a32` | Modals, dropdowns |
+| Token | Hex | Use |
+|-------|-----|-----|
+| `--bg-deep` | `#0e0e10` | Page background |
+| `--bg-warm` | `#18171c` | Cards, panels |
+| `--bg-surface` | `#222127` | Inputs, hover states |
+| `--bg-elevated` | `#2c2a32` | Modals, dropdowns |
 
 ### Text
 
-| Name | Hex | Use |
-|------|-----|-----|
-| Primary | `#e8e6ed` | Headings, important content |
-| Secondary | `#a8a3b3` | Body text, descriptions |
-| Muted | `#6b6879` | Labels, placeholders |
-| Disabled | `#3d3a45` | Disabled states |
+| Token | Hex | Use |
+|-------|-----|-----|
+| `--text-primary` | `#f0eef5` | Headlines, key content |
+| `--text-secondary` | `#a8a3b8` | Body text |
+| `--text-muted` | `#6b6879` | Labels, placeholders |
+| `--text-faint` | `#4a4655` | Disabled, hints |
 
-### Brand
+### Semantic
 
-| Name | Hex | Use |
-|------|-----|-----|
-| Amber | `#f97316` | Primary CTA only |
-| Gold | `#fbbf24` | Secondary accent (rare) |
-
-### Functional
-
-| Name | Hex | Use |
-|------|-----|-----|
-| Profit | `#22c55e` | Positive P&L |
-| Loss | `#ef4444` | Negative P&L |
-| Warning | `#eab308` | Alerts |
-| Info | `#3b82f6` | Information |
+| Token | Hex | Use |
+|-------|-----|-----|
+| `--profit` | `#22c55e` | Positive P&L |
+| `--loss` | `#ef4444` | Negative P&L |
+| `--warning` | `#f59e0b` | Alerts |
 
 ### Borders
 
-| Name | Hex | Use |
-|------|-----|-----|
-| Default | `#37343e` | Card borders |
-| Subtle | `#2a2830` | Dividers within cards |
+| Token | Hex | Use |
+|-------|-----|-----|
+| `--border` | `#37343e` | Card borders |
+| `--border-subtle` | `#2a2830` | Dividers within cards |
+
+---
 
 ## Typography
 
 ### Fonts
 
-- **UI:** Inter — all text except numeric data
-- **Data:** JetBrains Mono — prices, percentages, addresses only
+| Font | Variable | Use |
+|------|----------|-----|
+| Geist | `--font-display` | Page titles, section heads |
+| Inter | `--font-sans` | Body text, labels, UI |
+| JetBrains Mono | `--font-mono` | Numeric data only |
 
 ### Scale
 
-| Level | Element | Size | Weight | Color |
-|-------|---------|------|--------|-------|
-| 1 | Page title | 36px | 600 | Primary |
-| 2 | Section head | 20px | 600 | Primary |
-| 3 | Subsection | 16px | 600 | Primary |
-| 4 | Body | 15px | 400 | Secondary |
-| 5 | Label | 12px | 500 | Muted |
+| Level | Element | Font | Size | Weight |
+|-------|---------|------|------|--------|
+| 1 | Page title | Geist | 36px | 600 |
+| 2 | Section head | Geist | 20px | 600 |
+| 3 | Subsection | Geist | 16px | 600 |
+| 4 | Body | Inter | 15px | 400 |
+| 5 | Label | Inter | 12px | 500 |
 
-### Font Usage
+### Font Rules
 
-**Inter for:** Headings, body, labels, navigation, buttons, table descriptions
+**Geist for:** Headlines, section headers, subsection headers
+
+**Inter for:** Body text, labels, navigation, buttons, table descriptions
 
 **Mono for:** Prices (`$1,234`), percentages (`+12%`), addresses (`0x...`), timestamps
 
-**Never mono for:** Prose, descriptions, headers, or sentences
+**Never mono for:** Prose, descriptions, or anything read as a sentence
 
-### Rules
+### Case Rules
 
-- Uppercase only for single-word labels (STATUS, BALANCE)
-- Sentence case for multi-word headers ("What it is today")
-- Line height: 1.65 for body, 1.3 for heads
-- Section spacing: 48px between major sections
-- Amber for links/buttons only, never headers
+- **Uppercase:** Single-word labels only (STATUS, BALANCE)
+- **Sentence case:** Multi-word headers ("What it is today")
+- **Never uppercase:** Full phrases or sentences
+
+---
 
 ## Spacing
 
 Base unit: 4px
 
-| Token | Value |
-|-------|-------|
-| xs | 4px |
-| sm | 8px |
-| md | 16px |
-| lg | 24px |
-| xl | 32px |
-| 2xl | 48px |
+| Token | Value | Use |
+|-------|-------|-----|
+| xs | 4px | Tight gaps |
+| sm | 8px | List items |
+| md | 16px | Paragraph spacing |
+| lg | 24px | Card padding |
+| xl | 32px | Section gaps |
+| 2xl | 48px | Major sections |
+
+---
 
 ## Components
 
@@ -95,25 +124,32 @@ Base unit: 4px
 
 **Primary (Amber)**
 ```css
-background: #f97316;
+background: var(--primary);
 color: #0e0e10;
 font-weight: 600;
 padding: 12px 24px;
 border-radius: 6px;
 ```
 
-**Secondary (Ghost)**
+**Secondary (Violet)**
 ```css
 background: transparent;
-border: 1px solid #37343e;
-color: #e8e6ed;
+border: 1px solid var(--secondary);
+color: var(--secondary);
+```
+
+**Ghost**
+```css
+background: transparent;
+border: 1px solid var(--border);
+color: var(--text-primary);
 ```
 
 ### Cards
 
 ```css
-background: #18171c;
-border: 1px solid #37343e;
+background: var(--bg-warm);
+border: 1px solid var(--border);
 border-radius: 8px;
 padding: 20px;
 ```
@@ -121,26 +157,28 @@ padding: 20px;
 ### Inputs
 
 ```css
-background: #222127;
-border: 1px solid #37343e;
+background: var(--bg-surface);
+border: 1px solid var(--border);
 border-radius: 6px;
 padding: 12px 16px;
 ```
 
-Focus state: amber border + subtle glow.
+Focus: amber border + subtle glow.
 
-## Do's and don'ts
+---
+
+## Do's and Don'ts
 
 ### Do
 
-- Use whitespace generously
-- Let typography create hierarchy
-- Keep amber for CTAs only
-- Use subtle borders to define areas
+- Use Geist for headlines, Inter for body
+- Use secondary violet for labels and metadata
+- Keep primary amber for CTAs only
+- Use generous whitespace (48px between sections)
 
 ### Don't
 
-- Add decorative elements to fill space
-- Use multiple accent colors
-- Animate things that don't need animation
-- Use uppercase for full phrases
+- Use mono for prose text
+- Use amber for headers or decoration
+- Use uppercase for multi-word phrases
+- Cram sections together

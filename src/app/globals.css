@@ -11,10 +11,11 @@
   --bg-surface: #222127;
   --bg-elevated: #2c2a32;
 
-  /* Text */
-  --text-primary: #e8e6ed;
-  --text-secondary: #a8a3b3;
+  /* Text - with subtle warmth */
+  --text-primary: #f0eef5;
+  --text-secondary: #a8a3b8;
   --text-muted: #6b6879;
+  --text-faint: #4a4655;
   --text-disabled: #3d3a45;
 
   /* Borders */
@@ -22,22 +23,46 @@
   --border-subtle: #2a2830;
   --border-focus: #f97316;
 
-  /* Brand */
-  --amber: #f97316;
-  --amber-dim: #c2590e;
-  --amber-rgb: 249, 115, 22;
+  /* ==========================================================================
+     Color Tiers
+     ========================================================================== */
+
+  /* Primary: Amber - CTAs, key actions, brand highlight */
+  --primary: #f97316;
+  --primary-hover: #ea580c;
+  --primary-soft: rgba(249, 115, 22, 0.12);
+  --primary-rgb: 249, 115, 22;
+
+  /* Secondary: Violet - depth, secondary actions, accents */
+  --secondary: #a78bfa;
+  --secondary-hover: #8b5cf6;
+  --secondary-soft: rgba(167, 139, 250, 0.1);
+  --secondary-muted: #8b8b9e;
+
+  /* Tertiary: Slate Blue - info, metadata, subtle accents */
+  --tertiary: #60a5fa;
+  --tertiary-soft: rgba(96, 165, 250, 0.1);
+  --tertiary-muted: #94a3b8;
+
+  /* Legacy aliases (map to new system) */
+  --amber: var(--primary);
+  --amber-dim: var(--primary-hover);
+  --amber-rgb: var(--primary-rgb);
   --gold: #fbbf24;
   --mark-gray: #4a4752;
 
-  /* Functional */
+  /* Functional / Semantic */
   --profit: #22c55e;
   --profit-dim: #16a34a;
   --loss: #ef4444;
   --loss-dim: #dc2626;
-  --warning: #eab308;
-  --info: #3b82f6;
+  --warning: #f59e0b;
+  --info: var(--tertiary);
 
-  /* Typography */
+  /* ==========================================================================
+     Typography
+     ========================================================================== */
+  --font-display: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
 
@@ -83,17 +108,16 @@ body {
    Content Pages Typography System
 
    Hierarchy:
-   - tp-title:  36px, 600 — Page titles
-   - tp-h:      20px, 600 — Section headers
-   - tp-h2:     16px, 600 — Subsection headers
-   - tp-body:   15px, 400 — Body text
-   - tp-kv-k:   12px, 500 — Labels (uppercase allowed)
+   - tp-title:  36px, 600, Geist — Page titles
+   - tp-h:      20px, 600, Geist — Section headers
+   - tp-h2:     16px, 600, Geist — Subsection headers
+   - tp-body:   15px, 400, Inter — Body text
+   - tp-kv-k:   12px, 500, Inter — Labels (uppercase allowed)
 
-   Rules:
-   - Inter for all text except numeric data
-   - Mono only for prices, percentages, addresses
-   - Amber only for links and buttons, never headers
-   - 48px between major sections
+   Colors:
+   - Primary (amber): CTAs, links
+   - Secondary (violet): Labels, subtle accents
+   - Tertiary (slate): Metadata, timestamps
    ========================================================================== */
 
 .tp-wrap {
@@ -119,12 +143,12 @@ body {
   padding-bottom: 32px;
 }
 
-/* Page title — Level 1 */
+/* Page title — Level 1 (Geist) */
 .tp-title {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: 36px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--text-primary);
   line-height: 1.1;
 }
@@ -135,7 +159,7 @@ body {
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 400;
-  color: var(--text-secondary);
+  color: var(--tertiary-muted);
   line-height: 1.6;
 }
 
@@ -155,22 +179,23 @@ body {
   margin-top: 0;
 }
 
-/* Section header — Level 2 */
+/* Section header — Level 2 (Geist) */
 .tp-h {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   line-height: 1.3;
   margin-bottom: 20px;
 }
 
-/* Subsection header — Level 3 */
+/* Subsection header — Level 3 (Geist) */
 .tp-h2 {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: 16px;
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
   line-height: 1.4;
   margin-top: 32px;
@@ -222,7 +247,7 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  color: var(--text-muted);
+  color: var(--secondary-muted);
 }
 
 .tp-bullets li + li {
@@ -255,18 +280,18 @@ body {
   }
 }
 
-/* Key (label) */
+/* Key (label) — secondary violet tint */
 .tp-kv-k {
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
-  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  color: var(--secondary-muted);
   line-height: 1.4;
 }
 
-/* Value — INTER, not mono */
+/* Value — Inter, primary white */
 .tp-kv-v {
   font-family: var(--font-sans);
   font-size: 15px;
@@ -275,22 +300,35 @@ body {
   line-height: 1.5;
 }
 
-/* Links within content */
+/* Links within content — primary amber */
 .tp-link {
-  color: var(--amber);
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 150ms ease;
+}
+
+.tp-link:hover {
+  color: var(--secondary);
+}
+
+/* Secondary links — violet accent */
+.tp-link-secondary {
+  color: var(--secondary);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.tp-link:hover {
-  color: var(--gold);
+.tp-link-secondary:hover {
+  color: var(--secondary-hover);
 }
 
 /* Footer/signature line */
 .tp-footer {
   text-align: center;
-  color: var(--text-muted);
+  color: var(--tertiary-muted);
   font-size: 13px;
+  letter-spacing: 0.01em;
 }
 
 /* Typography */
@@ -411,16 +449,47 @@ h1, h2, h3 {
 
 /* Utility classes */
 @layer utilities {
+  /* Primary (amber) */
+  .text-primary-accent {
+    color: var(--primary);
+  }
+  .bg-primary-soft {
+    background: var(--primary-soft);
+  }
+
+  /* Secondary (violet) */
+  .text-secondary-accent {
+    color: var(--secondary);
+  }
+  .text-secondary-muted {
+    color: var(--secondary-muted);
+  }
+  .bg-secondary-soft {
+    background: var(--secondary-soft);
+  }
+
+  /* Tertiary (slate) */
+  .text-tertiary {
+    color: var(--tertiary);
+  }
+  .text-tertiary-muted {
+    color: var(--tertiary-muted);
+  }
+  .bg-tertiary-soft {
+    background: var(--tertiary-soft);
+  }
+
+  /* Border utilities */
   .war-border {
     border: 1px solid var(--border);
   }
 
   .war-text {
-    color: var(--amber);
+    color: var(--primary);
   }
 
   .war-glow {
-    box-shadow: 0 0 20px rgba(var(--amber-rgb), 0.2);
+    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.2);
   }
 
   /* Legacy aliases */
@@ -429,11 +498,11 @@ h1, h2, h3 {
   }
 
   .pear-text {
-    color: var(--amber);
+    color: var(--primary);
   }
 
   .pear-glow {
-    box-shadow: 0 0 20px rgba(var(--amber-rgb), 0.2);
+    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.2);
   }
 }
 

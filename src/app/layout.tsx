@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono, Geist } from "next/font/google";
 import { WalletProvider } from "@/components/WalletProvider";
 import { PearProvider } from "@/contexts/PearContext";
 import { MusicProvider } from "@/contexts/MusicContext";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+
+const geist = Geist({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -59,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${geist.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-screen bg-war-deep text-text-primary font-sans antialiased">
         <WalletProvider>
           <PearProvider>
