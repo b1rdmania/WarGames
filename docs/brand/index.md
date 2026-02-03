@@ -62,3 +62,10 @@ When you use war.market, you should feel:
 2. **Agency** — You're taking a position on the world.
 3. **Respect** — The platform treats you as competent.
 4. **Edge** — A tool built for people who think like you.
+
+
+---
+
+## Related
+
+- [Narrative system](/brand/narrative-system)

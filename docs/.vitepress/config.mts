@@ -50,6 +50,7 @@ export default defineConfig({
           text: 'Brand',
           items: [
             { text: 'Philosophy', link: '/brand/' },
+            { text: 'Narrative system', link: '/brand/narrative-system' },
             { text: 'Voice', link: '/brand/voice' },
             { text: 'Design system', link: '/brand/design' },
             { text: 'Assets', link: '/brand/assets' },
