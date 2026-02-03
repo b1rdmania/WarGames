@@ -6,9 +6,10 @@ import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import { executePosition } from '@/integrations/pear/positions';
 
 function formatBasketLabel(assets: { asset: string; weight?: number }[]) {
-  const names = assets.map((a) => a.asset).filter(Boolean);
-  if (names.length === 0) return 'BASKET';
-  return names.join(' + ');
+  const names = assets.map((a) => a.asset.split(':').pop()).filter(Boolean);
+  if (names.length === 0) return 'Basket';
+  if (names.length <= 3) return names.join(' + ');
+  return `${names.slice(0, 2).join(' + ')} +${names.length - 2}`;
 }
 
 export function BetSlipPanel({
@@ -33,6 +34,7 @@ export function BetSlipPanel({
   const [amount, setAmount] = useState('10');
   const [submitting, setSubmitting] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
+  const [showError, setShowError] = useState(false);
   const mountedRef = useRef(true);
 
   useEffect(() => {
@@ -42,9 +44,9 @@ export function BetSlipPanel({
     };
   }, []);
 
-  // Clear error when market changes
   useEffect(() => {
     setLastError(null);
+    setShowError(false);
   }, [market?.id]);
 
   const balanceNum = balance ? Number(balance) : null;
@@ -67,10 +69,10 @@ export function BetSlipPanel({
   if (!market) {
     return (
       <div className="tm-box">
-        <div className="text-sm font-semibold text-brand-amber mb-4">Bet Slip</div>
+        <div className="text-sm font-semibold text-text-primary mb-2">Trade</div>
         <div className="text-center py-8">
           <div className="text-text-muted text-sm">
-            Select a market and click YES or NO to place a bet
+            Select a market to start
           </div>
         </div>
       </div>
@@ -80,135 +82,153 @@ export function BetSlipPanel({
   const resolvedPairs = market.resolvedPairs ?? market.pairs;
   const resolvedBasket = market.resolvedBasket ?? market.basket;
 
-  const longLeg =
-    resolvedPairs?.long ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.long) : '—');
-  const shortLeg =
-    resolvedPairs?.short ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
+  const longLeg = resolvedPairs?.long ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.long) : '—');
+  const shortLeg = resolvedPairs?.short ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
 
   return (
     <div className="tm-box">
+      {/* Header */}
       <div className="flex items-start justify-between gap-3 mb-4">
-        <div>
-          <div className="text-sm font-semibold text-brand-amber">Bet Slip</div>
-          <div className="mt-1 text-text-primary font-medium">{market.name}</div>
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-semibold text-text-primary truncate">{market.name}</div>
+          <div className="text-xs text-text-muted mt-0.5">{market.leverage}x leverage</div>
         </div>
-        <button onClick={onClear} className="tm-btn px-2 py-1 text-[10px]" title="Clear selection">
+        <button
+          onClick={onClear}
+          className="text-[11px] text-text-muted hover:text-text-secondary transition-colors"
+        >
           Clear
         </button>
       </div>
 
-      <div className="text-xs text-gray-400 font-mono mb-4">{market.description}</div>
-
-      {/* Direction Toggle */}
+      {/* Direction */}
       <div className="mb-4">
-        <div className="tm-label mb-2">Direction</div>
+        <div className="text-[11px] uppercase tracking-wide text-text-muted mb-2">Direction</div>
         <div className="grid grid-cols-2 gap-2">
           <button
             onClick={() => onSideChange('long')}
-            className={`tm-btn w-full py-3 ${side === 'long' ? 'bg-pear-lime/20 border-pear-lime' : ''}`}
+            className={`py-3 rounded-md text-sm font-medium transition-all ${
+              side === 'long'
+                ? 'bg-profit/15 text-profit border border-profit/30'
+                : 'bg-bg-surface/60 text-text-secondary border border-transparent hover:border-border'
+            }`}
           >
-            YES (LONG)
+            YES
           </button>
           <button
             onClick={() => onSideChange('short')}
-            className={`tm-btn tm-btn-danger w-full py-3 ${side === 'short' ? 'bg-red-500/20 border-red-400' : ''}`}
+            className={`py-3 rounded-md text-sm font-medium transition-all ${
+              side === 'short'
+                ? 'bg-loss/15 text-loss border border-loss/30'
+                : 'bg-bg-surface/60 text-text-secondary border border-transparent hover:border-border'
+            }`}
           >
-            NO (SHORT)
+            NO
           </button>
         </div>
         {side && (
-          <div className="mt-2 text-xs text-gray-500 font-mono">
-            {side === 'long' ? `Betting ${longLeg} outperforms ${shortLeg}` : `Betting ${shortLeg} outperforms ${longLeg}`}
+          <div className="mt-2 text-xs text-text-muted">
+            {side === 'long' ? (
+              <><span className="text-profit">{longLeg}</span> outperforms <span className="text-loss">{shortLeg}</span></>
+            ) : (
+              <><span className="text-loss">{shortLeg}</span> outperforms <span className="text-profit">{longLeg}</span></>
+            )}
           </div>
         )}
       </div>
 
-      {/* Stake Input */}
+      {/* Size */}
       <div className="mb-4">
-        <div className="tm-label mb-2">Size (USDC)</div>
+        <div className="text-[11px] uppercase tracking-wide text-text-muted mb-2">Size (USDC)</div>
         <div className="grid grid-cols-4 gap-2 mb-2">
           {presets.map((p) => (
             <button
               key={p}
               onClick={() => setAmount(String(p))}
-              className={`tm-btn w-full text-xs ${amount === String(p) ? 'bg-pear-lime/20' : ''}`}
               disabled={submitting}
+              className={`py-2 rounded-md text-xs font-medium transition-all ${
+                amount === String(p)
+                  ? 'bg-primary/15 text-primary border border-primary/30'
+                  : 'bg-bg-surface/60 text-text-secondary border border-transparent hover:border-border'
+              }`}
             >
               ${p}
             </button>
           ))}
-          <button
-            onClick={() => setAmount(String(Math.floor(yoloAmount)))}
-            className="tm-btn tm-btn-danger w-full text-xs"
-            disabled={submitting}
-            title={`YOLO capped at $${yoloCapUsd}`}
-          >
-            YOLO
-          </button>
         </div>
         <input
-          className="tm-control w-full"
+          className="w-full bg-bg-surface/60 border border-border rounded-md px-3 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
           inputMode="decimal"
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          placeholder="10"
+          placeholder="Enter amount"
           disabled={submitting}
         />
-        {balance && (
-          <div className="mt-2 text-xs text-gray-500 font-mono">
-            Available: ${Number(balance).toFixed(2)}
-          </div>
-        )}
-        {!canAfford && (
-          <div className="mt-2 text-xs text-red-300 font-mono">INSUFFICIENT BALANCE</div>
-        )}
+        <div className="flex items-center justify-between mt-2 text-xs">
+          {balance && (
+            <span className="text-text-muted">
+              Available: <span className="text-text-primary font-mono">${Number(balance).toFixed(2)}</span>
+            </span>
+          )}
+          {!canAfford && (
+            <span className="text-loss">Insufficient balance</span>
+          )}
+        </div>
       </div>
 
-      {/* Details */}
-      <div className="mb-4 tm-box text-xs">
-        <div className="tm-row">
-          <div className="tm-k">Underlying</div>
-          <div className="tm-v">{longLeg} / {shortLeg}</div>
+      {/* Trade Info */}
+      <div className="bg-bg-surface/40 rounded-md p-3 mb-4 space-y-2">
+        <div className="flex justify-between text-xs">
+          <span className="text-text-muted">Underlying</span>
+          <span className="text-text-primary">{longLeg} / {shortLeg}</span>
+        </div>
+        <div className="flex justify-between text-xs">
+          <span className="text-text-muted">Slippage</span>
+          <span className="text-text-primary">1% max</span>
         </div>
         {!market.isTradable && (
-          <div className="tm-row">
-            <div className="tm-k">Status</div>
-            <div className="tm-v text-yellow-200">INACTIVE</div>
+          <div className="flex justify-between text-xs">
+            <span className="text-text-muted">Status</span>
+            <span className="text-warning">Inactive</span>
           </div>
         )}
-        {!market.isTradable && market.unavailableReason && (
-          <div className="tm-row">
-            <div className="tm-k">Why</div>
-            <div className="tm-v text-yellow-200">{market.unavailableReason}</div>
-          </div>
-        )}
-        <div className="tm-row">
-          <div className="tm-k">Leverage</div>
-          <div className="tm-v text-pear-lime">{market.leverage}x</div>
-        </div>
-        <div className="tm-row">
-          <div className="tm-k">Slippage</div>
-          <div className="tm-v">1% max</div>
-        </div>
       </div>
 
-      {/* Error display */}
+      {/* Error (collapsible) */}
       {lastError && (
-        <div className="mb-4 tm-box border-red-400/30 bg-red-500/10">
-          <div className="text-xs font-mono text-red-300 mb-2">ERROR: {lastError}</div>
+        <div className="mb-4">
           <button
-            className="tm-btn tm-btn-danger w-full text-xs"
-            onClick={() => setLastError(null)}
+            type="button"
+            onClick={() => setShowError(!showError)}
+            className="text-[11px] text-loss hover:text-loss/80 transition-colors"
           >
-            DISMISS
+            {showError ? '▾ Hide error' : '▸ Show error'}
           </button>
+          {showError && (
+            <div className="mt-2 p-3 bg-loss/10 rounded-md">
+              <p className="text-xs text-loss/90 break-all">{lastError}</p>
+              <button
+                className="mt-2 text-[11px] text-text-muted hover:text-text-secondary"
+                onClick={() => {
+                  setLastError(null);
+                  setShowError(false);
+                }}
+              >
+                Dismiss
+              </button>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Submit Button */}
+      {/* Submit */}
       <button
-        className={`tm-btn w-full py-4 ${side === 'short' ? 'tm-btn-danger' : ''}`}
+        className={`w-full py-3 rounded-md font-semibold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
+          side === 'short'
+            ? 'bg-loss text-white hover:bg-loss/90'
+            : 'bg-primary text-bg-deep hover:bg-primary-hover'
+        }`}
         disabled={submitting || !canAfford || !side || !!lastError || !market.isTradable}
         onClick={async () => {
           if (!side) {
@@ -216,7 +236,7 @@ export function BetSlipPanel({
             return;
           }
           if (!market.isTradable) {
-            toast.error('This market is currently inactive');
+            toast.error('Market is inactive');
             return;
           }
           setSubmitting(true);
@@ -231,7 +251,7 @@ export function BetSlipPanel({
               resolvedBasket: market.resolvedBasket,
             });
             if (!mountedRef.current) return;
-            toast.success('Position opened!');
+            toast.success('Position opened');
             onPlaced();
           } catch (e) {
             if (!mountedRef.current) return;
@@ -250,7 +270,7 @@ export function BetSlipPanel({
           }
         }}
       >
-        {submitting ? 'PLACING...' : !side ? 'SELECT YES OR NO' : 'Place Trade'}
+        {submitting ? 'Placing...' : !side ? 'Select direction' : 'Place Trade'}
       </button>
     </div>
   );
