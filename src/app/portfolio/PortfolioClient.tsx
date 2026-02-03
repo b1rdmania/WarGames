@@ -6,10 +6,7 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { RiskShell } from '@/components/RiskShell';
 import { TerminalTopNav } from '@/components/TerminalTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
-import { PortfolioSummary } from '@/components/PortfolioSummary';
-import { PortfolioLine } from '@/components/PortfolioLine';
-import { PositionCard } from '@/components/PositionCard';
-import { WarMark } from '@/components/WarMark';
+import { NoradPortfolioSurface } from '@/components/NoradPortfolioSurface';
 import { usePear } from '@/contexts/PearContext';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getActivePositions } from '@/integrations/pear/positions';
@@ -135,82 +132,39 @@ export default function PortfolioClient() {
           <div className="tp-lede">Positions, P&L, and collateral.</div>
         </div>
         <div className="tp-rule" />
-
-        <div className="mt-6">
-          <PortfolioLine
-            positions={positions}
-            balance={perpUsdc}
-            detailsOpen={detailsOpen}
-            onToggleDetails={() => setDetailsOpen((v) => !v)}
-          />
-        </div>
-
-        {detailsOpen && (
-          <div className="mt-4">
-            <PortfolioSummary positions={positions} balance={perpUsdc} />
-          </div>
-        )}
-
-        <div className="mt-6">
-          <div className="flex items-center justify-between text-sm mb-3">
-            <div className="font-semibold text-brand-amber">Active Positions</div>
-            <div className="flex items-center gap-3">
-              {hasLoadedPositions && refreshingPositions ? (
-                <div className="text-[10px] text-text-muted">Updating…</div>
-              ) : null}
-              <button
-                onClick={async () => {
-                  if (!accessToken || refreshingPositions) return;
-                  setRefreshingPositions(true);
-                  try {
-                    const pos = await getActivePositions(accessToken);
-                    setPositions(pos);
-                    setHasLoadedPositions(true);
-                    toast.success('Refreshed');
-                  } catch (err) {
-                    toast.error('Failed to refresh');
-                  } finally {
-                    setRefreshingPositions(false);
-                  }
-                }}
-                disabled={refreshingPositions || !accessToken}
-                className="tm-btn px-3 py-1 text-xs disabled:opacity-50"
-              >
-                {refreshingPositions ? '...' : 'Refresh'}
-              </button>
-            </div>
-          </div>
-
-          {loadingPositions && !hasLoadedPositions ? (
-            <div className="tm-box p-8 flex flex-col items-center justify-center gap-4">
-              <WarMark size={40} animate />
-              <span className="text-sm text-text-muted">Loading positions...</span>
-            </div>
-          ) : positions.length === 0 ? (
-            <div className="tm-box p-8 flex flex-col items-center justify-center gap-4">
-              <WarMark size={40} className="opacity-40" />
-              <span className="text-sm text-text-muted">No active positions.</span>
-            </div>
-          ) : accessToken ? (
-            <div className="space-y-4">
-              {positions.map((pos) => (
-                <PositionCard
-                  key={pos.id}
-                  position={pos}
-                  accessToken={accessToken}
-                  onClose={() => {
-                    getActivePositions(accessToken).then((next) => {
-                      setPositions(next);
-                      setHasLoadedPositions(true);
-                    });
-                  }}
-                />
-              ))}
-            </div>
-          ) : null}
-        </div>
+        <NoradPortfolioSurface
+          positions={positions}
+          balance={perpUsdc}
+          loadingPositions={loadingPositions}
+          refreshingPositions={refreshingPositions}
+          hasLoadedPositions={hasLoadedPositions}
+          detailsOpen={detailsOpen}
+          accessToken={accessToken ?? ''}
+          operatorAddress={address}
+          onToggleDetails={() => setDetailsOpen((v) => !v)}
+          onRefresh={async () => {
+            if (!accessToken || refreshingPositions) return;
+            setRefreshingPositions(true);
+            try {
+              const pos = await getActivePositions(accessToken);
+              setPositions(pos);
+              setHasLoadedPositions(true);
+              toast.success('Refreshed');
+            } catch {
+              toast.error('Failed to refresh');
+            } finally {
+              setRefreshingPositions(false);
+            }
+          }}
+          onPositionClosed={() => {
+            if (!accessToken) return;
+            getActivePositions(accessToken).then((next) => {
+              setPositions(next);
+              setHasLoadedPositions(true);
+            });
+          }}
+        />
       </div>
     </RiskShell>
   );
 }
-
