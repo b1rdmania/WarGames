@@ -6,9 +6,8 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { RiskShell } from '@/components/RiskShell';
 import { TerminalTopNav } from '@/components/TerminalTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
-import { MarketFeed } from '@/components/MarketFeed';
-import { BetSlipPanel } from '@/components/BetSlipPanel';
 import { PortfolioLine } from '@/components/PortfolioLine';
+import { NoradTradeSurface } from '@/components/NoradTradeSurface';
 import { usePear } from '@/contexts/PearContext';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
@@ -80,37 +79,24 @@ export default function TradeClient() {
           />
         </div>
 
-        <div className="mt-6 grid lg:grid-cols-[1fr_380px] gap-6">
-          <div className="min-w-0">
-            <MarketFeed
-              markets={effectiveMarkets ?? []}
-              selectedMarketId={selectedMarketId}
-              onPick={(m, s) => {
-                setSelectedMarketId(m.id);
-                setSelectedSide(s);
-              }}
-            />
-          </div>
-
-          <div className="lg:sticky lg:top-4 self-start">
-            <BetSlipPanel
-              market={(effectiveMarkets ?? []).find((m) => m.id === selectedMarketId) ?? null}
-              side={selectedSide}
-              balance={perpUsdc}
-              accessToken={accessToken ?? ''}
-              onSideChange={(s) => setSelectedSide(s)}
-              onClear={() => {
-                setSelectedMarketId(null);
-                setSelectedSide(null);
-              }}
-              onPlaced={() => {
-                // Keep market selected after placing, user can place again or clear
-              }}
-            />
-          </div>
-        </div>
+        <NoradTradeSurface
+          markets={effectiveMarkets ?? []}
+          selectedMarketId={selectedMarketId}
+          selectedSide={selectedSide}
+          balance={perpUsdc}
+          accessToken={accessToken ?? ''}
+          operatorAddress={address}
+          onSelectMarket={(id) => setSelectedMarketId(id)}
+          onSelectSide={(s) => setSelectedSide(s)}
+          onClearSelection={() => {
+            setSelectedMarketId(null);
+            setSelectedSide(null);
+          }}
+          onPlaced={() => {
+            // Keep selection after execution so users can re-enter quickly.
+          }}
+        />
       </div>
     </RiskShell>
   );
 }
-

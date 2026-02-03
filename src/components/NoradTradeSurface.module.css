@@ -1,0 +1,271 @@
+.root {
+  margin-top: 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.95fr 0.85fr;
+  gap: 10px;
+}
+
+.board,
+.log,
+.console,
+.rail {
+  background: var(--norad-surface);
+  border: 1px solid var(--norad-grid);
+}
+
+.sectionTitle {
+  border-bottom: 1px solid var(--norad-grid);
+  padding: 10px 12px;
+  color: var(--norad-telemetry);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.map {
+  margin: 10px;
+  min-height: 176px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #2b4a60;
+  background:
+    linear-gradient(transparent 95%, rgba(54, 212, 255, 0.14) 96%),
+    linear-gradient(90deg, transparent 95%, rgba(54, 212, 255, 0.14) 96%),
+    radial-gradient(ellipse 18% 22% at 26% 40%, rgba(138, 169, 191, 0.26), transparent 70%),
+    radial-gradient(ellipse 12% 20% at 50% 46%, rgba(138, 169, 191, 0.22), transparent 70%),
+    radial-gradient(ellipse 20% 23% at 72% 42%, rgba(138, 169, 191, 0.24), transparent 72%),
+    radial-gradient(circle at 30% 40%, rgba(2, 255, 129, 0.2), transparent 35%),
+    #0a131b;
+  background-size: 26px 26px, 26px 26px, auto, auto, auto, auto;
+}
+
+.mapLabel {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 6px 8px;
+  border: 1px solid #2b4a60;
+  background: rgba(7, 13, 20, 0.85);
+  color: #9bc9df;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.hotspot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--norad-signal);
+  box-shadow: 0 0 0 6px rgba(2, 255, 129, 0.14);
+}
+
+.hotspotOne {
+  top: 28%;
+  left: 57%;
+}
+
+.hotspotTwo {
+  top: 45%;
+  left: 32%;
+}
+
+.hotspotThree {
+  top: 58%;
+  left: 67%;
+}
+
+.marketList {
+  margin: 0 10px 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.marketRow {
+  border: 1px solid #2b4a60;
+  background: #101c28;
+  color: #bed4e5;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  grid-template-areas:
+    "code name state"
+    "legs legs legs";
+  gap: 6px 10px;
+  text-align: left;
+}
+
+.marketRowActive {
+  border-color: var(--norad-signal);
+  box-shadow: inset 3px 0 0 var(--norad-signal);
+}
+
+.marketCode {
+  grid-area: code;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #9cc2da;
+}
+
+.marketName {
+  grid-area: name;
+  color: #f1f8ff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.marketState {
+  grid-area: state;
+  border: 1px solid #34576d;
+  padding: 1px 6px;
+  align-self: start;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.stateLive {
+  color: var(--norad-signal);
+}
+
+.stateAlert {
+  color: var(--norad-warning);
+}
+
+.marketLegs {
+  grid-area: legs;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #98b2c6;
+}
+
+.logList {
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.logRow {
+  display: grid;
+  grid-template-columns: 68px 56px 1fr;
+  gap: 8px;
+  align-items: start;
+  border-left: 2px solid var(--norad-telemetry);
+  background: var(--norad-panel);
+  padding: 8px 8px 8px 10px;
+}
+
+.logAt {
+  color: #88a5b8;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.logLevel {
+  display: inline-block;
+  border: 1px solid #33526a;
+  padding: 2px 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.logInfo {
+  color: #8bc3e0;
+}
+
+.logAlert {
+  color: var(--norad-warning);
+  border-color: #886534;
+}
+
+.logExec {
+  color: #8ef4bc;
+  border-color: #2f6e57;
+}
+
+.logText {
+  color: #bad0df;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.consoleMeta {
+  margin: 10px;
+  border: 1px solid #4a3b67;
+  background: rgba(76, 53, 112, 0.22);
+  color: #cfbeff;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.quickBias {
+  margin: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.quickBias button {
+  border: 1px solid #2b4a60;
+  background: #0d151d;
+  color: #bfd5e5;
+  padding: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+.quickBiasActive {
+  border-color: var(--norad-signal) !important;
+  color: var(--norad-signal) !important;
+}
+
+.console :global(.tm-box) {
+  margin: 0 10px 10px;
+  border-color: #2b4a60;
+  border-top-color: var(--norad-signal);
+  background: #0f1923;
+}
+
+.rail {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  padding: 10px 12px;
+  color: #9cb5c7;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 1160px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rail {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .rail {
+    grid-template-columns: 1fr;
+  }
+
+  .quickBias button {
+    min-height: 44px;
+  }
+}

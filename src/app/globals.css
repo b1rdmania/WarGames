@@ -92,6 +92,17 @@
   --pear-gray-dark: var(--text-muted);
   --pear-accent: var(--amber-dim);
   --border-color: rgba(var(--amber-rgb), 0.22);
+
+  /* NORAD production tokens (trade shell) */
+  --norad-bg: #070d14;
+  --norad-surface: #0e1822;
+  --norad-panel: #101c28;
+  --norad-grid: #234055;
+  --norad-telemetry: #36d4ff;
+  --norad-signal: #02ff81;
+  --norad-intel: #cfbeff;
+  --norad-warning: #f9c262;
+  --norad-fault: #ff8f9a;
 }
 
 html {
