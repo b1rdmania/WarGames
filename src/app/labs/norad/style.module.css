@@ -1,6 +1,6 @@
 .page {
   min-height: 100vh;
-  background: #070d14;
+  background: radial-gradient(circle at 18% -8%, rgba(145, 92, 182, 0.24), transparent 40%), #070d14;
   color: #d8e6f1;
   padding: 14px;
   font-family: "Inter", "Segoe UI", Arial, sans-serif;
@@ -70,10 +70,14 @@
   background:
     linear-gradient(transparent 95%, rgba(54, 212, 255, 0.18) 96%),
     linear-gradient(90deg, transparent 95%, rgba(54, 212, 255, 0.18) 96%),
+    radial-gradient(ellipse 18% 22% at 26% 40%, rgba(138, 169, 191, 0.32), transparent 70%),
+    radial-gradient(ellipse 12% 20% at 50% 46%, rgba(138, 169, 191, 0.3), transparent 70%),
+    radial-gradient(ellipse 20% 23% at 72% 42%, rgba(138, 169, 191, 0.3), transparent 72%),
     radial-gradient(circle at 30% 40%, rgba(2, 255, 129, 0.2), transparent 35%),
     #0a131b;
-  background-size: 26px 26px, 26px 26px, auto, auto;
+  background-size: 26px 26px, 26px 26px, auto, auto, auto, auto;
   position: relative;
+  overflow: hidden;
 }
 
 .mapOverlay {
@@ -86,6 +90,19 @@
   color: #9bc9df;
   background: rgba(7, 13, 20, 0.85);
 }
+
+.hotspot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #02ff81;
+  box-shadow: 0 0 0 6px rgba(2, 255, 129, 0.14);
+}
+
+.hotspotOne { top: 28%; left: 57%; }
+.hotspotTwo { top: 45%; left: 32%; }
+.hotspotThree { top: 58%; left: 67%; }
 
 .marketPills {
   margin: 0 10px;
@@ -141,12 +158,51 @@
 }
 
 .logRow {
+  display: grid;
+  grid-template-columns: 70px 58px 1fr;
+  align-items: start;
+  gap: 8px;
   border-left: 2px solid #36d4ff;
   background: #101c28;
   padding: 8px 8px 8px 10px;
   font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
   font-size: 12px;
   color: #b4cbdd;
+}
+
+.logAt {
+  color: #85a0b3;
+}
+
+.logLevel {
+  display: inline-block;
+  border: 1px solid #33526a;
+  padding: 2px 6px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.logINFO {
+  color: #8bc3e0;
+}
+
+.logALERT {
+  color: #f9c262;
+  border-color: #886534;
+}
+
+.logEXEC {
+  color: #8ef4bc;
+  border-color: #2f6e57;
+}
+
+.logFAIL {
+  color: #ff8f9a;
+  border-color: #7c3c45;
+}
+
+.logText {
+  line-height: 1.45;
 }
 
 .consoleBody {
@@ -164,6 +220,22 @@
 
 .state span {
   color: #98aec0;
+}
+
+.intel {
+  margin-top: 8px;
+  border: 1px solid #4a3b67;
+  background: rgba(76, 53, 112, 0.22);
+  color: #b8a8df;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.intel strong {
+  color: #cfbeff;
+  letter-spacing: 0.06em;
 }
 
 .bias {

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { DEMO_MARKETS, EVENT_LOG } from '../data';
+import { DEMO_MARKETS, EVENT_ENTRIES } from '../data';
 import styles from './style.module.css';
 
 export default function NoradLabPage() {
@@ -29,6 +29,9 @@ export default function NoradLabPage() {
           <div className={styles.sectionTitle}>SITUATION BOARD</div>
           <div className={styles.mapCard}>
             <div className={styles.mapOverlay}>GLOBAL STRESS MAP</div>
+            <span className={`${styles.hotspot} ${styles.hotspotOne}`} />
+            <span className={`${styles.hotspot} ${styles.hotspotTwo}`} />
+            <span className={`${styles.hotspot} ${styles.hotspotThree}`} />
           </div>
           <div className={styles.marketPills}>
             {DEMO_MARKETS.map((m) => (
@@ -54,9 +57,11 @@ export default function NoradLabPage() {
         <section className={styles.log}>
           <div className={styles.sectionTitle}>EVENT LOG</div>
           <div className={styles.logList}>
-            {EVENT_LOG.map((line) => (
-              <div key={line} className={styles.logRow}>
-                {line}
+            {EVENT_ENTRIES.map((entry) => (
+              <div key={`${entry.at}-${entry.text}`} className={styles.logRow}>
+                <span className={styles.logAt}>{entry.at}</span>
+                <span className={`${styles.logLevel} ${styles[`log${entry.level}`]}`}>{entry.level}</span>
+                <span className={styles.logText}>{entry.text}</span>
               </div>
             ))}
           </div>
@@ -68,6 +73,10 @@ export default function NoradLabPage() {
             <div className={styles.state}>
               {armed ? 'THESIS ARMED' : 'STANDBY'}
               <span>{market.regime}</span>
+            </div>
+            <div className={styles.intel}>
+              <span>INTEL CHANNEL</span>
+              <strong>SIGMA-PURPLE</strong>
             </div>
             <div className={styles.bias}>
               <button onClick={() => setSide('LONG BIAS')} className={side === 'LONG BIAS' ? styles.biasActive : ''}>
@@ -104,6 +113,7 @@ export default function NoradLabPage() {
       <div className={styles.footerRail}>
         <span>STATUS: {armed ? 'ARMED' : 'IDLE'}</span>
         <span>BIAS: {side}</span>
+        <span>INTEL: SIGMA-PURPLE</span>
         <span>DATA FRESHNESS: 00:00:03</span>
       </div>
     </main>

@@ -8,6 +8,7 @@ Use this section to compare:
 - [System A: DOS/Norton](/design-systems/dos-norton-system)
 - [System B: Bloomberg](/design-systems/bloomberg-system)
 - [System C: NORAD](/design-systems/norad-system)
+- [NORAD iteration brief](/design-systems/norad-iteration-brief)
 
 ## Output expectation
 

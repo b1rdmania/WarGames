@@ -10,6 +10,12 @@ export type DemoMarket = {
   spreadBps: number;
 };
 
+export type DemoEvent = {
+  at: string;
+  level: 'INFO' | 'ALERT' | 'EXEC' | 'FAIL';
+  text: string;
+};
+
 export const DEMO_MARKETS: DemoMarket[] = [
   {
     id: 'taiwan-semiconductor-shock',
@@ -76,4 +82,14 @@ export const EVENT_LOG = [
   '18:43:21  POSITION LIVE  Ticket WM-8831',
   '18:44:05  RISK ALERT     Spread widened on OIL-SHK',
   '18:44:12  HEARTBEAT OK   All systems nominal',
+];
+
+export const EVENT_ENTRIES: DemoEvent[] = [
+  { at: '18:42:11', level: 'INFO', text: 'Feed online. 24 markets synchronized.' },
+  { at: '18:43:02', level: 'INFO', text: 'Operator session authenticated.' },
+  { at: '18:43:14', level: 'EXEC', text: 'Thesis armed on AI-INF / YES / $25.' },
+  { at: '18:43:18', level: 'EXEC', text: 'Order accepted by venue in 41ms.' },
+  { at: '18:43:21', level: 'EXEC', text: 'Position live. Ticket WM-8831.' },
+  { at: '18:44:05', level: 'ALERT', text: 'Spread widened on OIL-SHK.' },
+  { at: '18:44:12', level: 'INFO', text: 'Heartbeat normal across centers.' },
 ];

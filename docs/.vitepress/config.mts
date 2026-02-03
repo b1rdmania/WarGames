@@ -57,6 +57,7 @@ export default defineConfig({
             { text: 'DOS/Norton system', link: '/design-systems/dos-norton-system' },
             { text: 'Bloomberg system', link: '/design-systems/bloomberg-system' },
             { text: 'NORAD system', link: '/design-systems/norad-system' },
+            { text: 'NORAD iteration brief', link: '/design-systems/norad-iteration-brief' },
             { text: 'Assets', link: '/brand/assets' },
             { text: 'Icons', link: '/brand/icons' },
           ]
