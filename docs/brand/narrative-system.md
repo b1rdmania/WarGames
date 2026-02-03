@@ -91,6 +91,16 @@ Terse. Cold-blooded. Precise.
 - Emoji in product copy
 - Vague aspiration language
 
+### Warmth guardrail
+Do not confuse precision with hostility. Keep at least one human line per key page, for example:
+- "You are in control."
+- "Review risk before you execute."
+
+### Partner mode (decks/GTM)
+Use the same core message with less combat language for non-degen audiences:
+- Product mode: "Trade the tension."
+- Partner mode: "Express macro conviction with clear execution."
+
 ---
 
 ## Terminal lexicon
@@ -99,9 +109,12 @@ Use these terms consistently across product, docs, and deck:
 
 - **thesis**: the market narrative being expressed
 - **position**: active directional exposure
+- **arm**: prepare a position before execution
 - **execute**: send trade
 - **settle**: close and realize P&L
-- **risk regime**: current market stress profile
+- **unwind**: reduce or fully close exposure
+- **regime**: current market state
+- **risk regime**: stress profile used for risk framing
 - **operator**: the user acting with intent
 
 ---
@@ -125,6 +138,25 @@ Use these terms consistently across product, docs, and deck:
 - State transitions should inform, never distract
 - Respect `prefers-reduced-motion`
 
+### Accessibility commitments
+- All text and critical UI states meet **WCAG AA** contrast
+- All interactive controls expose a visible keyboard focus state
+- No information conveyed by color alone
+- Labels and status states are screen-reader friendly
+
+### Mobile commitments
+- Collapse dense tables into stacked cards on small screens
+- Maintain minimum **44px** tap targets
+- Keep primary action pinned or always visible in viewport
+- Preserve hierarchy with spacing and type scale, not effects
+
+### Visual don'ts
+- No decorative gradients that dilute signal hierarchy
+- No novelty icons that do not encode meaning
+- No rounded-everything UI that erases terminal character
+- No pastel accent palette drift away from signal lime
+- No stacked overlays that hurt performance on mobile
+
 ---
 
 ## Messaging architecture (site-wide)
@@ -141,8 +173,20 @@ From thesis to position in one clear action.
 - Position tracking
 - Risk framing
 
+### Skeptic response
+"Can I trust this?" → "See the execution path, position state, and risk context in one view."
+
+### Cold open (social)
+"Macro stress is tradable."
+
 ### Conversion
 Open terminal. Pick a side. Execute.
+
+### CTA by surface
+- Landing: **Open terminal**
+- Trade: **Arm thesis** / **Execute position**
+- Portfolio: **Review risk** / **Unwind position**
+- Partner deck: **See execution model**
 
 ---
 
@@ -155,12 +199,21 @@ Before shipping any page:
 - Are we showing evidence of execution, not just promise?
 - Is the copy terse and operator-focused?
 - Is this still readable and tappable on mobile?
+- Does this page meet contrast and focus-state commitments?
 
 ---
 
-## Tagline set (working)
+## Tagline set (finalists)
 
+Primary candidates:
 - **Trade the tension.**
-- **Conviction in. Position out.**
 - **War-room signal. Execution clarity.**
+
+Secondary candidates:
+- **Conviction in. Position out.**
 - **One thesis. One click. One position.**
+
+Test primary candidates in:
+- X launch post
+- Hero headline A/B
+- Deck title slide
