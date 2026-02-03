@@ -23,6 +23,16 @@ function compactCoins(list?: Array<{ coin?: string; asset?: string }>, max = 3):
   return `${coins.slice(0, max).join('+')}+${coins.length - max}`;
 }
 
+function StatBlock({ label, value, accent }: { label: string; value: string; accent?: 'profit' | 'loss' }) {
+  const valueColor = accent === 'profit' ? 'text-profit' : accent === 'loss' ? 'text-loss' : 'text-text-primary';
+  return (
+    <div className="bg-bg-surface/60 rounded-md px-3 py-2.5">
+      <div className="text-[11px] uppercase tracking-wide text-text-muted mb-1">{label}</div>
+      <div className={`text-sm font-medium font-mono ${valueColor}`}>{value}</div>
+    </div>
+  );
+}
+
 export function PositionCard({
   position,
   accessToken,
@@ -33,6 +43,8 @@ export function PositionCard({
   onClose: () => void;
 }) {
   const [closing, setClosing] = useState(false);
+  const [showComposition, setShowComposition] = useState(false);
+
   const pnl = Number(position.pnl);
   const pnlPercent = Number(position.pnlPercent);
   const isProfitable = pnl >= 0;
@@ -41,9 +53,7 @@ export function PositionCard({
   const actualLong = compactCoins(position.longAssets as any) ?? cleanCoin(position.longAsset) ?? '—';
   const actualShort = compactCoins(position.shortAssets as any) ?? cleanCoin(position.shortAsset) ?? '—';
   const market = position.marketId && position.marketId !== 'unknown' ? getMarketById(position.marketId) : undefined;
-  const displayName = market?.name || (actualLong !== '—' && actualShort !== '—' ? `${actualLong}/${actualShort}` : 'POSITION');
-  const displayDescription =
-    market?.description || `Long ${actualLong} vs Short ${actualShort}`;
+  const displayName = market?.name || (actualLong !== '—' && actualShort !== '—' ? `${actualLong}/${actualShort}` : 'Position');
 
   // Performance indicators
   const entryPrice = Number(position.entryPrice);
@@ -52,152 +62,132 @@ export function PositionCard({
   const timeInPosition = position.timestamp
     ? Math.floor((Date.now() - position.timestamp) / (1000 * 60 * 60 * 24))
     : 0;
-  const timeDisplay = timeInPosition === 0 ? 'Today' : `${timeInPosition}d ago`;
+  const timeDisplay = timeInPosition === 0 ? 'Today' : `${timeInPosition}d`;
+
+  const hasBasketComposition = position.longAssets && position.longAssets.length > 1;
 
   return (
-    <div className="pear-border bg-black/40 p-6">
-      <div className="flex items-start justify-between mb-5">
-        <div className="flex-1">
-          <div className="text-sm font-mono text-pear-lime mb-2">[ POSITION ]</div>
-          <div className="text-lg font-mono text-white mb-1">{displayName}</div>
-          <div className="text-xs font-mono text-gray-500 mb-3">{displayDescription}</div>
-          <div className="flex items-center gap-3">
-            <span className="text-[10px] font-mono px-3 py-1 border tracking-widest uppercase bg-black/20 border-[rgba(2,255,129,0.18)] text-gray-300">
-              BET:
-              <span className="ml-2 text-pear-lime">LONG</span> <span className="text-white">{actualLong}</span>
-              <span className="mx-2 text-gray-600">/</span>
-              <span className="text-red-300">SHORT</span> <span className="text-white">{actualShort}</span>
-            </span>
+    <div className="tm-box">
+      {/* Header: Name + P&L */}
+      <div className="flex items-start justify-between gap-4 mb-4">
+        <div className="flex-1 min-w-0">
+          <div className="text-base font-semibold text-text-primary truncate">{displayName}</div>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="text-profit text-xs">{actualLong}</span>
+            <span className="text-text-muted text-xs">vs</span>
+            <span className="text-loss text-xs">{actualShort}</span>
           </div>
         </div>
-
-        <div className="text-right pear-border bg-black/20 px-4 py-2">
-          <div className={`text-xl font-mono ${isProfitable ? 'text-pear-lime' : 'text-red-400'}`}>
+        <div className={`text-right px-3 py-1.5 rounded-md ${isProfitable ? 'bg-profit/10' : 'bg-loss/10'}`}>
+          <div className={`text-lg font-semibold font-mono ${isProfitable ? 'text-profit' : 'text-loss'}`}>
             {isProfitable ? '+' : ''}${pnl.toFixed(2)}
           </div>
-          <div className={`text-xs font-mono ${isProfitable ? 'text-pear-lime/80' : 'text-red-400/80'}`}>
+          <div className={`text-[11px] font-mono ${isProfitable ? 'text-profit/80' : 'text-loss/80'}`}>
             {isProfitable ? '+' : ''}{pnlPercent.toFixed(2)}%
           </div>
         </div>
       </div>
 
-      {/* Details */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="tm-box">
-          <div className="tm-k mb-2">Position Size</div>
-          <div className="tm-v">${Number(position.size).toFixed(2)}</div>
-        </div>
-        <div className="tm-box">
-          <div className="tm-k mb-2">Entry Price</div>
-          <div className="tm-v">{Number(position.entryPrice).toFixed(4)}</div>
-        </div>
+      {/* Stats Row */}
+      <div className="grid grid-cols-3 gap-2 mb-4">
+        <StatBlock label="Size" value={`$${Number(position.size).toFixed(2)}`} />
+        <StatBlock label="Entry" value={entryPrice.toFixed(4)} />
+        <StatBlock
+          label="Change"
+          value={`${priceChange >= 0 ? '+' : ''}${priceChange.toFixed(2)}%`}
+          accent={priceChange >= 0 ? 'profit' : 'loss'}
+        />
       </div>
-
-      {/* Basket Composition (for multi-asset positions) */}
-      {position.longAssets && position.longAssets.length > 1 && (
-        <div className="mb-4 tm-box">
-          <div className="text-xs font-mono text-gray-300 mb-3">[ BASKET COMPOSITION ]</div>
-
-          {/* Long Side */}
-          <div className="mb-4">
-            <div className="text-xs font-mono text-pear-lime mb-2">
-              {position.side === 'long' ? '↑ Long Side (Your Bet)' : '↓ Short Side (Hedging)'}
-            </div>
-            <div className="space-y-2">
-              {position.longAssets.map((asset, idx) => (
-                <div key={idx} className="flex items-center justify-between text-xs font-mono">
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-400">•</span>
-                    <span className="text-white font-bold">{asset.coin}</span>
-                    <span className="text-gray-500">{(asset.size / position.longAssets!.reduce((sum, a) => sum + a.size, 0) * 100).toFixed(1)}%</span>
-                  </div>
-                  <div className="text-gray-400">
-                    ${asset.size.toFixed(2)} @ ${asset.entryPrice.toFixed(2)}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Short Side */}
-          {position.shortAssets && position.shortAssets.length > 0 && (
-            <div>
-              <div className="text-xs font-mono text-red-400 mb-2">
-                {position.side === 'long' ? '↓ Short Side (Hedging)' : '↑ Long Side (Your Bet)'}
-              </div>
-              <div className="space-y-2">
-                {position.shortAssets.map((asset, idx) => (
-                  <div key={idx} className="flex items-center justify-between text-xs font-mono">
-                    <div className="flex items-center gap-2">
-                      <span className="text-gray-400">•</span>
-                      <span className="text-white font-bold">{asset.coin}</span>
-                      <span className="text-gray-500">{(asset.size / position.shortAssets!.reduce((sum, a) => sum + a.size, 0) * 100).toFixed(1)}%</span>
-                    </div>
-                    <div className="text-gray-400">
-                      ${asset.size.toFixed(2)} @ ${asset.entryPrice.toFixed(2)}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
 
       {/* Risk Parameters (if set) */}
       {(position.marginUsed || position.stopLoss || position.takeProfit) && (
-        <div className="grid grid-cols-3 gap-3 mb-4">
+        <div className="grid grid-cols-3 gap-2 mb-4">
           {position.marginUsed && (
-            <div className="tm-box">
-              <div className="tm-k mb-1">Margin</div>
-              <div className="tm-v">${Number(position.marginUsed).toFixed(2)}</div>
-            </div>
+            <StatBlock label="Margin" value={`$${Number(position.marginUsed).toFixed(2)}`} />
           )}
           {position.stopLoss && (
-            <div className="bg-red-500/10 p-3 border border-red-400/30">
-              <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-1">Stop Loss</div>
-              <div className="text-sm text-red-400 font-mono">
-                {position.stopLoss.type === 'PERCENTAGE' ? `${position.stopLoss.value}%` : `$${position.stopLoss.value}`}
-              </div>
-            </div>
+            <StatBlock
+              label="Stop Loss"
+              value={position.stopLoss.type === 'PERCENTAGE' ? `${position.stopLoss.value}%` : `$${position.stopLoss.value}`}
+              accent="loss"
+            />
           )}
           {position.takeProfit && (
-            <div className="tm-box">
-              <div className="tm-k mb-1">Take Profit</div>
-              <div className="tm-v text-pear-lime">
-                {position.takeProfit.type === 'PERCENTAGE' ? `${position.takeProfit.value}%` : `$${position.takeProfit.value}`}
+            <StatBlock
+              label="Take Profit"
+              value={position.takeProfit.type === 'PERCENTAGE' ? `${position.takeProfit.value}%` : `$${position.takeProfit.value}`}
+              accent="profit"
+            />
+          )}
+        </div>
+      )}
+
+      {/* Basket Composition (collapsible) */}
+      {hasBasketComposition && (
+        <div className="mb-4">
+          <button
+            type="button"
+            onClick={() => setShowComposition(!showComposition)}
+            className="text-[11px] text-text-muted hover:text-text-secondary transition-colors"
+          >
+            {showComposition ? '▾ Hide composition' : '▸ Show composition'}
+          </button>
+          {showComposition && (
+            <div className="mt-3 bg-bg-surface/40 rounded-md p-3 space-y-3">
+              {/* Long Side */}
+              <div>
+                <div className="text-[11px] uppercase tracking-wide text-profit mb-2">Long</div>
+                <div className="space-y-1">
+                  {position.longAssets!.map((asset, idx) => (
+                    <div key={idx} className="flex items-center justify-between text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="text-text-primary font-medium">{asset.coin}</span>
+                        <span className="text-text-muted">
+                          {(asset.size / position.longAssets!.reduce((sum, a) => sum + a.size, 0) * 100).toFixed(0)}%
+                        </span>
+                      </div>
+                      <span className="text-text-muted font-mono">${asset.size.toFixed(2)}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
+
+              {/* Short Side */}
+              {position.shortAssets && position.shortAssets.length > 0 && (
+                <div className="border-t border-border-subtle pt-3">
+                  <div className="text-[11px] uppercase tracking-wide text-loss mb-2">Short</div>
+                  <div className="space-y-1">
+                    {position.shortAssets.map((asset, idx) => (
+                      <div key={idx} className="flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-2">
+                          <span className="text-text-primary font-medium">{asset.coin}</span>
+                          <span className="text-text-muted">
+                            {(asset.size / position.shortAssets!.reduce((sum, a) => sum + a.size, 0) * 100).toFixed(0)}%
+                          </span>
+                        </div>
+                        <span className="text-text-muted font-mono">${asset.size.toFixed(2)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
       )}
 
-      {/* Performance Indicators */}
-      <div className="flex items-center justify-between text-xs font-mono text-gray-500 mb-4 px-1">
-        <div className="flex items-center gap-6">
-          <span>
-            Ratio moved{' '}
-            <span className={priceChange >= 0 ? 'text-pear-lime' : 'text-red-400'}>
-            {priceChange >= 0 ? '+' : ''}{priceChange.toFixed(2)}%
-            </span>
-          </span>
-          <span className="text-gray-600">·</span>
-          <span>Opened {timeDisplay}</span>
-        </div>
-        <div className="text-gray-500">
-          Current: {currentPrice.toFixed(4)}
-        </div>
+      {/* Meta line */}
+      <div className="flex items-center justify-between text-[11px] text-text-muted mb-4 border-t border-border-subtle pt-3">
+        <span>Opened {timeDisplay}</span>
+        <a
+          href="https://app.pear.garden/dashboard"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary hover:underline"
+        >
+          View on Pear ↗
+        </a>
       </div>
-
-      {/* View on Pear Protocol */}
-      <a
-        href="https://app.pear.garden/dashboard"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block text-center text-xs font-mono text-pear-lime visited:text-pear-lime hover:text-pear-lime-light hover:underline mb-4 transition-colors"
-      >
-        View on Pear Dashboard ↗
-      </a>
 
       {/* Close button */}
       <button
@@ -205,11 +195,11 @@ export function PositionCard({
           setClosing(true);
           try {
             await closePosition(accessToken, position.id);
-            toast.success('Position closed!');
+            toast.success('Position closed');
             onClose();
           } catch (e) {
             console.error(e);
-            toast.error((e as Error).message || 'Failed to close position');
+            toast.error((e as Error).message || 'Failed to close');
           } finally {
             setClosing(false);
           }
