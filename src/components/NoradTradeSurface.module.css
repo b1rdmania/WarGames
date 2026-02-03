@@ -16,6 +16,12 @@
   border: 1px solid var(--norad-grid);
 }
 
+.console {
+  position: sticky;
+  top: 82px;
+  align-self: start;
+}
+
 .sectionTitle {
   border-bottom: 1px solid var(--norad-grid);
   padding: 10px 12px;
@@ -99,6 +105,16 @@
     "legs legs legs";
   gap: 6px 10px;
   text-align: left;
+  transition: border-color 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.marketRow:hover {
+  background: #14212d;
+}
+
+.marketRow:focus-visible {
+  outline: 2px solid var(--norad-signal);
+  outline-offset: 2px;
 }
 
 .marketRowActive {
@@ -191,7 +207,7 @@
 }
 
 .logText {
-  color: #bad0df;
+  color: #d0e0ec;
   font-size: 12px;
   line-height: 1.45;
 }
@@ -224,6 +240,17 @@
   font-family: var(--font-mono);
   font-size: 12px;
   letter-spacing: 0.06em;
+  min-height: 44px;
+  transition: border-color 120ms ease, color 120ms ease, background-color 120ms ease;
+}
+
+.quickBias button:hover {
+  border-color: #4a6c83;
+}
+
+.quickBias button:focus-visible {
+  outline: 2px solid var(--norad-signal);
+  outline-offset: 2px;
 }
 
 .quickBiasActive {
@@ -236,6 +263,15 @@
   border-color: #2b4a60;
   border-top-color: var(--norad-signal);
   background: #0f1923;
+}
+
+.console :global(.tm-btn:focus-visible),
+.console :global(button:focus-visible),
+.console :global(a:focus-visible),
+.console :global(input:focus-visible) {
+  outline: 2px solid var(--norad-signal);
+  outline-offset: 2px;
+  box-shadow: none;
 }
 
 .rail {
@@ -253,6 +289,10 @@
 @media (max-width: 1160px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .console {
+    position: static;
   }
 
   .rail {

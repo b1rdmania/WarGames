@@ -140,7 +140,7 @@ export function NoradTradeSurface({
       <div className={styles.grid}>
         <div className={styles.board}>
           <div className={styles.sectionTitle}>Situation Board</div>
-          <div className={styles.map}>
+          <div className={styles.map} aria-label="Global stress map">
             <div className={styles.mapLabel}>Global stress map</div>
             <span className={`${styles.hotspot} ${styles.hotspotOne}`} />
             <span className={`${styles.hotspot} ${styles.hotspotTwo}`} />
@@ -196,7 +196,7 @@ export function NoradTradeSurface({
         <div className={styles.console}>
           <div className={styles.sectionTitle}>Mission Console</div>
           <div className={styles.consoleMeta}>
-            <span>{selectedSide ? 'THESIS ARMED' : 'STANDBY'}</span>
+            <span>{selectedSide ? 'MODE: ARMED' : 'MODE: STANDBY'}</span>
             <span>INTEL: SIGMA-PURPLE</span>
           </div>
           <div className={styles.quickBias}>
@@ -244,7 +244,7 @@ export function NoradTradeSurface({
       </div>
 
       <div className={styles.rail}>
-        <span>STATUS: {selectedSide ? 'ARMED' : 'IDLE'}</span>
+        <span>STATUS: {selectedSide ? 'ARMED' : 'STANDBY'}</span>
         <span>OPERATOR: {addressLabel}</span>
         <span>MARKET: {selectedMarket ? marketCode(selectedMarket.id) : 'NONE'}</span>
         <span>DATA AGE: {String(dataAgeSeconds).padStart(2, '0')}s</span>
