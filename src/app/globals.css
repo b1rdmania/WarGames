@@ -418,6 +418,11 @@ h1, h2, h3 {
   cursor: not-allowed;
 }
 
+.tm-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--amber-rgb), 0.4);
+}
+
 .tm-btn-primary {
   background: var(--amber);
   border-color: var(--amber);
@@ -585,4 +590,63 @@ html option {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--amber);
+}
+
+/* ==========================================================================
+   Focus States (Accessibility)
+   ========================================================================== */
+
+/* Global focus-visible for interactive elements */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Remove default outline since we're using custom focus styles */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Links get underline + color change on focus */
+a:focus-visible {
+  outline: none;
+  text-decoration: underline;
+  text-decoration-color: var(--amber);
+  text-underline-offset: 4px;
+}
+
+/* Buttons get ring on focus */
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--amber-rgb), 0.4);
+}
+
+/* ==========================================================================
+   Reduced Motion (Accessibility)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Hide autoplay videos for reduced-motion users */
+  video[autoplay] {
+    display: none;
+  }
 }

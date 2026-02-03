@@ -20,6 +20,13 @@
   color: var(--text-primary, #e8e6ed);
 }
 
+.link:focus-visible {
+  outline: none;
+  color: var(--amber, #f97316);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .active {
   color: var(--amber, #f97316);
 }

@@ -177,6 +177,11 @@
   transform: translateY(-1px);
 }
 
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.4);
+}
+
 .poweredBy {
   font-size: 13px;
   color: var(--rm-text-muted);
@@ -315,5 +320,49 @@
 
   .scrollIndicator {
     bottom: 32px;
+  }
+
+  .ctaSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .btnSecondary {
+    margin-left: 0;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion (Accessibility)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Stop all animations */
+  .scrollIndicator,
+  .scrollIndicatorArrow {
+    animation: none;
+  }
+
+  /* Show static arrow instead of bouncing */
+  .scrollIndicatorArrow {
+    transform: rotate(45deg);
+  }
+
+  /* Hide video, show fallback */
+  .heroVideo {
+    display: none;
+  }
+
+  .videoFallback {
+    background: linear-gradient(135deg, var(--rm-dark-bg) 0%, var(--rm-dark-panel) 100%);
+  }
+
+  /* Remove hover transforms */
+  .btn:hover,
+  .btnPrimary:hover,
+  .btnSecondary:hover {
+    transform: none;
   }
 }
