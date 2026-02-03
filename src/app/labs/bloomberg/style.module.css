@@ -1,0 +1,199 @@
+.page {
+  min-height: 100vh;
+  background: #0e1116;
+  color: #e4e7eb;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  padding: 14px;
+}
+
+.topStrip,
+.commandLine,
+.blotter {
+  border: 1px solid #2a2f37;
+  background: #12161d;
+  padding: 10px 12px;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+.topStrip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  color: #9fc8ff;
+}
+
+.back {
+  color: #f59e0b;
+  text-decoration: none;
+  justify-self: end;
+}
+
+.commandLine {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  color: #b7bec8;
+}
+
+.prompt {
+  color: #f59e0b;
+  font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+}
+
+.layout {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 8px;
+}
+
+.board,
+.ticket {
+  border: 1px solid #2a2f37;
+  background: #12161d;
+}
+
+.boardTitle,
+.ticketTitle {
+  padding: 10px 12px;
+  border-bottom: 1px solid #2a2f37;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #f59e0b;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table th {
+  color: #98a1ad;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid #2a2f37;
+  padding: 10px;
+  text-align: left;
+}
+
+.table td {
+  padding: 11px 10px;
+  border-bottom: 1px solid #21262e;
+  cursor: pointer;
+}
+
+.table tbody tr:hover {
+  background: #1a2028;
+}
+
+.rowActive {
+  background: #1d2632;
+  box-shadow: inset 3px 0 0 #38bdf8;
+}
+
+.ticket {
+  padding-bottom: 12px;
+}
+
+.marketName {
+  padding: 12px;
+  font-weight: 600;
+}
+
+.legs {
+  margin: 0 12px;
+  border: 1px solid #2a2f37;
+}
+
+.legs > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 10px;
+  font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+}
+
+.legs > div + div {
+  border-top: 1px solid #2a2f37;
+}
+
+.legs span {
+  color: #9ba3af;
+}
+
+.toggle {
+  margin: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.toggle button,
+.execute {
+  border: 1px solid #2a2f37;
+  background: #171c24;
+  color: #d7dde5;
+  padding: 10px;
+  font: inherit;
+  font-size: 13px;
+}
+
+.buyActive {
+  background: #102a1f !important;
+  border-color: #22c55e !important;
+  color: #89e4af !important;
+}
+
+.sellActive {
+  background: #2a171a !important;
+  border-color: #ef4444 !important;
+  color: #f7a3a3 !important;
+}
+
+.size {
+  margin: 0 12px;
+  border: 1px solid #2a2f37;
+  padding: 10px;
+  color: #d2d8e0;
+  font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+}
+
+.execute {
+  margin: 10px 12px 0;
+  width: calc(100% - 24px);
+  background: #f59e0b;
+  border-color: #f59e0b;
+  color: #111316;
+  font-weight: 600;
+}
+
+.risk {
+  margin: 8px 12px 0;
+  color: #9da5b0;
+  font-size: 12px;
+}
+
+.blotter {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  color: #aeb6c2;
+}
+
+@media (max-width: 980px) {
+  .topStrip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .blotter {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

@@ -1,0 +1,257 @@
+.page {
+  min-height: 100vh;
+  background: #070d14;
+  color: #d8e6f1;
+  padding: 14px;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+.header,
+.footerRail {
+  border: 1px solid #234055;
+  background: #0e1822;
+  padding: 10px 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.title {
+  color: #36d4ff;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 12px;
+}
+
+.headerRight {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  color: #97aec2;
+  font-size: 12px;
+}
+
+.back {
+  color: #02ff81;
+  text-decoration: none;
+}
+
+.grid {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.8fr;
+  gap: 8px;
+}
+
+.board,
+.log,
+.console {
+  border: 1px solid #234055;
+  background: #0e1822;
+}
+
+.sectionTitle {
+  border-bottom: 1px solid #234055;
+  padding: 10px 12px;
+  color: #36d4ff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+}
+
+.mapCard {
+  margin: 10px;
+  border: 1px solid #2b4a60;
+  min-height: 190px;
+  background:
+    linear-gradient(transparent 95%, rgba(54, 212, 255, 0.18) 96%),
+    linear-gradient(90deg, transparent 95%, rgba(54, 212, 255, 0.18) 96%),
+    radial-gradient(circle at 30% 40%, rgba(2, 255, 129, 0.2), transparent 35%),
+    #0a131b;
+  background-size: 26px 26px, 26px 26px, auto, auto;
+  position: relative;
+}
+
+.mapOverlay {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  border: 1px solid #2b4a60;
+  padding: 6px 8px;
+  font-size: 11px;
+  color: #9bc9df;
+  background: rgba(7, 13, 20, 0.85);
+}
+
+.marketPills {
+  margin: 0 10px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pill {
+  border: 1px solid #2b4a60;
+  background: #0d151d;
+  color: #a8c1d3;
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+.pillActive {
+  color: #062015;
+  background: #02ff81;
+  border-color: #02ff81;
+}
+
+.thesisCard {
+  margin: 10px;
+  border: 1px solid #2b4a60;
+  padding: 10px;
+}
+
+.thesisTitle {
+  font-weight: 600;
+  color: #f0f7fd;
+}
+
+.thesisCard p {
+  margin: 8px 0 0;
+  color: #a3bccf;
+  line-height: 1.55;
+}
+
+.pairs {
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+  font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  color: #b8d6e9;
+  font-size: 12px;
+}
+
+.logList {
+  padding: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.logRow {
+  border-left: 2px solid #36d4ff;
+  background: #101c28;
+  padding: 8px 8px 8px 10px;
+  font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  color: #b4cbdd;
+}
+
+.consoleBody {
+  padding: 10px;
+}
+
+.state {
+  border: 1px solid #2b4a60;
+  padding: 8px;
+  color: #02ff81;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.state span {
+  color: #98aec0;
+}
+
+.bias {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.bias button,
+.armButton,
+.execute {
+  border: 1px solid #2b4a60;
+  background: #0d151d;
+  color: #bfd5e5;
+  padding: 10px;
+  font: inherit;
+  font-size: 13px;
+}
+
+.biasActive {
+  border-color: #36d4ff !important;
+  color: #36d4ff !important;
+}
+
+.armButton {
+  margin-top: 8px;
+  width: 100%;
+}
+
+.execute {
+  margin-top: 8px;
+  width: 100%;
+  border-color: #02ff81;
+  color: #062015;
+  background: #02ff81;
+  font-weight: 600;
+}
+
+.execute:disabled {
+  opacity: 0.45;
+  background: #101a22;
+  color: #95a9b8;
+  border-color: #2b4a60;
+}
+
+.miniStats {
+  margin-top: 10px;
+  border: 1px solid #2b4a60;
+}
+
+.miniStats > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 9px;
+  font-size: 12px;
+}
+
+.miniStats > div + div {
+  border-top: 1px solid #2b4a60;
+}
+
+.miniStats span {
+  color: #99afc0;
+}
+
+.miniStats strong {
+  color: #e4eff8;
+  font-weight: 500;
+}
+
+.footerRail {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  color: #9cb5c7;
+  font-size: 12px;
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footerRail,
+  .headerRight {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}

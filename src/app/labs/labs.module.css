@@ -1,0 +1,67 @@
+.page {
+  min-height: 100vh;
+  background: #0d0f12;
+  color: #e6e8eb;
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+.title {
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.lede {
+  margin-top: 14px;
+  max-width: 740px;
+  color: #a0a6b0;
+  line-height: 1.6;
+}
+
+.grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: block;
+  border: 1px solid #2b313a;
+  border-top: 3px solid #02ff81;
+  background: #13171d;
+  padding: 18px;
+  text-decoration: none;
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #f3f5f7;
+}
+
+.cardText {
+  margin-top: 8px;
+  color: #99a1ac;
+  line-height: 1.5;
+}
+
+.cardCta {
+  margin-top: 14px;
+  color: #02ff81;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 880px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

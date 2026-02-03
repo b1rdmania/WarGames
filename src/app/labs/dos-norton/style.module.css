@@ -1,0 +1,213 @@
+.page {
+  min-height: 100vh;
+  background: #080a0c;
+  color: #d7dbde;
+  font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+  padding: 12px;
+}
+
+.header,
+.menu,
+.commandBar,
+.statusBar {
+  border: 1px solid #1f3e2f;
+  padding: 8px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #02ff81;
+}
+
+.back {
+  color: #d7dbde;
+  text-decoration: none;
+}
+
+.menu {
+  margin-top: 8px;
+  color: #9bb7a9;
+}
+
+.shell {
+  margin-top: 8px;
+  border: 1px solid #1f3e2f;
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  min-height: 62vh;
+}
+
+.pane {
+  padding: 12px;
+  border-right: 1px solid #1f3e2f;
+}
+
+.pane:last-child {
+  border-right: none;
+}
+
+.paneTitle {
+  color: #02ff81;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.marketList {
+  display: grid;
+  gap: 6px;
+}
+
+.marketRow {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #1f3e2f;
+  background: #0d1210;
+  color: #a2aba6;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.marketRowActive {
+  color: #08110d;
+  background: #02ff81;
+  border-color: #02ff81;
+}
+
+.title {
+  color: #f2f5f4;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+}
+
+.thesis {
+  margin-top: 10px;
+  color: #a8b4af;
+  line-height: 1.5;
+  max-width: 62ch;
+}
+
+.kv {
+  margin-top: 16px;
+  border-top: 1px solid #1f3e2f;
+}
+
+.kv > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 0;
+  border-bottom: 1px solid #1f3e2f;
+  font-size: 12px;
+}
+
+.kv span {
+  color: #90a59a;
+}
+
+.kv strong {
+  color: #dfe9e4;
+  font-weight: 500;
+}
+
+.segment,
+.sizeRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.sizeRow {
+  margin-top: 8px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.segment button,
+.sizeRow button,
+.action,
+.actionPrimary {
+  border: 1px solid #1f3e2f;
+  background: #0d1210;
+  color: #c2cbc7;
+  padding: 10px;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+}
+
+.segmentActive {
+  background: #02ff81 !important;
+  border-color: #02ff81 !important;
+  color: #08110d !important;
+}
+
+.action {
+  margin-top: 12px;
+  width: 100%;
+}
+
+.actionPrimary {
+  margin-top: 8px;
+  width: 100%;
+  border-color: #02ff81;
+  color: #02ff81;
+}
+
+.note {
+  margin-top: 10px;
+  color: #8da294;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.commandBar {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.commandBar span {
+  color: #08110d;
+  background: #02ff81;
+  padding: 6px;
+  text-align: center;
+}
+
+.statusBar {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  color: #02ff81;
+}
+
+@media (max-width: 980px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .pane {
+    border-right: none;
+    border-bottom: 1px solid #1f3e2f;
+  }
+
+  .pane:last-child {
+    border-bottom: none;
+  }
+
+  .commandBar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .statusBar {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

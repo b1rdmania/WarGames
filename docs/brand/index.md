@@ -69,3 +69,7 @@ When you use war.market, you should feel:
 ## Related
 
 - [Narrative system](/brand/narrative-system)
+- [Archetype research](/design-systems/)
+- [DOS/Norton system](/design-systems/dos-norton-system)
+- [Bloomberg system](/design-systems/bloomberg-system)
+- [NORAD system](/design-systems/norad-system)

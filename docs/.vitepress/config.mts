@@ -53,6 +53,10 @@ export default defineConfig({
             { text: 'Narrative system', link: '/brand/narrative-system' },
             { text: 'Voice', link: '/brand/voice' },
             { text: 'Design system', link: '/brand/design' },
+            { text: 'Archetype research', link: '/design-systems/' },
+            { text: 'DOS/Norton system', link: '/design-systems/dos-norton-system' },
+            { text: 'Bloomberg system', link: '/design-systems/bloomberg-system' },
+            { text: 'NORAD system', link: '/design-systems/norad-system' },
             { text: 'Assets', link: '/brand/assets' },
             { text: 'Icons', link: '/brand/icons' },
           ]
