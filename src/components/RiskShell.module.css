@@ -1,26 +1,13 @@
+/* ==========================================================================
+   RiskShell - Main app layout wrapper
+   Uses global tokens from globals.css
+   ========================================================================== */
+
 .shell {
-  /* war.market brand colors */
-  --rm-dark-bg: #0e0e10;
-  --rm-dark-panel: #18171c;
-  --rm-dark-surface: #222127;
-  --rm-amber: #f97316;
-  --rm-gold: #fbbf24;
-  --rm-text-primary: #e8e6ed;
-  --rm-text-secondary: #a8a3b3;
-  --rm-text-muted: #6b6879;
-
-  /* Override legacy theme tokens */
-  --pear-dark: var(--rm-dark-bg);
-  --pear-panel: var(--rm-dark-panel);
-  --pear-panel-light: var(--rm-dark-surface);
-  --pear-lime: var(--rm-amber);
-  --pear-lime-light: var(--rm-gold);
-  --border-color: rgba(55, 52, 62, 0.8);
-
   position: relative;
   min-height: 100vh;
-  background: var(--rm-dark-bg);
-  color: var(--rm-text-primary);
+  background: var(--bg-deep);
+  color: var(--text-primary);
   overflow-x: hidden;
   color-scheme: dark;
 }
@@ -40,8 +27,8 @@
 }
 
 .shell option {
-  background: var(--rm-dark-bg);
-  color: var(--rm-text-primary);
+  background: var(--bg-deep);
+  color: var(--text-primary);
 }
 
 .content {
@@ -52,7 +39,7 @@
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 24px;
+  padding: var(--space-lg);
 }
 
 .header {
@@ -60,7 +47,7 @@
   top: 0;
   z-index: 100;
   background: rgba(14, 14, 16, 0.98);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border);
   backdrop-filter: blur(12px);
 }
 
@@ -68,8 +55,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding: 16px 0;
+  gap: var(--space-lg);
+  padding: var(--space-md) 0;
 }
 
 .brand {
@@ -95,7 +82,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 16px;
+  gap: var(--space-md);
   min-width: 0;
 }
 
@@ -114,8 +101,8 @@
 .brandLink:focus-visible {
   outline: none;
   opacity: 1;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.4);
-  border-radius: 4px;
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.4);
+  border-radius: var(--radius-sm);
 }
 
 .brandMark {
@@ -123,17 +110,17 @@
 }
 
 .brandText {
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  font-family: var(--font-sans);
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--rm-text-primary);
+  color: var(--text-primary);
   font-size: 18px;
 }
 
 .panel {
-  background: var(--rm-dark-panel);
-  border: 1px solid rgba(55, 52, 62, 0.8);
-  border-radius: 8px;
+  background: var(--bg-warm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 18px;
 }
 
@@ -144,10 +131,10 @@
   gap: 12px;
   margin-top: 28px;
   padding: 14px 0 6px;
-  border-top: 1px solid rgba(55, 52, 62, 0.8);
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  border-top: 1px solid var(--border);
+  font-family: var(--font-sans);
   font-size: 12px;
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
 }
 
 .footerLeft {
@@ -174,12 +161,12 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
   transition: color 0.2s ease;
 }
 
 .footerPearLink:hover {
-  color: var(--rm-amber);
+  color: var(--primary);
 }
 
 .footerPearLogo {
@@ -187,29 +174,34 @@
 }
 
 .footerLink {
-  color: var(--rm-amber);
+  color: var(--primary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .footerLink:hover {
-  color: var(--rm-gold);
+  color: var(--gold);
 }
 
 .footerSep {
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
   opacity: 0.5;
 }
 
 .footerRight {
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
 }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
 
 @media (max-width: 680px) {
   .footer {
     flex-direction: column;
     align-items: flex-start;
   }
+
   .footerLinks {
     justify-content: flex-start;
   }
@@ -235,9 +227,8 @@
     min-width: auto;
   }
 
-  /* Simplify header widgets on mobile */
   .headerWidgets {
-    gap: 8px;
+    gap: var(--space-sm);
   }
 
   .headerRight {

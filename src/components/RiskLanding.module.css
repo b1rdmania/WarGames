@@ -1,24 +1,20 @@
-.root {
-  /* war.market brand colors */
-  --rm-dark-bg: #0e0e10;
-  --rm-dark-panel: #18171c;
-  --rm-dark-surface: #222127;
-  --rm-amber: #f97316;
-  --rm-gold: #fbbf24;
-  --rm-amber-rgb: 249, 115, 22;
-  --rm-text-primary: #e8e6ed;
-  --rm-text-secondary: #a8a3b3;
-  --rm-text-muted: #6b6879;
-  --rm-border: #37343e;
+/* ==========================================================================
+   RiskLanding - Landing page styles
+   Uses global tokens from globals.css
+   ========================================================================== */
 
+.root {
   position: relative;
   min-height: 100vh;
-  background: var(--rm-dark-bg);
-  color: var(--rm-text-primary);
+  background: var(--bg-deep);
+  color: var(--text-primary);
   overflow-x: hidden;
 }
 
-/* Video hero */
+/* ==========================================================================
+   Video Hero
+   ========================================================================== */
+
 .videoHero {
   width: 100%;
   height: 100vh;
@@ -32,7 +28,7 @@
 .videoFallback {
   position: absolute;
   inset: 0;
-  background: var(--rm-dark-bg);
+  background: var(--bg-deep);
 }
 
 .heroVideo {
@@ -46,7 +42,7 @@
 
 .scrollIndicator {
   position: absolute;
-  bottom: 48px;
+  bottom: var(--space-2xl);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -58,18 +54,18 @@
 }
 
 .scrollIndicatorText {
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 500;
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
   letter-spacing: 0.04em;
 }
 
 .scrollIndicatorArrow {
   width: 16px;
   height: 16px;
-  border-right: 1.5px solid var(--rm-text-muted);
-  border-bottom: 1.5px solid var(--rm-text-muted);
+  border-right: 1.5px solid var(--text-muted);
+  border-bottom: 1.5px solid var(--text-muted);
   transform: rotate(45deg);
   animation: bounce 2s ease-in-out infinite;
 }
@@ -94,7 +90,10 @@
   }
 }
 
-/* Hero section */
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+
 .hero {
   min-height: 100vh;
   display: flex;
@@ -102,7 +101,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 80px 24px;
+  padding: 80px var(--space-lg);
 }
 
 .heroContent {
@@ -115,91 +114,98 @@
 }
 
 .logo {
-  margin-bottom: 24px;
+  margin-bottom: var(--space-lg);
   font-size: 48px;
   font-weight: 600;
-  color: var(--rm-text-primary);
+  color: var(--text-primary);
   letter-spacing: -0.03em;
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  font-family: var(--font-sans);
 }
 
 .tagline {
   font-size: 20px;
-  color: var(--rm-text-secondary);
-  margin-bottom: 16px;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
   letter-spacing: -0.01em;
   line-height: 1.5;
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  font-family: var(--font-sans);
 }
 
 .taglineSmall {
   font-size: 16px;
   margin-bottom: 0;
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
 }
 
+/* ==========================================================================
+   CTA Section
+   ========================================================================== */
+
 .ctaSection {
-  margin-top: 48px;
+  margin-top: var(--space-2xl);
 }
 
 .btn {
   display: inline-block;
   padding: 14px 32px;
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.15s ease;
   text-decoration: none;
 }
 
 .btnPrimary {
-  background: var(--rm-amber);
-  color: var(--rm-dark-bg);
+  background: var(--primary);
+  color: var(--bg-deep);
 }
 
 .btnPrimary:hover {
-  background: #ea580c;
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
 .btnSecondary {
   background: transparent;
-  color: var(--rm-amber);
-  border: 1px solid var(--rm-amber);
+  color: var(--primary);
+  border: 1px solid var(--primary);
   margin-left: 12px;
 }
 
 .btnSecondary:hover {
-  background: rgba(249, 115, 22, 0.1);
+  background: var(--primary-soft);
   transform: translateY(-1px);
 }
 
 .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.4);
+  box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.4);
 }
 
 .poweredBy {
   font-size: 13px;
-  color: var(--rm-text-muted);
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  color: var(--text-muted);
+  font-family: var(--font-sans);
   margin-top: 20px;
 }
 
-/* Explainer section */
+/* ==========================================================================
+   Explainer Section
+   ========================================================================== */
+
 .explainerStrip {
-  background: var(--rm-dark-panel);
-  padding: 80px 24px;
-  border-top: 1px solid var(--rm-border);
+  background: var(--bg-warm);
+  padding: 80px var(--space-lg);
+  border-top: 1px solid var(--border);
 }
 
 .explainerGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
+  gap: var(--space-2xl);
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -209,65 +215,68 @@
 }
 
 .explainerItem h3 {
-  color: var(--rm-text-primary);
+  color: var(--text-primary);
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 12px;
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  font-family: var(--font-sans);
   letter-spacing: -0.01em;
 }
 
 .explainerItem p {
-  color: var(--rm-text-secondary);
+  color: var(--text-secondary);
   font-size: 15px;
   line-height: 1.6;
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  font-family: var(--font-sans);
 }
 
-/* Footer */
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
 .footer {
-  padding: 24px;
-  background: var(--rm-dark-bg);
-  border-top: 1px solid var(--rm-border);
+  padding: var(--space-lg);
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: var(--space-md);
 }
 
 .footerLeft {
   display: flex;
-  gap: 24px;
+  gap: var(--space-lg);
   align-items: center;
   flex-wrap: wrap;
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  font-family: var(--font-sans);
   font-size: 13px;
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
 }
 
 .footerLink {
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
   text-decoration: none;
   font-size: 13px;
   transition: color 0.15s ease;
 }
 
 .footerLink:hover {
-  color: var(--rm-text-primary);
+  color: var(--text-primary);
 }
 
 .footerRight {
-  font-family: var(--font-sans, Inter, -apple-system, sans-serif);
+  font-family: var(--font-sans);
   font-size: 12px;
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
 }
 
 .footerPear {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: var(--rm-text-muted);
+  color: var(--text-muted);
   text-decoration: none;
   opacity: 0.6;
   transition: opacity 0.15s ease;
@@ -277,17 +286,20 @@
   opacity: 1;
 }
 
-/* Removed elements - kept as empty for backwards compat */
+/* Legacy - kept for backwards compat */
 .noise,
 .mapBackground,
 .scanLine {
   display: none;
 }
 
-/* Responsive */
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .hero {
-    padding: 48px 20px;
+    padding: var(--space-2xl) 20px;
     min-height: auto;
   }
 
@@ -310,16 +322,16 @@
   }
 
   .explainerStrip {
-    padding: 48px 20px;
+    padding: var(--space-2xl) 20px;
   }
 
   .explainerGrid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: var(--space-xl);
   }
 
   .scrollIndicator {
-    bottom: 32px;
+    bottom: var(--space-xl);
   }
 
   .ctaSection {
@@ -339,27 +351,23 @@
    ========================================================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  /* Stop all animations */
   .scrollIndicator,
   .scrollIndicatorArrow {
     animation: none;
   }
 
-  /* Show static arrow instead of bouncing */
   .scrollIndicatorArrow {
     transform: rotate(45deg);
   }
 
-  /* Hide video, show fallback */
   .heroVideo {
     display: none;
   }
 
   .videoFallback {
-    background: linear-gradient(135deg, var(--rm-dark-bg) 0%, var(--rm-dark-panel) 100%);
+    background: linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-warm) 100%);
   }
 
-  /* Remove hover transforms */
   .btn:hover,
   .btnPrimary:hover,
   .btnSecondary:hover {
