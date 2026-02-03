@@ -144,9 +144,9 @@ Findings are ordered by severity and include file references.
 
 ## QA Checklist for Signoff
 
-- [ ] First-time user reaches executable trade panel from landing in one click
-- [ ] Inactive markets are non-clickable for execution and clearly labeled
-- [ ] iPhone viewport can select market + side + amount + submit without horizontal page/table scrolling
-- [ ] Keyboard-only flow supports full trade path with visible focus
-- [ ] Reduced-motion mode removes autoplay/continuous animation in hero
-- [ ] CTA language is consistent across landing, trade, and portfolio exit flows
+- [x] First-time user reaches executable trade panel from landing in one click
+- [x] Inactive markets are non-clickable for execution and clearly labeled
+- [x] iPhone viewport can select market + side + amount + submit without horizontal page/table scrolling
+- [x] Keyboard-only flow supports full trade path with visible focus
+- [x] Reduced-motion mode removes autoplay/continuous animation in hero
+- [x] CTA language is consistent across landing, trade, and portfolio exit flows
