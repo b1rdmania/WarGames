@@ -15,6 +15,68 @@ function formatBasketCompact(assets: { asset: string; weight?: number }[]) {
   return `${cleanSymbol(assets[0].asset)}+${assets.length - 1} more`;
 }
 
+function MarketCard({
+  market,
+  isSelected,
+  onPick,
+}: {
+  market: ValidatedMarket;
+  isSelected: boolean;
+  onPick: (market: ValidatedMarket, side: 'long' | 'short') => void;
+}) {
+  const pairs = market.resolvedPairs ?? market.pairs;
+  const basket = market.resolvedBasket ?? market.basket;
+  const longLabel = pairs ? cleanSymbol(pairs.long) : basket ? formatBasketCompact(basket.long) : '—';
+  const shortLabel = pairs ? cleanSymbol(pairs.short) : basket ? formatBasketCompact(basket.short) : '—';
+
+  return (
+    <div className={`${styles.card} ${isSelected ? styles.cardSelected : ''}`}>
+      <div className={styles.cardHeader}>
+        <Link className={styles.marketLink} href={`/markets/${market.id}`}>
+          {market.name}
+        </Link>
+        <div className={styles.marketMeta}>
+          <span className={styles.metaTag}>{market.leverage}x</span>
+          {market.category === 'crypto' ? (
+            <span className={styles.metaTagLive}>24/7</span>
+          ) : (
+            <span className={styles.metaTagClosed}>WEEKDAYS</span>
+          )}
+        </div>
+      </div>
+
+      <div className={styles.cardPair}>
+        <span className={styles.longSide}>{longLabel}</span>
+        <span className={styles.vs}>vs</span>
+        <span className={styles.shortSide}>{shortLabel}</span>
+      </div>
+
+      {market.isTradable ? (
+        <div className={styles.cardActions}>
+          <button
+            type="button"
+            className={styles.btnAction}
+            onClick={() => onPick(market, 'long')}
+          >
+            YES
+          </button>
+          <button
+            type="button"
+            className={`${styles.btnAction} ${styles.btnShort}`}
+            onClick={() => onPick(market, 'short')}
+          >
+            NO
+          </button>
+        </div>
+      ) : (
+        <div className={styles.cardInactive} title={market.unavailableReason}>
+          Inactive
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function MarketFeed({
   markets,
   selectedMarketId,
@@ -22,10 +84,11 @@ export function MarketFeed({
 }: {
   markets: ValidatedMarket[];
   selectedMarketId?: string | null;
-  onPick: (market: ValidatedMarket, side: 'long' | 'short') => void; // long=YES, short=NO
+  onPick: (market: ValidatedMarket, side: 'long' | 'short') => void;
 }) {
   return (
     <div className={styles.wrapper}>
+      {/* Desktop: Table layout */}
       <table className={styles.table}>
         <thead>
           <tr>
@@ -99,7 +162,18 @@ export function MarketFeed({
           })}
         </tbody>
       </table>
+
+      {/* Mobile: Card layout */}
+      <div className={styles.cardList}>
+        {markets.map((m) => (
+          <MarketCard
+            key={m.id}
+            market={m}
+            isSelected={selectedMarketId === m.id}
+            onPick={onPick}
+          />
+        ))}
+      </div>
     </div>
   );
 }
-

@@ -2,10 +2,12 @@
   background: var(--bg-warm, #18171c);
   border: 1px solid var(--border, #37343e);
   border-radius: var(--radius-lg, 8px);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
   border-top: 2px solid var(--primary, #f97316);
 }
+
+/* ==========================================================================
+   Desktop: Table Layout
+   ========================================================================== */
 
 .table {
   width: 100%;
@@ -47,6 +49,96 @@
 .rowSelected:hover {
   background: rgba(249, 115, 22, 0.12);
 }
+
+/* ==========================================================================
+   Mobile: Card Layout
+   ========================================================================== */
+
+.cardList {
+  display: none;
+}
+
+.card {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-subtle, #2a2830);
+}
+
+.card:last-child {
+  border-bottom: none;
+}
+
+.cardSelected {
+  background: rgba(249, 115, 22, 0.08);
+  border-left: 3px solid var(--amber, #f97316);
+}
+
+.cardHeader {
+  margin-bottom: 12px;
+}
+
+.cardPair {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 14px;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  background: var(--bg-surface, #222127);
+  border-radius: 6px;
+}
+
+.cardActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.cardInactive {
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--warning, #f59e0b);
+  text-align: center;
+  padding: 12px;
+  background: rgba(245, 158, 11, 0.08);
+  border-radius: 6px;
+  cursor: help;
+}
+
+.cardDesc {
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 14px;
+  color: var(--text-secondary, #a8a3b3);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.btnViewFull {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid var(--amber, #f97316);
+  border-radius: var(--radius-md, 6px);
+  background: transparent;
+  color: var(--amber, #f97316);
+  cursor: pointer;
+  transition: all 150ms ease;
+  text-decoration: none;
+}
+
+.btnViewFull:hover {
+  background: var(--amber, #f97316);
+  color: var(--bg-deep, #0e0e10);
+}
+
+/* ==========================================================================
+   Shared Elements
+   ========================================================================== */
 
 .marketName {
   color: var(--text-primary, #e8e6ed);
@@ -98,38 +190,6 @@
   white-space: nowrap;
 }
 
-.underlying {
-  font-family: var(--font-mono, monospace);
-  font-size: 12px;
-  color: var(--text-secondary, #a8a3b3);
-  white-space: pre-wrap;
-  line-height: 1.4;
-}
-
-.legs {
-  font-family: var(--font-mono, monospace);
-  font-size: 12px;
-  color: var(--text-secondary, #a8a3b3);
-  white-space: pre-wrap;
-  line-height: 1.4;
-}
-
-.marketDesc {
-  font-family: var(--font-sans, Inter, sans-serif);
-  font-size: 13px;
-  color: var(--text-secondary, #a8a3b3);
-  white-space: pre-wrap;
-  line-height: 1.5;
-  max-width: 44ch;
-}
-
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: flex-start;
-}
-
 .longSide {
   color: var(--profit, #22c55e);
 }
@@ -151,9 +211,9 @@
 }
 
 .btnAction {
-  padding: 10px 16px;
+  padding: 12px 20px;
   font-family: var(--font-sans, Inter, sans-serif);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   border: 1px solid var(--profit, #22c55e);
   border-radius: var(--radius-md, 6px);
@@ -166,6 +226,10 @@
 .btnAction:hover {
   background: var(--profit, #22c55e);
   color: var(--bg-deep, #0e0e10);
+}
+
+.btnAction:active {
+  transform: scale(0.98);
 }
 
 .btnShort {
@@ -188,6 +252,7 @@
   cursor: help;
 }
 
+/* Legacy - keep for backwards compat */
 .btnView {
   padding: 10px 16px;
   font-family: var(--font-sans, Inter, sans-serif);
@@ -207,20 +272,39 @@
   color: var(--bg-deep, #0e0e10);
 }
 
+/* ==========================================================================
+   Responsive: Switch layouts at 768px
+   ========================================================================== */
+
 @media (max-width: 768px) {
-  .th,
-  .td {
-    padding: 12px 10px;
+  /* Hide table on mobile */
+  .table {
+    display: none;
   }
 
-  .actionButtons {
-    flex-direction: column;
-    gap: 6px;
-    align-items: stretch;
+  /* Show card list on mobile */
+  .cardList {
+    display: block;
   }
 
+  /* Remove horizontal scroll since we're using cards */
+  .wrapper {
+    overflow-x: visible;
+  }
+
+  /* Larger tap targets on mobile */
   .btnAction {
-    width: 100%;
-    padding: 10px 12px;
+    padding: 14px 16px;
+    font-size: 15px;
+    min-height: 48px;
+  }
+
+  .marketLink {
+    font-size: 16px;
+  }
+
+  .cardPair {
+    font-size: 15px;
+    justify-content: center;
   }
 }

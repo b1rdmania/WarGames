@@ -9,6 +9,48 @@ function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
 }
 
+function formatPunchline(m: ValidatedMarket) {
+  const pairs = m.resolvedPairs ?? m.pairs;
+  const basket = m.resolvedBasket ?? m.basket;
+  if (pairs) {
+    return `${cleanSymbol(pairs.long)} vs ${cleanSymbol(pairs.short)}`;
+  }
+  if (basket) {
+    return `${basket.long.map((x) => cleanSymbol(x.asset)).join(' + ')} vs ${basket.short.map((x) => cleanSymbol(x.asset)).join(' + ')}`;
+  }
+  return '—';
+}
+
+function MarketCardReadOnly({ market }: { market: ValidatedMarket }) {
+  const punchline = formatPunchline(market);
+
+  return (
+    <div className={styles.card}>
+      <div className={styles.cardHeader}>
+        <Link className={styles.marketLink} href={`/markets/${market.id}`}>
+          {market.name}
+        </Link>
+        <div className={styles.marketMeta}>
+          <span className={styles.metaTag}>{market.leverage}x</span>
+          <span className={styles.metaTag}>{market.category}</span>
+          {!market.isTradable && <span className={styles.metaTagClosed}>Inactive</span>}
+        </div>
+      </div>
+
+      <div className={styles.cardDesc}>{market.description}</div>
+
+      <div className={styles.cardPair}>{punchline}</div>
+
+      <Link
+        href={`/markets/${market.id}`}
+        className={styles.btnViewFull}
+      >
+        View Details
+      </Link>
+    </div>
+  );
+}
+
 export function MarketFeedReadOnly({
   markets,
 }: {
@@ -16,6 +58,7 @@ export function MarketFeedReadOnly({
 }) {
   return (
     <div className={styles.wrapper}>
+      {/* Desktop: Table layout */}
       <table className={styles.table}>
         <thead>
           <tr>
@@ -27,13 +70,7 @@ export function MarketFeedReadOnly({
         </thead>
         <tbody>
           {markets.map((m) => {
-            const pairs = m.resolvedPairs ?? m.pairs;
-            const basket = m.resolvedBasket ?? m.basket;
-            const punchline = pairs
-              ? `${cleanSymbol(pairs.long)} vs ${cleanSymbol(pairs.short)}`
-              : basket
-                ? `${basket.long.map((x) => cleanSymbol(x.asset)).join(' + ')} vs ${basket.short.map((x) => cleanSymbol(x.asset)).join(' + ')}`
-                : '—';
+            const punchline = formatPunchline(m);
 
             return (
               <tr key={m.id} className={styles.row}>
@@ -72,6 +109,13 @@ export function MarketFeedReadOnly({
           })}
         </tbody>
       </table>
+
+      {/* Mobile: Card layout */}
+      <div className={styles.cardList}>
+        {markets.map((m) => (
+          <MarketCardReadOnly key={m.id} market={m} />
+        ))}
+      </div>
     </div>
   );
 }
