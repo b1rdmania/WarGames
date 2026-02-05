@@ -125,17 +125,39 @@ src/
 
 ---
 
-## Design Docs
+## Design Resources
 
+### Reference Images
+```
+terminal_ref/
+├── CleanShot 2026-02-03 at 18.44.09@2x.png
+├── CleanShot 2026-02-03 at 18.44.24@2x.png
+├── CleanShot 2026-02-03 at 18.44.39@2x.png
+├── CleanShot 2026-02-03 at 18.44.52@2x.png
+├── War-Room-Film-Set-1983-WarGames.webp    # WarGames movie reference
+├── vintage-computing-nostalgia-stockcake.webp
+└── vintage-terminal-room-stockcake.webp
+```
+
+### NORAD Design Specs (start here for design work)
 ```
 docs/design-systems/
-├── index.md                        # Overview
+├── norad-system.md                 # ← PRIMARY: Full NORAD spec
+├── norad-iteration-brief.md        # Iteration notes & refinements
 ├── archetype-research.md           # DOS/Bloomberg/NORAD research
+├── index.md                        # Overview
 ├── dos-norton-system.md            # DOS/Norton spec
-├── bloomberg-system.md             # Bloomberg spec
-├── norad-system.md                 # NORAD spec (primary)
-└── norad-iteration-brief.md        # NORAD iteration notes
+└── bloomberg-system.md             # Bloomberg spec
 ```
+
+### Key Files for Designers
+| What | Path |
+|------|------|
+| NORAD spec | `docs/design-systems/norad-system.md` |
+| Color tokens | `src/app/globals.css` (search for `--norad-`) |
+| Trade surface CSS | `src/components/NoradTradeSurface.module.css` |
+| Portfolio surface CSS | `src/components/NoradPortfolioSurface.module.css` |
+| Reference images | `terminal_ref/` |
 
 ---
 
