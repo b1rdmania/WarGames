@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { BetSlipPanel } from '@/components/BetSlipPanel';
-import { WorldMapSvg } from '@/components/WorldMapSvg';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import styles from './NoradTradeSurface.module.css';
 
@@ -142,7 +141,6 @@ export function NoradTradeSurface({
         <div className={styles.board}>
           <div className={styles.sectionTitle}>Situation Board</div>
           <div className={styles.map} aria-label="Global stress map">
-            <WorldMapSvg className={styles.mapSvg} />
             <div className={styles.mapLabel}>GLOBAL STRESS MAP</div>
             {/* Hotspots: US Tech, Middle East, Taiwan */}
             <span className={`${styles.hotspot} ${styles.hotspotUS}`} title="US Tech Sector" />
