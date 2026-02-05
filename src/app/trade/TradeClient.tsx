@@ -1,17 +1,16 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { RiskShell } from '@/components/RiskShell';
-import { TerminalTopNav } from '@/components/TerminalTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
-import { PortfolioLine } from '@/components/PortfolioLine';
 import { NoradTradeSurface } from '@/components/NoradTradeSurface';
 import { usePear } from '@/contexts/PearContext';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { connectWalletSafely } from '@/lib/connectWallet';
+import styles from './trade.module.css';
 
 export default function TradeClient() {
   const { isConnected, address } = useAccount();
@@ -23,62 +22,49 @@ export default function TradeClient() {
 
   const [selectedMarketId, setSelectedMarketId] = useState<string | null>(null);
   const [selectedSide, setSelectedSide] = useState<'long' | 'short' | null>(null);
-  const [detailsOpen, setDetailsOpen] = useState(false);
-
-  if (!isAuthenticated) {
-    return (
-      <RiskShell nav={<TerminalTopNav />}>
-        {!isConnected ? (
-          <div className="tp-wrap">
-            <div className="tp-frame">
-              <div className="tp-h">Connect Wallet</div>
-              <div className="tp-body">Connect your wallet to authenticate with Pear.</div>
-              <div className="mt-4">
-                <button
-                  disabled={isPending}
-                  type="button"
-                  onClick={() => {
-                    (async () => {
-                      try {
-                        await connectWalletSafely({ connectors, connectAsync, disconnect });
-                      } catch (e) {
-                        console.error(e);
-                        toast.error((e as Error).message || 'Failed to connect wallet');
-                      }
-                    })();
-                  }}
-                  className="tm-btn w-full disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isPending ? 'Connecting…' : 'Connect Wallet'}
-                </button>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <PearSetupCard />
-        )}
-      </RiskShell>
-    );
-  }
 
   return (
-    <RiskShell nav={<TerminalTopNav />}>
-      <div className="tp-wrap">
-        <div className="tp-hero">
-          <div className="tp-title">Trade</div>
-          <div className="tp-lede">Pick a narrative and place a YES/NO bet.</div>
+    <main className={styles.page}>
+      <div className={styles.header}>
+        <div className={styles.title}>WAR.MARKET // TRADE TERMINAL</div>
+        <div className={styles.headerRight}>
+          <span>MODE: {isAuthenticated ? 'OPERATOR' : 'GUEST'}</span>
+          <span>STATUS: {isAuthenticated ? 'ARMED' : 'STANDBY'}</span>
+          <Link href="/" className={styles.back}>EXIT</Link>
         </div>
-        <div className="tp-rule" />
+      </div>
 
-        <div className="mt-6">
-          <PortfolioLine
-            positions={[]}
-            balance={perpUsdc}
-            detailsOpen={detailsOpen}
-            onToggleDetails={() => setDetailsOpen((v) => !v)}
-          />
+      {!isAuthenticated ? (
+        <div className={styles.authWrap}>
+          {!isConnected ? (
+            <div className={styles.authCard}>
+              <div className={styles.authTitle}>OPERATOR AUTHENTICATION REQUIRED</div>
+              <p className={styles.authText}>Connect your wallet to access the trade terminal.</p>
+              <button
+                disabled={isPending}
+                type="button"
+                onClick={() => {
+                  (async () => {
+                    try {
+                      await connectWalletSafely({ connectors, connectAsync, disconnect });
+                    } catch (e) {
+                      console.error(e);
+                      toast.error((e as Error).message || 'Failed to connect wallet');
+                    }
+                  })();
+                }}
+                className={styles.authButton}
+              >
+                {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
+              </button>
+            </div>
+          ) : (
+            <div className={styles.authCard}>
+              <PearSetupCard />
+            </div>
+          )}
         </div>
-
+      ) : (
         <NoradTradeSurface
           markets={effectiveMarkets ?? []}
           selectedMarketId={selectedMarketId}
@@ -92,11 +78,15 @@ export default function TradeClient() {
             setSelectedMarketId(null);
             setSelectedSide(null);
           }}
-          onPlaced={() => {
-            // Keep selection after execution so users can re-enter quickly.
-          }}
+          onPlaced={() => {}}
         />
+      )}
+
+      <div className={styles.footerRail}>
+        <span>STATUS: {isAuthenticated ? 'ONLINE' : 'OFFLINE'}</span>
+        <span>OPERATOR: {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'NONE'}</span>
+        <span>SYSTEM: HYPERLIQUID</span>
       </div>
-    </RiskShell>
+    </main>
   );
 }

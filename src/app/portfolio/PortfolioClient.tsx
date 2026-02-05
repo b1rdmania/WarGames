@@ -1,10 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { RiskShell } from '@/components/RiskShell';
-import { TerminalTopNav } from '@/components/TerminalTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import { NoradPortfolioSurface } from '@/components/NoradPortfolioSurface';
 import { usePear } from '@/contexts/PearContext';
@@ -14,6 +13,7 @@ import type { PearPosition } from '@/integrations/pear/types';
 import { connectPearWebsocket } from '@/integrations/pear/websocket';
 import { emitDebugLog } from '@/lib/debugLog';
 import { connectWalletSafely } from '@/lib/connectWallet';
+import styles from './portfolio.module.css';
 
 export default function PortfolioClient() {
   const { isConnected, address } = useAccount();
@@ -88,50 +88,48 @@ export default function PortfolioClient() {
     };
   }, [accessToken, address]);
 
-  if (!isAuthenticated) {
-    return (
-      <RiskShell nav={<TerminalTopNav />}>
-        {!isConnected ? (
-          <div className="tp-wrap">
-            <div className="tp-frame">
-              <div className="tp-h">Connect Wallet</div>
-              <div className="tp-body">Connect your wallet to view your portfolio.</div>
-              <div className="mt-4">
-                <button
-                  disabled={isPending}
-                  type="button"
-                  onClick={() => {
-                    (async () => {
-                      try {
-                        await connectWalletSafely({ connectors, connectAsync, disconnect });
-                      } catch (e) {
-                        console.error(e);
-                        toast.error((e as Error).message || 'Failed to connect wallet');
-                      }
-                    })();
-                  }}
-                  className="tm-btn tm-btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isPending ? 'Connecting…' : 'Connect Wallet'}
-                </button>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <PearSetupCard variant="portfolio" />
-        )}
-      </RiskShell>
-    );
-  }
-
   return (
-    <RiskShell nav={<TerminalTopNav />}>
-      <div className="tp-wrap">
-        <div className="tp-hero">
-          <div className="tp-title">Portfolio</div>
-          <div className="tp-lede">Positions, P&L, and collateral.</div>
+    <main className={styles.page}>
+      <div className={styles.header}>
+        <div className={styles.title}>WAR.MARKET // PORTFOLIO COMMAND</div>
+        <div className={styles.headerRight}>
+          <span>MODE: {isAuthenticated ? 'OPERATOR' : 'GUEST'}</span>
+          <span>POSITIONS: {positions.length}</span>
+          <Link href="/" className={styles.back}>EXIT</Link>
         </div>
-        <div className="tp-rule" />
+      </div>
+
+      {!isAuthenticated ? (
+        <div className={styles.authWrap}>
+          {!isConnected ? (
+            <div className={styles.authCard}>
+              <div className={styles.authTitle}>OPERATOR AUTHENTICATION REQUIRED</div>
+              <p className={styles.authText}>Connect your wallet to access your portfolio.</p>
+              <button
+                disabled={isPending}
+                type="button"
+                onClick={() => {
+                  (async () => {
+                    try {
+                      await connectWalletSafely({ connectors, connectAsync, disconnect });
+                    } catch (e) {
+                      console.error(e);
+                      toast.error((e as Error).message || 'Failed to connect wallet');
+                    }
+                  })();
+                }}
+                className={styles.authButton}
+              >
+                {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
+              </button>
+            </div>
+          ) : (
+            <div className={styles.authCard}>
+              <PearSetupCard variant="portfolio" />
+            </div>
+          )}
+        </div>
+      ) : (
         <NoradPortfolioSurface
           positions={positions}
           balance={perpUsdc}
@@ -164,7 +162,13 @@ export default function PortfolioClient() {
             });
           }}
         />
+      )}
+
+      <div className={styles.footerRail}>
+        <span>STATUS: {isAuthenticated ? 'ONLINE' : 'OFFLINE'}</span>
+        <span>OPERATOR: {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'NONE'}</span>
+        <span>SYSTEM: HYPERLIQUID</span>
       </div>
-    </RiskShell>
+    </main>
   );
 }
