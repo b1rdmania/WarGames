@@ -1,8 +1,8 @@
 # WAR.MARKET
 
-## Current Status: POST-HACKATHON / PRODUCTION
+## Current Status: POST-HACKATHON / NORAD DESIGN LIVE
 
-**Updated:** 2026-02-02
+**Updated:** 2026-02-05
 **Live:** https://www.war.market
 **Docs:** https://docs.war.market
 **Repo:** https://github.com/b1rdmania/WarGames
@@ -17,89 +17,124 @@ One-click trading terminal for macro narratives on Hyperliquid via Pear Protocol
 
 ---
 
-## Recent Work (2026-02-02 Session)
+## Recent Work (2026-02-05 Session)
 
-### Brand Redesign — COMPLETE
-- Fintech v2 design merged to main and live
-- Removed hackathon aesthetic (scan lines, noise, brackets, BETA badges)
-- Clean Inter typography, amber for CTAs only
-- Premium fintech feel, not startup-y
+### NORAD Design System — LIVE
+- Full NORAD mission-control aesthetic implemented
+- Root page now shows Design System Labs (pick DOS/Norton, Bloomberg, or NORAD)
+- Trade and Portfolio pages fully migrated to NORAD layout
+- Military command center vibes: cyan telemetry, lime execute states, amber warnings
 
-### Documentation Site — LIVE
-- VitePress docs at https://docs.war.market
-- Guide: how it works, first trade, markets, risk
-- Brand: philosophy, voice (Orwell rules), design system, assets
-- Run locally: `npm run docs:dev`
+### Components Updated
+- **PearSetupCard** — NORAD styling (cyan/lime, not orange)
+- **BetSlipPanel** — NORAD styling, fixed "Long Leg / Short Leg" display
+- **NoradTradeSurface** — Situation Board, Event Log, Mission Console
+- **NoradPortfolioSurface** — Position command center
+- **World Map** — Real Wikimedia map with CSS filters for cyan tint
 
-### Commodity Markets Research — DRAFT
-- 5 new market proposals for dollar weakness thesis
-- Saved in `docs/research/commodity-markets-draft.md`
-- Needs quant/hedge fund review before implementation
-- Markets: Dollar Debasement, Commodity Supercycle, Energy Crisis, Gold vs Tech, BTC Digital Gold
+### Design System Labs
+- `/labs` — Index with three design variants
+- `/labs/norad` — NORAD demo (selected as primary)
+- `/labs/bloomberg` — Bloomberg terminal demo
+- `/labs/dos-norton` — DOS/Norton Commander demo
 
 ---
 
-## Key Locations
+## Site Map
 
-### Brand Assets
-```
-/Users/andy/Downloads/warmarket-brand-kit/
-├── README.md                    # Quick reference (points to v2)
-├── FINTECH-V2-GUIDELINES.md     # ← CURRENT design system
-├── warmarket-philosophy.md      # Voice, principles
-├── warmarket-mark-final.svg     # Logo mark
-├── warmarket-wordmark-final.svg # Full wordmark
-├── warmarket-favicon.png
-└── _archive/                    # Old versions (preserved)
+| Route | Description | Auth Required |
+|-------|-------------|---------------|
+| `/` | Design System Labs picker | No |
+| `/labs/norad` | NORAD design demo | No |
+| `/labs/bloomberg` | Bloomberg design demo | No |
+| `/labs/dos-norton` | DOS/Norton design demo | No |
+| `/markets` | Browse markets (read-only) | No |
+| `/markets/[id]` | Market detail | No |
+| `/trade` | NORAD trade terminal | Yes |
+| `/portfolio` | NORAD portfolio command | Yes |
+| `/about` | About page | No |
 
-/Users/andy/Downloads/warmarket-brand-refs/
-├── marks/                       # AI-generated logo explorations (156 files)
-└── ref-*.png                    # AI-generated mood/reference images
+---
 
-/Users/andy/Downloads/warmarket-brand-kit-terminal/
-└── (rejected terminal experiment - preserved for reference)
-```
+## Design System (NORAD)
 
-### Documentation
-```
-docs/
-├── index.md                     # Home
-├── guide/                       # User guide
-│   ├── index.md                 # What is war.market
-│   ├── how-it-works.md
-│   ├── first-trade.md
-│   ├── markets.md
-│   ├── markets-geopolitical.md
-│   ├── markets-crypto.md
-│   ├── trading.md
-│   ├── positions.md
-│   └── risk.md
-├── brand/                       # Brand guidelines
-│   ├── index.md                 # Philosophy
-│   ├── voice.md                 # Orwell rules
-│   ├── design.md                # Design system
-│   └── assets.md                # Logo, colors, CSS
-└── research/
-    └── commodity-markets-draft.md
-```
+### Color Roles
+| Role | Color | Use |
+|------|-------|-----|
+| Telemetry | `#36d4ff` (cyan) | System chrome, labels, section titles |
+| Signal/Execute | `#02ff81` (lime) | Armed states, CTAs, success |
+| Warning | `#f5a623` (amber) | Alerts, caution states |
+| Fault | `#ff6b6b` (red) | Errors, loss, danger |
+| Intel | `#cfbeff` (violet) | Meta info, not CTA |
 
-### Core App Files
+### Background Colors
+| Token | Hex | Use |
+|-------|-----|-----|
+| norad-bg | #070d14 | Page background |
+| norad-surface | #0e1822 | Panels |
+| norad-panel | #101c28 | Cards, inputs |
+| norad-grid | #234055 | Borders, dividers |
+
+### Typography
+- **UI:** Inter (600 headings, 400 body)
+- **Data/Mono:** JetBrains Mono
+
+### Structural Grammar
+- **Situation Board** — Map + market list
+- **Event Log** — Timestamped operations feed
+- **Mission Console** — Trade execution panel
+- **Status Rail** — Footer with system status
+
+---
+
+## Core App Files
+
 ```
 src/
-├── integrations/pear/
-│   ├── markets.ts               # Market definitions
-│   ├── auth.ts                  # EIP-712 auth
-│   ├── positions.ts             # Trade execution
-│   └── agent.ts                 # Agent wallet
+├── app/
+│   ├── page.tsx                    # Root → Design Labs picker
+│   ├── trade/
+│   │   ├── TradeClient.tsx         # NORAD trade page
+│   │   └── trade.module.css
+│   ├── portfolio/
+│   │   ├── PortfolioClient.tsx     # NORAD portfolio page
+│   │   └── portfolio.module.css
+│   └── labs/
+│       ├── page.tsx                # Labs index
+│       ├── norad/                  # NORAD demo
+│       ├── bloomberg/              # Bloomberg demo
+│       └── dos-norton/             # DOS/Norton demo
 ├── components/
-│   ├── RiskShell.tsx            # Main layout wrapper
-│   ├── RiskLanding.tsx          # Landing page
-│   ├── MarketFeed.tsx           # Trading market list
-│   ├── MarketFeedReadOnly.tsx   # Browse market list
-│   ├── BetSlipPanel.tsx         # Trade panel
-│   └── PositionCard.tsx         # Position display
+│   ├── NoradTradeSurface.tsx       # Main trade layout
+│   ├── NoradTradeSurface.module.css
+│   ├── NoradPortfolioSurface.tsx   # Main portfolio layout
+│   ├── NoradPortfolioSurface.module.css
+│   ├── PearSetupCard.tsx           # Auth card (NORAD styled)
+│   ├── PearSetupCard.module.css
+│   ├── BetSlipPanel.tsx            # Trade panel (NORAD styled)
+│   ├── BetSlipPanel.module.css
+│   └── WorldMapSvg.tsx             # (unused, using CSS bg instead)
+├── integrations/pear/
+│   ├── markets.ts                  # Market definitions
+│   ├── auth.ts                     # EIP-712 auth
+│   ├── positions.ts                # Trade execution
+│   └── agent.ts                    # Agent wallet
 └── contexts/
-    └── PearContext.tsx          # Auth state
+    └── PearContext.tsx             # Auth state
+```
+
+---
+
+## Design Docs
+
+```
+docs/design-systems/
+├── index.md                        # Overview
+├── archetype-research.md           # DOS/Bloomberg/NORAD research
+├── dos-norton-system.md            # DOS/Norton spec
+├── bloomberg-system.md             # Bloomberg spec
+├── norad-system.md                 # NORAD spec (primary)
+└── norad-iteration-brief.md        # NORAD iteration notes
 ```
 
 ---
@@ -108,40 +143,30 @@ src/
 
 ```bash
 # App
-npm run dev              # Local dev (warning: may crash machine)
+npm run dev              # Local dev
 npm run build            # Production build
 
 # Docs
 npm run docs:dev         # Docs dev server
 npm run docs:build       # Build docs
+
+# Deploy (if auto-deploy not working)
+vercel --prod --yes      # Deploy to war.market
 ```
 
 ---
 
-## Design System (Fintech V2)
+## Deployment
 
-### Colors
-| Token | Hex | Use |
-|-------|-----|-----|
-| bg-deep | #0e0e10 | Page background |
-| bg-warm | #18171c | Cards |
-| text-primary | #e8e6ed | Headings |
-| text-secondary | #a8a3b3 | Body |
-| text-muted | #6b6879 | Labels |
-| amber | #f97316 | CTAs only |
-| profit | #22c55e | Positive P&L |
-| loss | #ef4444 | Negative P&L |
+- **App:** Vercel project `war-markets` → war.market
+- **GitHub:** `b1rdmania/WarGames` repo
+- **Auto-deploy:** Pushes to `main` trigger Vercel builds
 
-### Typography
-- **UI:** Inter (600 headings, 400 body)
-- **Data:** JetBrains Mono
-
-### Voice Rules (Orwell)
-- Short sentences
-- Active voice
-- No qualifiers
-- No marketing speak
-- Amber for CTAs only
+Manual deploy if needed:
+```bash
+cd war-markets-brand-test
+vercel --prod --yes
+```
 
 ---
 
@@ -158,71 +183,16 @@ npm run docs:build       # Build docs
 - Middle East Oil Shock
 - Risk On/Risk Off
 
-**Proposed (needs quant review):**
-- Dollar Debasement Trade
-- Commodity Supercycle
-- Energy Crisis Returns
-- Gold vs Tech
-- Bitcoin Digital Gold
-
 ---
 
-## Pear Asset Prefixes
+## Git History (Recent)
 
-| Prefix | Type | Example |
-|--------|------|---------|
-| (none) | Crypto | BTC, ETH, SOL |
-| xyz: | Equities/Commodities | xyz:NVDA, xyz:GOLD, xyz:CL |
-| km: | Indices | km:US500 |
-| vntl: | Thematic | vntl:SEMIS |
-
----
-
-## Git Branches
-
-- `main` — Production (deployed to war.market)
-- `fintech-v2` — Brand redesign (merged to main)
-- `brand-redesign` — Archive: pre-fintech-v2 checkpoint
-- `terminal-v1` — Archive: rejected terminal experiment
-
----
-
-## Current vs Deprecated
-
-### CURRENT (use these)
-- Design: `FINTECH-V2-GUIDELINES.md` in brand kit
-- CSS: Tailwind tokens in `tailwind.config.ts`
-- Docs: https://docs.war.market
-
-### DEPRECATED (ignore, kept for history)
-- `--pear-*` CSS variables (legacy aliases, will remove)
-- `warmarket-brand-kit-terminal/` folder
-- `_archive/` folders
-- `terminal-v1` branch
-
----
-
-## Deployment
-
-- **App:** Vercel auto-deploys from `main` → war.market
-- **Docs:** Manual deploy from `docs/.vitepress/dist` → docs.war.market
-
-To redeploy docs:
-```bash
-npm run docs:build
-cd docs/.vitepress/dist
-npx vercel --prod --yes
-```
-
----
-
-## Next Steps
-
-1. [ ] Get quant review on commodity markets
-2. [ ] Implement approved markets
-3. [ ] Add charts (Hyperliquid integration)
-4. [ ] Mobile responsive polish
-5. [ ] Marketing site improvements
+- `62b76f2` — Use Wikimedia world map image with CSS filters
+- `57039e0` — NORAD styling for PearSetupCard, BetSlipPanel + world map
+- `a88cb0a` — Full NORAD styling for trade and portfolio pages
+- `af49150` — Move design labs to root page
+- `8cd3c4f` — Migrate portfolio flow to NORAD mission-control surface
+- `7942b52` — Migrate trade page to NORAD mission-control layout
 
 ---
 
