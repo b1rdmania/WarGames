@@ -1,0 +1,180 @@
+.card {
+  border: 1px solid #234055;
+  border-top: 2px solid #36d4ff;
+  background: #0e1822;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.title {
+  color: #f1f8ff;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.statusPill {
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid transparent;
+}
+
+.statusReady {
+  color: #02ff81;
+  background: rgba(2, 255, 129, 0.1);
+  border-color: rgba(2, 255, 129, 0.3);
+}
+
+.statusAuthing {
+  color: #36d4ff;
+  background: rgba(54, 212, 255, 0.1);
+  border-color: rgba(54, 212, 255, 0.3);
+}
+
+.statusError {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border-color: rgba(255, 107, 107, 0.3);
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.statBox {
+  background: #101c28;
+  border: 1px solid #2b4a60;
+  padding: 12px;
+}
+
+.statLabel {
+  color: #7a9ab0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.statValue {
+  color: #f1f8ff;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.statEmpty {
+  color: #4a6578;
+}
+
+.guidance {
+  border-top: 1px solid #234055;
+  padding-top: 16px;
+  margin-bottom: 16px;
+}
+
+.guidanceText {
+  color: #b8d0e0;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.guidanceHint {
+  color: #6a8a9f;
+}
+
+.chainInfo {
+  color: #7a9ab0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.chainOk {
+  color: #02ff81;
+  margin-left: 4px;
+}
+
+.errorToggle {
+  color: #ff6b6b;
+  font-size: 11px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.errorBox {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.errorText {
+  color: #ff9999;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  word-break: break-all;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btnPrimary {
+  flex: 1;
+  background: #02ff81;
+  color: #070d14;
+  border: none;
+  padding: 12px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: #00e070;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: #36d4ff;
+  border: 1px solid #36d4ff;
+  padding: 12px 20px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btnSecondary:hover {
+  background: rgba(54, 212, 255, 0.1);
+}

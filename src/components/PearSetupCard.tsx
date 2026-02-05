@@ -5,8 +5,8 @@ import toast from 'react-hot-toast';
 import { useState } from 'react';
 import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 import { hyperEVM } from '@/lib/wagmi';
+import styles from './PearSetupCard.module.css';
 
-// Known chain names for display
 const CHAIN_NAMES: Record<number, string> = {
   1: 'Ethereum',
   42161: 'Arbitrum',
@@ -17,36 +17,6 @@ const CHAIN_NAMES: Record<number, string> = {
 };
 
 type StatusState = 'ready' | 'authing' | 'error';
-
-function StatusPill({ status }: { status: StatusState }) {
-  const styles = {
-    ready: 'bg-profit/15 text-profit',
-    authing: 'bg-primary/15 text-primary',
-    error: 'bg-loss/15 text-loss',
-  };
-  const labels = {
-    ready: 'Ready',
-    authing: 'Authenticating',
-    error: 'Error',
-  };
-
-  return (
-    <span className={`px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide rounded ${styles[status]}`}>
-      {labels[status]}
-    </span>
-  );
-}
-
-function WalletStat({ label, value }: { label: string; value: string | null }) {
-  return (
-    <div className="bg-bg-surface/60 rounded-md px-3 py-2.5">
-      <div className="text-[11px] uppercase tracking-wide text-text-muted mb-1">{label}</div>
-      <div className="text-sm font-medium text-text-primary font-mono">
-        {value || <span className="text-text-muted">—</span>}
-      </div>
-    </div>
-  );
-}
 
 export function PearSetupCard({
   variant = 'default',
@@ -64,73 +34,83 @@ export function PearSetupCard({
   const isCompact = variant === 'portfolio';
   const hasError = Boolean(error || lastApiError || statusLine === 'ERROR');
 
-  // Determine status
   const status: StatusState = isAuthenticating ? 'authing' : hasError ? 'error' : 'ready';
 
-  // Format addresses
   const formatAddr = (addr: string) => `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 
-  // Build error message
   const errorMessage = lastApiError
     ? `${lastApiError.status} ${lastApiError.endpoint}: ${lastApiError.message}`
     : error?.message || null;
 
+  const statusStyles = {
+    ready: styles.statusReady,
+    authing: styles.statusAuthing,
+    error: styles.statusError,
+  };
+
+  const statusLabels = {
+    ready: 'READY',
+    authing: 'AUTHENTICATING',
+    error: 'ERROR',
+  };
+
   return (
-    <div className="tm-box">
-      {/* Header: Title + Status Pill */}
-      <div className="flex items-center justify-between gap-3 mb-4">
-        <div className="text-sm font-semibold text-text-primary">
+    <div className={styles.card}>
+      <div className={styles.header}>
+        <div className={styles.title}>
           {isCompact ? 'Portfolio Access' : 'Pear Setup'}
         </div>
-        <StatusPill status={status} />
+        <span className={`${styles.statusPill} ${statusStyles[status]}`}>
+          {statusLabels[status]}
+        </span>
       </div>
 
-      {/* Wallet Stats Row */}
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        <WalletStat
-          label="Your wallet"
-          value={address ? formatAddr(address) : null}
-        />
-        <WalletStat
-          label="Agent wallet"
-          value={agentWallet ? formatAddr(agentWallet) : null}
-        />
+      <div className={styles.statsRow}>
+        <div className={styles.statBox}>
+          <div className={styles.statLabel}>Your Wallet</div>
+          <div className={styles.statValue}>
+            {address ? formatAddr(address) : <span className={styles.statEmpty}>—</span>}
+          </div>
+        </div>
+        <div className={styles.statBox}>
+          <div className={styles.statLabel}>Agent Wallet</div>
+          <div className={styles.statValue}>
+            {agentWallet ? formatAddr(agentWallet) : <span className={styles.statEmpty}>—</span>}
+          </div>
+        </div>
       </div>
 
-      {/* Guidance + Chain Info */}
-      <div className="border-t border-border-subtle pt-4 mb-4">
-        <p className="text-sm text-text-secondary leading-relaxed">
+      <div className={styles.guidance}>
+        <p className={styles.guidanceText}>
           Sign once to create your trading session.
           {!isOnHyperEVM && isConnected && (
-            <span className="text-text-muted"> For best results, switch to HyperEVM.</span>
+            <span className={styles.guidanceHint}> For best results, switch to HyperEVM.</span>
           )}
         </p>
-        <p className="text-[11px] text-text-muted mt-2">
+        <p className={styles.chainInfo}>
           Connected to {chainName}
-          {isOnHyperEVM && <span className="text-profit ml-1">✓</span>}
+          {isOnHyperEVM && <span className={styles.chainOk}>✓</span>}
         </p>
       </div>
 
-      {/* Error Details (collapsible) */}
       {hasError && (
-        <div className="mb-4">
+        <div>
           <button
             type="button"
             onClick={() => setShowDetails(!showDetails)}
-            className="text-[11px] text-text-muted hover:text-text-secondary transition-colors"
+            className={styles.errorToggle}
           >
             {showDetails ? '▾ Hide details' : '▸ Show details'}
           </button>
           {showDetails && errorMessage && (
-            <div className="mt-2 p-3 bg-loss/10 rounded-md">
-              <p className="text-xs font-mono text-loss/90 break-all">{errorMessage}</p>
+            <div className={styles.errorBox}>
+              <p className={styles.errorText}>{errorMessage}</p>
             </div>
           )}
         </div>
       )}
 
-      {/* Actions Row */}
-      <div className="flex gap-3">
+      <div className={styles.actions}>
         <button
           onClick={() => {
             runSetup(true).catch((e) => {
@@ -139,7 +119,7 @@ export function PearSetupCard({
             });
           }}
           disabled={isAuthenticating || !isConnected}
-          className="flex-1 tm-btn tm-btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+          className={styles.btnPrimary}
         >
           {isAuthenticating ? 'Authenticating...' : 'Authenticate'}
         </button>
@@ -147,7 +127,7 @@ export function PearSetupCard({
         {!isOnHyperEVM && isConnected && (
           <button
             type="button"
-            className="tm-btn"
+            className={styles.btnSecondary}
             onClick={() => {
               (async () => {
                 try {

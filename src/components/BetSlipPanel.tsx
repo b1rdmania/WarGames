@@ -4,6 +4,7 @@ import { useMemo, useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import { executePosition } from '@/integrations/pear/positions';
+import styles from './BetSlipPanel.module.css';
 
 function formatBasketLabel(assets: { asset: string; weight?: number }[]) {
   const names = assets.map((a) => a.asset.split(':').pop()).filter(Boolean);
@@ -52,12 +53,6 @@ export function BetSlipPanel({
   const balanceNum = balance ? Number(balance) : null;
   const presets = useMemo(() => [5, 10, 25], []);
 
-  const yoloAmount = useMemo(() => {
-    const cap = yoloCapUsd;
-    if (balanceNum === null || !Number.isFinite(balanceNum)) return cap;
-    return Math.max(1, Math.min(balanceNum, cap));
-  }, [balanceNum, yoloCapUsd]);
-
   const canAfford = useMemo(() => {
     const a = Number(amount);
     if (!Number.isFinite(a) || a <= 0) return false;
@@ -65,15 +60,11 @@ export function BetSlipPanel({
     return balanceNum >= a;
   }, [amount, balanceNum]);
 
-  // Empty state
   if (!market) {
     return (
-      <div className="tm-box">
-        <div className="text-sm font-semibold text-text-primary mb-2">Trade</div>
-        <div className="text-center py-8">
-          <div className="text-text-muted text-sm">
-            Select a market to start
-          </div>
+      <div className={styles.card}>
+        <div className={styles.emptyState}>
+          <div className={styles.emptyText}>Select a market to start</div>
         </div>
       </div>
     );
@@ -82,82 +73,77 @@ export function BetSlipPanel({
   const resolvedPairs = market.resolvedPairs ?? market.pairs;
   const resolvedBasket = market.resolvedBasket ?? market.basket;
 
-  const longLeg = resolvedPairs?.long ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.long) : '—');
-  const shortLeg = resolvedPairs?.short ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
+  const longLeg = resolvedPairs?.long?.split(':').pop() ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.long) : '—');
+  const shortLeg = resolvedPairs?.short?.split(':').pop() ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
+
+  const submitBtnClass = !side
+    ? styles.submitBtnNeutral
+    : side === 'short'
+    ? styles.submitBtnShort
+    : styles.submitBtnLong;
 
   return (
-    <div className="tm-box">
+    <div className={styles.card}>
       {/* Header */}
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div className="flex-1 min-w-0">
-          <div className="text-sm font-semibold text-text-primary truncate">{market.name}</div>
-          <div className="text-xs text-text-muted mt-0.5">{market.leverage}x leverage</div>
+      <div className={styles.header}>
+        <div className={styles.headerInfo}>
+          <div className={styles.marketName}>{market.name}</div>
+          <div className={styles.leverage}>{market.leverage}x leverage</div>
         </div>
-        <button
-          onClick={onClear}
-          className="text-[11px] text-text-muted hover:text-text-secondary transition-colors"
-        >
+        <button onClick={onClear} className={styles.clearBtn}>
           Clear
         </button>
       </div>
 
       {/* Direction */}
-      <div className="mb-4">
-        <div className="text-[11px] uppercase tracking-wide text-text-muted mb-2">Direction</div>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            onClick={() => onSideChange('long')}
-            className={`py-3 rounded-md text-sm font-medium transition-all ${
-              side === 'long'
-                ? 'bg-profit/15 text-profit border border-profit/30'
-                : 'bg-bg-surface/60 text-text-secondary border border-transparent hover:border-border'
-            }`}
-          >
-            YES
-          </button>
-          <button
-            onClick={() => onSideChange('short')}
-            className={`py-3 rounded-md text-sm font-medium transition-all ${
-              side === 'short'
-                ? 'bg-loss/15 text-loss border border-loss/30'
-                : 'bg-bg-surface/60 text-text-secondary border border-transparent hover:border-border'
-            }`}
-          >
-            NO
-          </button>
-        </div>
-        {side && (
-          <div className="mt-2 text-xs text-text-muted">
-            {side === 'long' ? (
-              <><span className="text-profit">{longLeg}</span> outperforms <span className="text-loss">{shortLeg}</span></>
-            ) : (
-              <><span className="text-loss">{shortLeg}</span> outperforms <span className="text-profit">{longLeg}</span></>
-            )}
-          </div>
-        )}
+      <div className={styles.sectionLabel}>Direction</div>
+      <div className={styles.directionRow}>
+        <button
+          onClick={() => onSideChange('long')}
+          className={`${styles.dirBtn} ${side === 'long' ? styles.dirBtnYes : ''}`}
+        >
+          YES
+        </button>
+        <button
+          onClick={() => onSideChange('short')}
+          className={`${styles.dirBtn} ${side === 'short' ? styles.dirBtnNo : ''}`}
+        >
+          NO
+        </button>
       </div>
+      {side && (
+        <div className={styles.directionHint}>
+          {side === 'long' ? (
+            <>
+              <span className={styles.long}>{longLeg}</span> outperforms{' '}
+              <span className={styles.short}>{shortLeg}</span>
+            </>
+          ) : (
+            <>
+              <span className={styles.short}>{shortLeg}</span> outperforms{' '}
+              <span className={styles.long}>{longLeg}</span>
+            </>
+          )}
+        </div>
+      )}
 
       {/* Size */}
-      <div className="mb-4">
-        <div className="text-[11px] uppercase tracking-wide text-text-muted mb-2">Size (USDC)</div>
-        <div className="grid grid-cols-4 gap-2 mb-2">
+      <div className={styles.sizeSection}>
+        <div className={styles.sectionLabel}>Size (USDC)</div>
+        <div className={styles.presets}>
           {presets.map((p) => (
             <button
               key={p}
               onClick={() => setAmount(String(p))}
               disabled={submitting}
-              className={`py-2 rounded-md text-xs font-medium transition-all ${
-                amount === String(p)
-                  ? 'bg-primary/15 text-primary border border-primary/30'
-                  : 'bg-bg-surface/60 text-text-secondary border border-transparent hover:border-border'
-              }`}
+              className={`${styles.presetBtn} ${amount === String(p) ? styles.presetBtnActive : ''}`}
             >
               ${p}
             </button>
           ))}
         </div>
         <input
-          className="w-full bg-bg-surface/60 border border-border rounded-md px-3 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
+          className={styles.sizeInput}
           inputMode="decimal"
           type="number"
           value={amount}
@@ -165,51 +151,53 @@ export function BetSlipPanel({
           placeholder="Enter amount"
           disabled={submitting}
         />
-        <div className="flex items-center justify-between mt-2 text-xs">
+        <div className={styles.balanceRow}>
           {balance && (
-            <span className="text-text-muted">
-              Available: <span className="text-text-primary font-mono">${Number(balance).toFixed(2)}</span>
+            <span className={styles.balanceLabel}>
+              Available: <span className={styles.balanceValue}>${Number(balance).toFixed(2)}</span>
             </span>
           )}
-          {!canAfford && (
-            <span className="text-loss">Insufficient balance</span>
-          )}
+          {!canAfford && <span className={styles.insufficient}>Insufficient balance</span>}
         </div>
       </div>
 
       {/* Trade Info */}
-      <div className="bg-bg-surface/40 rounded-md p-3 mb-4 space-y-2">
-        <div className="flex justify-between text-xs">
-          <span className="text-text-muted">Underlying</span>
-          <span className="text-text-primary">{longLeg} / {shortLeg}</span>
+      <div className={styles.infoBox}>
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>Long Leg</span>
+          <span className={styles.infoValue}>{longLeg}</span>
         </div>
-        <div className="flex justify-between text-xs">
-          <span className="text-text-muted">Slippage</span>
-          <span className="text-text-primary">1% max</span>
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>Short Leg</span>
+          <span className={styles.infoValue}>{shortLeg}</span>
+        </div>
+        <div className={styles.infoRow}>
+          <span className={styles.infoLabel}>Slippage</span>
+          <span className={styles.infoValue}>1% max</span>
         </div>
         {!market.isTradable && (
-          <div className="flex justify-between text-xs">
-            <span className="text-text-muted">Status</span>
-            <span className="text-warning">Inactive</span>
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Status</span>
+            <span className={styles.infoWarning}>INACTIVE</span>
           </div>
         )}
       </div>
 
-      {/* Error (collapsible) */}
+      {/* Error */}
       {lastError && (
-        <div className="mb-4">
+        <div>
           <button
             type="button"
             onClick={() => setShowError(!showError)}
-            className="text-[11px] text-loss hover:text-loss/80 transition-colors"
+            className={styles.errorToggle}
           >
             {showError ? '▾ Hide error' : '▸ Show error'}
           </button>
           {showError && (
-            <div className="mt-2 p-3 bg-loss/10 rounded-md">
-              <p className="text-xs text-loss/90 break-all">{lastError}</p>
+            <div className={styles.errorBox}>
+              <p className={styles.errorText}>{lastError}</p>
               <button
-                className="mt-2 text-[11px] text-text-muted hover:text-text-secondary"
+                className={styles.errorDismiss}
                 onClick={() => {
                   setLastError(null);
                   setShowError(false);
@@ -224,11 +212,7 @@ export function BetSlipPanel({
 
       {/* Submit */}
       <button
-        className={`w-full py-3 rounded-md font-semibold text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
-          side === 'short'
-            ? 'bg-loss text-white hover:bg-loss/90'
-            : 'bg-primary text-bg-deep hover:bg-primary-hover'
-        }`}
+        className={`${styles.submitBtn} ${submitBtnClass}`}
         disabled={submitting || !canAfford || !side || !!lastError || !market.isTradable}
         onClick={async () => {
           if (!side) {
@@ -270,7 +254,7 @@ export function BetSlipPanel({
           }
         }}
       >
-        {submitting ? 'Placing...' : !side ? 'Select direction' : 'Place Trade'}
+        {submitting ? 'Placing...' : !side ? 'Select direction' : 'Execute Position'}
       </button>
     </div>
   );
