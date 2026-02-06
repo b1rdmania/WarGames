@@ -5,7 +5,7 @@ import styles from './warroom.module.css';
 
 type Summary = {
   risk?: { score?: number; bias?: string; components?: any; drivers?: string[] };
-  forecast?: { windows?: Array<{ windowStart: string; eventName: string; expectedVolatility: number }> };
+  forecast?: { windows?: Array<{ windowStart: string; eventName: string; expectedVolatility: number }>; recommendation?: string };
   narratives?: { narratives?: Array<{ id: string; name: string; score: number; trend?: string; drivers?: string[] }> };
   regime?: { regime?: string; confidence?: number; note?: string };
   nextEvent?: { title?: string; date?: string; predicted_impact?: number; confidence?: number };
