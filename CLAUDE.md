@@ -2,7 +2,7 @@
 
 ## Current Status: POST-HACKATHON / NORAD DESIGN LIVE
 
-**Updated:** 2026-02-05
+**Updated:** 2026-02-06
 **Live:** https://www.war.market
 **Docs:** https://docs.war.market
 **Repo:** https://github.com/b1rdmania/WarGames
@@ -17,7 +17,14 @@ One-click trading terminal for macro narratives on Hyperliquid via Pear Protocol
 
 ---
 
-## Recent Work (2026-02-05 Session)
+## Recent Work (2026-02-06 Session)
+
+### War Room Intel Page — NEW
+- `/intel` — Live intelligence dashboard with real data feeds
+- API proxy routes for summary, breaking news, markets, ticker, flow, events
+- Real-time macro telemetry: risk score, forecast windows, narrative tracking
+- Credit spreads, volatility indices, Solana DeFi stats
+- Auto-refreshing every 30 seconds with latency tracking
 
 ### NORAD Design System — LIVE
 - Full NORAD mission-control aesthetic implemented
@@ -26,6 +33,8 @@ One-click trading terminal for macro narratives on Hyperliquid via Pear Protocol
 - Military command center vibes: cyan telemetry, lime execute states, amber warnings
 
 ### Components Updated
+- **IntelClient** — War Room intelligence dashboard
+- **IntelStrip** — Breaking news/intel ticker component
 - **PearSetupCard** — NORAD styling (cyan/lime, not orange)
 - **BetSlipPanel** — NORAD styling, fixed "Long Leg / Short Leg" display
 - **NoradTradeSurface** — Situation Board, Event Log, Mission Console
@@ -45,6 +54,7 @@ One-click trading terminal for macro narratives on Hyperliquid via Pear Protocol
 | Route | Description | Auth Required |
 |-------|-------------|---------------|
 | `/` | Design System Labs picker | No |
+| `/intel` | War Room intelligence dashboard | No |
 | `/labs/norad` | NORAD design demo | No |
 | `/labs/bloomberg` | Bloomberg design demo | No |
 | `/labs/dos-norton` | DOS/Norton design demo | No |
@@ -93,6 +103,18 @@ One-click trading terminal for macro narratives on Hyperliquid via Pear Protocol
 src/
 ├── app/
 │   ├── page.tsx                    # Root → Design Labs picker
+│   ├── intel/
+│   │   ├── IntelClient.tsx         # War Room dashboard
+│   │   ├── page.tsx                # Intel page wrapper
+│   │   └── warroom.module.css      # War Room styling
+│   ├── api/intel/                  # Intel API proxy routes
+│   │   ├── breaking/route.ts       # Breaking news feed
+│   │   ├── events/route.ts         # Market events
+│   │   ├── extra/route.ts          # DeFi stats
+│   │   ├── flow/route.ts           # Flow data (Solana, credit, vol)
+│   │   ├── markets/route.ts        # Market tape
+│   │   ├── summary/route.ts        # Risk score, narratives, forecast
+│   │   └── ticker/route.ts         # Intel feed
 │   ├── trade/
 │   │   ├── TradeClient.tsx         # NORAD trade page
 │   │   └── trade.module.css
@@ -109,6 +131,8 @@ src/
 │   ├── NoradTradeSurface.module.css
 │   ├── NoradPortfolioSurface.tsx   # Main portfolio layout
 │   ├── NoradPortfolioSurface.module.css
+│   ├── IntelStrip.tsx              # Intel ticker strip
+│   ├── IntelStrip.module.css
 │   ├── PearSetupCard.tsx           # Auth card (NORAD styled)
 │   ├── PearSetupCard.module.css
 │   ├── BetSlipPanel.tsx            # Trade panel (NORAD styled)
