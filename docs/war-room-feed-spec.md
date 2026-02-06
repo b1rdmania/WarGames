@@ -27,7 +27,7 @@ Now live (real):
 ## Endpoints Ready for Production Integration
 
 ### 1) Real Economic Calendar
-```
+```http
 GET https://wargames-api.fly.dev/events
 GET https://wargames-api.fly.dev/events?days=60
 GET https://wargames-api.fly.dev/events?high_impact=true
@@ -49,7 +49,7 @@ Coverage:
 ---
 
 ### 2) Live Narrative Tracking
-```
+```http
 GET https://wargames-api.fly.dev/narratives
 ```
 
@@ -71,7 +71,7 @@ Narratives tracked (8):
 ---
 
 ### 3) Breaking News
-```
+```http
 GET https://wargames-api.fly.dev/live/news
 ```
 Source: GDELT
@@ -79,7 +79,7 @@ Source: GDELT
 ---
 
 ### 4) Geopolitical Events
-```
+```http
 GET https://wargames-api.fly.dev/live/geo
 ```
 Source: GDELT
@@ -87,7 +87,7 @@ Source: GDELT
 ---
 
 ### 5) Markets (FX + Rates)
-```
+```http
 GET https://wargames-api.fly.dev/live/markets
 ```
 Sources: FRED + Frankfurter
@@ -95,7 +95,7 @@ Sources: FRED + Frankfurter
 ---
 
 ### 6) Volatility & Indices
-```
+```http
 GET https://wargames-api.fly.dev/live/vol
 ```
 Source: FRED
@@ -103,7 +103,7 @@ Source: FRED
 ---
 
 ### 7) Commodities
-```
+```http
 GET https://wargames-api.fly.dev/live/commodities
 ```
 Source: FRED
@@ -111,7 +111,7 @@ Source: FRED
 ---
 
 ### 8) Credit Spreads
-```
+```http
 GET https://wargames-api.fly.dev/live/credit
 ```
 Source: FRED
@@ -119,7 +119,7 @@ Source: FRED
 ---
 
 ### 9) Unified Aggregator
-```
+```http
 GET https://wargames-api.fly.dev/live/tape
 ```
 Purpose: single call for full snapshot.

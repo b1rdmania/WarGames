@@ -182,6 +182,10 @@
   font-size: 10px;
 }
 
+.marketChangeNeg {
+  color: var(--norad-fault);
+}
+
 .marketNote {
   color: var(--text-muted);
   font-size: 10px;

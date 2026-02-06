@@ -23,19 +23,19 @@ export async function GET() {
     const tapeGroups = tape?.data?.tape || [];
     for (const group of tapeGroups) {
       const category = (group.category || 'MARKET').toString().toUpperCase();
-      for (const entry of (group.items || []).slice(0, 6)) {
+      for (const [idx, entry] of (group.items || []).slice(0, 6).entries()) {
         const label = entry.symbol || entry.type || entry.name || category;
         const value = entry.value ?? entry.oas ?? entry.rate ?? entry.price ?? null;
         if (typeof value !== 'number') continue;
         items.push({
-          id: `${category}-${label}`,
+          id: `${category}-${label}-${idx}`,
           category,
           label,
           value,
           change: entry.change_24h ?? null,
           note: entry.note,
           unit: entry.unit,
-          source: tape?.metadata?.provider ? 'WARGAMES' : 'WARGAMES',
+          source: 'WARGAMES',
         });
       }
     }

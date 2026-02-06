@@ -13,9 +13,13 @@ export async function GET() {
 
     const predictions = (geo?.data?.events || []).slice(0, 4).map((event: any) => ({
       type: event.event_type || event.region || 'geo',
-      impact: `${event.intensity ?? '—'}`,
-      time_to_event_readable: event.timestamp ? 'active' : 'live',
-      recommended_action: event.headline || 'Monitor geopolitical flashpoints',
+      impact: event.intensity ?? null,
+      time_to_event_readable: event.timestamp
+        ? event.timestamp.replace('T', ' ').replace('Z', 'Z')
+        : 'live',
+      recommended_action: event.headline
+        ? `Monitor: ${event.headline}`
+        : `Monitor ${event.region || 'geo'} activity`,
     }));
 
     return NextResponse.json({

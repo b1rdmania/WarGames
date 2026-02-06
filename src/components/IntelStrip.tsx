@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import styles from './IntelStrip.module.css';
 
 type IntelSummary = {
@@ -58,7 +59,7 @@ export function IntelStrip() {
         <span className={styles.v}>{narrative}</span>
       </div>
       <div className={styles.cta}>
-        <a href="/intel">Open War Room →</a>
+        <Link href="/intel">Open War Room →</Link>
       </div>
     </div>
   );

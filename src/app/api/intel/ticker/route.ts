@@ -36,13 +36,10 @@ function severityFromProb(prob?: number | null): TickerItem['severity'] {
 
 export async function GET() {
   try {
-    const predictionsRes = await fetch(`${WARGAMES_API_BASE}/live/predictions`, {
-      next: { revalidate: 120 },
-    });
-
-    const eventsRes = await fetch(`${WARGAMES_API_BASE}/events?days=14`, {
-      next: { revalidate: 300 },
-    });
+    const [predictionsRes, eventsRes] = await Promise.all([
+      fetch(`${WARGAMES_API_BASE}/live/predictions`, { next: { revalidate: 120 } }),
+      fetch(`${WARGAMES_API_BASE}/events?days=14`, { next: { revalidate: 300 } }),
+    ]);
 
     const [predictions, events] = await Promise.all([
       predictionsRes.ok ? predictionsRes.json() : null,

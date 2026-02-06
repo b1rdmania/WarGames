@@ -59,8 +59,8 @@ Any changes to data logic live in the API repo. WarGames should treat it as a st
 ## Local override (optional)
 You can point WarGames to a different API base using:
 
-```
-WARGAMES_API_BASE=https://wargames-api.vercel.app
+```text
+WARGAMES_API_BASE=https://wargames-api.fly.dev
 ```
 
 Set this in `.env.local` if needed.

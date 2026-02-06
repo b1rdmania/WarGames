@@ -45,10 +45,11 @@ export async function GET() {
     const items: BreakingItem[] = [];
 
     const breakingNews = news?.data?.breaking || news?.data?.breaking_news || [];
-    for (const item of breakingNews.slice(0, 6)) {
+    for (const [idx, item] of breakingNews.slice(0, 6).entries()) {
+      const title = item.headline || 'Breaking update';
       items.push({
-        id: item.url || item.headline,
-        title: item.headline,
+        id: item.url || item.headline || `news-${idx}`,
+        title,
         tag: (item.category || 'NEWS').toString().toUpperCase(),
         severity: severityFromHotspot(undefined, item.importance),
         timestamp: item.timestamp || new Date().toISOString(),
@@ -57,10 +58,11 @@ export async function GET() {
     }
 
     const geoEvents = geo?.data?.events || [];
-    for (const event of geoEvents.slice(0, Math.max(0, 6 - items.length))) {
+    for (const [idx, event] of geoEvents.slice(0, Math.max(0, 6 - items.length)).entries()) {
+      const title = event.headline || `${event.region || 'Geo'} ${event.event_type || 'update'}`;
       items.push({
-        id: event.url || event.headline,
-        title: event.headline,
+        id: event.url || event.headline || `geo-${idx}`,
+        title,
         tag: (event.event_type || event.region || 'GEO').toString().toUpperCase(),
         severity: severityFromIntensity(event.intensity),
         timestamp: event.timestamp || new Date().toISOString(),
@@ -71,9 +73,10 @@ export async function GET() {
     if (items.length < 4) {
       const hotspots = geo?.data?.hotspots || [];
       for (const risk of hotspots.slice(0, 4 - items.length)) {
+        const eventCount = risk.event_count ?? 0;
         items.push({
           id: risk.region || 'HOTSPOT',
-          title: `${risk.region || 'HOTSPOT'}: ${risk.event_count} events`,
+          title: `${risk.region || 'HOTSPOT'}: ${eventCount} events`,
           tag: 'RISK',
           severity: 'medium',
           timestamp: geo?.metadata?.fetchedAt || new Date().toISOString(),

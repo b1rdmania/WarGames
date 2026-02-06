@@ -50,7 +50,7 @@ type Flow = {
 
 type Events = {
   events?: { events?: Array<{ event: string; date: string; time?: string; impact?: string; description?: string }> };
-  predict?: { predictions?: Array<{ type: string; impact: string; time_to_event_readable: string; recommended_action: string }> };
+  predict?: { predictions?: Array<{ type: string; impact: number | null; time_to_event_readable: string; recommended_action: string }> };
 };
 
 type Extra = {
@@ -85,24 +85,42 @@ export default function IntelClient() {
     const fetchAll = async () => {
       const start = performance.now();
       try {
-        const [summaryRes, breakingRes, marketsRes, tickerRes, flowRes, eventsRes, extraRes] = await Promise.all([
-          fetch('/api/intel/summary'),
-          fetch('/api/intel/breaking'),
-          fetch('/api/intel/markets'),
-          fetch('/api/intel/ticker'),
-          fetch('/api/intel/flow'),
-          fetch('/api/intel/events'),
-          fetch('/api/intel/extra'),
+        const safeFetch = async (url: string) => {
+          try {
+            const res = await fetch(url);
+            if (!res.ok) return null;
+            return await res.json();
+          } catch {
+            return null;
+          }
+        };
+
+        const [
+          summaryData,
+          breakingData,
+          marketsData,
+          tickerData,
+          flowData,
+          eventsData,
+          extraData,
+        ] = await Promise.all([
+          safeFetch('/api/intel/summary'),
+          safeFetch('/api/intel/breaking'),
+          safeFetch('/api/intel/markets'),
+          safeFetch('/api/intel/ticker'),
+          safeFetch('/api/intel/flow'),
+          safeFetch('/api/intel/events'),
+          safeFetch('/api/intel/extra'),
         ]);
 
         if (!active) return;
-        if (summaryRes.ok) setSummary(await summaryRes.json());
-        if (breakingRes.ok) setBreaking((await breakingRes.json()).items || []);
-        if (marketsRes.ok) setMarkets((await marketsRes.json()).items || []);
-        if (tickerRes.ok) setTicker((await tickerRes.json()).items || []);
-        if (flowRes.ok) setFlow(await flowRes.json());
-        if (eventsRes.ok) setEvents(await eventsRes.json());
-        if (extraRes.ok) setExtra(await extraRes.json());
+        if (summaryData) setSummary(summaryData);
+        if (breakingData) setBreaking(breakingData.items || []);
+        if (marketsData) setMarkets(marketsData.items || []);
+        if (tickerData) setTicker(tickerData.items || []);
+        if (flowData) setFlow(flowData);
+        if (eventsData) setEvents(eventsData);
+        if (extraData) setExtra(extraData);
       } catch {
         // ignore
       } finally {
@@ -127,7 +145,7 @@ export default function IntelClient() {
   const riskScore = summary?.risk?.score ?? '—';
   const riskBias = summary?.risk?.bias ?? 'unknown';
   const nextEvent = summary?.nextEvent?.title || 'No critical events';
-  const posture = summary?.posture?.overallRecommendation || summary?.forecast?.recommendation || 'Posture pending';
+  const posture = summary?.posture?.overallRecommendation || 'Posture pending';
   const predictions = events?.predict?.predictions || [];
   const solana = flow?.solana;
   const credit = flow?.credit;
@@ -138,7 +156,7 @@ export default function IntelClient() {
     <div className={styles.root}>
       <div className={styles.header}>
         <div>
-          <div className={styles.title}>WAR ROOM // NORAD INTELLIGENCE</div>
+          <div className={styles.title}>{'WAR ROOM // NORAD INTELLIGENCE'}</div>
           <div className={styles.subtitle}>Macro telemetry · Prediction windows · Execution posture</div>
         </div>
         <div className={styles.statusPill}>
@@ -178,7 +196,9 @@ export default function IntelClient() {
                   {m.unit ? ` ${m.unit}` : ''}
                 </span>
                 {typeof m.change === 'number' ? (
-                  <span className={styles.marketChange}>
+                  <span
+                    className={`${styles.marketChange} ${m.change < 0 ? styles.marketChangeNeg : ''}`}
+                  >
                     {m.change > 0 ? '+' : ''}
                     {m.change.toFixed(2)}%
                   </span>
@@ -257,7 +277,7 @@ export default function IntelClient() {
 
         <section className={`${styles.panel} ${styles.narrativesPanel}`}>
           <div className={styles.panelHeader}>
-            Active Narratives <span className={styles.badge}>TOP 8</span>
+            Active Narratives <span className={styles.badge}>TOP 4</span>
           </div>
           <div className={styles.panelBody}>
             {topNarratives.length === 0 ? (
@@ -283,8 +303,8 @@ export default function IntelClient() {
             Event Log <span className={styles.badge}>ALERTS</span>
           </div>
           <div className={styles.panelBody}>
-            {(events?.events?.events || []).slice(0, 8).map((e: any) => (
-              <div key={e.event} className={styles.logRow}>
+            {(events?.events?.events || []).slice(0, 8).map((e: any, idx: number) => (
+              <div key={`${e.event}-${e.date}-${idx}`} className={styles.logRow}>
                 <span className={styles.logStamp}>{e.time || e.date}</span>
                 <span className={styles.logText}>{e.event}</span>
                 <span className={styles.logBadge}>{e.impact || '—'}</span>
@@ -301,11 +321,11 @@ export default function IntelClient() {
             {predictions.length === 0 ? (
               <div className={styles.empty}>No alerts detected</div>
             ) : (
-              predictions.slice(0, 4).map((p) => (
-                <div key={p.type} className={`${styles.logRow} ${styles.logAlert}`}>
+              predictions.slice(0, 4).map((p, idx) => (
+                <div key={`${p.type}-${idx}`} className={`${styles.logRow} ${styles.logAlert}`}>
                   <span className={styles.logStamp}>{p.time_to_event_readable}</span>
                   <span className={styles.logText}>{p.recommended_action}</span>
-                  <span className={styles.logBadge}>{p.impact}</span>
+                  <span className={styles.logBadge}>{p.impact ?? '—'}</span>
                 </div>
               ))
             )}
