@@ -1,0 +1,619 @@
+.root {
+  --norad-bg: #070d14;
+  --norad-surface: #0e1822;
+  --norad-panel: #101c28;
+  --norad-grid: #243242;
+  --norad-telemetry: #36d4ff;
+  --norad-signal: #02ff81;
+  --norad-warning: #f59e0b;
+  --norad-fault: #ff5c6a;
+  --text-primary: #dbe7f2;
+  --text-muted: #8aa0b5;
+
+  background:
+    radial-gradient(circle at 20% 10%, rgba(54, 212, 255, 0.08), transparent 35%),
+    linear-gradient(180deg, rgba(7, 13, 20, 0.9), rgba(7, 13, 20, 0.95)),
+    repeating-linear-gradient(0deg, rgba(36, 50, 66, 0.12), rgba(36, 50, 66, 0.12) 1px, transparent 1px, transparent 32px);
+  border: 1px solid var(--norad-grid);
+  padding: 24px;
+  border-radius: 6px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid var(--norad-grid);
+  background: var(--norad-surface);
+  padding: 16px 24px;
+  border-radius: 6px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 4px;
+  color: var(--norad-telemetry);
+}
+
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--norad-signal);
+  color: var(--norad-signal);
+  font-size: 10px;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  background: var(--norad-signal);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--norad-signal);
+}
+
+.ticker {
+  margin-top: 16px;
+  border: 1px solid var(--norad-grid);
+  background: var(--norad-panel);
+  padding: 12px 16px;
+  border-radius: 6px;
+}
+
+.tickerTrack::-webkit-scrollbar,
+.breakingTrack::-webkit-scrollbar,
+.marketTrack::-webkit-scrollbar {
+  height: 4px;
+}
+
+.tickerTrack::-webkit-scrollbar-thumb,
+.breakingTrack::-webkit-scrollbar-thumb,
+.marketTrack::-webkit-scrollbar-thumb {
+  background: var(--norad-grid);
+}
+
+.tickerTrack,
+.breakingTrack,
+.marketTrack {
+  scrollbar-color: var(--norad-grid) transparent;
+}
+
+.breaking {
+  margin-top: 16px;
+  border: 1px solid var(--norad-grid);
+  background: linear-gradient(90deg, rgba(255, 92, 106, 0.12), rgba(7, 13, 20, 0.9));
+  padding: 12px 16px;
+  border-radius: 6px;
+}
+
+.breakingLabel {
+  font-size: 10px;
+  color: var(--norad-fault);
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+}
+
+.breakingTrack {
+  display: flex;
+  gap: 16px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.breakingItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-primary);
+  border-left: 3px solid var(--norad-fault);
+  padding-left: 8px;
+  font-family: var(--font-sans);
+}
+
+.marketTape {
+  margin-top: 12px;
+  border: 1px solid var(--norad-grid);
+  background: var(--norad-surface);
+  padding: 10px 16px;
+  border-radius: 6px;
+}
+
+.marketLabel {
+  font-size: 10px;
+  color: var(--norad-telemetry);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+}
+
+.marketTrack {
+  display: flex;
+  gap: 16px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.marketItem {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-primary);
+  border-left: 3px solid var(--norad-grid);
+  padding-left: 8px;
+  font-family: var(--font-mono);
+}
+
+.marketCategory {
+  color: var(--text-muted);
+  font-size: 8px;
+  letter-spacing: 2px;
+  opacity: 0.6;
+}
+
+.marketSymbol {
+  color: var(--norad-telemetry);
+  letter-spacing: 1px;
+}
+
+.marketValue {
+  font-size: 12px;
+}
+
+.marketChange {
+  color: var(--norad-signal);
+  font-size: 10px;
+}
+
+.marketNote {
+  color: var(--text-muted);
+  font-size: 10px;
+}
+
+.marketSource {
+  color: var(--text-muted);
+  font-size: 9px;
+}
+
+.tickerLabel {
+  font-size: 10px;
+  color: var(--norad-telemetry);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+}
+
+.tickerTrack {
+  display: flex;
+  gap: 16px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.tickerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-primary);
+  border-left: 3px solid var(--norad-grid);
+  padding-left: 8px;
+  font-family: var(--font-sans);
+}
+
+.tag {
+  color: var(--norad-telemetry);
+  font-size: 8px;
+  letter-spacing: 2px;
+  font-family: var(--font-mono);
+  opacity: 0.7;
+}
+
+.headline {
+  max-width: 360px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+}
+
+.prob {
+  color: var(--norad-warning);
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.source {
+  color: var(--text-muted);
+  font-size: 9px;
+  font-family: var(--font-mono);
+}
+
+.wall {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: minmax(140px, auto);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.panel {
+  border: 1px solid var(--norad-grid);
+  background: var(--norad-panel);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.heroPanel {
+  grid-column: 1 / span 6;
+  grid-row: 1;
+  border: 2px solid var(--norad-grid);
+  background: var(--norad-panel);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.forecastPanel {
+  grid-column: 7 / span 3;
+  grid-row: 1;
+}
+
+.narrativesPanel {
+  grid-column: 10 / span 3;
+  grid-row: 1;
+}
+
+.eventPanel {
+  grid-column: 1 / span 8;
+  grid-row: 2 / span 3;
+  min-height: 420px;
+}
+
+.alertsPanel {
+  grid-column: 9 / span 2;
+  grid-row: 2;
+}
+
+.consolePanel {
+  grid-column: 11 / span 2;
+  grid-row: 2;
+}
+
+.flowsPanel {
+  grid-column: 9 / span 2;
+  grid-row: 3;
+}
+
+.proofPanel {
+  grid-column: 11 / span 2;
+  grid-row: 3;
+}
+
+.defiPanel {
+  grid-column: 9 / span 4;
+  grid-row: 4;
+}
+
+.heroPanel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(54, 212, 255, 0.08), transparent 60%),
+    repeating-linear-gradient(90deg, rgba(36, 50, 66, 0.2), rgba(36, 50, 66, 0.2) 1px, transparent 1px, transparent 48px);
+  pointer-events: none;
+}
+
+.heroHeader {
+  padding: 12px 16px;
+  background: var(--norad-surface);
+  color: var(--norad-telemetry);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.heroBody {
+  padding: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroStats {
+  margin-top: 4px;
+}
+
+.panelWide {
+  grid-column: span 7;
+}
+
+.panelHeader {
+  padding: 12px 16px;
+  background: var(--norad-surface);
+  color: var(--norad-telemetry);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+
+.panelDetails {
+  color: var(--text-primary);
+}
+
+.panelSummary {
+  padding: 12px 16px;
+  background: var(--norad-surface);
+  color: var(--norad-telemetry);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+  list-style: none;
+  cursor: pointer;
+}
+
+.panelDetails summary::-webkit-details-marker {
+  display: none;
+}
+
+.panelDetails[open] .panelSummary {
+  border-bottom: 1px solid var(--norad-grid);
+}
+
+.badge {
+  font-size: 8px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--norad-grid);
+  color: var(--norad-signal);
+  font-family: var(--font-mono);
+}
+
+.panelBody {
+  padding: 16px;
+}
+
+.forecastPanel .dataRow span:last-child {
+  color: var(--norad-warning);
+  font-weight: 600;
+}
+
+.narrativesPanel .narrativeFill {
+  box-shadow: 0 0 8px rgba(2, 255, 129, 0.2);
+}
+
+.metricPrimary {
+  text-align: center;
+  padding: 8px 0 14px;
+}
+
+.metricValue {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--norad-signal);
+  text-shadow: 0 0 18px rgba(2, 255, 129, 0.25);
+  font-family: var(--font-mono);
+}
+
+.metricLabel {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.dataRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--norad-grid);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  opacity: 0.9;
+}
+
+.dataRow:last-child {
+  border-bottom: none;
+}
+
+.narrativeRow {
+  padding: 8px 0;
+}
+
+.narrativeHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+}
+
+.narrativeBar {
+  height: 4px;
+  background: var(--norad-surface);
+}
+
+.narrativeFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--norad-signal), var(--norad-warning), var(--norad-fault));
+}
+
+.logRow {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--norad-grid);
+  font-size: 10px;
+  font-family: var(--font-mono);
+}
+
+.eventPanel .panelBody {
+  min-height: 360px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.logRow:last-child {
+  border-bottom: none;
+}
+
+.logAlert {
+  color: var(--norad-warning);
+}
+
+.logStamp {
+  color: var(--text-muted);
+}
+
+.logText {
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.logBadge {
+  font-size: 8px;
+  padding: 2px 6px;
+  border: 1px solid var(--norad-grid);
+  color: var(--norad-telemetry);
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+.footerRail {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  border-top: 1px solid var(--norad-grid);
+  padding-top: 10px;
+  font-size: 9px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.consoleState {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.stateLabel {
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+.stateValue {
+  font-size: 10px;
+  color: var(--norad-signal);
+  border: 1px solid var(--norad-signal);
+  padding: 2px 8px;
+  border-radius: 3px;
+  letter-spacing: 2px;
+  font-family: var(--font-mono);
+}
+
+.consoleText {
+  font-size: 12px;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  line-height: 1.6;
+  font-family: var(--font-sans);
+}
+
+.consoleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.critical {
+  border-left-color: var(--norad-fault);
+}
+
+.high {
+  border-left-color: var(--norad-warning);
+}
+
+.medium {
+  border-left-color: var(--norad-telemetry);
+}
+
+.low {
+  border-left-color: var(--norad-grid);
+}
+
+.empty {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .wall {
+    grid-template-columns: 1fr;
+  }
+  .heroPanel,
+  .forecastPanel,
+  .narrativesPanel,
+  .eventPanel,
+  .alertsPanel,
+  .consolePanel,
+  .flowsPanel,
+  .proofPanel,
+  .defiPanel,
+  .panelWide {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .eventPanel {
+    min-height: 0;
+  }
+  .footerRail {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
