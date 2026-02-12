@@ -1,8 +1,8 @@
 # WAR.MARKET
 
-## Current Status: POST-HACKATHON / NORAD DESIGN LIVE
+## Current Status: POST-HACKATHON / NORAD DESIGN LIVE + THREE-THEME COHERENCE
 
-**Updated:** 2026-02-06
+**Updated:** 2026-02-11
 **Live:** https://www.war.market
 **Docs:** https://docs.war.market
 **Repo:** https://github.com/b1rdmania/WarGames
@@ -49,6 +49,71 @@ One-click trading terminal for macro narratives on Hyperliquid via Pear Protocol
 
 ---
 
+## Three-Theme Coherence Program (2026-02-11 Session)
+
+Implemented a clean architectural governance system to manage three active design themes.
+
+### **What Was Implemented**
+
+**Phase 1: Foundation**
+- ✅ Canonical theme registry at `src/themes/index.ts`
+- ✅ ThemeContext updated to support all 3 themes (terminal, geocities, norad)
+- ✅ DOS/Norton renamed → Terminal (with legacy redirect)
+- ✅ Bloomberg archived → `_archive/bloomberg`
+- ✅ Labs index derives from `ACTIVE_THEMES` registry
+
+**Phase 2: Token Isolation**
+- ✅ Terminal tokens → `src/themes/terminal/tokens.css`
+- ✅ GeoCities tokens → `src/themes/geocities/tokens.css`
+- ✅ NORAD tokens → `src/themes/norad/tokens.css`
+- ✅ Refactored `globals.css` from 663 → 407 lines (pure primitives)
+- ✅ All theme-specific colors/fonts isolated to per-theme CSS files
+
+**Phase 3: Enforcement**
+- ✅ ESLint rules block archived imports (`_archive/**`)
+- ✅ CI script: `scripts/check-theme-coherence.sh` (4 validation checks)
+- ✅ PR template with theme coherence checklist
+- ✅ npm script: `npm run check:theme`
+
+### **Active Themes**
+| Theme ID | Label | Description |
+|----------|-------|-------------|
+| `terminal` | Terminal | Command-line aesthetic (warm amber/violet) |
+| `geocities` | GeoCities | 1998 nostalgia (bright colors, Comic Sans, GIFs) |
+| `norad` | NORAD | Mission control (cyan telemetry, lime execute) |
+
+### **Governance Tools**
+```bash
+# Run theme coherence checks
+npm run check:theme
+
+# What it validates:
+# ✓ Only allowed theme IDs used (no dos-norton, bloomberg)
+# ✓ No imports from _archive directories
+# ✓ All theme token files present
+# ✓ Theme registry is complete
+```
+
+### **Key Files**
+| What | Path |
+|------|------|
+| Theme Registry | `src/themes/index.ts` |
+| Terminal Tokens | `src/themes/terminal/tokens.css` |
+| GeoCities Tokens | `src/themes/geocities/tokens.css` |
+| NORAD Tokens | `src/themes/norad/tokens.css` |
+| Globals (primitives) | `src/app/globals.css` |
+| Coherence Script | `scripts/check-theme-coherence.sh` |
+| Governance Docs | `docs/design-governance/` |
+
+### **Architecture**
+- **Single Source of Truth**: `src/themes/index.ts` registry defines all active themes
+- **Token Isolation**: Theme-specific colors/fonts in per-theme CSS files (not globals)
+- **Data Attributes**: Theme switching via `[data-theme="X"]` CSS selectors
+- **Archive Policy**: Inactive themes moved to `_archive/` with import restrictions
+- **CI Enforcement**: Automated checks prevent theme violations
+
+---
+
 ## Site Map
 
 | Route | Description | Auth Required |
@@ -56,8 +121,10 @@ One-click trading terminal for macro narratives on Hyperliquid via Pear Protocol
 | `/` | Design System Labs picker | No |
 | `/intel` | War Room intelligence dashboard | No |
 | `/labs/norad` | NORAD design demo | No |
-| `/labs/bloomberg` | Bloomberg design demo | No |
-| `/labs/dos-norton` | DOS/Norton design demo | No |
+| `/labs/terminal` | Terminal design demo (fka DOS/Norton) | No |
+| `/labs/geocities` | GeoCities design demo | No |
+| `/labs/dos-norton` | Legacy redirect → `/labs/terminal` | No |
+| `/labs/_archive/bloomberg` | Archived Bloomberg demo | No |
 | `/markets` | Browse markets (read-only) | No |
 | `/markets/[id]` | Market detail | No |
 | `/trade` | NORAD trade terminal | Yes |
@@ -122,10 +189,13 @@ src/
 │   │   ├── PortfolioClient.tsx     # NORAD portfolio page
 │   │   └── portfolio.module.css
 │   └── labs/
-│       ├── page.tsx                # Labs index
+│       ├── page.tsx                # Labs index (derives from theme registry)
+│       ├── terminal/               # Terminal demo (fka DOS/Norton)
+│       ├── geocities/              # GeoCities demo
 │       ├── norad/                  # NORAD demo
-│       ├── bloomberg/              # Bloomberg demo
-│       └── dos-norton/             # DOS/Norton demo
+│       ├── dos-norton/             # Legacy redirect → terminal
+│       └── _archive/
+│           └── bloomberg/          # Archived Bloomberg demo
 ├── components/
 │   ├── NoradTradeSurface.tsx       # Main trade layout
 │   ├── NoradTradeSurface.module.css
@@ -143,8 +213,17 @@ src/
 │   ├── auth.ts                     # EIP-712 auth
 │   ├── positions.ts                # Trade execution
 │   └── agent.ts                    # Agent wallet
+├── themes/
+│   ├── index.ts                    # Canonical theme registry (single source of truth)
+│   ├── terminal/
+│   │   └── tokens.css              # Terminal theme tokens (amber/violet)
+│   ├── geocities/
+│   │   └── tokens.css              # GeoCities theme tokens (bright 90s)
+│   └── norad/
+│       └── tokens.css              # NORAD theme tokens (cyan/lime)
 └── contexts/
-    └── PearContext.tsx             # Auth state
+    ├── PearContext.tsx             # Auth state
+    └── ThemeContext.tsx            # Theme state (supports all 3 themes)
 ```
 
 ---
@@ -177,8 +256,12 @@ docs/design-systems/
 ### Key Files for Designers
 | What | Path |
 |------|------|
+| Theme Registry | `src/themes/index.ts` |
 | NORAD spec | `docs/design-systems/norad-system.md` |
-| Color tokens | `src/app/globals.css` (search for `--norad-`) |
+| NORAD tokens | `src/themes/norad/tokens.css` |
+| Terminal tokens | `src/themes/terminal/tokens.css` |
+| GeoCities tokens | `src/themes/geocities/tokens.css` |
+| Globals (primitives) | `src/app/globals.css` |
 | Trade surface CSS | `src/components/NoradTradeSurface.module.css` |
 | Portfolio surface CSS | `src/components/NoradPortfolioSurface.module.css` |
 | Reference images | `terminal_ref/` |
@@ -191,6 +274,10 @@ docs/design-systems/
 # App
 npm run dev              # Local dev
 npm run build            # Production build
+npm run lint             # ESLint checks
+
+# Theme Coherence
+npm run check:theme      # Validate theme architecture (4 checks)
 
 # Docs
 npm run docs:dev         # Docs dev server
