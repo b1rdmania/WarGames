@@ -1,0 +1,76 @@
+/**
+ * NORAD Theme Tokens
+ *
+ * Mission control aesthetic with cyan telemetry, lime execute states,
+ * and explicit risk indicators.
+ */
+
+[data-theme="norad"] {
+  /* Backgrounds - Dark blue military command palette */
+  --bg-deep: #070d14;
+  --bg-warm: #0e1822;
+  --bg-surface: #101c28;
+  --bg-elevated: #1a2936;
+
+  /* NORAD-specific surfaces */
+  --norad-bg: #070d14;
+  --norad-surface: #0e1822;
+  --norad-panel: #101c28;
+  --norad-grid: #234055;
+
+  /* Text - Cool tones for telemetry readouts */
+  --text-primary: #e8f4fa;
+  --text-secondary: #9db8ca;
+  --text-muted: #6b8294;
+  --text-faint: #4a5966;
+  --text-disabled: #3d4752;
+
+  /* Borders - Cyan-tinted grids */
+  --border: #234055;
+  --border-subtle: #1a2f3f;
+  --border-focus: #36d4ff;
+
+  /* Color Roles - NORAD mission control semantics */
+
+  /* Telemetry: Cyan - system chrome, labels, section titles */
+  --primary: #36d4ff;
+  --primary-hover: #1eb8e8;
+  --primary-soft: rgba(54, 212, 255, 0.12);
+  --primary-rgb: 54, 212, 255;
+
+  /* Signal/Execute: Lime - armed states, CTAs, success */
+  --secondary: #02ff81;
+  --secondary-hover: #00e070;
+  --secondary-soft: rgba(2, 255, 129, 0.12);
+  --secondary-muted: #6bc99a;
+
+  /* Intel: Violet - metadata, not CTA */
+  --tertiary: #cfbeff;
+  --tertiary-soft: rgba(207, 190, 255, 0.1);
+  --tertiary-muted: #a094c4;
+
+  /* Functional states */
+  --profit: #02ff81; /* Uses signal color */
+  --profit-dim: #00e070;
+  --loss: #ff8f9a; /* NORAD fault color */
+  --loss-dim: #ff6b7a;
+  --warning: #f9c262; /* NORAD warning color */
+  --info: var(--tertiary);
+
+  /* NORAD semantic colors */
+  --norad-telemetry: #36d4ff;
+  --norad-signal: #02ff81;
+  --norad-intel: #cfbeff;
+  --norad-warning: #f9c262;
+  --norad-fault: #ff8f9a;
+
+  /* Typography */
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  /* Legacy aliases for backwards compatibility */
+  --pear-lime: var(--secondary); /* Maps to signal/execute */
+  --pear-lime-light: var(--secondary-hover);
+  --border-color: rgba(var(--primary-rgb), 0.22);
+}

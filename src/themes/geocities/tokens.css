@@ -1,0 +1,62 @@
+/**
+ * GeoCities Theme Tokens
+ *
+ * Pure 1998 nostalgia with bright colors, Comic Sans, and animated GIFs.
+ */
+
+[data-theme="geocities"] {
+  /* Backgrounds - Black with tiled GIF pattern */
+  --bg-deep: #000000;
+  --bg-warm: #111111;
+  --bg-surface: #1a0000;
+  --bg-elevated: #330000;
+
+  /* Text - Bright neon colors */
+  --text-primary: #00FF00; /* Bright green */
+  --text-secondary: #FFFF00; /* Yellow */
+  --text-muted: #00FFFF; /* Cyan */
+  --text-faint: #999999;
+  --text-disabled: #666666;
+
+  /* Borders - Bright and bold */
+  --border: #FF0000; /* Red */
+  --border-subtle: #666666;
+  --border-focus: #FFFF00; /* Yellow */
+
+  /* Color Roles - GeoCities bright palette */
+
+  /* Primary: Red - headlines, borders, attention */
+  --primary: #FF0000;
+  --primary-hover: #DD0000;
+  --primary-soft: rgba(255, 0, 0, 0.12);
+  --primary-rgb: 255, 0, 0;
+
+  /* Secondary: Green - text, success, links */
+  --secondary: #00FF00;
+  --secondary-hover: #00DD00;
+  --secondary-soft: rgba(0, 255, 0, 0.12);
+  --secondary-muted: #00CC00;
+
+  /* Tertiary: Yellow - highlights, warnings, emphasis */
+  --tertiary: #FFFF00;
+  --tertiary-soft: rgba(255, 255, 0, 0.1);
+  --tertiary-muted: #CCCC00;
+
+  /* Functional states */
+  --profit: #00FF00; /* Green */
+  --profit-dim: #00CC00;
+  --loss: #FF0000; /* Red */
+  --loss-dim: #DD0000;
+  --warning: #FFFF00; /* Yellow */
+  --info: #00FFFF; /* Cyan */
+
+  /* Typography - Comic Sans all the way */
+  --font-display: 'Comic Sans MS', 'Papyrus', cursive;
+  --font-sans: 'Comic Sans MS', cursive;
+  --font-mono: 'Courier New', monospace;
+
+  /* Legacy aliases map to GeoCities colors */
+  --pear-lime: var(--secondary); /* Green */
+  --pear-lime-light: #00DD00;
+  --border-color: rgba(255, 0, 0, 0.5); /* Red */
+}

@@ -1,72 +1,30 @@
+/**
+ * WAR.MARKET Global Styles
+ *
+ * This file contains only theme-agnostic primitives:
+ * - Tailwind imports
+ * - CSS reset
+ * - Spacing/radius primitives
+ * - Utility classes with no brand semantics
+ *
+ * Theme-specific tokens are in src/themes/{terminal,geocities,norad}/tokens.css
+ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Import theme token files */
+@import "../themes/terminal/tokens.css";
+@import "../themes/geocities/tokens.css";
+@import "../themes/norad/tokens.css";
+
+/* ==========================================================================
+   Root Primitives - Spacing, Radii (theme-agnostic)
+   ========================================================================== */
+
 :root {
-  /* war.market brand system */
-
-  /* Backgrounds */
-  --bg-deep: #0e0e10;
-  --bg-warm: #18171c;
-  --bg-surface: #222127;
-  --bg-elevated: #2c2a32;
-
-  /* Text - with subtle warmth */
-  --text-primary: #f0eef5;
-  --text-secondary: #a8a3b8;
-  --text-muted: #6b6879;
-  --text-faint: #4a4655;
-  --text-disabled: #3d3a45;
-
-  /* Borders */
-  --border: #37343e;
-  --border-subtle: #2a2830;
-  --border-focus: #f97316;
-
-  /* ==========================================================================
-     Color Tiers
-     ========================================================================== */
-
-  /* Primary: Amber - CTAs, key actions, brand highlight */
-  --primary: #f97316;
-  --primary-hover: #ea580c;
-  --primary-soft: rgba(249, 115, 22, 0.12);
-  --primary-rgb: 249, 115, 22;
-
-  /* Secondary: Violet - depth, secondary actions, accents */
-  --secondary: #a78bfa;
-  --secondary-hover: #8b5cf6;
-  --secondary-soft: rgba(167, 139, 250, 0.1);
-  --secondary-muted: #8b8b9e;
-
-  /* Tertiary: Slate Blue - info, metadata, subtle accents */
-  --tertiary: #60a5fa;
-  --tertiary-soft: rgba(96, 165, 250, 0.1);
-  --tertiary-muted: #94a3b8;
-
-  /* Legacy aliases (map to new system) */
-  --amber: var(--primary);
-  --amber-dim: var(--primary-hover);
-  --amber-rgb: var(--primary-rgb);
-  --gold: #fbbf24;
-  --mark-gray: #4a4752;
-
-  /* Functional / Semantic */
-  --profit: #22c55e;
-  --profit-dim: #16a34a;
-  --loss: #ef4444;
-  --loss-dim: #dc2626;
-  --warning: #f59e0b;
-  --info: var(--tertiary);
-
-  /* ==========================================================================
-     Typography
-     ========================================================================== */
-  --font-display: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
-
-  /* Spacing */
+  /* Spacing primitives */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -75,35 +33,16 @@
   --space-2xl: 48px;
   --space-3xl: 64px;
 
-  /* Radii */
+  /* Radius primitives */
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
   --radius-xl: 12px;
-
-  /* Legacy aliases */
-  --pear-dark: var(--bg-deep);
-  --pear-panel: var(--bg-warm);
-  --pear-panel-light: var(--bg-surface);
-  --pear-lime: var(--amber);
-  --pear-lime-light: var(--gold);
-  --pear-lime-rgb: var(--amber-rgb);
-  --pear-gray: var(--text-secondary);
-  --pear-gray-dark: var(--text-muted);
-  --pear-accent: var(--amber-dim);
-  --border-color: rgba(var(--amber-rgb), 0.22);
-
-  /* NORAD production tokens (trade shell) */
-  --norad-bg: #070d14;
-  --norad-surface: #0e1822;
-  --norad-panel: #101c28;
-  --norad-grid: #234055;
-  --norad-telemetry: #36d4ff;
-  --norad-signal: #02ff81;
-  --norad-intel: #cfbeff;
-  --norad-warning: #f9c262;
-  --norad-fault: #ff8f9a;
 }
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
 
 html {
   color-scheme: dark;
@@ -116,19 +55,9 @@ body {
 }
 
 /* ==========================================================================
-   Content Pages Typography System
+   Content Typography System
 
-   Hierarchy:
-   - tp-title:  36px, 600, Geist — Page titles
-   - tp-h:      20px, 600, Geist — Section headers
-   - tp-h2:     16px, 600, Geist — Subsection headers
-   - tp-body:   15px, 400, Inter — Body text
-   - tp-kv-k:   12px, 500, Inter — Labels (uppercase allowed)
-
-   Colors:
-   - Primary (amber): CTAs, links
-   - Secondary (violet): Labels, subtle accents
-   - Tertiary (slate): Metadata, timestamps
+   Theme-agnostic structure. Colors come from theme tokens.
    ========================================================================== */
 
 .tp-wrap {
@@ -149,12 +78,10 @@ body {
   }
 }
 
-/* Page header area */
 .tp-hero {
   padding-bottom: 32px;
 }
 
-/* Page title — Level 1 (Geist) */
 .tp-title {
   font-family: var(--font-display);
   font-size: 36px;
@@ -164,7 +91,6 @@ body {
   line-height: 1.1;
 }
 
-/* Subtitle / lede */
 .tp-lede {
   margin-top: 8px;
   font-family: var(--font-sans);
@@ -174,14 +100,12 @@ body {
   line-height: 1.6;
 }
 
-/* Horizontal rule with subtle amber gradient */
 .tp-rule {
   height: 1px;
   background: linear-gradient(90deg, var(--primary) 0%, var(--border) 20%, var(--border) 100%);
   margin: 48px 0;
 }
 
-/* Section container */
 .tp-section {
   margin-top: 48px;
 }
@@ -190,7 +114,6 @@ body {
   margin-top: 0;
 }
 
-/* Section header — Level 2 (Geist) with amber accent */
 .tp-h {
   font-family: var(--font-display);
   font-size: 20px;
@@ -214,7 +137,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Subsection header — Level 3 (Geist) */
 .tp-h2 {
   font-family: var(--font-display);
   font-size: 16px;
@@ -243,7 +165,6 @@ body {
   margin-top: 0;
 }
 
-/* Body text — Level 4 */
 .tp-body {
   font-family: var(--font-sans);
   font-size: 15px;
@@ -256,14 +177,12 @@ body {
   margin-top: 16px;
 }
 
-/* Emphasis within body — amber for key phrases */
 .tp-body strong,
 .tp-body .tp-em {
   color: var(--primary);
   font-weight: 500;
 }
 
-/* Bullet lists */
 .tp-bullets {
   list-style: none;
   padding: 0;
@@ -291,303 +210,164 @@ body {
   margin-top: 8px;
 }
 
-/* Key-value tables */
 .tp-kv {
   display: flex;
   flex-direction: column;
   border-left: 2px solid var(--primary);
   padding-left: 20px;
-  margin-left: 2px;
+  gap: 12px;
 }
 
 .tp-kv-row {
   display: grid;
   grid-template-columns: 160px 1fr;
-  gap: 32px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--border-subtle);
+  gap: 16px;
   align-items: baseline;
-}
-
-.tp-kv-row:last-child {
-  border-bottom: none;
 }
 
 @media (max-width: 640px) {
   .tp-kv-row {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 4px;
   }
 }
 
-/* Key (label) — secondary violet tint */
 .tp-kv-k {
   font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--secondary-muted);
-  line-height: 1.4;
+  letter-spacing: 0.05em;
+  color: var(--secondary);
 }
 
-/* Value — Inter, primary white */
 .tp-kv-v {
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 400;
   color: var(--text-primary);
-  line-height: 1.5;
 }
 
-/* Links within content — primary amber */
-.tp-link {
-  color: var(--primary);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: color 150ms ease;
-}
+/* ==========================================================================
+   Widget Primitives (buttons, inputs, boxes)
+   ========================================================================== */
 
-.tp-link:hover {
-  color: var(--secondary);
-}
-
-/* Secondary links — violet accent */
-.tp-link-secondary {
-  color: var(--secondary);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.tp-link-secondary:hover {
-  color: var(--secondary-hover);
-}
-
-/* Footer/signature line */
-.tp-footer {
-  text-align: center;
-  color: var(--tertiary-muted);
-  font-size: 13px;
-  letter-spacing: 0.01em;
-}
-
-/* Typography */
-h1, h2, h3 {
-  font-family: var(--font-sans);
-  letter-spacing: -0.02em;
-}
-
-/* Widget primitives */
-.tm-label {
-  font-family: var(--font-sans);
-  font-size: 11px;
+.tm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
   font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--secondary-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tm-btn:hover {
+  border-color: var(--primary);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.tm-btn:active {
+  background: var(--primary-soft);
+}
+
+.tm-box {
+  border: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 16px;
+  border-radius: var(--radius-md);
 }
 
 .tm-control {
+  display: block;
   width: 100%;
-  background: var(--bg-surface);
+  padding: 10px 14px;
   border: 1px solid var(--border);
-  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.35);
   color: var(--text-primary);
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.2;
-  border-radius: var(--radius-md);
-  transition: border-color 150ms ease, box-shadow 150ms ease;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s ease;
 }
 
 .tm-control:focus {
   outline: none;
-  border-color: var(--amber);
-  box-shadow: 0 0 0 3px rgba(var(--amber-rgb), 0.15);
-}
-
-.tm-btn {
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--amber);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 12px 20px;
-  border-radius: var(--radius-md);
-  transition: all 150ms ease;
-  cursor: pointer;
-}
-
-.tm-btn:hover {
-  border-color: var(--amber);
-  background: rgba(var(--amber-rgb), 0.1);
-}
-
-.tm-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.tm-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(var(--amber-rgb), 0.4);
-}
-
-.tm-btn-primary {
-  background: var(--amber);
-  border-color: var(--amber);
-  color: var(--bg-deep);
-  font-weight: 600;
-}
-
-.tm-btn-primary:hover {
-  background: var(--amber-dim);
-  border-color: var(--amber-dim);
-}
-
-.tm-btn-danger {
-  border-color: rgba(239, 68, 68, 0.35);
-  color: #fca5a5;
-}
-
-.tm-btn-danger:hover {
-  background: rgba(239, 68, 68, 0.10);
-  border-color: var(--loss);
-}
-
-/* Box primitives */
-.tm-box {
-  background: var(--bg-warm);
-  border: 1px solid var(--border);
-  border-top: 2px solid var(--primary);
-  padding: 16px;
-  border-radius: var(--radius-lg);
+  border-color: var(--border-focus);
 }
 
 .tm-k {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 10px;
+  font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--secondary-muted);
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
 }
 
 .tm-v {
+  font-size: 16px;
   font-family: var(--font-mono);
-  font-size: 14px;
   color: var(--text-primary);
 }
 
-.tm-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+.pear-border {
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
 }
 
-.tm-row + .tm-row {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border-subtle);
-}
-
-/* Utility classes */
-@layer utilities {
-  /* Primary (amber) */
-  .text-primary-accent {
-    color: var(--primary);
-  }
-  .bg-primary-soft {
-    background: var(--primary-soft);
-  }
-
-  /* Secondary (violet) */
-  .text-secondary-accent {
-    color: var(--secondary);
-  }
-  .text-secondary-muted {
-    color: var(--secondary-muted);
-  }
-  .bg-secondary-soft {
-    background: var(--secondary-soft);
-  }
-
-  /* Tertiary (slate) */
-  .text-tertiary {
-    color: var(--tertiary);
-  }
-  .text-tertiary-muted {
-    color: var(--tertiary-muted);
-  }
-  .bg-tertiary-soft {
-    background: var(--tertiary-soft);
-  }
-
-  /* Border utilities */
-  .war-border {
-    border: 1px solid var(--border);
-  }
-
-  .war-text {
-    color: var(--primary);
-  }
-
-  .war-glow {
-    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.2);
-  }
-
-  /* Legacy aliases */
-  .pear-border {
-    border: 1px solid var(--border);
-  }
-
-  .pear-text {
-    color: var(--primary);
-  }
-
-  .pear-glow {
-    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.2);
-  }
-}
-
-/* P&L colors */
-.pnl-positive, .text-profit {
+.text-profit {
   color: var(--profit);
 }
 
-.pnl-negative, .text-loss {
+.text-loss {
   color: var(--loss);
 }
 
-/* Form normalization */
-html input,
-html select,
-html textarea,
-html button {
+.text-warning {
+  color: var(--warning);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================================================
+   Form Normalization
+   ========================================================================== */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
-  appearance: none;
-  border-radius: 0;
+  margin: 0;
 }
 
-html button {
-  background: transparent;
-  color: inherit;
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
-html select {
-  background-image: none;
-}
+/* ==========================================================================
+   Scrollbar (uses theme colors)
+   ========================================================================== */
 
-html option {
-  background: var(--bg-deep);
-  color: var(--text-primary);
-}
-
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -595,69 +375,32 @@ html option {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--mark-gray);
+  background: var(--border);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--amber);
+  background: var(--text-muted);
 }
 
 /* ==========================================================================
-   Focus States (Accessibility)
+   Focus Styles
    ========================================================================== */
 
-/* Global focus-visible for interactive elements */
-a:focus-visible,
-button:focus-visible,
-[role="button"]:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--amber);
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--border-focus);
   outline-offset: 2px;
 }
 
-/* Remove default outline since we're using custom focus styles */
-a:focus,
-button:focus,
-input:focus,
-select:focus,
-textarea:focus {
-  outline: none;
-}
-
-/* Links get underline + color change on focus */
 a:focus-visible {
-  outline: none;
   text-decoration: underline;
-  text-decoration-color: var(--amber);
-  text-underline-offset: 4px;
+  color: var(--primary-hover);
 }
 
-/* Buttons get ring on focus */
-button:focus-visible,
-[role="button"]:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(var(--amber-rgb), 0.4);
-}
-
-/* ==========================================================================
-   Reduced Motion (Accessibility)
-   ========================================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  /* Hide autoplay videos for reduced-motion users */
-  video[autoplay] {
-    display: none;
-  }
+button:focus-visible {
+  box-shadow: 0 0 0 3px var(--primary-soft);
 }
