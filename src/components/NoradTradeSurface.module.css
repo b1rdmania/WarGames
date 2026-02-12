@@ -37,7 +37,7 @@
   min-height: 200px;
   position: relative;
   overflow: hidden;
-  border: 1px solid #2b4a60;
+  border: 1px solid var(--border);
   background:
     /* Grid overlay */
     linear-gradient(rgba(54, 212, 255, 0.08) 1px, transparent 1px),
@@ -67,9 +67,9 @@
   right: 8px;
   bottom: 8px;
   padding: 6px 10px;
-  border: 1px solid #2b4a60;
+  border: 1px solid var(--border);
   background: rgba(7, 13, 20, 0.92);
-  color: #7a9ab0;
+  color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 10px;
   text-transform: uppercase;
@@ -126,8 +126,8 @@
 }
 
 .marketRow {
-  border: 1px solid #2b4a60;
-  background: #101c28;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
   color: #bed4e5;
   padding: 8px;
   display: grid;
@@ -163,7 +163,7 @@
 
 .marketName {
   grid-area: name;
-  color: #f1f8ff;
+  color: var(--text-primary);
   font-size: 13px;
   font-weight: 600;
 }
@@ -265,7 +265,7 @@
 }
 
 .quickBias button {
-  border: 1px solid #2b4a60;
+  border: 1px solid var(--border);
   background: #0d151d;
   color: #bfd5e5;
   padding: 10px;
@@ -292,7 +292,7 @@
 
 .console :global(.tm-box) {
   margin: 0 10px 10px;
-  border-color: #2b4a60;
+  border-color: var(--border);
   border-top-color: var(--norad-signal);
   background: #0f1923;
 }

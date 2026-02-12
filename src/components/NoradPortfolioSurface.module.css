@@ -35,8 +35,8 @@
 }
 
 .metric {
-  border: 1px solid #2b4a60;
-  background: #101c28;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
   padding: 8px;
 }
 
@@ -70,7 +70,7 @@
 
 .summaryToggle button {
   width: 100%;
-  border: 1px solid #2b4a60;
+  border: 1px solid var(--border);
   background: #0d151d;
   color: #bfd5e5;
   padding: 10px;
@@ -95,7 +95,7 @@
 
 .summaryWrap :global(.tm-box) {
   margin: 0;
-  border-color: #2b4a60;
+  border-color: var(--border);
   border-top-color: var(--norad-telemetry);
   background: #0f1923;
 }
@@ -173,7 +173,7 @@
 .refresh {
   margin: 0 10px;
   width: calc(100% - 20px);
-  border: 1px solid #2b4a60;
+  border: 1px solid var(--border);
   background: #0d151d;
   color: #bfd5e5;
   padding: 10px;
@@ -216,7 +216,7 @@
 }
 
 .positionList :global(.tm-box) {
-  border-color: #2b4a60;
+  border-color: var(--border);
   border-top-color: var(--norad-signal);
   background: #0f1923;
 }
