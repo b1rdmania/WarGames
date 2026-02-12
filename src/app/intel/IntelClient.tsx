@@ -1,7 +1,14 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import styles from './warroom.module.css';
+import { RiskShell } from '@/components/RiskShell';
+import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
+import {
+  ControlRoomPanel,
+  ControlRoomSectionHeader,
+  ControlRoomStatusRail,
+} from '@/components/control-room';
+import styles from './IntelClient.module.css';
 
 type Summary = {
   risk?: { score?: number; bias?: string; components?: any; drivers?: string[] };
@@ -153,291 +160,190 @@ export default function IntelClient() {
   const defi = extra?.defi;
 
   return (
-    <div className={styles.root}>
-      <div className={styles.header}>
-        <div>
-          <div className={styles.title}>{'WAR ROOM // NORAD INTELLIGENCE'}</div>
-          <div className={styles.subtitle}>Macro telemetry · Prediction windows · Execution posture</div>
-        </div>
-        <div className={styles.statusPill}>
-          <span className={styles.pulse} />
-          LIVE
-        </div>
-      </div>
-
-      <div className={styles.breaking}>
-        <div className={styles.breakingLabel}>BREAKING</div>
-        <div className={styles.breakingTrack}>
-          {breaking.length === 0 ? (
-            <div className={styles.breakingItem}>Monitoring geopolitical feeds…</div>
-          ) : (
-            breaking.slice(0, 6).map((b) => (
-              <div key={b.id} className={`${styles.breakingItem} ${severityClass(b.severity)}`}>
-                <span className={styles.tag}>{b.tag}</span>
-                <span className={styles.headline}>{b.title}</span>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-
-      <div className={styles.marketTape}>
-        <div className={styles.marketLabel}>MARKET TAPE</div>
-        <div className={styles.marketTrack}>
-          {markets.length === 0 ? (
-            <div className={styles.marketItem}>Loading prices…</div>
-          ) : (
-            markets.map((m) => (
-              <div key={m.id} className={styles.marketItem}>
-                <span className={styles.marketCategory}>{m.category}</span>
-                <span className={styles.marketSymbol}>{m.label}</span>
-                <span className={styles.marketValue}>
-                  {m.value.toLocaleString()}
-                  {m.unit ? ` ${m.unit}` : ''}
-                </span>
-                {typeof m.change === 'number' ? (
-                  <span
-                    className={`${styles.marketChange} ${m.change < 0 ? styles.marketChangeNeg : ''}`}
-                  >
-                    {m.change > 0 ? '+' : ''}
-                    {m.change.toFixed(2)}%
-                  </span>
-                ) : m.note ? (
-                  <span className={styles.marketNote}>{m.note}</span>
-                ) : null}
-                <span className={styles.marketSource}>{m.source}</span>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-
-      <div className={styles.ticker}>
-        <div className={styles.tickerLabel}>INTEL FEED</div>
-        <div className={styles.tickerTrack}>
-          {ticker.length === 0 ? (
-            <div className={styles.tickerItem}>Awaiting telemetry…</div>
-          ) : (
-            ticker.slice(0, 12).map((t) => (
-              <div key={t.id} className={`${styles.tickerItem} ${severityClass(t.severity)}`}>
-                <span className={styles.headline}>{t.title}</span>
-                {typeof t.probability === 'number' ? (
-                  <span className={styles.prob}>{t.probability.toFixed(1)}%</span>
-                ) : null}
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-
-      <div className={styles.wall}>
-        <section className={`${styles.panel} ${styles.heroPanel}`}>
-          <div className={styles.heroHeader}>
-            Global Risk Score <span className={styles.badge}>LIVE</span>
-          </div>
-          <div className={styles.heroBody}>
-            <div className={styles.metricPrimary}>
-              <div className={styles.metricValue}>{riskScore}</div>
-              <div className={styles.metricLabel}>{String(riskBias).toUpperCase()}</div>
-            </div>
-            <div className={styles.heroStats}>
-              <div className={styles.dataRow}>
-                <span>Next Critical Event</span>
-                <span>{nextEvent}</span>
-              </div>
-              <div className={styles.dataRow}>
-                <span>Market Regime</span>
-                <span>{summary?.regime?.regime || 'unknown'}</span>
-              </div>
-              <div className={styles.dataRow}>
-                <span>Latency</span>
-                <span>{latencyMs !== null ? `${latencyMs}ms` : '—'}</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className={`${styles.panel} ${styles.forecastPanel}`}>
-          <div className={styles.panelHeader}>
-            48H Forecast <span className={styles.badge}>WINDOWS</span>
-          </div>
-          <div className={styles.panelBody}>
-            {forecastWindows.length === 0 ? (
-              <div className={styles.empty}>No forecast windows loaded</div>
-            ) : (
-              forecastWindows.map((w) => (
-                <div key={w.windowStart} className={styles.dataRow}>
-                  <span>{w.eventName}</span>
-                  <span>{w.expectedVolatility} VOL</span>
+    <RiskShell nav={<ControlRoomTopNav />}>
+      <div className={styles.shell}>
+        {/* Situation Board - Data Feeds */}
+        <div className={styles.situationBoard}>
+          <ControlRoomPanel title="SITUATION BOARD" subtitle="INTELLIGENCE FEEDS // LIVE">
+            <div className={styles.boardContent}>
+              {/* Breaking News */}
+              <div className={styles.feedSection}>
+                <div className={styles.feedLabel}>BREAKING</div>
+                <div className={styles.feedList}>
+                  {breaking.length === 0 ? (
+                    <div className={styles.feedItem}>Monitoring geopolitical feeds…</div>
+                  ) : (
+                    breaking.slice(0, 6).map((b) => (
+                      <div key={b.id} className={`${styles.feedItem} ${severityClass(b.severity)}`}>
+                        <span className={styles.tag}>[{b.tag}]</span>
+                        <span className={styles.headline}>{b.title}</span>
+                      </div>
+                    ))
+                  )}
                 </div>
-              ))
-            )}
-          </div>
-        </section>
+              </div>
 
-        <section className={`${styles.panel} ${styles.narrativesPanel}`}>
-          <div className={styles.panelHeader}>
-            Active Narratives <span className={styles.badge}>TOP 4</span>
-          </div>
-          <div className={styles.panelBody}>
-            {topNarratives.length === 0 ? (
-              <div className={styles.empty}>No narratives available</div>
-            ) : (
-              topNarratives.map((n) => (
-                <div key={n.id} className={styles.narrativeRow}>
-                  <div className={styles.narrativeHeader}>
-                    <span>{n.name}</span>
-                    <span>{n.score}</span>
+              {/* Market Tape */}
+              <div className={styles.feedSection}>
+                <div className={styles.feedLabel}>MARKET TAPE</div>
+                <div className={styles.marketGrid}>
+                  {markets.length === 0 ? (
+                    <div className={styles.feedItem}>Loading prices…</div>
+                  ) : (
+                    markets.slice(0, 8).map((m) => (
+                      <div key={m.id} className={styles.marketRow}>
+                        <span className={styles.marketSymbol}>{m.label}</span>
+                        <span className={styles.marketValue}>
+                          {m.value.toLocaleString()}{m.unit ? ` ${m.unit}` : ''}
+                        </span>
+                        {typeof m.change === 'number' && (
+                          <span className={`${styles.marketChange} ${m.change < 0 ? styles.marketChangeNeg : ''}`}>
+                            {m.change > 0 ? '+' : ''}{m.change.toFixed(2)}%
+                          </span>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              {/* Intel Feed */}
+              <div className={styles.feedSection}>
+                <div className={styles.feedLabel}>INTEL FEED</div>
+                <div className={styles.feedList}>
+                  {ticker.length === 0 ? (
+                    <div className={styles.feedItem}>Awaiting telemetry…</div>
+                  ) : (
+                    ticker.slice(0, 10).map((t) => (
+                      <div key={t.id} className={`${styles.feedItem} ${severityClass(t.severity)}`}>
+                        <span className={styles.headline}>{t.title}</span>
+                        {typeof t.probability === 'number' && (
+                          <span className={styles.prob}>{t.probability.toFixed(1)}%</span>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              {/* Top Narratives */}
+              <div className={styles.feedSection}>
+                <div className={styles.feedLabel}>ACTIVE NARRATIVES</div>
+                <div className={styles.narrativeList}>
+                  {topNarratives.length === 0 ? (
+                    <div className={styles.feedItem}>No narratives available</div>
+                  ) : (
+                    topNarratives.map((n) => (
+                      <div key={n.id} className={styles.narrativeItem}>
+                        <div className={styles.narrativeHeader}>
+                          <span className={styles.narrativeName}>{n.name}</span>
+                          <span className={styles.narrativeScore}>{n.score}</span>
+                        </div>
+                        <div className={styles.narrativeBar}>
+                          <div className={styles.narrativeFill} style={{ width: `${n.score}%` }} />
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+          </ControlRoomPanel>
+        </div>
+
+        {/* Mission Console - Analysis & Metrics */}
+        <div className={styles.missionConsole}>
+          <ControlRoomPanel title="MISSION CONSOLE" subtitle="RISK ANALYSIS // EXECUTION POSTURE">
+            <div className={styles.consoleContent}>
+              {/* Global Risk Score */}
+              <ControlRoomSectionHeader label="GLOBAL RISK SCORE">
+                {riskScore}
+              </ControlRoomSectionHeader>
+
+              <div className={styles.metrics}>
+                <div className={styles.metricRow}>
+                  <span className={styles.metricLabel}>BIAS</span>
+                  <span className={styles.metricValue}>{String(riskBias).toUpperCase()}</span>
+                </div>
+                <div className={styles.metricRow}>
+                  <span className={styles.metricLabel}>REGIME</span>
+                  <span className={styles.metricValue}>{summary?.regime?.regime || 'UNKNOWN'}</span>
+                </div>
+                <div className={styles.metricRow}>
+                  <span className={styles.metricLabel}>NEXT EVENT</span>
+                  <span className={styles.metricValue}>{nextEvent}</span>
+                </div>
+              </div>
+
+              {/* 48H Forecast */}
+              <div className={styles.section}>
+                <div className={styles.sectionLabel}>48H FORECAST WINDOWS</div>
+                <div className={styles.forecastList}>
+                  {forecastWindows.length === 0 ? (
+                    <div className={styles.emptyText}>No forecast windows loaded</div>
+                  ) : (
+                    forecastWindows.map((w) => (
+                      <div key={w.windowStart} className={styles.forecastRow}>
+                        <span className={styles.forecastEvent}>{w.eventName}</span>
+                        <span className={styles.forecastVol}>{w.expectedVolatility} VOL</span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              {/* Predictive Alerts */}
+              <div className={styles.section}>
+                <div className={styles.sectionLabel}>PREDICTIVE ALERTS</div>
+                <div className={styles.alertList}>
+                  {predictions.length === 0 ? (
+                    <div className={styles.emptyText}>No alerts detected</div>
+                  ) : (
+                    predictions.slice(0, 4).map((p, idx) => (
+                      <div key={`${p.type}-${idx}`} className={styles.alertRow}>
+                        <span className={styles.alertTime}>{p.time_to_event_readable}</span>
+                        <span className={styles.alertText}>{p.recommended_action}</span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              {/* Execution Posture */}
+              <div className={styles.section}>
+                <div className={styles.sectionLabel}>EXECUTION POSTURE</div>
+                <p className={styles.postureText}>{posture}</p>
+                <div className={styles.postureGrid}>
+                  <div className={styles.postureRow}>
+                    <span className={styles.postureLabel}>TPS</span>
+                    <span className={styles.postureValue}>{solana?.performance?.tps ?? '—'}</span>
                   </div>
-                  <div className={styles.narrativeBar}>
-                    <div className={styles.narrativeFill} style={{ width: `${n.score}%` }} />
+                  <div className={styles.postureRow}>
+                    <span className={styles.postureLabel}>VIX</span>
+                    <span className={styles.postureValue}>{vol?.data?.volatility?.[0]?.value ?? '—'}</span>
+                  </div>
+                  <div className={styles.postureRow}>
+                    <span className={styles.postureLabel}>CREDIT</span>
+                    <span className={styles.postureValue}>{credit?.data?.summary?.regime || '—'}</span>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
-        </section>
-
-        <section className={`${styles.panel} ${styles.eventPanel}`}>
-          <div className={styles.panelHeader}>
-            Event Log <span className={styles.badge}>ALERTS</span>
-          </div>
-          <div className={styles.panelBody}>
-            {(events?.events?.events || []).slice(0, 8).map((e: any, idx: number) => (
-              <div key={`${e.event}-${e.date}-${idx}`} className={styles.logRow}>
-                <span className={styles.logStamp}>{e.time || e.date}</span>
-                <span className={styles.logText}>{e.event}</span>
-                <span className={styles.logBadge}>{e.impact || '—'}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className={`${styles.panel} ${styles.alertsPanel}`}>
-          <div className={styles.panelHeader}>
-            Predictive Alerts <span className={styles.badge}>AUTO</span>
-          </div>
-          <div className={styles.panelBody}>
-            {predictions.length === 0 ? (
-              <div className={styles.empty}>No alerts detected</div>
-            ) : (
-              predictions.slice(0, 4).map((p, idx) => (
-                <div key={`${p.type}-${idx}`} className={`${styles.logRow} ${styles.logAlert}`}>
-                  <span className={styles.logStamp}>{p.time_to_event_readable}</span>
-                  <span className={styles.logText}>{p.recommended_action}</span>
-                  <span className={styles.logBadge}>{p.impact ?? '—'}</span>
-                </div>
-              ))
-            )}
-          </div>
-        </section>
-
-        <section className={`${styles.panel} ${styles.consolePanel}`}>
-          <div className={styles.panelHeader}>
-            Execution Console <span className={styles.badge}>POSTURE</span>
-          </div>
-          <div className={styles.panelBody}>
-            <div className={styles.consoleState}>
-              <span className={styles.stateLabel}>STATE</span>
-              <span className={styles.stateValue}>{solana?.performance?.health?.toUpperCase() || 'ARMED'}</span>
-            </div>
-            <div className={styles.consoleText}>{posture}</div>
-            <div className={styles.consoleGrid}>
-              <div className={styles.dataRow}>
-                <span>TPS</span>
-                <span>{solana?.performance?.tps ?? '—'}</span>
-              </div>
-              <div className={styles.dataRow}>
-                <span>Validators</span>
-                <span>{solana?.validators?.active ?? '—'}</span>
-              </div>
-              <div className={styles.dataRow}>
-                <span>VIX</span>
-                <span>{vol?.data?.volatility?.[0]?.value ?? '—'}</span>
-              </div>
-              <div className={styles.dataRow}>
-                <span>Credit</span>
-                <span>{credit?.data?.summary?.regime || '—'}</span>
               </div>
             </div>
-          </div>
-        </section>
-
-        <details className={`${styles.panel} ${styles.flowsPanel} ${styles.panelDetails}`} open>
-          <summary className={styles.panelSummary}>
-            Credit Spreads <span className={styles.badge}>OAS</span>
-          </summary>
-          <div className={styles.panelBody}>
-            <div className={styles.dataRow}>
-              <span>IG</span>
-              <span>{credit?.data?.spreads?.find((s: any) => s.type === 'IG')?.oas ?? '—'}</span>
-            </div>
-            <div className={styles.dataRow}>
-              <span>HY</span>
-              <span>{credit?.data?.spreads?.find((s: any) => s.type === 'HY')?.oas ?? '—'}</span>
-            </div>
-            <div className={styles.dataRow}>
-              <span>Stress</span>
-              <span>{credit?.data?.summary?.systemic_stress ?? '—'}</span>
-            </div>
-          </div>
-        </details>
-
-        <details className={`${styles.panel} ${styles.proofPanel} ${styles.panelDetails}`}>
-          <summary className={styles.panelSummary}>
-            Volatility <span className={styles.badge}>INDEX</span>
-          </summary>
-          <div className={styles.panelBody}>
-            <div className={styles.dataRow}>
-              <span>VIX</span>
-              <span>{vol?.data?.volatility?.[0]?.value ?? '—'}</span>
-            </div>
-            <div className={styles.dataRow}>
-              <span>SPX</span>
-              <span>{vol?.data?.indices?.[0]?.change_24h?.toFixed?.(2) ?? '—'}%</span>
-            </div>
-            <div className={styles.dataRow}>
-              <span>NDX</span>
-              <span>{vol?.data?.indices?.[1]?.change_24h?.toFixed?.(2) ?? '—'}%</span>
-            </div>
-            <div className={styles.dataRow}>
-              <span>Regime</span>
-              <span>{vol?.data?.summary?.regime || '—'}</span>
-            </div>
-          </div>
-        </details>
-
-        <details className={`${styles.panel} ${styles.defiPanel} ${styles.panelDetails}`}>
-          <summary className={styles.panelSummary}>
-            Solana DeFi <span className={styles.badge}>TVL</span>
-          </summary>
-          <div className={styles.panelBody}>
-            <div className={styles.dataRow}>
-              <span>Total TVL</span>
-              <span>{defi?.total_tvl_formatted || '—'}</span>
-            </div>
-            <div className={styles.dataRow}>
-              <span>Protocols</span>
-              <span>{defi?.protocol_count ?? '—'}</span>
-            </div>
-            <div className={styles.dataRow}>
-              <span>Top</span>
-              <span>{defi?.top_protocols?.[0]?.name || '—'}</span>
-            </div>
-            <div className={styles.dataRow}>
-              <span>Top TVL</span>
-              <span>{defi?.top_protocols?.[0]?.tvl_formatted || '—'}</span>
-            </div>
-          </div>
-        </details>
+          </ControlRoomPanel>
+        </div>
       </div>
 
-      <div className={styles.footerRail}>
-        <div>MODE: LIVE</div>
-        <div>BIAS: {String(riskBias).toUpperCase()}</div>
-        <div>FRESHNESS: 30s</div>
-        <div>LATENCY: {latencyMs !== null ? `${latencyMs}ms` : '—'}</div>
-      </div>
-    </div>
+      {/* Status Rail */}
+      <ControlRoomStatusRail
+        leftItems={[
+          { key: 'MODE', value: 'LIVE' },
+          { key: 'BIAS', value: String(riskBias).toUpperCase() },
+        ]}
+        rightItems={[
+          { key: 'FRESHNESS', value: '30s' },
+          { key: 'LATENCY', value: latencyMs !== null ? `${latencyMs}ms` : '—' },
+        ]}
+      />
+    </RiskShell>
   );
 }

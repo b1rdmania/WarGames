@@ -6,7 +6,15 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { RiskShell } from '@/components/RiskShell';
 import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
-import { ControlRoomPortfolioSurface } from '@/components/ControlRoomPortfolioSurface';
+import {
+  ControlRoomPanel,
+  ControlRoomButton,
+  ControlRoomSectionHeader,
+  ControlRoomEventLog,
+  ControlRoomStatusRail,
+  type ControlRoomEvent,
+} from '@/components/control-room';
+import { PositionCard } from '@/components/PositionCard';
 import { usePear } from '@/contexts/PearContext';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getActivePositions } from '@/integrations/pear/positions';
@@ -14,6 +22,7 @@ import type { PearPosition } from '@/integrations/pear/types';
 import { connectPearWebsocket } from '@/integrations/pear/websocket';
 import { emitDebugLog } from '@/lib/debugLog';
 import { connectWalletSafely } from '@/lib/connectWallet';
+import styles from './PortfolioClient.module.css';
 
 export default function PortfolioClient() {
   const { isConnected, address } = useAccount();
@@ -26,8 +35,12 @@ export default function PortfolioClient() {
   const [loadingPositions, setLoadingPositions] = useState(false);
   const [refreshingPositions, setRefreshingPositions] = useState(false);
   const [hasLoadedPositions, setHasLoadedPositions] = useState(false);
-  const [detailsOpen, setDetailsOpen] = useState(true);
+  const [selectedPositionId, setSelectedPositionId] = useState<string | null>(null);
+  const [events, setEvents] = useState<ControlRoomEvent[]>([
+    { time: new Date().toLocaleTimeString(), message: 'PORTFOLIO MONITORING INITIALIZED', type: 'success' },
+  ]);
 
+  // Load positions
   useEffect(() => {
     if (!accessToken) return;
 
@@ -40,9 +53,19 @@ export default function PortfolioClient() {
         const pos = await getActivePositions(accessToken);
         setPositions(pos);
         setHasLoadedPositions(true);
+        if (!silent) {
+          setEvents((prev) => [
+            { time: new Date().toLocaleTimeString(), message: `LOADED ${pos.length} ACTIVE POSITIONS`, type: 'success' },
+            ...prev,
+          ]);
+        }
       } catch (err) {
         console.error('Failed to load positions:', err);
         emitDebugLog({ level: 'error', scope: 'positions', message: 'load failed', data: { message: (err as Error).message } });
+        setEvents((prev) => [
+          { time: new Date().toLocaleTimeString(), message: 'POSITION LOAD FAILED', type: 'error' },
+          ...prev,
+        ]);
       } finally {
         if (!silent) setLoadingPositions(false);
         setRefreshingPositions(false);
@@ -54,6 +77,7 @@ export default function PortfolioClient() {
     return () => clearInterval(interval);
   }, [accessToken]);
 
+  // WebSocket updates
   useEffect(() => {
     if (!accessToken || !address) return;
 
@@ -68,6 +92,10 @@ export default function PortfolioClient() {
           setPositions(pos);
           setHasLoadedPositions(true);
           emitDebugLog({ level: 'info', scope: 'positions', message: 'refreshed from ws' });
+          setEvents((prev) => [
+            { time: new Date().toLocaleTimeString(), message: 'POSITION UPDATE RECEIVED', type: 'info' },
+            ...prev,
+          ]);
         } catch (e) {
           emitDebugLog({ level: 'warn', scope: 'positions', message: 'ws refresh failed', data: { message: (e as Error).message } });
         } finally {
@@ -88,77 +116,179 @@ export default function PortfolioClient() {
     };
   }, [accessToken, address]);
 
+  const totalPnl = positions.reduce((sum, pos) => sum + Number(pos.pnl), 0);
+  const selectedPosition = positions.find(p => p.id === selectedPositionId) ?? null;
+
+  // Auth screen
+  if (!isAuthenticated) {
+    return (
+      <RiskShell nav={<ControlRoomTopNav />}>
+        <div className={styles.authWrapper}>
+          <ControlRoomPanel title="OPERATOR AUTHENTICATION" subtitle="Connect wallet to access portfolio">
+            {!isConnected ? (
+              <>
+                <p className={styles.authText}>Wallet connection required for portfolio access.</p>
+                <ControlRoomButton
+                  variant="primary"
+                  fullWidth
+                  disabled={isPending}
+                  onClick={() => {
+                    (async () => {
+                      try {
+                        await connectWalletSafely({ connectors, connectAsync, disconnect });
+                      } catch (e) {
+                        console.error(e);
+                        toast.error((e as Error).message || 'Failed to connect wallet');
+                      }
+                    })();
+                  }}
+                >
+                  {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
+                </ControlRoomButton>
+              </>
+            ) : (
+              <PearSetupCard variant="portfolio" />
+            )}
+          </ControlRoomPanel>
+        </div>
+      </RiskShell>
+    );
+  }
+
+  // Authenticated: Portfolio view
   return (
     <RiskShell nav={<ControlRoomTopNav />}>
-      {!isAuthenticated ? (
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
-          {!isConnected ? (
-            <div className="tm-box" style={{ maxWidth: '420px', width: '100%', textAlign: 'center', padding: '32px' }}>
-              <div style={{ color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '14px', fontWeight: 600, marginBottom: '12px' }}>
-                OPERATOR AUTHENTICATION REQUIRED
+      <div className={styles.shell}>
+        {/* Situation Board - Position List */}
+        <div className={styles.situationBoard}>
+          <ControlRoomPanel title="SITUATION BOARD" subtitle="ACTIVE POSITIONS">
+            {loadingPositions && !hasLoadedPositions ? (
+              <div className={styles.loading}>
+                <p className={styles.loadingText}>LOADING POSITIONS...</p>
               </div>
-              <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '24px', lineHeight: '1.5' }}>
-                Connect your wallet to access your portfolio.
-              </p>
-              <button
-                disabled={isPending}
-                type="button"
-                onClick={() => {
-                  (async () => {
+            ) : positions.length === 0 ? (
+              <div className={styles.empty}>
+                <p className={styles.emptyText}>NO ACTIVE POSITIONS</p>
+                <p className={styles.emptyHint}>Navigate to /trade to open positions</p>
+              </div>
+            ) : (
+              <div className={styles.positionList}>
+                {positions.map((position) => (
+                  <div
+                    key={position.id}
+                    className={`${styles.positionRow} ${selectedPositionId === position.id ? styles.positionRowActive : ''}`}
+                    onClick={() => setSelectedPositionId(position.id)}
+                  >
+                    <div className={styles.positionHeader}>
+                      <span className={styles.positionMarket}>{position.marketId.toUpperCase().replace(/-/g, '_')}</span>
+                      <span className={`${styles.positionPnl} ${Number(position.pnl) >= 0 ? styles.pnlPositive : styles.pnlNegative}`}>
+                        {Number(position.pnl) >= 0 ? '+' : ''}${Number(position.pnl).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className={styles.positionMeta}>
+                      <span className={styles.positionSide}>{position.side.toUpperCase()}</span>
+                      <span className={styles.positionSize}>${Number(position.size).toFixed(2)}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </ControlRoomPanel>
+        </div>
+
+        {/* Mission Console - Position Details */}
+        <div className={styles.missionConsole}>
+          {!selectedPosition ? (
+            <ControlRoomPanel title="MISSION CONSOLE" subtitle="PORTFOLIO MANAGEMENT">
+              <div className={styles.consoleContent}>
+                <ControlRoomSectionHeader label="PORTFOLIO SUMMARY">
+                  {positions.length} POSITIONS
+                </ControlRoomSectionHeader>
+
+                <div className={styles.metrics}>
+                  <div className={styles.metricRow}>
+                    <span className={styles.metricLabel}>TOTAL P&L</span>
+                    <span className={`${styles.metricValue} ${totalPnl >= 0 ? styles.pnlPositive : styles.pnlNegative}`}>
+                      {totalPnl >= 0 ? '+' : ''}${totalPnl.toFixed(2)}
+                    </span>
+                  </div>
+                  <div className={styles.metricRow}>
+                    <span className={styles.metricLabel}>OPEN POSITIONS</span>
+                    <span className={styles.metricValue}>{positions.length}</span>
+                  </div>
+                  <div className={styles.metricRow}>
+                    <span className={styles.metricLabel}>AVAILABLE BALANCE</span>
+                    <span className={styles.metricValue}>${perpUsdc ? Number(perpUsdc).toFixed(2) : '0.00'}</span>
+                  </div>
+                </div>
+
+                <ControlRoomButton
+                  fullWidth
+                  disabled={refreshingPositions}
+                  onClick={async () => {
+                    if (!accessToken || refreshingPositions) return;
+                    setRefreshingPositions(true);
                     try {
-                      await connectWalletSafely({ connectors, connectAsync, disconnect });
-                    } catch (e) {
-                      console.error(e);
-                      toast.error((e as Error).message || 'Failed to connect wallet');
+                      const pos = await getActivePositions(accessToken);
+                      setPositions(pos);
+                      setHasLoadedPositions(true);
+                      toast.success('Positions refreshed');
+                      setEvents((prev) => [
+                        { time: new Date().toLocaleTimeString(), message: 'MANUAL REFRESH COMPLETE', type: 'success' },
+                        ...prev,
+                      ]);
+                    } catch {
+                      toast.error('Failed to refresh');
+                      setEvents((prev) => [
+                        { time: new Date().toLocaleTimeString(), message: 'REFRESH FAILED', type: 'error' },
+                        ...prev,
+                      ]);
+                    } finally {
+                      setRefreshingPositions(false);
                     }
-                  })();
-                }}
-                className="tm-btn"
-                style={{ width: '100%' }}
-              >
-                {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
-              </button>
-            </div>
+                  }}
+                >
+                  {refreshingPositions ? 'SYNCING...' : 'REFRESH POSITIONS'}
+                </ControlRoomButton>
+              </div>
+
+              <ControlRoomEventLog events={events.slice(0, 10)} />
+            </ControlRoomPanel>
           ) : (
-            <div className="tm-box" style={{ maxWidth: '420px', width: '100%' }}>
-              <PearSetupCard variant="portfolio" />
-            </div>
+            <ControlRoomPanel title="MISSION CONSOLE" subtitle={selectedPosition.marketId.toUpperCase().replace(/-/g, '_')}>
+              <div className={styles.consoleContent}>
+                <PositionCard
+                  position={selectedPosition}
+                  accessToken={accessToken ?? ''}
+                  onClose={async () => {
+                    if (!accessToken) return;
+                    const pos = await getActivePositions(accessToken);
+                    setPositions(pos);
+                    setHasLoadedPositions(true);
+                    setSelectedPositionId(null);
+                    setEvents((prev) => [
+                      { time: new Date().toLocaleTimeString(), message: `POSITION CLOSED: ${selectedPosition.marketId}`, type: 'success' },
+                      ...prev,
+                    ]);
+                  }}
+                />
+              </div>
+            </ControlRoomPanel>
           )}
         </div>
-      ) : (
-        <ControlRoomPortfolioSurface
-          positions={positions}
-          balance={perpUsdc}
-          loadingPositions={loadingPositions}
-          refreshingPositions={refreshingPositions}
-          hasLoadedPositions={hasLoadedPositions}
-          detailsOpen={detailsOpen}
-          accessToken={accessToken ?? ''}
-          operatorAddress={address}
-          onToggleDetails={() => setDetailsOpen((v) => !v)}
-          onRefresh={async () => {
-            if (!accessToken || refreshingPositions) return;
-            setRefreshingPositions(true);
-            try {
-              const pos = await getActivePositions(accessToken);
-              setPositions(pos);
-              setHasLoadedPositions(true);
-              toast.success('Refreshed');
-            } catch {
-              toast.error('Failed to refresh');
-            } finally {
-              setRefreshingPositions(false);
-            }
-          }}
-          onPositionClosed={() => {
-            if (!accessToken) return;
-            getActivePositions(accessToken).then((next) => {
-              setPositions(next);
-              setHasLoadedPositions(true);
-            });
-          }}
-        />
-      )}
+      </div>
+
+      {/* Status Rail */}
+      <ControlRoomStatusRail
+        leftItems={[
+          { key: 'POSITIONS', value: positions.length.toString() },
+          { key: 'P&L', value: `${totalPnl >= 0 ? '+' : ''}$${totalPnl.toFixed(2)}` },
+        ]}
+        rightItems={[
+          { key: 'MODE', value: 'MONITOR' },
+          { key: 'OPERATOR', value: address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'NONE' },
+        ]}
+      />
     </RiskShell>
   );
 }
