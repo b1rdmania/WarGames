@@ -6,7 +6,7 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { RiskShell } from '@/components/RiskShell';
 import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
-import { NoradTradeSurface } from '@/components/NoradTradeSurface';
+import { ControlRoomTradeSurface } from '@/components/ControlRoomTradeSurface';
 import { usePear } from '@/contexts/PearContext';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
@@ -61,7 +61,7 @@ export default function TradeClient() {
           )}
         </div>
       ) : (
-        <NoradTradeSurface
+        <ControlRoomTradeSurface
           markets={effectiveMarkets ?? []}
           selectedMarketId={selectedMarketId}
           selectedSide={selectedSide}

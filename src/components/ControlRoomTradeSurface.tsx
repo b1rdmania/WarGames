@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BetSlipPanel } from '@/components/BetSlipPanel';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
-import styles from './NoradTradeSurface.module.css';
+import styles from './ControlRoomTradeSurface.module.css';
 
 type OpsLevel = 'INFO' | 'ALERT' | 'EXEC';
 
@@ -44,7 +44,7 @@ function marketLegs(m: ValidatedMarket) {
   return { long: '—', short: '—' };
 }
 
-export function NoradTradeSurface({
+export function ControlRoomTradeSurface({
   markets,
   selectedMarketId,
   selectedSide,

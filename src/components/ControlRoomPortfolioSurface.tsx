@@ -5,7 +5,7 @@ import type { PearPosition } from '@/integrations/pear/types';
 import { PortfolioSummary } from '@/components/PortfolioSummary';
 import { PositionCard } from '@/components/PositionCard';
 import { WarMark } from '@/components/WarMark';
-import styles from './NoradPortfolioSurface.module.css';
+import styles from './ControlRoomPortfolioSurface.module.css';
 
 type LogLevel = 'INFO' | 'ALERT' | 'EXEC';
 
@@ -24,7 +24,7 @@ function shortAddr(address?: string) {
   return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
 
-export function NoradPortfolioSurface({
+export function ControlRoomPortfolioSurface({
   positions,
   balance,
   loadingPositions,

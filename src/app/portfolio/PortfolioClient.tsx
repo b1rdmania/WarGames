@@ -6,7 +6,7 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { RiskShell } from '@/components/RiskShell';
 import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
-import { NoradPortfolioSurface } from '@/components/NoradPortfolioSurface';
+import { ControlRoomPortfolioSurface } from '@/components/ControlRoomPortfolioSurface';
 import { usePear } from '@/contexts/PearContext';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getActivePositions } from '@/integrations/pear/positions';
@@ -126,7 +126,7 @@ export default function PortfolioClient() {
           )}
         </div>
       ) : (
-        <NoradPortfolioSurface
+        <ControlRoomPortfolioSurface
           positions={positions}
           balance={perpUsdc}
           loadingPositions={loadingPositions}
