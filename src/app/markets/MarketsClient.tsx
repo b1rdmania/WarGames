@@ -6,7 +6,6 @@ import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import {
   TerminalShell,
-  TerminalHeader,
   TerminalMenuBar,
   TerminalPaneTitle,
   TerminalCommandBar,
@@ -34,7 +33,6 @@ export default function MarketsClient() {
 
   return (
     <TerminalShell
-      header={<TerminalHeader title="WAR.MARKET // MARKET BROWSER" backHref="/" backLabel="← HOME" />}
       menuBar={<TerminalMenuBar items={['FILE', 'BROWSE', 'DETAIL', 'INTEL', 'HELP']} />}
       leftPane={
         <>

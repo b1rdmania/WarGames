@@ -3,6 +3,7 @@ import styles from './terminal.module.css';
 
 export { TerminalShell } from './TerminalShell';
 export { TerminalHeader } from './TerminalHeader';
+export { TerminalNav } from './TerminalNav';
 
 // Menu Bar
 export function TerminalMenuBar({ items }: { items: string[] }) {
