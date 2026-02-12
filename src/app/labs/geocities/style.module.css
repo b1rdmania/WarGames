@@ -304,20 +304,20 @@
 }
 
 /* Scrollbar */
-::-webkit-scrollbar {
+.page ::-webkit-scrollbar {
   width: 12px;
 }
 
-::-webkit-scrollbar-track {
+.page ::-webkit-scrollbar-track {
   background: #330000;
 }
 
-::-webkit-scrollbar-thumb {
+.page ::-webkit-scrollbar-thumb {
   background: #FF0000;
   border: 1px solid #000;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.page ::-webkit-scrollbar-thumb:hover {
   background: #DD0000;
 }
 

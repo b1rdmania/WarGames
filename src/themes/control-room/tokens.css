@@ -1,0 +1,84 @@
+/**
+ * Control Room Theme Tokens
+ *
+ * NORAD mission control structure with classic Terminal green aesthetic.
+ * Combines situation board layout with DOS/Norton Commander green on dark.
+ */
+
+[data-theme="control-room"] {
+  /* Backgrounds - Dark with subtle green tint */
+  --bg-deep: #080a0c;
+  --bg-warm: #0d0f11;
+  --bg-surface: #111414;
+  --bg-elevated: #161a1a;
+
+  /* Control Room specific surfaces */
+  --norad-bg: #080a0c;
+  --norad-surface: #0d0f11;
+  --norad-panel: #111414;
+  --norad-grid: #1f3e2f;
+  --norad-input: #0d0f11;
+
+  /* Text - Cool gray tones */
+  --text-primary: #d7dbde;
+  --text-secondary: #9bb7a9;
+  --text-muted: #6b7a70;
+  --text-faint: #4a5550;
+  --text-disabled: #3a4440;
+
+  /* Borders - Green-tinted */
+  --border: #1f3e2f;
+  --border-subtle: #162820;
+  --border-focus: #02ff81;
+
+  /* Color Roles - Terminal green system */
+
+  /* Primary: Bright Green - System chrome, CTAs, active states */
+  --primary: #02ff81;
+  --primary-hover: #00e070;
+  --primary-soft: rgba(2, 255, 129, 0.12);
+  --primary-rgb: 2, 255, 129;
+
+  /* Secondary: Muted Green - Labels, secondary text */
+  --secondary: #9bb7a9;
+  --secondary-hover: #b5cdc0;
+  --secondary-soft: rgba(155, 183, 169, 0.1);
+  --secondary-muted: #7a9a88;
+
+  /* Tertiary: Dim Green - Subtle accents */
+  --tertiary: #6b7a70;
+  --tertiary-soft: rgba(107, 122, 112, 0.1);
+  --tertiary-muted: #5a6860;
+
+  /* Control Room semantic colors (aligned with Terminal green) */
+  --norad-telemetry: #02ff81;
+  --norad-signal: #00e070;
+  --norad-intel: #9bb7a9;
+  --norad-warning: #ffcc00;
+  --norad-fault: #ff4444;
+
+  /* Functional states */
+  --profit: #02ff81;
+  --profit-dim: #00cc66;
+  --loss: #ff4444;
+  --loss-dim: #cc3333;
+  --warning: #ffcc00;
+  --info: var(--secondary);
+
+  /* Typography */
+  --font-display: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  /* Legacy aliases */
+  --pear-dark: var(--bg-deep);
+  --pear-panel: var(--bg-warm);
+  --pear-panel-light: var(--bg-surface);
+  --pear-lime: var(--primary);
+  --pear-lime-light: var(--primary-hover);
+  --pear-lime-rgb: var(--primary-rgb);
+  --pear-gray: var(--text-secondary);
+  --pear-gray-dark: var(--text-muted);
+  --pear-accent: var(--primary-hover);
+  --border-color: rgba(var(--primary-rgb), 0.22);
+}

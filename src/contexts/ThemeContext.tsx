@@ -18,6 +18,7 @@ interface ThemeState {
   isGeoCities: boolean;
   isTerminal: boolean;
   isNorad: boolean;
+  isControlRoom: boolean;
 }
 
 const ThemeContext = createContext<ThemeState | undefined>(undefined);
@@ -57,9 +58,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const toggleTheme = useCallback(() => {
     setThemeState((prev) => {
-      // Cycle through: terminal -> geocities -> norad -> terminal
+      // Cycle through: terminal -> geocities -> norad -> control-room -> terminal
       if (prev === 'terminal') return 'geocities';
       if (prev === 'geocities') return 'norad';
+      if (prev === 'norad') return 'control-room';
       return 'terminal';
     });
   }, []);
@@ -72,6 +74,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       isGeoCities: theme === 'geocities',
       isTerminal: theme === 'terminal',
       isNorad: theme === 'norad',
+      isControlRoom: theme === 'control-room',
     }),
     [theme, setTheme, toggleTheme],
   );

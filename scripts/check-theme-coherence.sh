@@ -2,7 +2,7 @@
 #
 # Theme Coherence Check Script
 #
-# Validates that the codebase adheres to the three-theme architecture
+# Validates that the codebase adheres to the four-theme architecture
 # defined in docs/design-governance.
 #
 # Run this in CI before tests/build to catch theme violations early.
@@ -23,8 +23,8 @@ ERRORS=0
 
 echo "✓ Check 1: Validating theme IDs against registry..."
 
-ALLOWED_THEMES=("terminal" "geocities" "norad")
-THEME_ID_PATTERN='(data-theme="|ThemeId.*=.*["\x27])(terminal|geocities|norad|dos-norton|bloomberg)(["\x27])'
+ALLOWED_THEMES=("terminal" "geocities" "norad" "control-room")
+THEME_ID_PATTERN='(data-theme="|ThemeId.*=.*["\x27])(terminal|geocities|norad|control-room|dos-norton|bloomberg)(["\x27])'
 
 # Find all theme ID references (excluding node_modules, .next, build artifacts)
 THEME_REFS=$(grep -r -E "$THEME_ID_PATTERN" src/ --include="*.ts" --include="*.tsx" --include="*.css" 2>/dev/null || true)

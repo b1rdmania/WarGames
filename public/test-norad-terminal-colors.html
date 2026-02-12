@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NORAD Structure + Terminal Colors Test</title>
+  <style>
+    /* Terminal/DOS Color Palette - Bright Green */
+    :root {
+      /* Backgrounds - Pure black */
+      --bg-deep: #000000;
+      --bg-warm: #0a0a0a;
+      --bg-surface: #111111;
+      --bg-elevated: #1a1a1a;
+
+      /* Text */
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --text-muted: #666666;
+
+      /* Borders */
+      --border: #1a1a1a;
+      --border-focus: #00ff00;
+
+      /* Terminal Green - Primary Accent */
+      --terminal-green: #00ff00;
+      --terminal-green-dim: #00cc00;
+
+      /* Functional */
+      --profit: #00ff00;
+      --loss: #ff0000;
+      --warning: #ffff00;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* NORAD Structure with Terminal Colors */
+    .norad-shell {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      height: 100vh;
+    }
+
+    /* Header */
+    .norad-header {
+      background: var(--bg-warm);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .header-status {
+      display: flex;
+      gap: 24px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .status-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--profit);
+      box-shadow: 0 0 8px var(--profit);
+    }
+
+    /* Main Content Area */
+    .norad-content {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 1px;
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    /* Situation Board */
+    .situation-board {
+      background: var(--bg-deep);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .board-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-warm);
+    }
+
+    .board-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--terminal-green);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .board-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .board-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
+
+    /* Market Table */
+    .market-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .market-table thead {
+      background: var(--bg-surface);
+      position: sticky;
+      top: 0;
+    }
+
+    .market-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .market-table td {
+      padding: 14px 16px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .market-table tbody tr {
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+
+    .market-table tbody tr:hover {
+      background: var(--bg-surface);
+    }
+
+    .market-code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--terminal-green);
+      font-weight: 500;
+    }
+
+    .market-name {
+      color: var(--text-primary);
+    }
+
+    .market-regime {
+      color: var(--text-muted);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    /* Mission Console */
+    .mission-console {
+      background: var(--bg-warm);
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid var(--border);
+    }
+
+    .console-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .console-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--terminal-green);
+      text-transform: uppercase;
+    }
+
+    .console-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .console-section {
+      margin-bottom: 24px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .console-value {
+      font-size: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .console-input {
+      width: 100%;
+      padding: 12px;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      border-radius: 4px;
+      transition: border-color 0.15s;
+    }
+
+    .console-input:focus {
+      outline: none;
+      border-color: var(--terminal-green);
+    }
+
+    .console-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.15s;
+      margin-top: 8px;
+    }
+
+    .console-btn:hover {
+      border-color: var(--terminal-green);
+      background: var(--bg-elevated);
+    }
+
+    .console-btn-primary {
+      background: var(--terminal-green);
+      border-color: var(--terminal-green);
+      color: var(--bg-deep);
+    }
+
+    .console-btn-primary:hover {
+      background: var(--terminal-green-dim);
+      border-color: var(--terminal-green-dim);
+    }
+
+    /* Event Log */
+    .event-log {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .event-item {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .event-time {
+      color: var(--text-muted);
+    }
+
+    .event-msg {
+      color: var(--text-secondary);
+    }
+
+    .event-msg.success {
+      color: var(--profit);
+    }
+
+    .event-msg.warning {
+      color: var(--warning);
+    }
+
+    /* Footer Status Rail */
+    .norad-footer {
+      background: var(--bg-warm);
+      border-top: 1px solid var(--border);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-group {
+      display: flex;
+      gap: 24px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .footer-item {
+      display: flex;
+      gap: 8px;
+    }
+
+    .footer-value {
+      color: var(--terminal-green);
+    }
+  </style>
+</head>
+<body>
+  <div class="norad-shell">
+    <!-- Header -->
+    <header class="norad-header">
+      <div class="header-title">WAR.MARKET // NORAD+TERMINAL TEST</div>
+      <div class="header-status">
+        <div class="status-item">
+          <span class="status-dot"></span>
+          <span>LIVE</span>
+        </div>
+        <div class="status-item">
+          <span>LATENCY: 42ms</span>
+        </div>
+        <div class="status-item">
+          <span>PEAR: CONNECTED</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="norad-content">
+      <!-- Situation Board -->
+      <div class="situation-board">
+        <div class="board-header">
+          <div class="board-title">SITUATION BOARD</div>
+          <div class="board-subtitle">NARRATIVE MARKETS // LIVE FEED</div>
+        </div>
+        <div class="board-content">
+          <table class="market-table">
+            <thead>
+              <tr>
+                <th>CODE</th>
+                <th>THESIS</th>
+                <th>REGIME</th>
+                <th>LEV</th>
+                <th>SPREAD</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="market-code">TW-STRAIT</td>
+                <td class="market-name">Taiwan Strait Crisis</td>
+                <td class="market-regime">GEOPOLITICAL</td>
+                <td>3x</td>
+                <td>8 bps</td>
+              </tr>
+              <tr>
+                <td class="market-code">AI-BUBBLE</td>
+                <td class="market-name">AI Bubble Pop</td>
+                <td class="market-regime">MACRO</td>
+                <td>2x</td>
+                <td>6 bps</td>
+              </tr>
+              <tr>
+                <td class="market-code">OIL-SHOCK</td>
+                <td class="market-name">Middle East Oil Shock</td>
+                <td class="market-regime">COMMODITIES</td>
+                <td>2x</td>
+                <td>7 bps</td>
+              </tr>
+              <tr>
+                <td class="market-code">FLIP</td>
+                <td class="market-name">The Flippening</td>
+                <td class="market-regime">CRYPTO</td>
+                <td>3x</td>
+                <td>5 bps</td>
+              </tr>
+              <tr>
+                <td class="market-code">SOL-SURGE</td>
+                <td class="market-name">Solana Surge</td>
+                <td class="market-regime">CRYPTO</td>
+                <td>3x</td>
+                <td>4 bps</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Mission Console -->
+      <div class="mission-console">
+        <div class="console-header">
+          <div class="console-title">MISSION CONSOLE</div>
+        </div>
+        <div class="console-content">
+          <div class="console-section">
+            <div class="section-label">SELECTED MARKET</div>
+            <div class="console-value">TW-STRAIT</div>
+          </div>
+
+          <div class="console-section">
+            <div class="section-label">POSITION SIZE (USDC)</div>
+            <input type="number" class="console-input" value="100" />
+          </div>
+
+          <div class="console-section">
+            <div class="section-label">DIRECTION</div>
+            <button class="console-btn">YES / THESIS</button>
+            <button class="console-btn">NO / HEDGE</button>
+          </div>
+
+          <div class="console-section">
+            <button class="console-btn console-btn-primary">EXECUTE POSITION</button>
+          </div>
+        </div>
+
+        <!-- Event Log -->
+        <div class="event-log">
+          <div class="event-item">
+            <span class="event-time">14:32:18</span>
+            <span class="event-msg success">POSITION OPENED: +$50 TW-STRAIT YES</span>
+          </div>
+          <div class="event-item">
+            <span class="event-time">14:29:04</span>
+            <span class="event-msg">WALLET CONNECTED: 0x7a4f...</span>
+          </div>
+          <div class="event-item">
+            <span class="event-time">14:28:52</span>
+            <span class="event-msg warning">PEAR AUTH: SIGNATURE REQUIRED</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="norad-footer">
+      <div class="footer-group">
+        <div class="footer-item">
+          <span>SESSION:</span>
+          <span class="footer-value">OPERATOR</span>
+        </div>
+        <div class="footer-item">
+          <span>BALANCE:</span>
+          <span class="footer-value">$1,247.50</span>
+        </div>
+      </div>
+      <div class="footer-group">
+        <div class="footer-item">
+          <span>STATE:</span>
+          <span class="footer-value">ARMED</span>
+        </div>
+        <div class="footer-item">
+          <span>HEARTBEAT:</span>
+          <span class="footer-value">OK</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

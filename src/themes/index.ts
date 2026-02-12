@@ -4,10 +4,10 @@
  * This is the single source of truth for active themes.
  * All theme selection, routing, and UI must derive from this registry.
  *
- * Active themes: terminal, geocities, norad
+ * Active themes: terminal, geocities, norad, control-room
  */
 
-export type ThemeId = 'terminal' | 'geocities' | 'norad';
+export type ThemeId = 'terminal' | 'geocities' | 'norad' | 'control-room';
 
 export interface ThemeMeta {
   id: ThemeId;
@@ -37,6 +37,13 @@ export const THEMES: Record<ThemeId, ThemeMeta> = {
     label: 'NORAD',
     description: 'Mission control aesthetic with situation board, event log, and explicit risk states.',
     route: '/labs/norad',
+    status: 'active',
+  },
+  'control-room': {
+    id: 'control-room',
+    label: 'Control Room',
+    description: 'NORAD mission control structure with classic Terminal green aesthetic.',
+    route: '/labs/control-room',
     status: 'active',
   },
 } as const;

@@ -18,6 +18,7 @@
 @import "../themes/terminal/tokens.css";
 @import "../themes/geocities/tokens.css";
 @import "../themes/norad/tokens.css";
+@import "../themes/control-room/tokens.css";
 
 /* ==========================================================================
    Root Primitives - Spacing, Radii (theme-agnostic)
