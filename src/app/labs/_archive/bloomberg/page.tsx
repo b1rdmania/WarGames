@@ -1,8 +1,17 @@
+/**
+ * ARCHIVED - DO NOT IMPORT
+ *
+ * This theme has been archived and is not part of the active theme set.
+ * Active themes: terminal, geocities, norad
+ *
+ * See docs/design-governance for theme coherence policy.
+ */
+
 'use client';
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { DEMO_MARKETS } from '../data';
+import { DEMO_MARKETS } from '../../data';
 import styles from './style.module.css';
 
 export default function BloombergLabPage() {

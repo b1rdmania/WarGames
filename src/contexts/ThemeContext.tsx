@@ -9,13 +9,15 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-
-export type Theme = 'terminal' | 'geocities';
+import { type ThemeId, DEFAULT_THEME, isValidThemeId } from '@/themes';
 
 interface ThemeState {
-  theme: Theme;
+  theme: ThemeId;
+  setTheme: (theme: ThemeId) => void;
   toggleTheme: () => void;
   isGeoCities: boolean;
+  isTerminal: boolean;
+  isNorad: boolean;
 }
 
 const ThemeContext = createContext<ThemeState | undefined>(undefined);
@@ -23,13 +25,15 @@ const ThemeContext = createContext<ThemeState | undefined>(undefined);
 const STORAGE_KEY = 'wm_theme';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('terminal');
+  const [theme, setThemeState] = useState<ThemeId>(DEFAULT_THEME);
 
   // Load from localStorage on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored === 'geocities') setTheme('geocities');
+      if (stored && isValidThemeId(stored)) {
+        setThemeState(stored);
+      }
     } catch {
       /* ignore */
     }
@@ -45,13 +49,31 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
   }, [theme]);
 
+  const setTheme = useCallback((newTheme: ThemeId) => {
+    if (isValidThemeId(newTheme)) {
+      setThemeState(newTheme);
+    }
+  }, []);
+
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === 'terminal' ? 'geocities' : 'terminal'));
+    setThemeState((prev) => {
+      // Cycle through: terminal -> geocities -> norad -> terminal
+      if (prev === 'terminal') return 'geocities';
+      if (prev === 'geocities') return 'norad';
+      return 'terminal';
+    });
   }, []);
 
   const value = useMemo<ThemeState>(
-    () => ({ theme, toggleTheme, isGeoCities: theme === 'geocities' }),
-    [theme, toggleTheme],
+    () => ({
+      theme,
+      setTheme,
+      toggleTheme,
+      isGeoCities: theme === 'geocities',
+      isTerminal: theme === 'terminal',
+      isNorad: theme === 'norad',
+    }),
+    [theme, setTheme, toggleTheme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

@@ -1,28 +1,6 @@
 import Link from 'next/link';
+import { ACTIVE_THEMES } from '@/themes';
 import styles from './labs.module.css';
-
-const demos = [
-  {
-    href: '/labs/dos-norton',
-    title: 'DOS/Norton',
-    subtitle: 'Function-key command bars, hard pane geometry, keyboard-first rails.',
-  },
-  {
-    href: '/labs/bloomberg',
-    title: 'Bloomberg',
-    subtitle: 'Status strip, dense market board, execution ticket discipline.',
-  },
-  {
-    href: '/labs/norad',
-    title: 'NORAD',
-    subtitle: 'Situation board, event log, mission console with explicit risk states.',
-  },
-  {
-    href: '/labs/geocities',
-    title: 'GeoCities',
-    subtitle: 'Fire borders, Comic Sans, animated GIFs, marquees. Pure 1998 nostalgia.',
-  },
-];
 
 export default function LabsIndexPage() {
   return (
@@ -30,13 +8,13 @@ export default function LabsIndexPage() {
       <div className={styles.wrap}>
         <h1 className={styles.title}>Design System Labs</h1>
         <p className={styles.lede}>
-          Four full structural variants for war.market. Same narrative and trade flow, different system grammar.
+          Three full structural variants for war.market. Same narrative and trade flow, different system grammar.
         </p>
         <div className={styles.grid}>
-          {demos.map((demo) => (
-            <Link key={demo.href} href={demo.href} className={styles.card}>
-              <div className={styles.cardTitle}>{demo.title}</div>
-              <div className={styles.cardText}>{demo.subtitle}</div>
+          {ACTIVE_THEMES.map((theme) => (
+            <Link key={theme.id} href={theme.route} className={styles.card}>
+              <div className={styles.cardTitle}>{theme.label}</div>
+              <div className={styles.cardText}>{theme.description}</div>
               <div className={styles.cardCta}>Open demo</div>
             </Link>
           ))}
