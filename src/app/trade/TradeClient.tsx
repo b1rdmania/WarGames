@@ -6,7 +6,6 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import {
   TerminalShell,
-  TerminalHeader,
   TerminalMenuBar,
   TerminalPaneTitle,
   TerminalCommandBar,
@@ -51,7 +50,6 @@ export default function TradeClient() {
   if (!isAuthenticated) {
     return (
       <TerminalShell
-        header={<TerminalHeader title="WAR.MARKET // TRADE TERMINAL" backHref="/" backLabel="← HOME" />}
         statusBar={<TerminalStatusBar items={[{ label: 'STATE', value: 'AUTH REQUIRED' }]} />}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px', minHeight: '60vh' }}>
@@ -92,7 +90,6 @@ export default function TradeClient() {
   // Trading interface
   return (
     <TerminalShell
-      header={<TerminalHeader title="WAR.MARKET // TRADE TERMINAL" backHref="/" backLabel="← HOME" />}
       menuBar={<TerminalMenuBar items={['FILE', 'OPERATIONS', 'THESIS', 'EXECUTE', 'MONITOR', 'HELP']} />}
       leftPane={
         <>

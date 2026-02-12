@@ -1,10 +1,10 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { TerminalNav } from './TerminalNav';
 import styles from './terminal.module.css';
 
 interface TerminalShellProps {
-  header?: ReactNode;
   menuBar?: ReactNode;
   leftPane?: ReactNode;
   centerPane?: ReactNode;
@@ -15,7 +15,6 @@ interface TerminalShellProps {
 }
 
 export function TerminalShell({
-  header,
   menuBar,
   leftPane,
   centerPane,
@@ -26,7 +25,7 @@ export function TerminalShell({
 }: TerminalShellProps) {
   return (
     <main className={styles.page}>
-      {header}
+      <TerminalNav />
       {menuBar}
       {children || (
         <div className={styles.shell}>

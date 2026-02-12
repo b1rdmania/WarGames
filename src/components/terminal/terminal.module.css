@@ -9,6 +9,112 @@
   padding: 12px;
 }
 
+/* Navigation Bar */
+.nav {
+  border: 1px solid #1f3e2f;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.navBrand {
+  color: #02ff81;
+  font-weight: 600;
+}
+
+.navLinks {
+  display: flex;
+  gap: 16px;
+}
+
+.navLink {
+  color: #9bb7a9;
+  text-decoration: none;
+  padding: 4px 8px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.navLink:hover {
+  color: #02ff81;
+}
+
+.navLinkActive {
+  color: #08110d;
+  background: #02ff81;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navMusicLabel {
+  color: #9bb7a9;
+  margin-right: 6px;
+  font-size: 11px;
+}
+
+.navMusicBtn {
+  border: 1px solid #1f3e2f;
+  background: #0d1210;
+  color: #c2cbc7;
+  padding: 4px 8px;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+}
+
+.navMusicBtn:hover {
+  border-color: #02ff81;
+}
+
+.navMusicBtnActive {
+  background: #02ff81;
+  border-color: #02ff81;
+  color: #08110d;
+}
+
+@media (max-width: 980px) {
+  .nav {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .navLeft {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .navLinks {
+    flex-wrap: wrap;
+  }
+
+  .navRight {
+    justify-content: flex-start;
+  }
+}
+
 /* Header, Menu, Command Bar, Status Bar */
 .header,
 .menu,

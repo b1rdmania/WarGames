@@ -6,7 +6,6 @@ import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import {
   TerminalShell,
-  TerminalHeader,
   TerminalMenuBar,
   TerminalPaneTitle,
   TerminalCommandBar,
@@ -33,7 +32,6 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
   if (!market) {
     return (
       <TerminalShell
-        header={<TerminalHeader title="WAR.MARKET // MARKET NOT FOUND" backHref="/markets" backLabel="← MARKETS" />}
         statusBar={<TerminalStatusBar items={[{ label: 'STATE', value: 'ERROR' }]} />}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px', minHeight: '60vh' }}>
@@ -58,7 +56,6 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
 
   return (
     <TerminalShell
-      header={<TerminalHeader title={`WAR.MARKET // ${market.id.toUpperCase().replace(/-/g, '_')}`} backHref="/markets" backLabel="← MARKETS" />}
       menuBar={<TerminalMenuBar items={['FILE', 'DETAILS', 'COMPOSITION', 'NARRATIVE', 'EXECUTE', 'HELP']} />}
       leftPane={
         <>
