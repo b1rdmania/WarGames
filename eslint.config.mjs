@@ -13,6 +13,26 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // Theme coherence enforcement rules
+  {
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["**/labs/_archive/**"],
+              message: "Do not import from archived labs. Use active themes: terminal, geocities, norad",
+            },
+            {
+              group: ["**/docs/_archive/**"],
+              message: "Do not import from archived documentation.",
+            },
+          ],
+        },
+      ],
+    },
+  },
 ]);
 
 export default eslintConfig;
