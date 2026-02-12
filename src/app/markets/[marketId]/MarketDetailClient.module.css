@@ -1,7 +1,23 @@
-.wrapper {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
+/* Shell Structure */
+.shell {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 1px;
+  background: var(--border);
+  height: calc(100vh - 48px - 40px); /* Full height minus header and footer */
+}
+
+@media (max-width: 1024px) {
+  .shell {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+
+.situationBoard,
+.missionConsole {
+  background: var(--bg-deep);
+  overflow-y: auto;
 }
 
 /* Not Found */
@@ -20,49 +36,57 @@
   text-align: center;
 }
 
-/* Header */
-.header {
-  margin-bottom: 32px;
+/* Board Content */
+.boardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
-.marketCode {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--primary);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+/* Header */
+.header {
+  display: grid;
+  gap: 12px;
 }
 
 .title {
-  font-size: 28px;
+  font-family: var(--font-sans);
+  font-size: 24px;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 8px;
   letter-spacing: -0.02em;
 }
 
-.subtitle {
-  font-size: 15px;
-  color: var(--text-secondary);
+.overview {
+  font-family: var(--font-sans);
+  font-size: 14px;
   line-height: 1.6;
+  color: var(--text-secondary);
 }
 
-/* Grid */
-.grid {
+/* Sections */
+.section {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 12px;
 }
 
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
+.sectionLabel {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
-/* Details */
+.narrativeText {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Details Grid */
 .detailsGrid {
   display: grid;
   gap: 12px;
@@ -81,16 +105,16 @@
 }
 
 .detailLabel {
-  font-size: 11px;
   font-family: var(--font-mono);
+  font-size: 11px;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .detailValue {
-  font-size: 13px;
   font-family: var(--font-mono);
+  font-size: 13px;
   color: var(--text-primary);
   font-weight: 500;
 }
@@ -103,58 +127,76 @@
   color: var(--warning);
 }
 
+/* Console Content */
+.consoleContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 /* Composition */
-.compositionGrid {
+.composition {
   display: grid;
-  gap: 16px;
+  gap: 20px;
 }
 
 .compositionRow {
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 60px 1fr;
   gap: 12px;
   align-items: start;
 }
 
 .compositionLabel {
-  font-size: 11px;
   font-family: var(--font-mono);
+  font-size: 11px;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
 .compositionLong {
-  font-size: 13px;
   font-family: var(--font-mono);
+  font-size: 13px;
   color: var(--profit);
   line-height: 1.6;
 }
 
 .compositionShort {
-  font-size: 13px;
   font-family: var(--font-mono);
+  font-size: 13px;
   color: var(--loss);
   line-height: 1.6;
 }
 
 .compositionEmpty {
+  font-family: var(--font-mono);
   font-size: 13px;
   color: var(--text-muted);
 }
 
-/* Narrative */
-.narrativeText {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--text-secondary);
+.assetLine {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.assetLine:last-child {
+  margin-bottom: 0;
+}
+
+.weight {
+  opacity: 0.7;
+  font-size: 11px;
 }
 
 /* Actions */
 .actions {
   display: flex;
+  flex-direction: column;
   gap: 12px;
-  margin-top: 32px;
+  margin-top: 8px;
 }
 
 .actions a {

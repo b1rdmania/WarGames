@@ -19,24 +19,39 @@ Control Room is a **mission control interface** aesthetic combining:
 
 ## 2. Layout Anatomy
 
-### Shell Structure
+### Mandatory Two-Column Structure
+
+**ALL authenticated pages MUST use this layout:**
 
 ```
 ┌─────────────────────────────────────────────────────┐
 │ Header: Operations Bar                              │ 48px fixed
 ├─────────────────────┬───────────────────────────────┤
 │                     │                               │
-│ Main Content Area   │ Mission Console (Right Rail)  │ flex: 1
-│ (Situation Board)   │ 400px fixed width             │
+│ SITUATION BOARD     │ MISSION CONSOLE               │ flex: 1
+│ (Left: Main Data)   │ (Right: Actions/Details)      │
+│ 1fr flexible        │ 400px fixed width             │
 │                     │                               │
 ├─────────────────────┴───────────────────────────────┤
 │ Footer: Status Rail                                 │ 40px fixed
 └─────────────────────────────────────────────────────┘
 ```
 
+**Layout Pattern by Page Type:**
+
+| Page Type | Situation Board (Left) | Mission Console (Right) |
+|-----------|------------------------|-------------------------|
+| Browse (`/markets`) | Market table | Selected market details + "GO TO TRADE" |
+| Detail (`/markets/[id]`) | Market info panels | Composition + narrative + actions |
+| Execute (`/trade`) | Market table | Trade form + event log |
+| Portfolio (`/portfolio`) | Position list | Selected position details + close form |
+| Intel (`/intel`) | News feed | Analysis panel |
+
+**The two-column structure is NOT optional.** Every page uses Situation Board | Mission Console. No centered single-panel layouts.
+
 ### Grid Rules
 
-- **Desktop:** `grid-template-columns: 1fr 400px` (content | console)
+- **Desktop:** `grid-template-columns: 1fr 400px` (board | console)
 - **Tablet:** `grid-template-columns: 1fr` (stack vertically)
 - **Mobile:** Single column, console becomes collapsible drawer
 
@@ -400,6 +415,7 @@ src/components/control-room/
 
 A route is "Control Room compliant" when:
 
+✅ **Uses mandatory two-column layout** (Situation Board | Mission Console)
 ✅ Uses `RiskShell` + `ControlRoomTopNav`
 ✅ All panels use `ControlRoomPanel` component
 ✅ All tables use `ControlRoomTable` component
@@ -429,8 +445,15 @@ A route is "Control Room compliant" when:
 ## 14. Reference Implementation
 
 **Source:** `/public/test-norad-terminal-colors.html`
-**Pilot Route:** `/trade` (TradeClient.tsx)
-**Approval Gate:** Design signoff required before rolling to other routes
+**Compliant Routes:**
+- ✅ `/trade` (TradeClient.tsx) - Matches test file structure
+- 🔄 `/markets` (MarketsClient.tsx) - Rebuilding with two-column layout
+- 🔄 `/markets/[marketId]` (MarketDetailClient.tsx) - Rebuilding with two-column layout
+- ⏳ `/portfolio` - Pending
+- ⏳ `/intel` - Pending
+- ⏳ `/about` - Pending
+
+**Approval Gate:** Design signoff required before rolling to remaining routes
 
 ---
 
