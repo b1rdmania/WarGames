@@ -1,16 +1,16 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { RiskShell } from '@/components/RiskShell';
+import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import { NoradTradeSurface } from '@/components/NoradTradeSurface';
 import { usePear } from '@/contexts/PearContext';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { connectWalletSafely } from '@/lib/connectWallet';
-import styles from './trade.module.css';
 
 export default function TradeClient() {
   const { isConnected, address } = useAccount();
@@ -24,22 +24,17 @@ export default function TradeClient() {
   const [selectedSide, setSelectedSide] = useState<'long' | 'short' | null>(null);
 
   return (
-    <main className={styles.page}>
-      <div className={styles.header}>
-        <div className={styles.title}>WAR.MARKET // TRADE TERMINAL</div>
-        <div className={styles.headerRight}>
-          <span>MODE: {isAuthenticated ? 'OPERATOR' : 'GUEST'}</span>
-          <span>STATUS: {isAuthenticated ? 'ARMED' : 'STANDBY'}</span>
-          <Link href="/" className={styles.back}>EXIT</Link>
-        </div>
-      </div>
-
+    <RiskShell nav={<ControlRoomTopNav />}>
       {!isAuthenticated ? (
-        <div className={styles.authWrap}>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
           {!isConnected ? (
-            <div className={styles.authCard}>
-              <div className={styles.authTitle}>OPERATOR AUTHENTICATION REQUIRED</div>
-              <p className={styles.authText}>Connect your wallet to access the trade terminal.</p>
+            <div className="tm-box" style={{ maxWidth: '420px', width: '100%', textAlign: 'center', padding: '32px' }}>
+              <div style={{ color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '14px', fontWeight: 600, marginBottom: '12px' }}>
+                OPERATOR AUTHENTICATION REQUIRED
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '24px', lineHeight: '1.5' }}>
+                Connect your wallet to access the trade terminal.
+              </p>
               <button
                 disabled={isPending}
                 type="button"
@@ -53,13 +48,14 @@ export default function TradeClient() {
                     }
                   })();
                 }}
-                className={styles.authButton}
+                className="tm-btn"
+                style={{ width: '100%' }}
               >
                 {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
               </button>
             </div>
           ) : (
-            <div className={styles.authCard}>
+            <div className="tm-box" style={{ maxWidth: '420px', width: '100%' }}>
               <PearSetupCard />
             </div>
           )}
@@ -81,12 +77,6 @@ export default function TradeClient() {
           onPlaced={() => {}}
         />
       )}
-
-      <div className={styles.footerRail}>
-        <span>STATUS: {isAuthenticated ? 'ONLINE' : 'OFFLINE'}</span>
-        <span>OPERATOR: {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'NONE'}</span>
-        <span>SYSTEM: HYPERLIQUID</span>
-      </div>
-    </main>
+    </RiskShell>
   );
 }

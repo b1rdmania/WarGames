@@ -1,9 +1,10 @@
 'use client';
 
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { RiskShell } from '@/components/RiskShell';
+import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import { NoradPortfolioSurface } from '@/components/NoradPortfolioSurface';
 import { usePear } from '@/contexts/PearContext';
@@ -13,7 +14,6 @@ import type { PearPosition } from '@/integrations/pear/types';
 import { connectPearWebsocket } from '@/integrations/pear/websocket';
 import { emitDebugLog } from '@/lib/debugLog';
 import { connectWalletSafely } from '@/lib/connectWallet';
-import styles from './portfolio.module.css';
 
 export default function PortfolioClient() {
   const { isConnected, address } = useAccount();
@@ -89,22 +89,17 @@ export default function PortfolioClient() {
   }, [accessToken, address]);
 
   return (
-    <main className={styles.page}>
-      <div className={styles.header}>
-        <div className={styles.title}>WAR.MARKET // PORTFOLIO COMMAND</div>
-        <div className={styles.headerRight}>
-          <span>MODE: {isAuthenticated ? 'OPERATOR' : 'GUEST'}</span>
-          <span>POSITIONS: {positions.length}</span>
-          <Link href="/" className={styles.back}>EXIT</Link>
-        </div>
-      </div>
-
+    <RiskShell nav={<ControlRoomTopNav />}>
       {!isAuthenticated ? (
-        <div className={styles.authWrap}>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
           {!isConnected ? (
-            <div className={styles.authCard}>
-              <div className={styles.authTitle}>OPERATOR AUTHENTICATION REQUIRED</div>
-              <p className={styles.authText}>Connect your wallet to access your portfolio.</p>
+            <div className="tm-box" style={{ maxWidth: '420px', width: '100%', textAlign: 'center', padding: '32px' }}>
+              <div style={{ color: 'var(--primary)', textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '14px', fontWeight: 600, marginBottom: '12px' }}>
+                OPERATOR AUTHENTICATION REQUIRED
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '24px', lineHeight: '1.5' }}>
+                Connect your wallet to access your portfolio.
+              </p>
               <button
                 disabled={isPending}
                 type="button"
@@ -118,13 +113,14 @@ export default function PortfolioClient() {
                     }
                   })();
                 }}
-                className={styles.authButton}
+                className="tm-btn"
+                style={{ width: '100%' }}
               >
                 {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
               </button>
             </div>
           ) : (
-            <div className={styles.authCard}>
+            <div className="tm-box" style={{ maxWidth: '420px', width: '100%' }}>
               <PearSetupCard variant="portfolio" />
             </div>
           )}
@@ -163,12 +159,6 @@ export default function PortfolioClient() {
           }}
         />
       )}
-
-      <div className={styles.footerRail}>
-        <span>STATUS: {isAuthenticated ? 'ONLINE' : 'OFFLINE'}</span>
-        <span>OPERATOR: {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'NONE'}</span>
-        <span>SYSTEM: HYPERLIQUID</span>
-      </div>
-    </main>
+    </RiskShell>
   );
 }

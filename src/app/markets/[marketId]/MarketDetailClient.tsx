@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { RiskShell } from '@/components/RiskShell';
-import { TerminalTopNav } from '@/components/TerminalTopNav';
+import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import styles from '@/components/MarketDetail.module.css';
@@ -22,7 +22,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
 
   if (!market) {
     return (
-      <RiskShell nav={<TerminalTopNav />}>
+      <RiskShell nav={<ControlRoomTopNav />}>
         <div className="text-text-secondary">
           Market not found.{' '}
           <Link href="/markets" className="underline" style={{ color: 'var(--primary)' }}>
@@ -39,7 +39,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
   const overview = narrative?.overview ?? market.description;
 
   return (
-    <RiskShell nav={<TerminalTopNav />}>
+    <RiskShell nav={<ControlRoomTopNav />}>
       <div className={styles.hero}>
         <h1 className={styles.title}>{market.name}</h1>
         <p className={styles.subtitle}>{market.description}</p>

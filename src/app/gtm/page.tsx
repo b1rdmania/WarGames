@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { RiskShell } from '@/components/RiskShell';
-import { TerminalTopNav } from '@/components/TerminalTopNav';
+import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 
 export const metadata: Metadata = {
   title: 'GTM Brief',
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function GTMPage() {
   return (
-    <RiskShell nav={<TerminalTopNav />}>
+    <RiskShell nav={<ControlRoomTopNav />}>
       <div className="tp-wrap">
         <div className="tp-frame">
           {/* Page Header */}

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { RiskShell } from '@/components/RiskShell';
-import { TerminalTopNav } from '@/components/TerminalTopNav';
+import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <RiskShell nav={<TerminalTopNav />}>
+    <RiskShell nav={<ControlRoomTopNav />}>
       <div className="tp-wrap">
         <div className="tp-frame">
           {/* Page Header */}
