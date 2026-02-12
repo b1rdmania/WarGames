@@ -1,9 +1,18 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { RiskShell } from '@/components/RiskShell';
-import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
-import { ControlRoomPanel, ControlRoomButton, ControlRoomStatusRail } from '@/components/control-room';
-import styles from './about.module.css';
+import {
+  TerminalShell,
+  TerminalHeader,
+  TerminalMenuBar,
+  TerminalPaneTitle,
+  TerminalCommandBar,
+  TerminalStatusBar,
+  TerminalButton,
+  TerminalTitle,
+  TerminalThesis,
+  TerminalKV,
+  TerminalKVRow,
+} from '@/components/terminal';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -23,176 +32,146 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <RiskShell nav={<ControlRoomTopNav />}>
-      <div className={styles.shell}>
-        {/* Situation Board - Main Content */}
-        <div className={styles.situationBoard}>
-          <ControlRoomPanel title="SITUATION BOARD" subtitle="PROJECT OVERVIEW">
-            <div className={styles.boardContent}>
-              {/* Header */}
-              <div className={styles.hero}>
-                <h1 className={styles.title}>WAR.MARKET</h1>
-                <p className={styles.lede}>
-                  A terminal for trading global stress.<br />
-                  Narrative baskets executed via Pear on Hyperliquid.
-                </p>
-              </div>
+    <TerminalShell
+      header={<TerminalHeader title="WAR.MARKET // ABOUT" backHref="/" backLabel="← HOME" />}
+      menuBar={<TerminalMenuBar items={['FILE', 'OVERVIEW', 'TECHNICAL', 'ROADMAP', 'HELP']} />}
+      leftPane={
+        <>
+          <TerminalPaneTitle>PROJECT OVERVIEW</TerminalPaneTitle>
+          <TerminalTitle>WAR.MARKET</TerminalTitle>
+          <TerminalThesis>
+            A terminal for trading global stress. Narrative baskets executed via Pear on Hyperliquid.
+          </TerminalThesis>
 
-              {/* The Problem */}
-              <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>THE PROBLEM</h2>
-                <p className={styles.body}>
-                  Trading global risk is fragmented. Oil, FX, tech beta, and "risk‑off" all live in separate silos.
-                  You react to noise instead of the signal.
-                </p>
-              </section>
-
-              {/* The Response */}
-              <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>THE RESPONSE</h2>
-                <p className={styles.body}>
-                  WAR.MARKET creates one view. You see the stress signal. You trade the stress signal.
-                  No interpretation layer—just volatility packaged into clear long/short structures.
-                </p>
-              </section>
-
-              {/* The Markets */}
-              <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>THE MARKETS</h2>
-                <p className={styles.body}>
-                  Each market is a readable macro narrative expressed as a leveraged long/short basket.
-                  You're betting on <strong>relative performance</strong>, not absolute direction.
-                </p>
-              </section>
-
-              {/* How It Works */}
-              <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>HOW IT WORKS</h2>
-                <ul className={styles.bulletList}>
-                  <li>Browse markets (intel only)</li>
-                  <li>Connect wallet when you want to trade</li>
-                  <li>Authenticate with Pear (non‑custodial agent wallet)</li>
-                  <li>Pear executes basket legs on Hyperliquid</li>
-                  <li>Monitor + cash out from the terminal</li>
-                </ul>
-              </section>
-
-              {/* Roadmap */}
-              <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>ROADMAP</h2>
-                <ul className={styles.bulletList}>
-                  <li className={styles.completed}>
-                    <s>Win hackathon</s> <span className={styles.check}>✓</span>
-                  </li>
-                  <li>UX redesign for production</li>
-                  <li>Audit / codebase review</li>
-                  <li>Quant advice on market structures</li>
-                  <li>Integrate charts from HL</li>
-                  <li>Custom historic charts per market</li>
-                  <li>Build GTM team of rabid degens</li>
-                  <li>Launch X</li>
-                  <li>Go LIVE</li>
-                  <li>$WAR token</li>
-                  <li>Raise stake for HIP-3 auction</li>
-                  <li>HIP-3 markets for novel WAR indices</li>
-                  <li>World Peace</li>
-                </ul>
-              </section>
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              THE PROBLEM
             </div>
-          </ControlRoomPanel>
-        </div>
+            <TerminalThesis>
+              Trading global risk is fragmented. Oil, FX, tech beta, and "risk-off" all live in separate silos.
+              You react to noise instead of the signal.
+            </TerminalThesis>
+          </div>
 
-        {/* Mission Console - Project Details */}
-        <div className={styles.missionConsole}>
-          <ControlRoomPanel title="MISSION CONSOLE" subtitle="SYSTEM SPECIFICATIONS">
-            <div className={styles.consoleContent}>
-              {/* The Engine */}
-              <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>THE ENGINE</h2>
-                <div className={styles.specGrid}>
-                  <div className={styles.specRow}>
-                    <span className={styles.specLabel}>EXECUTION</span>
-                    <span className={styles.specValue}>Pear Protocol</span>
-                  </div>
-                  <div className={styles.specRow}>
-                    <span className={styles.specLabel}>SETTLEMENT</span>
-                    <span className={styles.specValue}>Hyperliquid</span>
-                  </div>
-                  <div className={styles.specRow}>
-                    <span className={styles.specLabel}>INTERFACE</span>
-                    <span className={styles.specValue}>Next.js + wagmi</span>
-                  </div>
-                </div>
-              </section>
-
-              {/* Who It's For */}
-              <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>WHO IT'S FOR</h2>
-                <ul className={styles.bulletList}>
-                  <li>Traders who want a clean signal</li>
-                  <li>People who want macro hedges without TradFi rails</li>
-                  <li>Degens who prefer one button and a thesis</li>
-                </ul>
-              </section>
-
-              {/* Built By */}
-              <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>BUILT BY</h2>
-                <p className={styles.body}>
-                  <a className={styles.link} href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">
-                    @b1rdmania
-                  </a>
-                </p>
-                <p className={styles.bodySmall}>
-                  Music created with{' '}
-                  <a className={styles.link} href="https://wario.style" target="_blank" rel="noreferrer">
-                    wario.style
-                  </a>
-                  —a Gameboy MIDI emulator.
-                </p>
-              </section>
-
-              {/* Links */}
-              <section className={styles.section}>
-                <h2 className={styles.sectionTitle}>LINKS</h2>
-                <div className={styles.linkGrid}>
-                  <a className={styles.link} href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer">
-                    GitHub
-                  </a>
-                  <a className={styles.link} href="https://www.pear.garden/" target="_blank" rel="noreferrer">
-                    Pear Protocol
-                  </a>
-                  <a className={styles.link} href="https://hyperliquid.xyz" target="_blank" rel="noreferrer">
-                    Hyperliquid
-                  </a>
-                </div>
-              </section>
-
-              {/* CTAs */}
-              <div className={styles.actions}>
-                <Link href="/markets">
-                  <ControlRoomButton fullWidth>BROWSE MARKETS →</ControlRoomButton>
-                </Link>
-                <Link href="/trade">
-                  <ControlRoomButton variant="primary" fullWidth>OPEN TRADE →</ControlRoomButton>
-                </Link>
-              </div>
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              THE RESPONSE
             </div>
-          </ControlRoomPanel>
-        </div>
-      </div>
+            <TerminalThesis>
+              WAR.MARKET creates one view. You see the stress signal. You trade the stress signal.
+              No interpretation layer—just volatility packaged into clear long/short structures.
+            </TerminalThesis>
+          </div>
 
-      {/* Status Rail */}
-      <ControlRoomStatusRail
-        leftItems={[
-          { key: 'PROJECT', value: 'WAR.MARKET' },
-          { key: 'STATUS', value: 'HACKATHON WINNER' },
-        ]}
-        rightItems={[
-          { key: 'PHASE', value: 'PRE-GTM' },
-          { key: 'STATE', value: 'BUILDING' },
-        ]}
-      />
-    </RiskShell>
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              ROADMAP
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
+              <div style={{ textDecoration: 'line-through', color: '#8da294' }}>
+                ✓ Win hackathon
+              </div>
+              <div>UX redesign for production</div>
+              <div>Audit / codebase review</div>
+              <div>Quant advice on market structures</div>
+              <div>Integrate charts from HL</div>
+              <div>Build GTM team of rabid degens</div>
+              <div>Launch X</div>
+              <div>Go LIVE</div>
+              <div>$WAR token</div>
+              <div>HIP-3 markets for novel WAR indices</div>
+              <div>World Peace</div>
+            </div>
+          </div>
+        </>
+      }
+      centerPane={
+        <>
+          <TerminalPaneTitle>SYSTEM SPECIFICATIONS</TerminalPaneTitle>
+          <TerminalKV>
+            <TerminalKVRow label="EXECUTION" value="Pear Protocol" />
+            <TerminalKVRow label="SETTLEMENT" value="Hyperliquid" />
+            <TerminalKVRow label="INTERFACE" value="Next.js + wagmi" />
+          </TerminalKV>
+
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              WHO IT'S FOR
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
+              <div>▸ Traders who want a clean signal</div>
+              <div>▸ People who want macro hedges without TradFi rails</div>
+              <div>▸ Degens who prefer one button and a thesis</div>
+            </div>
+          </div>
+
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              BUILT BY
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '12px' }}>
+              <a href="https://x.com/b1rdmania" target="_blank" rel="noreferrer" style={{ color: '#02ff81', textDecoration: 'none' }}>
+                @b1rdmania
+              </a>
+            </div>
+            <div style={{ color: '#8da294', fontSize: '11px', marginTop: '8px' }}>
+              Music: <a href="https://wario.style" target="_blank" rel="noreferrer" style={{ color: '#02ff81', textDecoration: 'none' }}>
+                wario.style
+              </a> (Gameboy MIDI emulator)
+            </div>
+          </div>
+
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              LINKS
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '12px', display: 'grid', gap: '4px' }}>
+              <a href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer" style={{ color: '#02ff81', textDecoration: 'none' }}>
+                GitHub
+              </a>
+              <a href="https://www.pear.garden/" target="_blank" rel="noreferrer" style={{ color: '#02ff81', textDecoration: 'none' }}>
+                Pear Protocol
+              </a>
+              <a href="https://hyperliquid.xyz" target="_blank" rel="noreferrer" style={{ color: '#02ff81', textDecoration: 'none' }}>
+                Hyperliquid
+              </a>
+            </div>
+          </div>
+        </>
+      }
+      rightPane={
+        <>
+          <TerminalPaneTitle>ACTIONS</TerminalPaneTitle>
+          <Link href="/markets">
+            <TerminalButton fullWidth>BROWSE MARKETS →</TerminalButton>
+          </Link>
+          <Link href="/trade">
+            <TerminalButton variant="primary" fullWidth>OPEN TRADE →</TerminalButton>
+          </Link>
+        </>
+      }
+      commandBar={
+        <TerminalCommandBar
+          commands={[
+            { key: 'F1', label: 'HELP' },
+            { key: 'F2', label: 'MARKETS' },
+            { key: 'F3', label: 'TRADE' },
+            { key: 'F4', label: 'PORTFOLIO' },
+            { key: 'F5', label: 'HOME' },
+            { key: 'F10', label: 'ABOUT' },
+          ]}
+        />
+      }
+      statusBar={
+        <TerminalStatusBar
+          items={[
+            { label: 'PROJECT', value: 'WAR.MARKET' },
+            { label: 'STATUS', value: 'HACKATHON WINNER' },
+            { label: 'PHASE', value: 'PRE-GTM' },
+            { label: 'STATE', value: 'BUILDING' },
+          ]}
+        />
+      }
+    />
   );
 }

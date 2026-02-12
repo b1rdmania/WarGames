@@ -1,0 +1,306 @@
+/* Terminal System Styles */
+/* Based on /labs/terminal - DOS/Terminal aesthetic */
+
+.page {
+  min-height: 100vh;
+  background: #080a0c;
+  color: #d7dbde;
+  font-family: var(--font-mono);
+  padding: 12px;
+}
+
+/* Header, Menu, Command Bar, Status Bar */
+.header,
+.menu,
+.commandBar,
+.statusBar {
+  border: 1px solid #1f3e2f;
+  padding: 8px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #02ff81;
+}
+
+.back {
+  color: #d7dbde;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.back:hover {
+  color: #02ff81;
+}
+
+.menu {
+  margin-top: 8px;
+  color: #9bb7a9;
+}
+
+/* Shell - 3-column grid */
+.shell {
+  margin-top: 8px;
+  border: 1px solid #1f3e2f;
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  min-height: 62vh;
+}
+
+.pane {
+  padding: 12px;
+  border-right: 1px solid #1f3e2f;
+  overflow-y: auto;
+}
+
+.pane:last-child {
+  border-right: none;
+}
+
+.paneTitle {
+  color: #02ff81;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* Market List */
+.marketList {
+  display: grid;
+  gap: 6px;
+}
+
+.marketRow {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #1f3e2f;
+  background: #0d1210;
+  color: #a2aba6;
+  padding: 8px;
+  font-size: 12px;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.marketRow:hover {
+  border-color: #02ff81;
+}
+
+.marketRowActive {
+  color: #08110d;
+  background: #02ff81;
+  border-color: #02ff81;
+}
+
+/* Title & Thesis */
+.title {
+  color: #f2f5f4;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.thesis {
+  margin-top: 10px;
+  color: #a8b4af;
+  line-height: 1.5;
+  max-width: 62ch;
+}
+
+/* Key-Value Grid */
+.kv {
+  margin-top: 16px;
+  border-top: 1px solid #1f3e2f;
+}
+
+.kv > div {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 0;
+  border-bottom: 1px solid #1f3e2f;
+  font-size: 12px;
+}
+
+.kv span {
+  color: #90a59a;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.kv strong {
+  color: #dfe9e4;
+  font-weight: 500;
+}
+
+/* Segment Control (YES/NO) */
+.segment {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.segment button {
+  border: 1px solid #1f3e2f;
+  background: #0d1210;
+  color: #c2cbc7;
+  padding: 10px;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.segment button:hover {
+  border-color: #02ff81;
+}
+
+/* Size Row */
+.sizeRow {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.sizeRow button {
+  border: 1px solid #1f3e2f;
+  background: #0d1210;
+  color: #c2cbc7;
+  padding: 10px;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sizeRow button:hover {
+  border-color: #02ff81;
+}
+
+/* Active State */
+.segmentActive {
+  background: #02ff81 !important;
+  border-color: #02ff81 !important;
+  color: #08110d !important;
+}
+
+/* Buttons */
+.action {
+  margin-top: 12px;
+  width: 100%;
+  border: 1px solid #1f3e2f;
+  background: #0d1210;
+  color: #c2cbc7;
+  padding: 10px;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.action:hover:not(:disabled) {
+  border-color: #02ff81;
+}
+
+.action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.actionPrimary {
+  margin-top: 8px;
+  width: 100%;
+  border: 1px solid #02ff81;
+  background: #0d1210;
+  color: #02ff81;
+  padding: 10px;
+  font: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.actionPrimary:hover:not(:disabled) {
+  background: #02ff81;
+  color: #08110d;
+}
+
+.actionPrimary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Note */
+.note {
+  margin-top: 10px;
+  color: #8da294;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Command Bar (F-keys) */
+.commandBar {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.commandBar span {
+  color: #08110d;
+  background: #02ff81;
+  padding: 6px;
+  text-align: center;
+}
+
+/* Status Bar */
+.statusBar {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  color: #02ff81;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .pane {
+    border-right: none;
+    border-bottom: 1px solid #1f3e2f;
+  }
+
+  .pane:last-child {
+    border-bottom: none;
+  }
+
+  .commandBar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .statusBar {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

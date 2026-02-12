@@ -3,28 +3,34 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { RiskShell } from '@/components/RiskShell';
-import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import {
-  ControlRoomPanel,
-  ControlRoomTable,
-  ControlRoomTableHeader,
-  ControlRoomTableBody,
-  ControlRoomTableRow,
-  ControlRoomTableCell,
-  ControlRoomButton,
-  ControlRoomInput,
-  ControlRoomSectionHeader,
-  ControlRoomEventLog,
-  ControlRoomStatusRail,
-  type ControlRoomEvent,
-} from '@/components/control-room';
+  TerminalShell,
+  TerminalHeader,
+  TerminalMenuBar,
+  TerminalPaneTitle,
+  TerminalCommandBar,
+  TerminalStatusBar,
+  TerminalButton,
+  TerminalMarketList,
+  TerminalMarketRow,
+  TerminalTitle,
+  TerminalThesis,
+  TerminalKV,
+  TerminalKVRow,
+  TerminalSegment,
+  TerminalSizeRow,
+  TerminalNote,
+} from '@/components/terminal';
 import { usePear } from '@/contexts/PearContext';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
+import { getMarketNarrative } from '@/components/MarketDetail';
 import { connectWalletSafely } from '@/lib/connectWallet';
-import styles from './TradeClient.module.css';
+
+function cleanSymbol(s: string) {
+  return s.split(':').pop()!.trim();
+}
 
 export default function TradeClient() {
   const { isConnected, address } = useAccount();
@@ -34,170 +40,156 @@ export default function TradeClient() {
   const { perpUsdc } = useVaultBalances(accessToken);
   const { markets: effectiveMarkets } = useValidatedMarkets();
 
-  const [selectedMarketId, setSelectedMarketId] = useState<string | null>(null);
-  const [positionSize, setPositionSize] = useState('100');
-  const [events, setEvents] = useState<ControlRoomEvent[]>([
-    { time: new Date().toLocaleTimeString(), message: 'SYSTEM INITIALIZED', type: 'success' },
-  ]);
+  const [selectedMarketId, setSelectedMarketId] = useState<string | null>(effectiveMarkets?.[0]?.id ?? null);
+  const [side, setSide] = useState<'YES' | 'NO'>('YES');
+  const [size, setSize] = useState(25);
 
-  const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId);
-
-  const handleExecute = (side: 'long' | 'short') => {
-    const timestamp = new Date().toLocaleTimeString();
-    setEvents((prev) => [
-      { time: timestamp, message: `POSITION OPENED: ${side.toUpperCase()} ${selectedMarket?.name || 'UNKNOWN'} $${positionSize}`, type: 'success' },
-      ...prev,
-    ]);
-    toast.success(`Position opened: ${side.toUpperCase()}`);
-  };
+  const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
+  const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
 
   // Auth screen
   if (!isAuthenticated) {
     return (
-      <RiskShell nav={<ControlRoomTopNav />}>
-        <div className={styles.authWrapper}>
-          <ControlRoomPanel title="OPERATOR AUTHENTICATION" subtitle="Connect wallet to access trade terminal">
-            {!isConnected ? (
-              <>
-                <p className={styles.authText}>Wallet connection required for trade execution.</p>
-                <ControlRoomButton
-                  variant="primary"
-                  fullWidth
-                  disabled={isPending}
-                  onClick={() => {
-                    (async () => {
-                      try {
-                        await connectWalletSafely({ connectors, connectAsync, disconnect });
-                        setEvents((prev) => [
-                          { time: new Date().toLocaleTimeString(), message: `WALLET CONNECTED: ${address?.slice(0, 10)}...`, type: 'success' },
-                          ...prev,
-                        ]);
-                      } catch (e) {
-                        console.error(e);
-                        toast.error((e as Error).message || 'Failed to connect wallet');
-                        setEvents((prev) => [
-                          { time: new Date().toLocaleTimeString(), message: 'WALLET CONNECTION FAILED', type: 'error' },
-                          ...prev,
-                        ]);
-                      }
-                    })();
-                  }}
-                >
-                  {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
-                </ControlRoomButton>
-              </>
-            ) : (
+      <TerminalShell
+        header={<TerminalHeader title="WAR.MARKET // TRADE TERMINAL" backHref="/" backLabel="← HOME" />}
+        statusBar={<TerminalStatusBar items={[{ label: 'STATE', value: 'AUTH REQUIRED' }]} />}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px', minHeight: '60vh' }}>
+          {!isConnected ? (
+            <div style={{ maxWidth: '420px', width: '100%', textAlign: 'center' }}>
+              <TerminalTitle>OPERATOR AUTHENTICATION</TerminalTitle>
+              <p style={{ color: '#a8b4af', marginTop: '16px', marginBottom: '24px', lineHeight: '1.5' }}>
+                Connect wallet to access trade terminal.
+              </p>
+              <TerminalButton
+                variant="primary"
+                fullWidth
+                disabled={isPending}
+                onClick={() => {
+                  (async () => {
+                    try {
+                      await connectWalletSafely({ connectors, connectAsync, disconnect });
+                    } catch (e) {
+                      console.error(e);
+                      toast.error((e as Error).message || 'Failed to connect wallet');
+                    }
+                  })();
+                }}
+              >
+                {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
+              </TerminalButton>
+            </div>
+          ) : (
+            <div style={{ maxWidth: '420px', width: '100%' }}>
               <PearSetupCard />
-            )}
-          </ControlRoomPanel>
+            </div>
+          )}
         </div>
-      </RiskShell>
+      </TerminalShell>
     );
   }
 
-  // Authenticated: Control Room interface
+  // Trading interface
   return (
-    <RiskShell nav={<ControlRoomTopNav />}>
-      <div className={styles.shell}>
-        {/* Situation Board - Market List */}
-        <div className={styles.situationBoard}>
-          <ControlRoomPanel title="SITUATION BOARD" subtitle="NARRATIVE MARKETS // LIVE FEED">
-            <ControlRoomTable>
-              <ControlRoomTableHeader>
-                <ControlRoomTableRow>
-                  <ControlRoomTableCell header>CODE</ControlRoomTableCell>
-                  <ControlRoomTableCell header>THESIS</ControlRoomTableCell>
-                  <ControlRoomTableCell header>REGIME</ControlRoomTableCell>
-                  <ControlRoomTableCell header>LEV</ControlRoomTableCell>
-                </ControlRoomTableRow>
-              </ControlRoomTableHeader>
-              <ControlRoomTableBody>
-                {(effectiveMarkets ?? []).map((market) => (
-                  <ControlRoomTableRow
-                    key={market.id}
-                    active={selectedMarketId === market.id}
-                    onClick={() => {
-                      setSelectedMarketId(market.id);
-                      setEvents((prev) => [
-                        { time: new Date().toLocaleTimeString(), message: `MARKET SELECTED: ${market.name}`, type: 'info' },
-                        ...prev,
-                      ]);
-                    }}
-                  >
-                    <ControlRoomTableCell mono>{market.id.toUpperCase().replace(/-/g, '_')}</ControlRoomTableCell>
-                    <ControlRoomTableCell>{market.name}</ControlRoomTableCell>
-                    <ControlRoomTableCell>{market.category?.toUpperCase() || 'N/A'}</ControlRoomTableCell>
-                    <ControlRoomTableCell>{market.leverage}x</ControlRoomTableCell>
-                  </ControlRoomTableRow>
-                ))}
-              </ControlRoomTableBody>
-            </ControlRoomTable>
-          </ControlRoomPanel>
-        </div>
-
-        {/* Mission Console - Trade Form */}
-        <div className={styles.missionConsole}>
-          <ControlRoomPanel title="MISSION CONSOLE" subtitle="TRADE EXECUTION">
-            <div className={styles.consoleContent}>
-              <ControlRoomSectionHeader label="SELECTED MARKET">
-                {selectedMarket?.name || 'NONE'}
-              </ControlRoomSectionHeader>
-
-              <ControlRoomInput
-                label="POSITION SIZE (USDC)"
-                type="number"
-                value={positionSize}
-                onChange={(e) => setPositionSize(e.target.value)}
-                placeholder="100"
+    <TerminalShell
+      header={<TerminalHeader title="WAR.MARKET // TRADE TERMINAL" backHref="/" backLabel="← HOME" />}
+      menuBar={<TerminalMenuBar items={['FILE', 'OPERATIONS', 'THESIS', 'EXECUTE', 'MONITOR', 'HELP']} />}
+      leftPane={
+        <>
+          <TerminalPaneTitle>MARKET DIRECTORY</TerminalPaneTitle>
+          <TerminalMarketList>
+            {(effectiveMarkets ?? []).map((market) => (
+              <TerminalMarketRow
+                key={market.id}
+                code={market.id.toUpperCase().replace(/-/g, '_')}
+                status={market.isTradable ? 'LIVE' : 'PAUSED'}
+                active={selectedMarketId === market.id}
+                onClick={() => setSelectedMarketId(market.id)}
               />
-
-              <div className={styles.directionSection}>
-                <div className={styles.sectionLabel}>DIRECTION</div>
-                <div className={styles.buttonGroup}>
-                  <ControlRoomButton
-                    fullWidth
-                    disabled={!selectedMarketId}
-                    onClick={() => handleExecute('long')}
-                  >
-                    YES / THESIS
-                  </ControlRoomButton>
-                  <ControlRoomButton
-                    fullWidth
-                    disabled={!selectedMarketId}
-                    onClick={() => handleExecute('short')}
-                  >
-                    NO / HEDGE
-                  </ControlRoomButton>
-                </div>
-              </div>
-
-              <ControlRoomButton
-                variant="primary"
-                fullWidth
-                disabled={!selectedMarketId || !positionSize}
-                onClick={() => handleExecute('long')}
-              >
-                EXECUTE POSITION
-              </ControlRoomButton>
-            </div>
-          </ControlRoomPanel>
-
-          {/* Event Log */}
-          <ControlRoomEventLog events={events.slice(0, 10)} />
-        </div>
-      </div>
-
-      {/* Status Rail */}
-      <ControlRoomStatusRail
-        leftItems={[
-          { key: 'SESSION', value: 'OPERATOR' },
-          { key: 'BALANCE', value: perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '$0.00' },
-        ]}
-        rightItems={[
-          { key: 'STATE', value: 'ARMED' },
-          { key: 'OPERATOR', value: address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'NONE' },
-        ]}
-      />
-    </RiskShell>
+            ))}
+          </TerminalMarketList>
+        </>
+      }
+      centerPane={
+        <>
+          <TerminalPaneTitle>THESIS CONSOLE</TerminalPaneTitle>
+          {selectedMarket ? (
+            <>
+              <TerminalTitle>{selectedMarket.name}</TerminalTitle>
+              <TerminalThesis>{narrative?.thesis ?? selectedMarket.description}</TerminalThesis>
+              <TerminalKV>
+                <TerminalKVRow
+                  label="LONG"
+                  value={
+                    selectedMarket.pairs
+                      ? cleanSymbol(selectedMarket.pairs.long)
+                      : selectedMarket.basket
+                      ? selectedMarket.basket.long.map(a => cleanSymbol(a.asset)).join('+')
+                      : '—'
+                  }
+                />
+                <TerminalKVRow
+                  label="SHORT"
+                  value={
+                    selectedMarket.pairs
+                      ? cleanSymbol(selectedMarket.pairs.short)
+                      : selectedMarket.basket
+                      ? selectedMarket.basket.short.map(a => cleanSymbol(a.asset)).join('+')
+                      : '—'
+                  }
+                />
+                <TerminalKVRow label="LEVERAGE" value={`${selectedMarket.leverage}x`} />
+                <TerminalKVRow label="CATEGORY" value={selectedMarket.category?.toUpperCase() || 'N/A'} />
+              </TerminalKV>
+            </>
+          ) : (
+            <div style={{ color: '#8da294', marginTop: '20px' }}>SELECT A MARKET TO VIEW DETAILS</div>
+          )}
+        </>
+      }
+      rightPane={
+        <>
+          <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
+          <TerminalSegment
+            options={[
+              { value: 'YES', label: 'YES' },
+              { value: 'NO', label: 'NO' },
+            ]}
+            value={side}
+            onChange={(v) => setSide(v as 'YES' | 'NO')}
+          />
+          <TerminalSizeRow sizes={[10, 25, 50]} value={size} onChange={setSize} />
+          <TerminalButton fullWidth disabled={!selectedMarket}>
+            ARM THESIS
+          </TerminalButton>
+          <TerminalButton variant="primary" fullWidth disabled={!selectedMarket}>
+            EXECUTE POSITION
+          </TerminalButton>
+          <TerminalNote>PRESS ENTER TO CONFIRM</TerminalNote>
+        </>
+      }
+      commandBar={
+        <TerminalCommandBar
+          commands={[
+            { key: 'F1', label: 'HELP' },
+            { key: 'F2', label: 'MARKETS' },
+            { key: 'F3', label: 'TRADE' },
+            { key: 'F4', label: 'PORTFOLIO' },
+            { key: 'F9', label: 'ARM' },
+            { key: 'F10', label: 'EXECUTE' },
+          ]}
+        />
+      }
+      statusBar={
+        <TerminalStatusBar
+          items={[
+            { label: 'SESSION', value: 'OPERATOR' },
+            { label: 'BALANCE', value: perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '$0.00' },
+            { label: 'STATE', value: side === 'YES' ? 'THESIS ARMED' : 'HEDGE MODE' },
+            { label: 'OPERATOR', value: address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'NONE' },
+          ]}
+        />
+      }
+    />
   );
 }
