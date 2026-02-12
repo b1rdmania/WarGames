@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { WalletProvider } from "@/components/WalletProvider";
 import { PearProvider } from "@/contexts/PearContext";
 import { MusicProvider } from "@/contexts/MusicContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
@@ -46,36 +47,38 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-war-deep text-text-primary font-sans antialiased">
-        <WalletProvider>
-          <PearProvider>
-            <MusicProvider>
-              {children}
-              <Toaster
-                position="bottom-right"
-                toastOptions={{
-                  style: {
-                    background: '#18171c',
-                    color: '#e8e6ed',
-                    border: '1px solid #37343e',
-                    borderRadius: '8px',
-                  },
-                  success: {
-                    iconTheme: {
-                      primary: '#22c55e',
-                      secondary: '#0e0e10',
+        <ThemeProvider>
+          <WalletProvider>
+            <PearProvider>
+              <MusicProvider>
+                {children}
+                <Toaster
+                  position="bottom-right"
+                  toastOptions={{
+                    style: {
+                      background: '#18171c',
+                      color: '#e8e6ed',
+                      border: '1px solid #37343e',
+                      borderRadius: '8px',
                     },
-                  },
-                  error: {
-                    iconTheme: {
-                      primary: '#ef4444',
-                      secondary: '#0e0e10',
+                    success: {
+                      iconTheme: {
+                        primary: '#22c55e',
+                        secondary: '#0e0e10',
+                      },
                     },
-                  },
-                }}
-              />
-            </MusicProvider>
-          </PearProvider>
-        </WalletProvider>
+                    error: {
+                      iconTheme: {
+                        primary: '#ef4444',
+                        secondary: '#0e0e10',
+                      },
+                    },
+                  }}
+                />
+              </MusicProvider>
+            </PearProvider>
+          </WalletProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
