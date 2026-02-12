@@ -22,13 +22,13 @@
 
 .link:focus-visible {
   outline: none;
-  color: var(--amber, #f97316);
+  color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
 .active {
-  color: var(--amber, #f97316);
+  color: var(--primary);
 }
 
 .disabled {

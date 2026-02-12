@@ -64,7 +64,7 @@
   display: block;
   width: 6px;
   height: 6px;
-  background: var(--primary, #f97316);
+  background: var(--primary);
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -111,7 +111,7 @@
 .divider {
   margin: 32px 0;
   height: 1px;
-  background: linear-gradient(90deg, var(--primary, #f97316) 0%, var(--border, #37343e) 20%, var(--border, #37343e) 100%);
+  background: linear-gradient(90deg, var(--primary) 0%, var(--border) 20%, var(--border) 100%);
 }
 
 .section {
@@ -134,7 +134,7 @@
   display: block;
   width: 4px;
   height: 16px;
-  background: var(--primary, #f97316);
+  background: var(--primary);
   border-radius: 2px;
   flex-shrink: 0;
 }
@@ -152,8 +152,8 @@
   gap: 8px;
   margin-top: 32px;
   padding: 12px 24px;
-  background: var(--amber, #f97316);
-  color: var(--bg-deep, #0e0e10);
+  background: var(--primary);
+  color: var(--bg-deep);
   font-family: var(--font-sans, Inter, -apple-system, sans-serif);
   font-size: 14px;
   font-weight: 600;
@@ -163,7 +163,7 @@
 }
 
 .cta:hover {
-  background: #ea580c;
+  background: var(--primary-hover);
 }
 
 .backLink {

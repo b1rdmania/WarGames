@@ -2,7 +2,7 @@
   background: var(--bg-warm, #18171c);
   border: 1px solid var(--border, #37343e);
   border-radius: var(--radius-lg, 8px);
-  border-top: 2px solid var(--primary, #f97316);
+  border-top: 2px solid var(--primary);
 }
 
 /* ==========================================================================
@@ -42,12 +42,13 @@
 }
 
 .rowSelected {
-  background: rgba(249, 115, 22, 0.08);
-  border-left: 3px solid var(--amber, #f97316);
+  background: var(--primary-soft);
+  border-left: 3px solid var(--primary);
 }
 
 .rowSelected:hover {
-  background: rgba(249, 115, 22, 0.12);
+  background: var(--primary-soft);
+  opacity: 0.9;
 }
 
 /* ==========================================================================
@@ -68,8 +69,8 @@
 }
 
 .cardSelected {
-  background: rgba(249, 115, 22, 0.08);
-  border-left: 3px solid var(--amber, #f97316);
+  background: var(--primary-soft);
+  border-left: 3px solid var(--primary);
 }
 
 .cardHeader {
@@ -122,17 +123,17 @@
   font-size: 15px;
   font-weight: 600;
   text-align: center;
-  border: 1px solid var(--amber, #f97316);
+  border: 1px solid var(--primary);
   border-radius: var(--radius-md, 6px);
   background: transparent;
-  color: var(--amber, #f97316);
+  color: var(--primary);
   cursor: pointer;
   transition: all 150ms ease;
   text-decoration: none;
 }
 
 .btnViewFull:hover {
-  background: var(--amber, #f97316);
+  background: var(--primary);
   color: var(--bg-deep, #0e0e10);
 }
 
@@ -148,13 +149,13 @@
 }
 
 .marketLink {
-  color: var(--amber, #f97316);
+  color: var(--primary);
   text-decoration: none;
   transition: color 150ms ease;
 }
 
 .marketLink:hover {
-  color: var(--gold, #fbbf24);
+  color: var(--primary-hover);
 }
 
 .marketMeta {
@@ -267,17 +268,17 @@
   font-family: var(--font-sans, Inter, sans-serif);
   font-size: 13px;
   font-weight: 500;
-  border: 1px solid var(--amber, #f97316);
+  border: 1px solid var(--primary);
   border-radius: var(--radius-md, 6px);
   background: transparent;
-  color: var(--amber, #f97316);
+  color: var(--primary);
   cursor: pointer;
   transition: all 150ms ease;
   text-decoration: none;
 }
 
 .btnView:hover {
-  background: var(--amber, #f97316);
+  background: var(--primary);
   color: var(--bg-deep, #0e0e10);
 }
 

@@ -13,8 +13,8 @@ export function AssetPriceTicker() {
           {/* Live connection indicator */}
           {isConnected && (
             <div className="flex items-center gap-1.5 pr-4 border-r border-border">
-              <div className="w-1.5 h-1.5 bg-brand-amber rounded-full animate-pulse" />
-              <span className="text-xs font-mono text-brand-amber">LIVE</span>
+              <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: 'var(--primary)' }} />
+              <span className="text-xs font-mono" style={{ color: 'var(--primary)' }}>LIVE</span>
             </div>
           )}
 

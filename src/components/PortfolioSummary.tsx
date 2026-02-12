@@ -20,7 +20,7 @@ export function PortfolioSummary({
 
   return (
     <div className="tm-box mb-6">
-      <div className="text-sm font-semibold text-brand-amber mb-4">Portfolio</div>
+      <div className="text-sm font-semibold mb-4" style={{ color: 'var(--primary)' }}>Portfolio</div>
 
       {/* Quadrant layout */}
       <div className="border border-border rounded-md overflow-hidden">

@@ -90,7 +90,7 @@ export function MarketFeedReadOnly({
                 <td className={styles.td}>
                   <div className={styles.badges}>
                     <span className="text-xs text-text-muted font-mono">{m.category}</span>
-                    <span className="text-xs text-brand-amber font-mono">{m.leverage}x</span>
+                    <span className="text-xs font-mono" style={{ color: 'var(--primary)' }}>{m.leverage}x</span>
                     {!m.isTradable && <span className="text-xs text-status-warning font-mono">Inactive</span>}
                   </div>
                 </td>

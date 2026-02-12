@@ -25,7 +25,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
       <RiskShell nav={<TerminalTopNav />}>
         <div className="text-text-secondary">
           Market not found.{' '}
-          <Link href="/markets" className="text-amber underline">
+          <Link href="/markets" className="underline" style={{ color: 'var(--primary)' }}>
             Return to markets
           </Link>
         </div>

@@ -180,7 +180,7 @@
 }
 
 .footerLink:hover {
-  color: var(--gold);
+  color: var(--primary-hover);
 }
 
 .footerSep {

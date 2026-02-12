@@ -1,5 +1,5 @@
 /**
- * WAR.MARKET logo mark - X chevrons with amber/gold flame diamond
+ * WAR.MARKET logo mark - X chevrons with green flame diamond (Control Room theme)
  * Use for: header, loading states, empty states, error pages
  */
 export function WarMark({
@@ -35,8 +35,8 @@ export function WarMark({
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M32 19 L43 32 L32 45 L21 32 Z" fill="#f97316" />
-      <path d="M32 24 L38 32 L32 40 L26 32 Z" fill="#fbbf24" />
+      <path d="M32 19 L43 32 L32 45 L21 32 Z" fill="#02ff81" />
+      <path d="M32 24 L38 32 L32 40 L26 32 Z" fill="#34ffa6" />
     </svg>
   );
 }

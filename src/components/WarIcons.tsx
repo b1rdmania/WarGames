@@ -1,6 +1,6 @@
 /**
  * WAR.MARKET icon set
- * Style: warm gray strokes, amber/gold accents, rounded caps, geometric
+ * Style: warm gray strokes, green accents (Control Room theme), rounded caps, geometric
  * Matches WarMark aesthetic
  */
 
@@ -10,8 +10,8 @@ type IconProps = {
 };
 
 const GRAY = '#4a4752';
-const AMBER = '#f97316';
-const GOLD = '#fbbf24';
+const AMBER = '#02ff81';  // Control Room primary green
+const GOLD = '#34ffa6';   // Control Room lighter green
 const PROFIT = '#22c55e';
 const LOSS = '#ef4444';
 

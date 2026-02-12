@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { WarMark } from '@/components/WarMark';
 
@@ -12,7 +14,11 @@ export default function NotFound() {
         </p>
         <Link
           href="/markets"
-          className="inline-block px-6 py-3 bg-brand-amber text-war-deep font-semibold rounded-md hover:bg-orange-600 transition-colors"
+          className="inline-block px-6 py-3 font-semibold rounded-md transition-colors hover:opacity-90"
+          style={{
+            backgroundColor: 'var(--primary)',
+            color: 'var(--bg-deep)'
+          }}
         >
           Go to Markets
         </Link>

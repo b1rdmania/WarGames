@@ -15,7 +15,7 @@ export function MarketCard({ market, onBet }: MarketCardProps) {
   const categoryColors = {
     geopolitical: 'bg-red-900/20 border-red-500/30',
     tech: 'bg-blue-900/20 border-blue-500/30',
-    macro: 'bg-amber-900/10 border-amber-500/25',
+    macro: 'bg-emerald-900/10 border-emerald-500/25',
     crypto: 'bg-purple-900/20 border-purple-500/30',
   };
 
