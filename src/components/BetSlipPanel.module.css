@@ -1,7 +1,7 @@
 .card {
-  border: 1px solid #234055;
-  border-top: 2px solid #02ff81;
-  background: #0e1822;
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--secondary);
+  background: var(--bg-surface);
   padding: 16px;
 }
 
@@ -19,35 +19,35 @@
 }
 
 .marketName {
-  color: #f1f8ff;
+  color: var(--text-primary);
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 4px;
 }
 
 .leverage {
-  color: #7a9ab0;
+  color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 11px;
 }
 
 .clearBtn {
-  color: #7a9ab0;
+  color: var(--text-muted);
   font-size: 11px;
   background: none;
-  border: 1px solid #2b4a60;
+  border: 1px solid var(--border);
   padding: 4px 10px;
   cursor: pointer;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 .clearBtn:hover {
-  color: #b8d0e0;
-  border-color: #4a6c83;
+  color: var(--text-secondary);
+  border-color: var(--border-focus);
 }
 
 .sectionLabel {
-  color: #7a9ab0;
+  color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 10px;
   text-transform: uppercase;
@@ -68,44 +68,44 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  border: 1px solid #2b4a60;
-  background: #101c28;
-  color: #b8d0e0;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .dirBtn:hover {
-  border-color: #4a6c83;
+  border-color: var(--border-focus);
 }
 
 .dirBtnYes {
-  border-color: #02ff81;
-  background: rgba(2, 255, 129, 0.1);
-  color: #02ff81;
+  border-color: var(--secondary);
+  background: var(--secondary-soft);
+  color: var(--secondary);
 }
 
 .dirBtnNo {
-  border-color: #ff6b6b;
-  background: rgba(255, 107, 107, 0.1);
-  color: #ff6b6b;
+  border-color: var(--loss);
+  background: rgba(var(--loss), 0.1);
+  color: var(--loss);
 }
 
 .directionHint {
-  color: #7a9ab0;
+  color: var(--text-muted);
   font-size: 11px;
   margin-bottom: 16px;
   padding: 8px;
-  background: #101c28;
-  border: 1px solid #2b4a60;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
 }
 
 .directionHint .long {
-  color: #02ff81;
+  color: var(--secondary);
 }
 
 .directionHint .short {
-  color: #ff6b6b;
+  color: var(--loss);
 }
 
 .sizeSection {
@@ -123,21 +123,21 @@
   padding: 8px;
   font-family: var(--font-mono);
   font-size: 12px;
-  border: 1px solid #2b4a60;
-  background: #101c28;
-  color: #b8d0e0;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .presetBtn:hover {
-  border-color: #4a6c83;
+  border-color: var(--border-focus);
 }
 
 .presetBtnActive {
-  border-color: #36d4ff;
-  background: rgba(54, 212, 255, 0.1);
-  color: #36d4ff;
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
 }
 
 .sizeInput {
@@ -145,19 +145,19 @@
   padding: 10px 12px;
   font-family: var(--font-mono);
   font-size: 13px;
-  border: 1px solid #2b4a60;
-  background: #101c28;
-  color: #f1f8ff;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
   outline: none;
   transition: border-color 0.15s ease;
 }
 
 .sizeInput:focus {
-  border-color: #36d4ff;
+  border-color: var(--primary);
 }
 
 .sizeInput::placeholder {
-  color: #4a6578;
+  color: var(--text-faint);
 }
 
 .balanceRow {
@@ -169,21 +169,21 @@
 }
 
 .balanceLabel {
-  color: #7a9ab0;
+  color: var(--text-muted);
 }
 
 .balanceValue {
-  color: #f1f8ff;
+  color: var(--text-primary);
   font-family: var(--font-mono);
 }
 
 .insufficient {
-  color: #ff6b6b;
+  color: var(--loss);
 }
 
 .infoBox {
-  background: #101c28;
-  border: 1px solid #2b4a60;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
   padding: 12px;
   margin-bottom: 16px;
 }
@@ -196,26 +196,26 @@
 }
 
 .infoRow:not(:last-child) {
-  border-bottom: 1px solid #1a2a38;
+  border-bottom: 1px solid var(--border-subtle);
   padding-bottom: 8px;
   margin-bottom: 4px;
 }
 
 .infoLabel {
-  color: #7a9ab0;
+  color: var(--text-muted);
 }
 
 .infoValue {
-  color: #b8d0e0;
+  color: var(--text-secondary);
   font-family: var(--font-mono);
 }
 
 .infoWarning {
-  color: #f5a623;
+  color: var(--warning);
 }
 
 .errorToggle {
-  color: #ff6b6b;
+  color: var(--loss);
   font-size: 11px;
   background: none;
   border: none;
@@ -225,21 +225,21 @@
 }
 
 .errorBox {
-  background: rgba(255, 107, 107, 0.1);
-  border: 1px solid rgba(255, 107, 107, 0.3);
+  background: rgba(var(--loss), 0.1);
+  border: 1px solid var(--loss);
   padding: 12px;
   margin-bottom: 16px;
 }
 
 .errorText {
-  color: #ff9999;
+  color: var(--loss-dim);
   font-family: var(--font-mono);
   font-size: 11px;
   word-break: break-all;
 }
 
 .errorDismiss {
-  color: #7a9ab0;
+  color: var(--text-muted);
   font-size: 11px;
   background: none;
   border: none;
@@ -249,7 +249,7 @@
 }
 
 .errorDismiss:hover {
-  color: #b8d0e0;
+  color: var(--text-secondary);
 }
 
 .submitBtn {
@@ -270,26 +270,26 @@
 }
 
 .submitBtnLong {
-  background: #02ff81;
-  color: #070d14;
+  background: var(--secondary);
+  color: var(--bg-deep);
 }
 
 .submitBtnLong:hover:not(:disabled) {
-  background: #00e070;
+  background: var(--secondary-hover);
 }
 
 .submitBtnShort {
-  background: #ff6b6b;
-  color: #070d14;
+  background: var(--loss);
+  color: var(--bg-deep);
 }
 
 .submitBtnShort:hover:not(:disabled) {
-  background: #ff5555;
+  background: var(--loss-dim);
 }
 
 .submitBtnNeutral {
-  background: #2b4a60;
-  color: #7a9ab0;
+  background: var(--border);
+  color: var(--text-muted);
 }
 
 .emptyState {
@@ -298,6 +298,6 @@
 }
 
 .emptyText {
-  color: #7a9ab0;
+  color: var(--text-muted);
   font-size: 13px;
 }

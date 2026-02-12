@@ -1,7 +1,7 @@
 .card {
-  border: 1px solid #234055;
-  border-top: 2px solid #36d4ff;
-  background: #0e1822;
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--primary);
+  background: var(--bg-surface);
   padding: 20px;
 }
 
@@ -32,15 +32,15 @@
 }
 
 .statusReady {
-  color: #02ff81;
-  background: rgba(2, 255, 129, 0.1);
-  border-color: rgba(2, 255, 129, 0.3);
+  color: var(--secondary);
+  background: var(--secondary-soft);
+  border-color: var(--secondary);
 }
 
 .statusAuthing {
-  color: #36d4ff;
-  background: rgba(54, 212, 255, 0.1);
-  border-color: rgba(54, 212, 255, 0.3);
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-color: var(--primary);
 }
 
 .statusError {
@@ -57,13 +57,13 @@
 }
 
 .statBox {
-  background: #101c28;
-  border: 1px solid #2b4a60;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
   padding: 12px;
 }
 
 .statLabel {
-  color: #7a9ab0;
+  color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 10px;
   text-transform: uppercase;
@@ -72,41 +72,41 @@
 }
 
 .statValue {
-  color: #f1f8ff;
+  color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 500;
 }
 
 .statEmpty {
-  color: #4a6578;
+  color: var(--text-faint);
 }
 
 .guidance {
-  border-top: 1px solid #234055;
+  border-top: 1px solid var(--border);
   padding-top: 16px;
   margin-bottom: 16px;
 }
 
 .guidanceText {
-  color: #b8d0e0;
+  color: var(--text-secondary);
   font-size: 13px;
   line-height: 1.5;
   margin-bottom: 8px;
 }
 
 .guidanceHint {
-  color: #6a8a9f;
+  color: var(--text-muted);
 }
 
 .chainInfo {
-  color: #7a9ab0;
+  color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 11px;
 }
 
 .chainOk {
-  color: #02ff81;
+  color: var(--secondary);
   margin-left: 4px;
 }
 
@@ -141,8 +141,8 @@
 
 .btnPrimary {
   flex: 1;
-  background: #02ff81;
-  color: #070d14;
+  background: var(--secondary);
+  color: var(--bg-deep);
   border: none;
   padding: 12px 20px;
   font-size: 12px;
@@ -154,7 +154,7 @@
 }
 
 .btnPrimary:hover:not(:disabled) {
-  background: #00e070;
+  background: var(--secondary-hover);
 }
 
 .btnPrimary:disabled {
@@ -164,8 +164,8 @@
 
 .btnSecondary {
   background: transparent;
-  color: #36d4ff;
-  border: 1px solid #36d4ff;
+  color: var(--primary);
+  border: 1px solid var(--primary);
   padding: 12px 20px;
   font-size: 12px;
   font-weight: 500;
@@ -176,5 +176,5 @@
 }
 
 .btnSecondary:hover {
-  background: rgba(54, 212, 255, 0.1);
+  background: var(--primary-soft);
 }
