@@ -1,72 +1,67 @@
 /**
  * Terminal Theme Tokens
  *
- * Command-line aesthetic with warm amber accents and function-key navigation.
- * Legacy "DOS/Norton" theme.
+ * Classic DOS/Norton Commander aesthetic with bright green on dark.
+ * Function-key navigation, hard pane geometry, keyboard-first interface.
  */
 
 [data-theme="terminal"] {
-  /* Backgrounds - Warm dark purple/gray palette */
-  --bg-deep: #0e0e10;
-  --bg-warm: #18171c;
-  --bg-surface: #222127;
-  --bg-elevated: #2c2a32;
+  /* Backgrounds - Dark with subtle green tint */
+  --bg-deep: #080a0c;
+  --bg-warm: #0d0f11;
+  --bg-surface: #111414;
+  --bg-elevated: #161a1a;
 
-  /* Text - Subtle warmth */
-  --text-primary: #f0eef5;
-  --text-secondary: #a8a3b8;
-  --text-muted: #6b6879;
-  --text-faint: #4a4655;
-  --text-disabled: #3d3a45;
+  /* Text - Cool gray tones */
+  --text-primary: #d7dbde;
+  --text-secondary: #9bb7a9;
+  --text-muted: #6b7a70;
+  --text-faint: #4a5550;
+  --text-disabled: #3a4440;
 
-  /* Borders */
-  --border: #37343e;
-  --border-subtle: #2a2830;
-  --border-focus: #f97316;
+  /* Borders - Green-tinted */
+  --border: #1f3e2f;
+  --border-subtle: #162820;
+  --border-focus: #02ff81;
 
-  /* Color Roles - Terminal amber/violet system */
+  /* Color Roles - Terminal green system */
 
-  /* Primary: Amber - CTAs, key actions, brand highlight */
-  --primary: #f97316;
-  --primary-hover: #ea580c;
-  --primary-soft: rgba(249, 115, 22, 0.12);
-  --primary-rgb: 249, 115, 22;
+  /* Primary: Bright Green - CTAs, key actions, active states */
+  --primary: #02ff81;
+  --primary-hover: #00e070;
+  --primary-soft: rgba(2, 255, 129, 0.12);
+  --primary-rgb: 2, 255, 129;
 
-  /* Secondary: Violet - depth, secondary actions, accents */
-  --secondary: #a78bfa;
-  --secondary-hover: #8b5cf6;
-  --secondary-soft: rgba(167, 139, 250, 0.1);
-  --secondary-muted: #8b8b9e;
+  /* Secondary: Muted Green - labels, secondary text */
+  --secondary: #9bb7a9;
+  --secondary-hover: #b5cdc0;
+  --secondary-soft: rgba(155, 183, 169, 0.1);
+  --secondary-muted: #7a9a88;
 
-  /* Tertiary: Slate Blue - info, metadata, subtle accents */
-  --tertiary: #60a5fa;
-  --tertiary-soft: rgba(96, 165, 250, 0.1);
-  --tertiary-muted: #94a3b8;
+  /* Tertiary: Dim Green - subtle accents */
+  --tertiary: #6b7a70;
+  --tertiary-soft: rgba(107, 122, 112, 0.1);
+  --tertiary-muted: #5a6860;
 
   /* Functional states */
-  --profit: #22c55e;
-  --profit-dim: #16a34a;
-  --loss: #ef4444;
-  --loss-dim: #dc2626;
-  --warning: #f59e0b;
-  --info: var(--tertiary);
+  --profit: #02ff81;
+  --profit-dim: #00cc66;
+  --loss: #ff4444;
+  --loss-dim: #cc3333;
+  --warning: #ffcc00;
+  --info: var(--secondary);
 
   /* Typography */
-  --font-display: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-sans: 'JetBrains Mono', 'SF Mono', monospace;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
 
   /* Legacy aliases */
-  --amber: var(--primary);
-  --amber-dim: var(--primary-hover);
-  --amber-rgb: var(--primary-rgb);
-  --gold: #fbbf24;
-  --mark-gray: #4a4752;
   --pear-dark: var(--bg-deep);
   --pear-panel: var(--bg-warm);
   --pear-panel-light: var(--bg-surface);
-  --pear-lime: var(--primary); /* Amber in terminal */
-  --pear-lime-light: var(--gold);
+  --pear-lime: var(--primary);
+  --pear-lime-light: var(--primary-hover);
   --pear-lime-rgb: var(--primary-rgb);
   --pear-gray: var(--text-secondary);
   --pear-gray-dark: var(--text-muted);
