@@ -1,0 +1,38 @@
+.log {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+.time {
+  color: var(--text-muted);
+}
+
+.msg {
+  color: var(--text-secondary);
+}
+
+.success {
+  color: var(--profit);
+}
+
+.warning {
+  color: var(--warning);
+}
+
+.error {
+  color: var(--loss);
+}
