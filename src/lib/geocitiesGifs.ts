@@ -1,0 +1,76 @@
+/**
+ * Curated animated GIF catalog from gifcities.org (Internet Archive Geocities collection).
+ * Used exclusively by the GeoCities theme toggle.
+ */
+
+const B = 'https://blob.gifcities.org/gifcities/';
+
+export const GC = {
+  // Fire / flames
+  fire1: `${B}4ZWHJUWAOBFM56J444WMIILMG7ZMVOP7.gif`,
+  fire2: `${B}EGV3BAYR6OK3X63J4CBSJADOLYW4WGAN.gif`,
+  fire3: `${B}GWT4IVKJ6BX6DRGP2X7I7JJ5T4B4U5OQ.gif`,
+  fireSmall: `${B}H2LWRZATSWRBEMGOTVQRYW4UCSBDBOOD.gif`,
+  explosion: `${B}N7S3GUIK3IWUZ2UGXZGBSHIFMPEZLPC2.gif`,
+
+  // Stars / sparkles
+  sparkle1: `${B}4HVHH7B3KEFTKDAYM7XBBUU4Z4USJ4QZ.gif`,
+  sparkle2: `${B}CJIEUZFZSTRSPUMF57AOSTDGKKUXYB6H.gif`,
+  starBurst: `${B}DSB6NSUDHALJR5PD5QU6AF22ZHD37DGB.gif`,
+
+  // Dividers
+  dividerChain: `${B}A5LHMIDZN54JQYJPAIGOYXN4DVAECVJR.gif`,
+  dividerColor: `${B}B2TIOYJMZ6NV4YTWEKKSJZVBFY6AQ6MF.gif`,
+  dividerThin: `${B}ECB5ZXT2XJMP5GWB3QDDL4NJRXD53JHQ.gif`,
+  dividerGradient: `${B}GEBBHHAPXV63GEHL3AKX637HGEL3R6DV.gif`,
+
+  // Under construction
+  constructionWorker: `${B}5SAYDEDXUAM7XUK5PSV4HZSGDHVNXS6R.gif`,
+  constructionSign: `${B}6DXWFI7ZFVSKUHWTEWOJHT3JPC4U6JIJ.gif`,
+  constructionBarrier: `${B}AETOJO542NSXFY7S2HQDPPBQ2LLT7NGO.gif`,
+  hardHat: `${B}E47ZJBID57WBH5ZXYB7SL2OCE22C5HH7.gif`,
+
+  // NEW! badges
+  newBadge: `${B}3VTBFEMOXWXUH3PJYVKNKN4X4DLRL6FO.gif`,
+  newBlink: `${B}BSCLWF2NA7VIOLNBHZ6APAYT674XMEZV.gif`,
+
+  // Globe
+  globeLarge: `${B}46IFPABPKDVU6GGCYOFNROALJJEZ465G.gif`,
+  globeSmall: `${B}2BDK66BWLK42ADEG52TMSEUEDO6IZDTX.gif`,
+  globeAlt: `${B}3KM6MPL6QJCV36EATD5G4WBTM67XNG5R.gif`,
+
+  // Money / gold
+  coin: `${B}7YOVURK4KH6EHZD7QZYS32556WJSNETA.gif`,
+  moneyBag: `${B}FD34DR5CQAHEL4A6WSBRABODHOICHW6O.gif`,
+  dollar: `${B}B23523BMU3MHREA2KSF47F7VT24BYVPM.gif`,
+  goldBar: `${B}XPKTKBIZ2W5KHOETNSXYZOG6JLNGKQF6.gif`,
+
+  // Email / guestbook
+  envelope: `${B}5EOUGOZ66SPHEOBO526T5BMQBJHN4ZPE.gif`,
+  guestbook: `${B}V2Z5E4J5MJPMJSUNJHEOC75TB4RDDXRB.gif`,
+  signGuestbook: `${B}VAYVGZSLN7E64C7XH5MSY5DUXWV7MFXZ.gif`,
+
+  // Welcome / enter
+  welcome: `${B}5K7OQOQ2GRLPBW4HBFWYWS2MSESCR7KV.gif`,
+  enter: `${B}JGC4ATDAGPHVIV3FS534MWW72F5W5KKT.gif`,
+
+  // Counter
+  hitCounter: `${B}4L6M2E4ETXXLJ54C4TVQII6ZFUIQDRCO.gif`,
+
+  // Badges
+  bestInNetscape: `${B}4HBDYO222DAVGAKMVEPNKXCSM2N573Y2.gif`,
+  madeWithNotepad: `${B}BE74VKFT26W7XCTU3BNG3ZUSXQC6TEG4.gif`,
+  netscapeNow: `${B}AFCZ4HZS2GWJ7GXGDN7DCAFUXT73TGN3.gif`,
+
+  // Awards / trophies
+  coolSite: `${B}GRSRKG744DWEHPZO47YMXHRXSEKJILQO.gif`,
+  trophy: `${B}TMK4JSB6ENQ4BMXRVMR6BSFTUDK4KFJX.gif`,
+  goldMedal: `${B}UD3BSOJI5JXU6IC7U66TB5CWK73I5BH3.gif`,
+  starAward: `${B}WMUDNVDHOTPX6NMLW72YVUASEYEKIDL4.gif`,
+
+  // Computer / tech
+  computer: `${B}7JCDRPP6PPIM66TMENJY7VG4RTDXVKFY.gif`,
+  monitor: `${B}7SVPWNF4H7EQPEBFFZA6YKUZGS67QLMA.gif`,
+  techGear: `${B}CQZDMFOXA44PKXFTDUS4SQLTO3FD2RZM.gif`,
+  circuit: `${B}PDR5PZSJ44KRXNR7OXEYQR2ECS6K4ZIB.gif`,
+} as const;

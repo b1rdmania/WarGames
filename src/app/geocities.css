@@ -1,0 +1,206 @@
+/* ============================================================
+   GEOCITIES THEME OVERRIDES
+   All rules scoped under [data-theme="geocities"].
+   Zero effect when terminal theme is active.
+   ============================================================ */
+
+/* --- CSS Variables --- */
+[data-theme="geocities"] {
+  --gc-font-display: 'Comic Sans MS', 'Papyrus', cursive;
+  --gc-font-mono: 'Courier New', 'Times New Roman', serif;
+  --gc-font-body: 'Times New Roman', serif;
+  --gc-bg: #000000;
+  --gc-text: #00FF00;
+  --gc-link: #FF0000;
+  --gc-link-visited: #FF6600;
+  --gc-accent: #FFFF00;
+  --gc-cyan: #00FFFF;
+  --gc-panel-bg: #0a0a0a;
+  --gc-border: #FF0000;
+  --gc-header-bg: #330000;
+  --gc-btn-bg: #C0C0C0;
+  --gc-btn-text: #000000;
+  --gc-input-bg: #FFFFFF;
+  --gc-input-text: #000000;
+
+  /* Override pear tokens */
+  --pear-lime: #00FF00;
+  --pear-dark: #000000;
+  --pear-panel: #0a0a0a;
+  --border-color: #FF0000;
+}
+
+/* --- Body --- */
+[data-theme="geocities"] body {
+  background-color: #000000 !important;
+  background-image: url("data:image/gif;base64,R0lGODlhBAAEAIAAABkZGQAAABkZGQAAACH5BAEAAAEALAAAAAAEAAQAAAIFjI+pywAAOw==") !important;
+  font-family: var(--gc-font-display) !important;
+  color: #00FF00 !important;
+}
+
+/* --- Tailwind Color Overrides --- */
+[data-theme="geocities"] .bg-pear-dark { background-color: #000000 !important; }
+[data-theme="geocities"] .bg-pear-panel { background-color: #0a0a0a !important; }
+[data-theme="geocities"] .text-pear-lime { color: #00FF00 !important; }
+[data-theme="geocities"] .text-white { color: #FFFFFF !important; }
+[data-theme="geocities"] .text-gray-300 { color: #CCCCCC !important; }
+[data-theme="geocities"] .text-gray-400 { color: #999999 !important; }
+[data-theme="geocities"] .text-gray-500 { color: #999999 !important; }
+[data-theme="geocities"] .text-gray-600 { color: #666666 !important; }
+[data-theme="geocities"] .text-red-400 { color: #FF0000 !important; }
+[data-theme="geocities"] .text-red-300 { color: #FF6600 !important; }
+[data-theme="geocities"] .text-yellow-200 { color: #FFFF00 !important; }
+
+/* Background opacity variants */
+[data-theme="geocities"] .bg-black\/40,
+[data-theme="geocities"] .bg-black\/60,
+[data-theme="geocities"] .bg-black\/20,
+[data-theme="geocities"] .bg-black\/80 { background-color: #0a0a0a !important; }
+
+/* Border overrides */
+[data-theme="geocities"] .border-pear-lime\/20,
+[data-theme="geocities"] .border-pear-lime\/30 { border-color: #FF0000 !important; }
+
+/* --- Font Overrides --- */
+[data-theme="geocities"] .font-mono {
+  font-family: 'Courier New', monospace !important;
+}
+
+/* --- Global .tm-* Widget Overrides --- */
+[data-theme="geocities"] .tm-btn {
+  border: 2px outset #999999 !important;
+  background: #C0C0C0 !important;
+  color: #000000 !important;
+  font-family: var(--gc-font-display) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+[data-theme="geocities"] .tm-btn:hover {
+  background: #DDDDDD !important;
+  box-shadow: none !important;
+  border-style: inset !important;
+  color: #000000 !important;
+  text-shadow: none !important;
+}
+[data-theme="geocities"] .tm-btn-danger {
+  background: #FF0000 !important;
+  color: #FFFFFF !important;
+  border-color: #CC0000 !important;
+}
+
+[data-theme="geocities"] .tm-box {
+  border: 2px solid #00FF00 !important;
+  background: #001100 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+[data-theme="geocities"] .tm-control {
+  border: 2px inset #999999 !important;
+  background: #FFFFFF !important;
+  color: #000000 !important;
+  font-family: 'Courier New', monospace !important;
+}
+[data-theme="geocities"] .tm-control:focus {
+  border-color: #FF0000 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+[data-theme="geocities"] .tm-label {
+  font-family: var(--gc-font-display) !important;
+  color: #FFFF00 !important;
+}
+
+[data-theme="geocities"] .tm-k {
+  color: #999999 !important;
+  font-family: 'Courier New', monospace !important;
+}
+[data-theme="geocities"] .tm-v {
+  color: #00FF00 !important;
+  font-family: 'Courier New', monospace !important;
+}
+
+[data-theme="geocities"] .tm-row {
+  border-color: #333333 !important;
+}
+
+/* --- Global .tp-* Typography Overrides --- */
+[data-theme="geocities"] .tp-title {
+  font-family: var(--gc-font-display) !important;
+  color: #FF0000 !important;
+  text-shadow: none !important;
+}
+[data-theme="geocities"] .tp-lede {
+  font-family: var(--gc-font-body) !important;
+  color: #CCCCCC !important;
+}
+[data-theme="geocities"] .tp-h {
+  font-family: var(--gc-font-display) !important;
+  color: #FFFF00 !important;
+}
+[data-theme="geocities"] .tp-body {
+  font-family: var(--gc-font-body) !important;
+  color: #CCCCCC !important;
+}
+[data-theme="geocities"] .tp-section {
+  border-color: #333333 !important;
+}
+[data-theme="geocities"] .tp-rule {
+  border-color: #FF0000 !important;
+}
+
+/* --- .pear-border Override --- */
+[data-theme="geocities"] .pear-border {
+  border: 2px solid #FF0000 !important;
+}
+
+/* --- .pear-text / .pear-glow Override --- */
+[data-theme="geocities"] .pear-text { color: #00FF00 !important; }
+[data-theme="geocities"] .pear-glow { box-shadow: none !important; }
+
+/* --- Scrollbar --- */
+[data-theme="geocities"] ::-webkit-scrollbar-thumb {
+  background: #FF0000 !important;
+}
+[data-theme="geocities"] ::-webkit-scrollbar-track {
+  background: #330000 !important;
+}
+
+/* --- Links --- */
+[data-theme="geocities"] a {
+  color: #FF0000;
+}
+[data-theme="geocities"] a:visited {
+  color: #FF6600;
+}
+[data-theme="geocities"] a:hover {
+  color: #FFFF00;
+  text-shadow: none !important;
+}
+
+/* --- Backdrop filter removal (90s had no blur) --- */
+[data-theme="geocities"] * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* --- Animate pulse override (90s blink instead) --- */
+@keyframes gcBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+[data-theme="geocities"] .animate-pulse {
+  animation: gcBlink 1s step-end infinite !important;
+}
+
+/* --- Toast overrides --- */
+[data-theme="geocities"] [data-sonner-toaster] [data-sonner-toast],
+[data-theme="geocities"] div[role="status"] {
+  font-family: 'Courier New', monospace !important;
+  border: 2px solid #FF0000 !important;
+  background: #000000 !important;
+  color: #00FF00 !important;
+}

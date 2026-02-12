@@ -17,6 +17,11 @@ const demos = [
     title: 'NORAD',
     subtitle: 'Situation board, event log, mission console with explicit risk states.',
   },
+  {
+    href: '/labs/geocities',
+    title: 'GeoCities',
+    subtitle: 'Fire borders, Comic Sans, animated GIFs, marquees. Pure 1998 nostalgia.',
+  },
 ];
 
 export default function LabsIndexPage() {
@@ -25,7 +30,7 @@ export default function LabsIndexPage() {
       <div className={styles.wrap}>
         <h1 className={styles.title}>Design System Labs</h1>
         <p className={styles.lede}>
-          Three full structural variants for war.market. Same narrative and trade flow, different system grammar.
+          Four full structural variants for war.market. Same narrative and trade flow, different system grammar.
         </p>
         <div className={styles.grid}>
           {demos.map((demo) => (

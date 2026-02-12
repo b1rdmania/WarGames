@@ -1,0 +1,332 @@
+.page {
+  background: #000 url('data:image/gif;base64,R0lGODlhBAAEAIAAAP///wAAACH5BAEAAAEALAAAAAAEAAQAAAIEhI+pWAA7');
+  color: #00FF00;
+  text-align: center;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Times New Roman', serif;
+}
+
+.fireRow {
+  line-height: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  border: 3px solid #FF0000;
+  background: #330000;
+  padding: 15px;
+  display: inline-block;
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.title {
+  font-family: 'Comic Sans MS', 'Papyrus', cursive;
+  font-size: 48px;
+  color: #FF0000;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 18px;
+  color: #FFFF00;
+  font-style: italic;
+}
+
+.marquee {
+  background: #330000;
+  border: 2px solid #FF0000;
+  padding: 4px;
+  font-family: 'Courier New', monospace;
+  color: #00FF00;
+  font-size: 14px;
+}
+
+.center {
+  text-align: center;
+}
+
+.welcome {
+  font-family: 'Times New Roman', serif;
+  font-size: 18px;
+  color: #FFF;
+  font-weight: bold;
+}
+
+.welcomeText {
+  font-family: 'Times New Roman', serif;
+  font-size: 14px;
+  color: #00FF00;
+}
+
+.howItWorks {
+  border: 2px solid #00FF00;
+  background: #001100;
+  padding: 10px;
+  display: inline-block;
+  max-width: 650px;
+}
+
+.howTitle {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 22px;
+  color: #00FF00;
+  font-weight: bold;
+}
+
+.features {
+  display: inline-flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 700px;
+}
+
+.featureCard {
+  border: 1px solid #333;
+  background: #1a0000;
+  padding: 12px;
+  width: 200px;
+  text-align: center;
+}
+
+.featureTitle {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 16px;
+  color: #FF0000;
+  font-weight: bold;
+}
+
+.featureText {
+  font-family: 'Times New Roman', serif;
+  font-size: 13px;
+  color: #CCC;
+}
+
+.marketSection {
+  text-align: center;
+}
+
+.marketTitle {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 24px;
+  color: #FFFF00;
+  font-weight: bold;
+}
+
+.marketPills {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.pill {
+  border: 2px outset #999;
+  background: #C0C0C0;
+  color: #000;
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.pill:hover {
+  background: #DDD;
+}
+
+.pillActive {
+  background: #FF0000;
+  border: 2px inset #999;
+  color: #FFF;
+}
+
+.marketCard {
+  border: 3px solid #FFFF00;
+  background: #332200;
+  padding: 20px;
+  display: inline-block;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.marketCardTitle {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 24px;
+  color: #FFFF00;
+  font-weight: bold;
+}
+
+.marketThesis {
+  font-family: 'Times New Roman', serif;
+  font-size: 16px;
+  color: #FFF;
+}
+
+.marketLegs {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #CCC;
+  text-align: left;
+  display: inline-block;
+}
+
+.marketStats {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #CCC;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.cta {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.yesButton {
+  border: 3px outset #999;
+  background: #00FF00;
+  color: #000;
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 14px 40px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.yesButton:hover {
+  background: #00DD00;
+  transform: scale(1.05);
+}
+
+.yesButton:active {
+  border-style: inset;
+}
+
+.noButton {
+  border: 3px outset #999;
+  background: #FF0000;
+  color: #FFF;
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 14px 40px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.noButton:hover {
+  background: #DD0000;
+  transform: scale(1.05);
+}
+
+.noButton:active {
+  border-style: inset;
+}
+
+.demoNote {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #999;
+}
+
+.awards {
+  text-align: center;
+}
+
+.awardsTitle {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 20px;
+  color: #00FFFF;
+  font-weight: bold;
+}
+
+.awardRow {
+  display: inline-flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.award {
+  text-align: center;
+}
+
+.awardLabel {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #FFFF00;
+  white-space: pre-line;
+}
+
+.constructionText {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 13px;
+  color: #FFFF00;
+}
+
+.backLink {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #00FF00;
+  text-decoration: none;
+  border: 2px outset #999;
+  background: #C0C0C0;
+  color: #000;
+  padding: 8px 20px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.backLink:hover {
+  background: #DDD;
+}
+
+.footer {
+  font-family: 'Times New Roman', serif;
+  font-size: 10px;
+  color: #666;
+  padding: 10px 0 20px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #330000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
+  border: 1px solid #000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #DD0000;
+}
+
+/* Blink animation */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1s infinite;
+}
