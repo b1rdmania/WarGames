@@ -4,9 +4,14 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { RiskShell } from '@/components/RiskShell';
 import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
+import {
+  ControlRoomPanel,
+  ControlRoomSectionHeader,
+  ControlRoomButton,
+} from '@/components/control-room';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
-import styles from '@/components/MarketDetail.module.css';
+import styles from './MarketDetailClient.module.css';
 
 function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
@@ -23,11 +28,15 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
   if (!market) {
     return (
       <RiskShell nav={<ControlRoomTopNav />}>
-        <div className="text-text-secondary">
-          Market not found.{' '}
-          <Link href="/markets" className="underline" style={{ color: 'var(--primary)' }}>
-            Return to markets
-          </Link>
+        <div className={styles.notFound}>
+          <ControlRoomPanel title="MARKET NOT FOUND">
+            <p className={styles.notFoundText}>
+              The requested market does not exist or has been removed.
+            </p>
+            <Link href="/markets">
+              <ControlRoomButton variant="primary">RETURN TO MARKETS</ControlRoomButton>
+            </Link>
+          </ControlRoomPanel>
         </div>
       </RiskShell>
     );
@@ -40,109 +49,110 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
 
   return (
     <RiskShell nav={<ControlRoomTopNav />}>
-      <div className={styles.hero}>
-        <h1 className={styles.title}>{market.name}</h1>
-        <p className={styles.subtitle}>{market.description}</p>
-        {overview !== market.description && (
-          <p className={styles.overview}>{overview}</p>
-        )}
-      </div>
+      <div className={styles.wrapper}>
+        {/* Header */}
+        <div className={styles.header}>
+          <div className={styles.marketCode}>{market.id.toUpperCase().replace(/-/g, '_')}</div>
+          <h1 className={styles.title}>{market.name}</h1>
+          <p className={styles.subtitle}>{overview}</p>
+        </div>
 
-      <div className={styles.grid}>
-        <div className={styles.card}>
-          <div className={styles.cardTitle}>Details</div>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Category</span>
-            <span className={styles.rowValue}>{market.category}</span>
-          </div>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Leverage</span>
-            <span className={styles.rowValue}>{market.leverage}x</span>
-          </div>
-          <div className={styles.row}>
-            <span className={styles.rowLabel}>Status</span>
-            <span className={styles.rowValue}>
-              {market.isTradable ? 'Active' : 'Inactive'}
-            </span>
-          </div>
-          {!market.isTradable && market.unavailableReason && (
-            <div className={styles.row}>
-              <span className={styles.rowLabel}>Note</span>
-              <span className={styles.rowValue}>{market.unavailableReason}</span>
+        {/* Grid Layout */}
+        <div className={styles.grid}>
+          {/* Details Panel */}
+          <ControlRoomPanel title="MARKET PARAMETERS">
+            <div className={styles.detailsGrid}>
+              <div className={styles.detailRow}>
+                <span className={styles.detailLabel}>CATEGORY</span>
+                <span className={styles.detailValue}>{market.category?.toUpperCase() || 'N/A'}</span>
+              </div>
+              <div className={styles.detailRow}>
+                <span className={styles.detailLabel}>LEVERAGE</span>
+                <span className={styles.detailValue}>{market.leverage}x</span>
+              </div>
+              <div className={styles.detailRow}>
+                <span className={styles.detailLabel}>STATUS</span>
+                <span className={`${styles.detailValue} ${market.isTradable ? styles.statusActive : styles.statusInactive}`}>
+                  {market.isTradable ? 'ACTIVE' : 'INACTIVE'}
+                </span>
+              </div>
+              {!market.isTradable && market.unavailableReason && (
+                <div className={styles.detailRow}>
+                  <span className={styles.detailLabel}>NOTE</span>
+                  <span className={styles.detailValue}>{market.unavailableReason}</span>
+                </div>
+              )}
             </div>
-          )}
+          </ControlRoomPanel>
+
+          {/* Composition Panel */}
+          <ControlRoomPanel title="INDEX COMPOSITION">
+            <div className={styles.compositionGrid}>
+              {resolvedPairs ? (
+                <>
+                  <div className={styles.compositionRow}>
+                    <span className={styles.compositionLabel}>LONG</span>
+                    <span className={styles.compositionLong}>{cleanSymbol(resolvedPairs.long)}</span>
+                  </div>
+                  <div className={styles.compositionRow}>
+                    <span className={styles.compositionLabel}>SHORT</span>
+                    <span className={styles.compositionShort}>{cleanSymbol(resolvedPairs.short)}</span>
+                  </div>
+                </>
+              ) : resolvedBasket ? (
+                <>
+                  <div className={styles.compositionRow}>
+                    <span className={styles.compositionLabel}>LONG</span>
+                    <span className={styles.compositionLong}>
+                      {resolvedBasket.long.map((a, i) => (
+                        <span key={a.asset}>
+                          {i > 0 && ' + '}
+                          {cleanSymbol(a.asset)} ({formatWeight(a.weight)})
+                        </span>
+                      ))}
+                    </span>
+                  </div>
+                  <div className={styles.compositionRow}>
+                    <span className={styles.compositionLabel}>SHORT</span>
+                    <span className={styles.compositionShort}>
+                      {resolvedBasket.short.map((a, i) => (
+                        <span key={a.asset}>
+                          {i > 0 && ' + '}
+                          {cleanSymbol(a.asset)} ({formatWeight(a.weight)})
+                        </span>
+                      ))}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <span className={styles.compositionEmpty}>—</span>
+              )}
+            </div>
+          </ControlRoomPanel>
         </div>
 
-        <div className={styles.card}>
-          <div className={styles.cardTitle}>Composition</div>
-          <div className={styles.composition}>
-            {resolvedPairs ? (
-              <>
-                <div>
-                  <span className={styles.rowLabel}>Long: </span>
-                  <span className={styles.long}>{cleanSymbol(resolvedPairs.long)}</span>
-                </div>
-                <div>
-                  <span className={styles.rowLabel}>Short: </span>
-                  <span className={styles.short}>{cleanSymbol(resolvedPairs.short)}</span>
-                </div>
-              </>
-            ) : resolvedBasket ? (
-              <>
-                <div>
-                  <span className={styles.rowLabel}>Long: </span>
-                  <span className={styles.long}>
-                    {resolvedBasket.long.map((a, i) => (
-                      <span key={a.asset}>
-                        {i > 0 && ', '}
-                        {cleanSymbol(a.asset)} {formatWeight(a.weight)}
-                      </span>
-                    ))}
-                  </span>
-                </div>
-                <div>
-                  <span className={styles.rowLabel}>Short: </span>
-                  <span className={styles.short}>
-                    {resolvedBasket.short.map((a, i) => (
-                      <span key={a.asset}>
-                        {i > 0 && ', '}
-                        {cleanSymbol(a.asset)} {formatWeight(a.weight)}
-                      </span>
-                    ))}
-                  </span>
-                </div>
-              </>
-            ) : (
-              <span>—</span>
-            )}
-          </div>
+        {/* Narrative Sections */}
+        {narrative?.why && (
+          <ControlRoomPanel title="STRATEGIC RATIONALE">
+            <p className={styles.narrativeText}>{narrative.why}</p>
+          </ControlRoomPanel>
+        )}
+
+        {narrative?.model && (
+          <ControlRoomPanel title="EXECUTION MODEL">
+            <p className={styles.narrativeText}>{narrative.model}</p>
+          </ControlRoomPanel>
+        )}
+
+        {/* Actions */}
+        <div className={styles.actions}>
+          <Link href="/trade">
+            <ControlRoomButton variant="primary">TRADE THIS MARKET</ControlRoomButton>
+          </Link>
+          <Link href="/markets">
+            <ControlRoomButton>← BACK TO MARKETS</ControlRoomButton>
+          </Link>
         </div>
-      </div>
-
-      <div className={styles.divider} />
-
-      {narrative?.why && (
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Why this matters</h2>
-          <p className={styles.sectionBody}>{narrative.why}</p>
-        </section>
-      )}
-
-      {narrative?.model && (
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>How it works</h2>
-          <p className={styles.sectionBody}>{narrative.model}</p>
-        </section>
-      )}
-
-      <Link href="/trade" className={styles.cta}>
-        Trade this market
-      </Link>
-
-      <div>
-        <Link href="/markets" className={styles.backLink}>
-          ← Back to markets
-        </Link>
       </div>
     </RiskShell>
   );

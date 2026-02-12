@@ -1,0 +1,162 @@
+.wrapper {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Not Found */
+.notFound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 400px;
+}
+
+.notFoundText {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* Header */
+.header {
+  margin-bottom: 32px;
+}
+
+.marketCode {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Details */
+.detailsGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.detailValue {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.statusActive {
+  color: var(--profit);
+}
+
+.statusInactive {
+  color: var(--warning);
+}
+
+/* Composition */
+.compositionGrid {
+  display: grid;
+  gap: 16px;
+}
+
+.compositionRow {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.compositionLabel {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.compositionLong {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--profit);
+  line-height: 1.6;
+}
+
+.compositionShort {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--loss);
+  line-height: 1.6;
+}
+
+.compositionEmpty {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Narrative */
+.narrativeText {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.actions a {
+  text-decoration: none;
+}
