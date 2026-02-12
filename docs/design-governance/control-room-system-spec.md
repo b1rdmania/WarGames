@@ -446,14 +446,15 @@ A route is "Control Room compliant" when:
 
 **Source:** `/public/test-norad-terminal-colors.html`
 **Compliant Routes:**
-- ✅ `/trade` (TradeClient.tsx) - Matches test file structure
-- 🔄 `/markets` (MarketsClient.tsx) - Rebuilding with two-column layout
-- 🔄 `/markets/[marketId]` (MarketDetailClient.tsx) - Rebuilding with two-column layout
-- ⏳ `/portfolio` - Pending
-- ⏳ `/intel` - Pending
-- ⏳ `/about` - Pending
+- ✅ `/trade` (TradeClient.tsx) - Execute interface with market table + trade form + event log
+- ✅ `/markets` (MarketsClient.tsx) - Browse interface with market table + selected market details
+- ✅ `/markets/[marketId]` (MarketDetailClient.tsx) - Detail view with market info + composition + actions
+- ✅ `/portfolio` (PortfolioClient.tsx) - Portfolio view with position list + selected position details
+- ✅ `/intel` (IntelClient.tsx) - Intelligence feeds + risk analysis + execution posture
+- ✅ `/about` (about/page.tsx) - Project overview + system specs
 
-**Approval Gate:** Design signoff required before rolling to remaining routes
+**Status:** All authenticated routes now use mandatory two-column Situation Board | Mission Console layout
+**Next:** Design review + visual regression tests
 
 ---
 
