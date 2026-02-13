@@ -2,21 +2,17 @@
 
 import Link from 'next/link';
 import { useMemo } from 'react';
-import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
-import { getMarketNarrative } from '@/components/MarketDetail';
+import { RiskShell } from '@/components/RiskShell';
+import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
 import {
-  TerminalShell,
-  TerminalHeader,
-  TerminalMenuBar,
-  TerminalPaneTitle,
-  TerminalCommandBar,
-  TerminalStatusBar,
-  TerminalButton,
-  TerminalTitle,
-  TerminalThesis,
-  TerminalKV,
-  TerminalKVRow,
-} from '@/components/terminal';
+  ControlRoomPanel,
+  ControlRoomButton,
+  ControlRoomSectionHeader,
+  ControlRoomStatusRail,
+} from '@/components/control-room';
+import { getMarketNarrative } from '@/components/MarketDetail';
+import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
+import styles from './MarketDetailClient.module.css';
 
 function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
@@ -32,22 +28,18 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
 
   if (!market) {
     return (
-      <TerminalShell
-        header={<TerminalHeader title="WAR.MARKET // MARKET NOT FOUND" backHref="/markets" backLabel="← MARKETS" />}
-        statusBar={<TerminalStatusBar items={[{ label: 'STATE', value: 'ERROR' }]} />}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px', minHeight: '60vh' }}>
-          <div style={{ textAlign: 'center', maxWidth: '420px' }}>
-            <TerminalTitle>MARKET NOT FOUND</TerminalTitle>
-            <p style={{ color: '#a8b4af', marginTop: '16px', marginBottom: '24px' }}>
+      <RiskShell nav={<ControlRoomTopNav />}>
+        <div className={styles.notFound}>
+          <ControlRoomPanel title="MARKET NOT FOUND">
+            <p className={styles.notFoundText}>
               The requested market does not exist or has been removed.
             </p>
             <Link href="/markets">
-              <TerminalButton variant="primary" fullWidth>RETURN TO MARKETS</TerminalButton>
+              <ControlRoomButton variant="primary">RETURN TO MARKETS</ControlRoomButton>
             </Link>
-          </div>
+          </ControlRoomPanel>
         </div>
-      </TerminalShell>
+      </RiskShell>
     );
   }
 
@@ -57,106 +49,139 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
   const overview = narrative?.overview ?? market.description;
 
   return (
-    <TerminalShell
-      header={<TerminalHeader title={`WAR.MARKET // ${market.id.toUpperCase().replace(/-/g, '_')}`} backHref="/markets" backLabel="← MARKETS" />}
-      menuBar={<TerminalMenuBar items={['FILE', 'DETAILS', 'COMPOSITION', 'NARRATIVE', 'EXECUTE', 'HELP']} />}
-      leftPane={
-        <>
-          <TerminalPaneTitle>MARKET INTELLIGENCE</TerminalPaneTitle>
-          <TerminalTitle>{market.name}</TerminalTitle>
-          <TerminalThesis>{overview}</TerminalThesis>
-          <TerminalKV>
-            <TerminalKVRow label="CATEGORY" value={market.category?.toUpperCase() || 'N/A'} />
-            <TerminalKVRow label="LEVERAGE" value={`${market.leverage}x`} />
-            <TerminalKVRow label="STATUS" value={market.isTradable ? 'ACTIVE' : 'INACTIVE'} />
-          </TerminalKV>
-          {narrative?.why && (
-            <>
-              <div style={{ marginTop: '20px', color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                STRATEGIC RATIONALE
+    <RiskShell nav={<ControlRoomTopNav />}>
+      <div className={styles.shell}>
+        {/* Situation Board - Market Info */}
+        <div className={styles.situationBoard}>
+          <ControlRoomPanel title="MARKET INTELLIGENCE" subtitle={market.id.toUpperCase().replace(/-/g, '_')}>
+            <div className={styles.boardContent}>
+              {/* Header */}
+              <div className={styles.header}>
+                <h1 className={styles.title}>{market.name}</h1>
+                <p className={styles.overview}>{overview}</p>
               </div>
-              <TerminalThesis>{narrative.why}</TerminalThesis>
-            </>
-          )}
-        </>
-      }
-      centerPane={
-        <>
-          <TerminalPaneTitle>INDEX COMPOSITION</TerminalPaneTitle>
-          {resolvedPairs ? (
-            <TerminalKV>
-              <TerminalKVRow label="LONG" value={cleanSymbol(resolvedPairs.long)} />
-              <TerminalKVRow label="SHORT" value={cleanSymbol(resolvedPairs.short)} />
-            </TerminalKV>
-          ) : resolvedBasket ? (
-            <>
-              <div style={{ marginBottom: '12px' }}>
-                <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
-                  LONG BASKET
-                </div>
-                {resolvedBasket.long.map((a) => (
-                  <div key={a.asset} style={{ color: '#dfe9e4', fontSize: '12px', marginBottom: '4px' }}>
-                    {cleanSymbol(a.asset)} ({formatWeight(a.weight)})
+
+              {/* Market Parameters */}
+              <div className={styles.section}>
+                <div className={styles.sectionLabel}>MARKET PARAMETERS</div>
+                <div className={styles.detailsGrid}>
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>CATEGORY</span>
+                    <span className={styles.detailValue}>{market.category?.toUpperCase() || 'N/A'}</span>
                   </div>
-                ))}
-              </div>
-              <div>
-                <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
-                  SHORT BASKET
-                </div>
-                {resolvedBasket.short.map((a) => (
-                  <div key={a.asset} style={{ color: '#dfe9e4', fontSize: '12px', marginBottom: '4px' }}>
-                    {cleanSymbol(a.asset)} ({formatWeight(a.weight)})
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>LEVERAGE</span>
+                    <span className={styles.detailValue}>{market.leverage}x</span>
                   </div>
-                ))}
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>STATUS</span>
+                    <span className={`${styles.detailValue} ${market.isTradable ? styles.statusActive : styles.statusInactive}`}>
+                      {market.isTradable ? 'ACTIVE' : 'INACTIVE'}
+                    </span>
+                  </div>
+                  {!market.isTradable && market.unavailableReason && (
+                    <div className={styles.detailRow}>
+                      <span className={styles.detailLabel}>NOTE</span>
+                      <span className={styles.detailValue}>{market.unavailableReason}</span>
+                    </div>
+                  )}
+                </div>
               </div>
-            </>
-          ) : (
-            <div style={{ color: '#8da294' }}>—</div>
-          )}
-          {narrative?.model && (
-            <>
-              <div style={{ marginTop: '20px', color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                EXECUTION MODEL
+
+              {/* Strategic Rationale */}
+              {narrative?.why && (
+                <div className={styles.section}>
+                  <div className={styles.sectionLabel}>STRATEGIC RATIONALE</div>
+                  <p className={styles.narrativeText}>{narrative.why}</p>
+                </div>
+              )}
+
+              {/* Execution Model */}
+              {narrative?.model && (
+                <div className={styles.section}>
+                  <div className={styles.sectionLabel}>EXECUTION MODEL</div>
+                  <p className={styles.narrativeText}>{narrative.model}</p>
+                </div>
+              )}
+            </div>
+          </ControlRoomPanel>
+        </div>
+
+        {/* Mission Console - Composition & Actions */}
+        <div className={styles.missionConsole}>
+          <ControlRoomPanel title="MISSION CONSOLE" subtitle="INDEX COMPOSITION">
+            <div className={styles.consoleContent}>
+              {/* Composition */}
+              <div className={styles.composition}>
+                {resolvedPairs ? (
+                  <>
+                    <div className={styles.compositionRow}>
+                      <span className={styles.compositionLabel}>LONG</span>
+                      <span className={styles.compositionLong}>{cleanSymbol(resolvedPairs.long)}</span>
+                    </div>
+                    <div className={styles.compositionRow}>
+                      <span className={styles.compositionLabel}>SHORT</span>
+                      <span className={styles.compositionShort}>{cleanSymbol(resolvedPairs.short)}</span>
+                    </div>
+                  </>
+                ) : resolvedBasket ? (
+                  <>
+                    <div className={styles.compositionRow}>
+                      <span className={styles.compositionLabel}>LONG</span>
+                      <div className={styles.compositionLong}>
+                        {resolvedBasket.long.map((a, i) => (
+                          <div key={a.asset} className={styles.assetLine}>
+                            {cleanSymbol(a.asset)} <span className={styles.weight}>({formatWeight(a.weight)})</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className={styles.compositionRow}>
+                      <span className={styles.compositionLabel}>SHORT</span>
+                      <div className={styles.compositionShort}>
+                        {resolvedBasket.short.map((a, i) => (
+                          <div key={a.asset} className={styles.assetLine}>
+                            {cleanSymbol(a.asset)} <span className={styles.weight}>({formatWeight(a.weight)})</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <span className={styles.compositionEmpty}>—</span>
+                )}
               </div>
-              <TerminalThesis>{narrative.model}</TerminalThesis>
-            </>
-          )}
-        </>
-      }
-      rightPane={
-        <>
-          <TerminalPaneTitle>ACTIONS</TerminalPaneTitle>
-          <Link href="/trade">
-            <TerminalButton variant="primary" fullWidth>TRADE THIS MARKET</TerminalButton>
-          </Link>
-          <Link href="/markets">
-            <TerminalButton fullWidth>← BACK TO MARKETS</TerminalButton>
-          </Link>
-        </>
-      }
-      commandBar={
-        <TerminalCommandBar
-          commands={[
-            { key: 'F1', label: 'HELP' },
-            { key: 'F2', label: 'MARKETS' },
-            { key: 'F3', label: 'TRADE' },
-            { key: 'F4', label: 'PORTFOLIO' },
-            { key: 'F9', label: 'BACK' },
-            { key: 'F10', label: 'EXECUTE' },
-          ]}
-        />
-      }
-      statusBar={
-        <TerminalStatusBar
-          items={[
-            { label: 'MARKET', value: market.id.toUpperCase().replace(/-/g, '_') },
-            { label: 'LEVERAGE', value: `${market.leverage}x` },
-            { label: 'MODE', value: 'INTEL' },
-            { label: 'STATUS', value: market.isTradable ? 'ACTIVE' : 'INACTIVE' },
-          ]}
-        />
-      }
-    />
+
+              {/* Thesis */}
+              <ControlRoomSectionHeader label="THESIS">
+                {narrative?.thesis ?? market.description}
+              </ControlRoomSectionHeader>
+
+              {/* Actions */}
+              <div className={styles.actions}>
+                <Link href="/trade">
+                  <ControlRoomButton variant="primary" fullWidth>TRADE THIS MARKET</ControlRoomButton>
+                </Link>
+                <Link href="/markets">
+                  <ControlRoomButton fullWidth>← BACK TO MARKETS</ControlRoomButton>
+                </Link>
+              </div>
+            </div>
+          </ControlRoomPanel>
+        </div>
+      </div>
+
+      {/* Status Rail */}
+      <ControlRoomStatusRail
+        leftItems={[
+          { key: 'MARKET', value: market.id.toUpperCase().replace(/-/g, '_') },
+          { key: 'LEVERAGE', value: `${market.leverage}x` },
+        ]}
+        rightItems={[
+          { key: 'MODE', value: 'INTELLIGENCE' },
+          { key: 'STATUS', value: market.isTradable ? 'ACTIVE' : 'INACTIVE' },
+        ]}
+      />
+    </RiskShell>
   );
 }
