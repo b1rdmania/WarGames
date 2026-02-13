@@ -1,8 +1,20 @@
 # Control Room Design System Specification
 
-**Status:** Canonical Reference
+**Status:** ⚠️ ARCHIVED — Replaced by Terminal System
+**Replacement:** See `terminal-system-spec.md`
 **Source:** `/public/test-norad-terminal-colors.html`
 **Last Updated:** 2026-02-12
+**Archived:** 2026-02-13
+
+---
+
+## ⚠️ DEPRECATION NOTICE
+
+**This design system is no longer in use.**
+
+All production routes have been migrated to the **Terminal Design System** (3-column layout with TerminalShell primitives). This Control Room spec remains for historical reference only.
+
+**For current design guidelines, see:** `terminal-system-spec.md`
 
 ---
 

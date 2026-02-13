@@ -1,6 +1,13 @@
 import type { Metadata } from 'next';
-import { RiskShell } from '@/components/RiskShell';
-import { ControlRoomTopNav } from '@/components/ControlRoomTopNav';
+import {
+  TerminalShell,
+  TerminalMenuBar,
+  TerminalPaneTitle,
+  TerminalCommandBar,
+  TerminalStatusBar,
+  TerminalTitle,
+  TerminalThesis,
+} from '@/components/terminal';
 
 export const metadata: Metadata = {
   title: 'GTM Brief',
@@ -10,76 +17,146 @@ export const metadata: Metadata = {
 
 export default function GTMPage() {
   return (
-    <RiskShell nav={<ControlRoomTopNav />}>
-      <div className="tp-wrap">
-        <div className="tp-frame">
-          {/* Page Header */}
-          <div className="tp-hero">
-            <h1 className="tp-title">GTM Brief</h1>
-            <p className="tp-lede">For Pear Protocol · February 2026</p>
+    <TerminalShell
+      menuBar={<TerminalMenuBar items={['FILE', 'OVERVIEW', 'STATUS', 'PLAN', 'LINKS']} />}
+      leftPane={
+        <>
+          <TerminalPaneTitle>EXECUTIVE BRIEF</TerminalPaneTitle>
+          <TerminalTitle>GTM BRIEF</TerminalTitle>
+          <TerminalThesis style={{ marginBottom: '16px' }}>
+            For Pear Protocol · February 2026
+          </TerminalThesis>
+
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              LEAD-IN
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
+              <strong>WAR.MARKET</strong> is the Hyperliquid hackathon winner proving composability and showcasing Pear Protocol. It is the narrative trading terminal demo that proves multi-asset baskets on Hyper-EVM + Pear rails. The question now: move it from a functional demo into a working product—and if so, what GTM lift and angles are required?
+            </div>
+          </div>
+        </>
+      }
+      centerPane={
+        <>
+          <TerminalPaneTitle>STATUS & GAPS</TerminalPaneTitle>
+
+          <div style={{ marginBottom: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              WHAT IT IS TODAY
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
+              <div style={{ marginBottom: '8px' }}>
+                ▸ Functional Hyperliquid composability proof: narrative baskets (Taiwan Strait, Commodities Shock, etc.) live in read-only mode; "GO TO TRADE" opens Pear execution.
+              </div>
+              <div style={{ marginBottom: '8px' }}>
+                ▸ Flow exists from landing → markets → detail → trade → portfolio. The experience demonstrates HIP3 markets composability.
+              </div>
+              <div>
+                ▸ Proof-of-concept stage—browse the story, test the rails, but it is not yet a partner-grade live product.
+              </div>
+            </div>
           </div>
 
-          <div className="tp-rule" style={{ marginTop: 0 }} />
+          <div style={{ marginBottom: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              WHAT IT'S MISSING
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
+              <div style={{ marginBottom: '8px' }}>
+                ▸ Basket composition still "me + AI." The markets/baskets need structured financial analysis: scenario logic, risk posture, and quant-style rationale for each weight/leverage pairing.
+              </div>
+              <div style={{ marginBottom: '8px' }}>
+                ▸ Narrative packaging: users need to immediately understand the risk/return story and what makes each basket move under stress.
+              </div>
+              <div style={{ marginBottom: '8px' }}>
+                ▸ Visibility partner: I am strategic, not a community-builder. I can automate promo (X post + targeted RTs), but this needs a wingman or partner to roll it out coherently and own visibility operations.
+              </div>
+              <div style={{ marginBottom: '8px' }}>
+                ▸ Budget/ownership: There is no easy monetization beyond trading fees. I'm open to Pear adopting it internally or leaning into a broader partner/co-promotion model—get it working, get it interesting, let it snowball, and see where it leads. Long-term optionality includes a dedicated HIP3 market, composability with other Hyper-EVM builds, or a deeper commodities basket thesis if the buzz continues (hitting ~5k on Twitter unlocks additional plays), but the GTM plan keeps the focus tight on launch readiness for now.
+              </div>
+              <div>
+                ▸ Decision point: stay a polished demo or commit to adding the analysis + partner lift that makes it launch-ready.
+              </div>
+            </div>
+          </div>
 
-          {/* Lead-in */}
-          <section className="tp-section">
-            <h2 className="tp-h">Lead-in</h2>
-            <p className="tp-body">
-              <strong>WAR.MARKET</strong> is the Hyperliquid hackathon winner proving composability and showcasing Pear Protocol. It is the narrative trading terminal demo that proves multi-asset baskets on Hyper-EVM + Pear rails. The question now: move it from a functional demo into a working product—and if so, what GTM lift and angles are required?
-            </p>
-          </section>
+          <div>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              GTM PLAN (IF WE LAUNCH)
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
+              <div style={{ marginBottom: '8px' }}>
+                ▸ Announce the Hyperliquid hackathon win with one focused X post strategic RTs to start a War Markets X presence.
+              </div>
+              <div style={{ marginBottom: '8px' }}>
+                ▸ Deliver quant/analysis notes + co-marketing with whoever does that. Articles about HL / HIP3 / geopolitical trading, etc.
+              </div>
+              <div>
+                ▸ Might need some UX help—I can do most of it and have started docs and a design refresh, but it's gone from degen to a bit too generic.
+              </div>
+            </div>
+          </div>
+        </>
+      }
+      rightPane={
+        <>
+          <TerminalPaneTitle>RESOURCES</TerminalPaneTitle>
 
-          <div className="tp-rule" />
+          <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+            LINKS
+          </div>
+          <div style={{ color: '#a8b4af', fontSize: '12px', display: 'grid', gap: '8px' }}>
+            <a href="https://war.market" target="_blank" rel="noreferrer" style={{ color: '#02ff81', textDecoration: 'none' }}>
+              → Live demo
+            </a>
+            <a href="https://docs.war.market" target="_blank" rel="noreferrer" style={{ color: '#02ff81', textDecoration: 'none' }}>
+              → Documentation
+            </a>
+            <a href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer" style={{ color: '#02ff81', textDecoration: 'none' }}>
+              → Source code
+            </a>
+          </div>
 
-          {/* What it is today */}
-          <section className="tp-section">
-            <h2 className="tp-h">What it is today</h2>
-            <ul className="tp-bullets">
-              <li>Functional Hyperliquid composability proof: narrative baskets (Taiwan Strait, Commodities Shock, etc.) live in read-only mode; "GO TO TRADE" opens Pear execution.</li>
-              <li>Flow exists from landing → markets → detail → trade → portfolio. The experience demonstrates HIP3 markets composability.</li>
-              <li>Proof-of-concept stage—browse the story, test the rails, but it is not yet a partner-grade live product.</li>
-            </ul>
-          </section>
-
-          <div className="tp-rule" />
-
-          {/* What it's missing */}
-          <section className="tp-section">
-            <h2 className="tp-h">What it's missing</h2>
-            <ul className="tp-bullets">
-              <li>Basket composition still "me + AI." The markets/baskets need structured financial analysis: scenario logic, risk posture, and quant-style rationale for each weight/leverage pairing.</li>
-              <li>Narrative packaging: users need to immediately understand the risk/return story and what makes each basket move under stress.</li>
-              <li>Visibility partner: I am strategic, not a community-builder. I can automate promo (X post + targeted RTs), but this needs a wingman or partner to roll it out coherently and own visibility operations.</li>
-              <li>Budget/ownership: There is no easy monetization beyond trading fees. I'm open to Pear adopting it internally or leaning into a broader partner/co-promotion model—get it working, get it interesting, let it snowball, and see where it leads. Long-term optionality includes a dedicated HIP3 market, composability with other Hyper-EVM builds, or a deeper commodities basket thesis if the buzz continues (hitting ~5k on Twitter unlocks additional plays), but the GTM plan keeps the focus tight on launch readiness for now.</li>
-              <li>Decision point: stay a polished demo or commit to adding the analysis + partner lift that makes it launch-ready.</li>
-            </ul>
-          </section>
-
-          <div className="tp-rule" />
-
-          {/* GTM Plan */}
-          <section className="tp-section">
-            <h2 className="tp-h">GTM plan (if we launch)</h2>
-            <ul className="tp-bullets">
-              <li>Announce the Hyperliquid hackathon win with one focused X post strategic RTs to start a War Markets X presence.</li>
-              <li>Deliver quant/analysis notes + co-marketing with whoever does that. Articles about HL / HIP3 / geopolitical trading, etc.</li>
-              <li>Might need some UX help—I can do most of it and have started docs and a design refresh, but it's gone from degen to a bit too generic.</li>
-            </ul>
-          </section>
-
-          <div className="tp-rule" />
-
-          {/* Links */}
-          <section className="tp-section">
-            <h2 className="tp-h">Links</h2>
-            <ul className="tp-bullets">
-              <li><a className="tp-link" href="https://war.market" target="_blank" rel="noreferrer">Live demo</a></li>
-              <li><a className="tp-link" href="https://docs.war.market" target="_blank" rel="noreferrer">Documentation</a></li>
-              <li><a className="tp-link" href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer">Source</a></li>
-            </ul>
-          </section>
-        </div>
-      </div>
-    </RiskShell>
+          <div style={{ marginTop: '24px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              PROJECT STATUS
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '11px', lineHeight: '1.6' }}>
+              <div style={{ marginBottom: '4px' }}>
+                <span style={{ color: '#8da294' }}>PHASE:</span> PRE-GTM
+              </div>
+              <div style={{ marginBottom: '4px' }}>
+                <span style={{ color: '#8da294' }}>RESULT:</span> HACKATHON WINNER
+              </div>
+              <div>
+                <span style={{ color: '#8da294' }}>STATE:</span> AWAITING DIRECTION
+              </div>
+            </div>
+          </div>
+        </>
+      }
+      commandBar={
+        <TerminalCommandBar
+          commands={[
+            { key: 'F1', label: 'HELP' },
+            { key: 'F2', label: 'MARKETS' },
+            { key: 'F3', label: 'TRADE' },
+            { key: 'F5', label: 'HOME' },
+            { key: 'F10', label: 'ABOUT' },
+          ]}
+        />
+      }
+      statusBar={
+        <TerminalStatusBar
+          items={[
+            { label: 'PROJECT', value: 'WAR.MARKET' },
+            { label: 'PHASE', value: 'PRE-GTM' },
+            { label: 'STATUS', value: 'HACKATHON WINNER' },
+            { label: 'STATE', value: 'PLANNING' },
+          ]}
+        />
+      }
+    />
   );
 }
