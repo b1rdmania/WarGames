@@ -1,84 +1,110 @@
+'use client';
+
 import Link from 'next/link';
-import Image from 'next/image';
-import styles from './RiskLanding.module.css';
+import {
+  TerminalShell,
+  TerminalMenuBar,
+  TerminalButton,
+  TerminalStatusBar,
+} from '@/components/terminal';
 import { WarMark } from './WarMark';
+import styles from './RiskLanding.module.css';
 
 export function RiskLanding() {
   return (
-    <main className={styles.root}>
-      {/* Video hero */}
-      <section className={styles.videoHero} aria-label="war.market hero">
-        <div className={styles.videoFallback} />
-        <video autoPlay muted loop playsInline preload="metadata" className={styles.heroVideo}>
-          <source src="/splash.mp4" type="video/mp4" />
-        </video>
-        <div className={styles.scrollIndicator} aria-hidden="true">
-          <span className={styles.scrollIndicatorArrow} />
-        </div>
-      </section>
-
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
+    <TerminalShell
+      menuBar={<TerminalMenuBar items={['FILE', 'MARKETS', 'TRADE', 'INTEL', 'ABOUT', 'HELP']} />}
+      statusBar={
+        <TerminalStatusBar
+          items={[
+            { label: 'PROJECT', value: 'WAR.MARKET' },
+            { label: 'EXECUTION', value: 'PEAR PROTOCOL' },
+            { label: 'SETTLEMENT', value: 'HYPERLIQUID' },
+            { label: 'STATE', value: 'LIVE' },
+          ]}
+        />
+      }
+    >
+      <div className={styles.terminal}>
+        {/* Hero Section */}
+        <section className={styles.hero}>
           <div className={styles.logoMark}>
-            <WarMark size={64} />
+            <WarMark size={80} />
           </div>
-          <div className={styles.logo}>war.market</div>
-          <p className={styles.tagline}>Trade the tension.</p>
-          <p className={`${styles.tagline} ${styles.taglineSmall}`}>
-            One-click basket trades for macro conviction.
+          <h1 className={styles.title}>WAR.MARKET</h1>
+          <p className={styles.tagline}>THE GLOBAL TENSION TERMINAL</p>
+          <p className={styles.subtitle}>
+            Trade macro stress through narrative long/short baskets.
+            <br />
+            One signature. Full execution. Real P&L.
           </p>
 
-          <div className={styles.ctaSection}>
-            <Link href="/trade" className={`${styles.btn} ${styles.btnPrimary}`}>
-              Start Trading
+          <div className={styles.ctaGrid}>
+            <Link href="/trade">
+              <TerminalButton variant="primary" fullWidth>
+                START TRADING
+              </TerminalButton>
             </Link>
-            <Link href="/markets" className={`${styles.btn} ${styles.btnSecondary}`}>
-              Browse Markets
+            <Link href="/markets">
+              <TerminalButton fullWidth>
+                BROWSE MARKETS
+              </TerminalButton>
             </Link>
-            <p className={styles.poweredBy}>Pear Protocol execution · Hyperliquid settlement</p>
           </div>
-        </div>
-      </section>
 
-      <section className={styles.explainerStrip} aria-label="How it works">
-        <div className={styles.explainerGrid}>
-          <div className={styles.explainerItem}>
-            <h3>Pick a thesis</h3>
-            <p>
-              Macro stress becomes tradeable. AI bubble pop, Taiwan crisis, ETH dominance — find the narrative that matches your conviction.
-            </p>
+          <div className={styles.poweredBy}>
+            PEAR PROTOCOL EXECUTION · HYPERLIQUID SETTLEMENT
           </div>
-          <div className={styles.explainerItem}>
-            <h3>One signature</h3>
-            <p>
-              Connect your wallet, sign once. Pear creates an agent wallet and executes the basket atomically on Hyperliquid.
-            </p>
-          </div>
-          <div className={styles.explainerItem}>
-            <h3>Trade your view</h3>
-            <p>
-              Browse markets. Trade when ready. Close when done. Your thesis becomes a position with real P&L.
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerLeft}>
-          <span>war.market © 2026</span>
-          <Link href="/markets" className={styles.footerLink}>
-            Markets
-          </Link>
-          <Link href="/about" className={styles.footerLink}>
-            About
-          </Link>
-        </div>
-        <div className={styles.footerRight}>
-          <a href="https://www.pear.garden/" target="_blank" rel="noreferrer" className={styles.footerPear}>
-            <Image src="/pearwordmark.png" alt="Pear Protocol" width={100} height={20} />
-          </a>
-        </div>
-      </footer>
-    </main>
+        {/* Explainer Grid */}
+        <section className={styles.explainer}>
+          <div className={styles.explainerGrid}>
+            <div className={styles.explainerPane}>
+              <div className={styles.explainerTitle}>PICK A THESIS</div>
+              <div className={styles.explainerText}>
+                Macro stress becomes tradeable. AI bubble pop, Taiwan crisis, ETH dominance — find the narrative that matches your conviction.
+              </div>
+            </div>
+
+            <div className={styles.explainerPane}>
+              <div className={styles.explainerTitle}>ONE SIGNATURE</div>
+              <div className={styles.explainerText}>
+                Connect your wallet, sign once. Pear creates an agent wallet and executes the basket atomically on Hyperliquid.
+              </div>
+            </div>
+
+            <div className={styles.explainerPane}>
+              <div className={styles.explainerTitle}>TRADE YOUR VIEW</div>
+              <div className={styles.explainerText}>
+                Browse markets. Trade when ready. Close when done. Your thesis becomes a position with real P&L.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Quick Links */}
+        <section className={styles.quickLinks}>
+          <div className={styles.quickLinksGrid}>
+            <Link href="/markets" className={styles.quickLink}>
+              <div className={styles.quickLinkTitle}>MARKETS</div>
+              <div className={styles.quickLinkDesc}>Browse 6 narrative baskets</div>
+            </Link>
+            <Link href="/trade" className={styles.quickLink}>
+              <div className={styles.quickLinkTitle}>TRADE</div>
+              <div className={styles.quickLinkDesc}>Execute positions</div>
+            </Link>
+            <Link href="/portfolio" className={styles.quickLink}>
+              <div className={styles.quickLinkTitle}>PORTFOLIO</div>
+              <div className={styles.quickLinkDesc}>Monitor P&L</div>
+            </Link>
+            <Link href="/intel" className={styles.quickLink}>
+              <div className={styles.quickLinkTitle}>INTEL</div>
+              <div className={styles.quickLinkDesc}>Risk analysis</div>
+            </Link>
+          </div>
+        </section>
+      </div>
+    </TerminalShell>
   );
 }
