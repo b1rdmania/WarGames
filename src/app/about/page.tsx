@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import {
   TerminalShell,
+  TerminalHeader,
   TerminalMenuBar,
   TerminalPaneTitle,
   TerminalCommandBar,
@@ -32,6 +33,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <TerminalShell
+      header={<TerminalHeader title="WAR.MARKET // ABOUT" backHref="/" backLabel="← HOME" />}
       menuBar={<TerminalMenuBar items={['FILE', 'OVERVIEW', 'TECHNICAL', 'ROADMAP', 'HELP']} />}
       leftPane={
         <>

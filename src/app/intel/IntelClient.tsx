@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
   TerminalShell,
+  TerminalHeader,
   TerminalMenuBar,
   TerminalPaneTitle,
   TerminalCommandBar,
@@ -108,6 +109,7 @@ export default function IntelClient() {
 
   return (
     <TerminalShell
+      header={<TerminalHeader title="WAR.MARKET // INTELLIGENCE TERMINAL" backHref="/" backLabel="← HOME" />}
       menuBar={<TerminalMenuBar items={['FILE', 'FEEDS', 'ANALYSIS', 'ALERTS', 'MONITOR', 'HELP']} />}
       leftPane={
         <>
