@@ -48,7 +48,7 @@ export const THEMES: Record<ThemeId, ThemeMeta> = {
   },
 } as const;
 
-export const DEFAULT_THEME: ThemeId = 'terminal';
+export const DEFAULT_THEME: ThemeId = 'control-room';
 
 export const ACTIVE_THEMES = Object.values(THEMES);
 
