@@ -7,7 +7,6 @@ import {
   TerminalButton,
   TerminalStatusBar,
 } from '@/components/terminal';
-import { PUBLIC_GIFTS } from '@/lib/publicGifts';
 import { WarMark } from './WarMark';
 import styles from './RiskLanding.module.css';
 
@@ -29,8 +28,6 @@ export function RiskLanding() {
       <div className={styles.terminal}>
         {/* Hero Section */}
         <section className={styles.hero}>
-          <img src={PUBLIC_GIFTS.globe} alt="" className={styles.sideGlobeLeft} />
-          <img src={PUBLIC_GIFTS.globe} alt="" className={styles.sideGlobeRight} />
           <div className={styles.logoMark}>
             <WarMark size={80} />
           </div>

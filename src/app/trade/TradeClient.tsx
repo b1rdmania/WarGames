@@ -26,7 +26,6 @@ import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { connectWalletSafely } from '@/lib/connectWallet';
-import { PUBLIC_GIFTS } from '@/lib/publicGifts';
 
 function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
@@ -147,10 +146,7 @@ export default function TradeClient() {
       }
       rightPane={
         <>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-            <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
-            <img src={PUBLIC_GIFTS.rotatingDollar} alt="" width={28} height={28} />
-          </div>
+          <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
           <TerminalSegment
             options={[
               { value: 'YES', label: 'YES' },
@@ -167,11 +163,6 @@ export default function TradeClient() {
             EXECUTE POSITION
           </TerminalButton>
           <TerminalNote>PRESS ENTER TO CONFIRM</TerminalNote>
-          <div style={{ marginTop: '12px', display: 'flex', gap: '4px', justifyContent: 'space-between' }}>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <img key={i} src={i % 2 ? PUBLIC_GIFTS.flameA : PUBLIC_GIFTS.flameB} alt="" width={42} height={20} />
-            ))}
-          </div>
         </>
       }
       commandBar={

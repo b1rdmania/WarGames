@@ -18,7 +18,6 @@ import {
   TerminalKV,
   TerminalKVRow,
 } from '@/components/terminal';
-import { marketGiftFor, PUBLIC_GIFTS } from '@/lib/publicGifts';
 
 function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
@@ -93,11 +92,6 @@ export default function MarketsClient() {
         <>
           <TerminalPaneTitle>ACTIONS</TerminalPaneTitle>
           {selectedMarket && (
-            <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <img src={marketGiftFor(selectedMarket.id)} alt="" width={34} height={34} />
-            </div>
-          )}
-          {selectedMarket && (
             <>
               <Link href={`/markets/${selectedMarket.id}`}>
                 <TerminalButton fullWidth>FULL INTELLIGENCE →</TerminalButton>
@@ -107,11 +101,6 @@ export default function MarketsClient() {
               </Link>
             </>
           )}
-          <div style={{ marginTop: '14px', display: 'flex', justifyContent: 'space-between' }}>
-            {Array.from({ length: 4 }).map((_, i) => (
-              <img key={i} src={i % 2 ? PUBLIC_GIFTS.flameA : PUBLIC_GIFTS.flameB} alt="" width={48} height={20} />
-            ))}
-          </div>
         </>
       }
       commandBar={
