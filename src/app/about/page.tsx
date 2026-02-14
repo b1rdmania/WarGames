@@ -37,127 +37,6 @@ export default function AboutPage() {
       leftPane={
         <>
           <TerminalPaneTitle>
-            <img src={GC.globeSmall} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-            <img src={GC.explosion} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-            PROJECT OVERVIEW
-            <img src={GC.fire1} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
-          </TerminalPaneTitle>
-          <TerminalTitle>
-            <img src={GC.fire1} width={24} height={24} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-            <img src={GC.sparkle1} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-            <img src={GC.explosion} width={22} height={22} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-            WAR.MARKET
-            <img src={GC.explosion} width={22} height={22} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
-            <img src={GC.sparkle1} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
-            <img src={GC.fire1} width={24} height={24} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
-          </TerminalTitle>
-          <TerminalThesis>
-            <img src={GC.missile} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-            A terminal for trading global stress. Narrative baskets executed via Pear on Hyperliquid.
-            <img src={GC.blast} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
-          </TerminalThesis>
-
-          <div style={{ textAlign: 'center', margin: '16px 0' }}>
-            <img src={GC.dividerChain} width={120} height={16} alt="" style={{ opacity: 0.7 }} />
-          </div>
-
-          <div style={{ marginTop: '20px' }}>
-            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
-              <img src={GC.warning} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-              <img src={GC.alert} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-              THE PROBLEM
-              <img src={GC.danger} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
-            </div>
-            <TerminalThesis>
-              <img src={GC.oilFire} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-              Trading global risk is fragmented. Oil, FX, tech beta, and "risk-off" all live in separate silos.
-              You react to noise instead of the signal.
-              <img src={GC.signal} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
-            </TerminalThesis>
-          </div>
-
-          <div style={{ marginTop: '20px' }}>
-            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
-              <img src={GC.starBurst} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-              <img src={GC.impact} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-              THE RESPONSE
-              <img src={GC.fire2} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
-            </div>
-            <TerminalThesis>
-              <img src={GC.tech} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-              WAR.MARKET creates one view. You see the stress signal. You trade the stress signal.
-              No interpretation layer—just volatility packaged into clear long/short structures.
-              <img src={GC.stock} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
-            </TerminalThesis>
-          </div>
-
-          <div style={{ textAlign: 'center', margin: '16px 0' }}>
-            <img src={GC.dividerColor} width={120} height={16} alt="" style={{ opacity: 0.7 }} />
-          </div>
-
-          <div style={{ marginTop: '20px' }}>
-            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
-              <img src={GC.constructionWorker} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-              <img src={GC.newBadge} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-              ROADMAP
-              <img src={GC.fire3} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
-            </div>
-            <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
-              <div style={{ textDecoration: 'line-through', color: '#8da294' }}>
-                <img src={GC.trophy} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                <img src={GC.goldMedal} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                ✓ Win hackathon
-              </div>
-              <div>
-                <img src={GC.computer} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                UX redesign for production
-              </div>
-              <div>
-                <img src={GC.tech} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                Audit / codebase review
-              </div>
-              <div>
-                <img src={GC.stock} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                Quant advice on market structures
-              </div>
-              <div>
-                <img src={GC.signal} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                Integrate charts from HL
-              </div>
-              <div>
-                <img src={GC.fire1} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                Build GTM team of rabid degens
-              </div>
-              <div>
-                <img src={GC.starBurst} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                Launch X
-              </div>
-              <div>
-                <img src={GC.explosion} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                <img src={GC.blast} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                Go LIVE
-              </div>
-              <div>
-                <img src={GC.coin} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                <img src={GC.moneyBag} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                $WAR token
-              </div>
-              <div>
-                <img src={GC.tech} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                HIP-3 markets for novel WAR indices
-              </div>
-              <div>
-                <img src={GC.sparkle1} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                <img src={GC.sparkle2} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
-                World Peace
-              </div>
-            </div>
-          </div>
-        </>
-      }
-      centerPane={
-        <>
-          <TerminalPaneTitle>
             <img src={GC.computer} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
             <img src={GC.tech} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
             SYSTEM SPECIFICATIONS
@@ -276,6 +155,127 @@ export default function AboutPage() {
                 <img src={GC.stock} width={12} height={12} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
                 Hyperliquid
               </a>
+            </div>
+          </div>
+        </>
+      }
+      centerPane={
+        <>
+          <TerminalPaneTitle>
+            <img src={GC.globeSmall} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            <img src={GC.explosion} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            PROJECT OVERVIEW
+            <img src={GC.fire1} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
+          </TerminalPaneTitle>
+          <TerminalTitle>
+            <img src={GC.fire1} width={24} height={24} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+            <img src={GC.sparkle1} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+            <img src={GC.explosion} width={22} height={22} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+            WAR.MARKET
+            <img src={GC.explosion} width={22} height={22} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
+            <img src={GC.sparkle1} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
+            <img src={GC.fire1} width={24} height={24} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
+          </TerminalTitle>
+          <TerminalThesis>
+            <img src={GC.missile} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            A terminal for trading global stress. Narrative baskets executed via Pear on Hyperliquid.
+            <img src={GC.blast} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
+          </TerminalThesis>
+
+          <div style={{ textAlign: 'center', margin: '16px 0' }}>
+            <img src={GC.dividerChain} width={120} height={16} alt="" style={{ opacity: 0.7 }} />
+          </div>
+
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              <img src={GC.warning} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <img src={GC.alert} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              THE PROBLEM
+              <img src={GC.danger} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
+            </div>
+            <TerminalThesis>
+              <img src={GC.oilFire} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              Trading global risk is fragmented. Oil, FX, tech beta, and "risk-off" all live in separate silos.
+              You react to noise instead of the signal.
+              <img src={GC.signal} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
+            </TerminalThesis>
+          </div>
+
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              <img src={GC.starBurst} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <img src={GC.impact} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              THE RESPONSE
+              <img src={GC.fire2} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
+            </div>
+            <TerminalThesis>
+              <img src={GC.tech} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              WAR.MARKET creates one view. You see the stress signal. You trade the stress signal.
+              No interpretation layer—just volatility packaged into clear long/short structures.
+              <img src={GC.stock} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
+            </TerminalThesis>
+          </div>
+
+          <div style={{ textAlign: 'center', margin: '16px 0' }}>
+            <img src={GC.dividerColor} width={120} height={16} alt="" style={{ opacity: 0.7 }} />
+          </div>
+
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              <img src={GC.constructionWorker} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <img src={GC.newBadge} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              ROADMAP
+              <img src={GC.fire3} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
+            </div>
+            <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
+              <div style={{ textDecoration: 'line-through', color: '#8da294' }}>
+                <img src={GC.trophy} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                <img src={GC.goldMedal} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                ✓ Win hackathon
+              </div>
+              <div>
+                <img src={GC.computer} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                UX redesign for production
+              </div>
+              <div>
+                <img src={GC.tech} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                Audit / codebase review
+              </div>
+              <div>
+                <img src={GC.stock} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                Quant advice on market structures
+              </div>
+              <div>
+                <img src={GC.signal} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                Integrate charts from HL
+              </div>
+              <div>
+                <img src={GC.fire1} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                Build GTM team of rabid degens
+              </div>
+              <div>
+                <img src={GC.starBurst} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                Launch X
+              </div>
+              <div>
+                <img src={GC.explosion} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                <img src={GC.blast} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                Go LIVE
+              </div>
+              <div>
+                <img src={GC.coin} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                <img src={GC.moneyBag} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                $WAR token
+              </div>
+              <div>
+                <img src={GC.tech} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                HIP-3 markets for novel WAR indices
+              </div>
+              <div>
+                <img src={GC.sparkle1} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                <img src={GC.sparkle2} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                World Peace
+              </div>
             </div>
           </div>
         </>
