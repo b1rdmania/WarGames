@@ -132,7 +132,7 @@ export function TerminalKV({ children }: { children: ReactNode }) {
   return <div className={styles.kv}>{children}</div>;
 }
 
-export function TerminalKVRow({ label, value }: { label: string; value: ReactNode }) {
+export function TerminalKVRow({ label, value }: { label: ReactNode; value: ReactNode }) {
   return (
     <div>
       <span>{label}</span>
