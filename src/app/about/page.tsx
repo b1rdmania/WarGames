@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { GC } from '@/app/labs/geocities-gifs';
 import {
   TerminalShell,
   TerminalMenuBar,
@@ -35,8 +36,19 @@ export default function AboutPage() {
       menuBar={<TerminalMenuBar items={['FILE', 'OVERVIEW', 'TECHNICAL', 'ROADMAP', 'HELP']} />}
       leftPane={
         <>
-          <TerminalPaneTitle>PROJECT OVERVIEW</TerminalPaneTitle>
-          <TerminalTitle>WAR.MARKET</TerminalTitle>
+          <TerminalPaneTitle>
+            <img src={GC.globeSmall} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            PROJECT OVERVIEW
+          </TerminalPaneTitle>
+          <TerminalTitle>
+            <img src={GC.fire1} width={24} height={24} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+            <img src={GC.sparkle1} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+            <img src={GC.explosion} width={22} height={22} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+            WAR.MARKET
+            <img src={GC.explosion} width={22} height={22} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
+            <img src={GC.sparkle1} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
+            <img src={GC.fire1} width={24} height={24} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
+          </TerminalTitle>
           <TerminalThesis>
             A terminal for trading global stress. Narrative baskets executed via Pear on Hyperliquid.
           </TerminalThesis>
@@ -67,6 +79,7 @@ export default function AboutPage() {
             </div>
             <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
               <div style={{ textDecoration: 'line-through', color: '#8da294' }}>
+                <img src={GC.trophy} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />
                 ✓ Win hackathon
               </div>
               <div>UX redesign for production</div>
@@ -139,12 +152,21 @@ export default function AboutPage() {
       }
       rightPane={
         <>
-          <TerminalPaneTitle>ACTIONS</TerminalPaneTitle>
+          <TerminalPaneTitle>
+            <img src={GC.starBurst} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            ACTIONS
+          </TerminalPaneTitle>
           <Link href="/markets">
-            <TerminalButton fullWidth>BROWSE MARKETS →</TerminalButton>
+            <TerminalButton fullWidth>
+              <img src={GC.explosion} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              BROWSE MARKETS →
+            </TerminalButton>
           </Link>
           <Link href="/trade">
-            <TerminalButton variant="primary" fullWidth>OPEN TRADE →</TerminalButton>
+            <TerminalButton variant="primary" fullWidth>
+              <img src={GC.coin} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              OPEN TRADE →
+            </TerminalButton>
           </Link>
         </>
       }

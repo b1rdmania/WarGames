@@ -1,44 +1,58 @@
 /**
- * Curated animated GIF catalog from gifcities.org (Internet Archive Geocities collection).
- * Used for GeoCities lab demo.
+ * Curated animated GIF catalog - now served locally from /public/gifs/
+ * Original source: gifcities.org (Internet Archive Geocities collection)
  */
-
-const B = 'https://blob.gifcities.org/gifcities/';
 
 export const GC = {
   // Fire / flames
-  fire1: `${B}4ZWHJUWAOBFM56J444WMIILMG7ZMVOP7.gif`,
-  fire2: `${B}EGV3BAYR6OK3X63J4CBSJADOLYW4WGAN.gif`,
-  fire3: `${B}GWT4IVKJ6BX6DRGP2X7I7JJ5T4B4U5OQ.gif`,
-  fireSmall: `${B}H2LWRZATSWRBEMGOTVQRYW4UCSBDBOOD.gif`,
-  explosion: `${B}N7S3GUIK3IWUZ2UGXZGBSHIFMPEZLPC2.gif`,
+  fire1: '/gifs/fire1.gif',
+  fire2: '/gifs/fire2.gif',
+  fire3: '/gifs/fire3.gif',
+  fireSmall: '/gifs/fireSmall.gif',
+  explosion: '/gifs/explosion.gif',
 
   // Stars / sparkles
-  sparkle1: `${B}4HVHH7B3KEFTKDAYM7XBBUU4Z4USJ4QZ.gif`,
-  sparkle2: `${B}CJIEUZFZSTRSPUMF57AOSTDGKKUXYB6H.gif`,
-  starBurst: `${B}DSB6NSUDHALJR5PD5QU6AF22ZHD37DGB.gif`,
+  sparkle1: '/gifs/sparkle1.gif',
+  sparkle2: '/gifs/sparkle2.gif',
+  starBurst: '/gifs/starBurst.gif',
 
   // Dividers
-  dividerChain: `${B}A5LHMIDZN54JQYJPAIGOYXN4DVAECVJR.gif`,
-  dividerColor: `${B}B2TIOYJMZ6NV4YTWEKKSJZVBFY6AQ6MF.gif`,
+  dividerChain: '/gifs/dividerChain.gif',
+  dividerColor: '/gifs/dividerColor.gif',
 
   // Under construction
-  constructionWorker: `${B}5SAYDEDXUAM7XUK5PSV4HZSGDHVNXS6R.gif`,
-  newBadge: `${B}3VTBFEMOXWXUH3PJYVKNKN4X4DLRL6FO.gif`,
+  constructionWorker: '/gifs/constructionWorker.gif',
+  newBadge: '/gifs/newBadge.gif',
 
   // Globe
-  globeLarge: `${B}46IFPABPKDVU6GGCYOFNROALJJEZ465G.gif`,
-  globeSmall: `${B}2BDK66BWLK42ADEG52TMSEUEDO6IZDTX.gif`,
+  globeLarge: '/gifs/globeLarge.gif',
+  globeSmall: '/gifs/globeSmall.gif',
 
   // Money / gold
-  coin: `${B}7YOVURK4KH6EHZD7QZYS32556WJSNETA.gif`,
-  moneyBag: `${B}FD34DR5CQAHEL4A6WSBRABODHOICHW6O.gif`,
+  coin: '/gifs/coin.gif',
+  moneyBag: '/gifs/moneyBag.gif',
 
   // Awards / trophies
-  coolSite: `${B}GRSRKG744DWEHPZO47YMXHRXSEKJILQO.gif`,
-  trophy: `${B}TMK4JSB6ENQ4BMXRVMR6BSFTUDK4KFJX.gif`,
-  goldMedal: `${B}UD3BSOJI5JXU6IC7U66TB5CWK73I5BH3.gif`,
+  coolSite: '/gifs/coolSite.gif',
+  trophy: '/gifs/trophy.gif',
+  goldMedal: '/gifs/goldMedal.gif',
 
   // Computer / tech
-  computer: `${B}7JCDRPP6PPIM66TMENJY7VG4RTDXVKFY.gif`,
+  computer: '/gifs/computer.gif',
+
+  // War themes (aliases of working GIFs)
+  blast: '/gifs/blast.gif',        // explosion
+  alert: '/gifs/alert.gif',        // fireSmall
+  impact: '/gifs/impact.gif',      // starBurst
+  danger: '/gifs/danger.gif',      // fire1
+  warning: '/gifs/warning.gif',    // sparkle2
+
+  // Market/theme specific
+  energy: '/gifs/energy.gif',      // fire2 - for oil markets
+  oilFire: '/gifs/oilFire.gif',    // fire3 - for oil shock
+  tech: '/gifs/tech.gif',          // computer - for AI/tech themes
+  stock: '/gifs/stock.gif',        // coin - for trading
+  cash: '/gifs/cash.gif',          // moneyBag - for money themes
+  missile: '/gifs/missile.gif',    // explosion - for military
+  signal: '/gifs/signal.gif',      // starBurst - for alerts/signals
 } as const;

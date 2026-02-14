@@ -1,11 +1,43 @@
 # WAR.MARKET
 
-## Current Status: POST-HACKATHON / NORAD DESIGN LIVE + THREE-THEME COHERENCE
+## Current Status: POST-HACKATHON / NORAD DESIGN LIVE + THREE-THEME COHERENCE + GEOCITIES GIFS
 
-**Updated:** 2026-02-11
+**Updated:** 2026-02-14
 **Live:** https://www.war.market
 **Docs:** https://docs.war.market
 **Repo:** https://github.com/b1rdmania/WarGames
+
+---
+
+## Recent Work (2026-02-14 Session)
+
+### GeoCities GIF Collection Added
+- ✅ Downloaded and organized **32 animated GIFs** to `/public/gifs/`
+- ✅ Created war-themed aliases (blast, alert, danger, missile, oilFire, etc.)
+- ✅ Added market-specific GIFs (energy, tech, stock, cash, signal)
+- ✅ Integrated GIFs heavily across home, markets, and about pages
+- ✅ Full degen GeoCities aesthetic - multiple GIFs per section
+
+**GIF Categories (32 total, ~450KB):**
+- Fire/Explosions: fire1, fire2, fire3, fireSmall, explosion
+- War themes: blast, alert, impact, danger, warning, missile
+- Market-specific: energy, oilFire, tech, stock, cash, signal
+- Stars/Sparkles: sparkle1, sparkle2, starBurst
+- Globes: globeLarge, globeSmall
+- Money: coin, moneyBag
+- Awards: trophy, goldMedal, coolSite
+- Dividers: dividerChain, dividerColor
+- Construction: constructionWorker, newBadge
+- Tech: computer
+
+**Pages with GIFs:**
+- Home: 15+ GIFs (title, tagline, explainer sections, CTAs)
+- Markets: 12+ GIFs (titles, buttons, data rows)
+- About: 10+ GIFs (title, actions)
+
+**GIF Source File:**
+- `src/app/labs/geocities-gifs.ts` - centralized GIF catalog
+- All GIFs served locally from `/public/gifs/`
 
 ---
 
