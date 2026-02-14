@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   TerminalShell,
   TerminalMenuBar,
@@ -11,143 +11,121 @@ import {
   TerminalKV,
   TerminalKVRow,
 } from '@/components/terminal';
+import type { IntelCommandPayload } from '@/types/intelCommand';
 
-type Summary = {
-  risk?: { score?: number; bias?: string; components?: any; drivers?: string[] };
-  forecast?: { windows?: Array<{ windowStart: string; eventName: string; expectedVolatility: number }>; recommendation?: string };
-  narratives?: { narratives?: Array<{ id: string; name: string; score: number; trend?: string; drivers?: string[] }> };
-  regime?: { regime?: string; confidence?: number; note?: string };
-  nextEvent?: { title?: string; date?: string; predicted_impact?: number; confidence?: number };
-  posture?: { overallRecommendation?: string };
-};
-
-type BreakingItem = {
-  id: string;
-  title: string;
-  tag: string;
-  severity: 'low' | 'medium' | 'high' | 'critical';
-};
-
-type MarketTapeItem = {
-  id: string;
-  label: string;
-  value: number;
-  change?: number | null;
-  unit?: string;
-};
-
-type Flow = {
-  solana?: any;
-  vol?: any;
-  credit?: any;
+const FALLBACK: IntelCommandPayload = {
+  timestamp: new Date(0).toISOString(),
+  regime: {
+    risk_score: null,
+    bias: 'UNKNOWN',
+    band: 'UNKNOWN',
+    regime: 'unknown',
+    confidence: null,
+    as_of: new Date(0).toISOString(),
+    freshness: 'unknown',
+  },
+  event_window: {
+    next_event: 'No critical events',
+    event_date: null,
+    hours_to_event: null,
+    windows: [],
+    as_of: new Date(0).toISOString(),
+    freshness: 'unknown',
+  },
+  alerts: [],
+  tape: [],
+  drivers: [],
+  posture: {
+    action: 'UNKNOWN',
+    recommendation: 'Signal unavailable.',
+    checks: [],
+    as_of: new Date(0).toISOString(),
+    freshness: 'unknown',
+  },
+  metrics: {
+    tps: null,
+    validators: null,
+    vix: null,
+    credit_regime: 'unknown',
+    systemic_stress: null,
+  },
+  health: {
+    degraded_mode: true,
+    sources: [],
+  },
 };
 
 export default function IntelClient() {
-  const [summary, setSummary] = useState<Summary | null>(null);
-  const [breaking, setBreaking] = useState<BreakingItem[]>([]);
-  const [markets, setMarkets] = useState<MarketTapeItem[]>([]);
-  const [flow, setFlow] = useState<Flow | null>(null);
+  const [intel, setIntel] = useState<IntelCommandPayload>(FALLBACK);
   const [latencyMs, setLatencyMs] = useState<number | null>(null);
 
   useEffect(() => {
     let active = true;
 
-    const fetchAll = async () => {
-      const start = performance.now();
+    const fetchCommand = async () => {
+      const started = performance.now();
       try {
-        const safeFetch = async (url: string) => {
-          try {
-            const res = await fetch(url);
-            if (!res.ok) return null;
-            return await res.json();
-          } catch {
-            return null;
-          }
-        };
-
-        const [summaryData, breakingData, marketsData, flowData] = await Promise.all([
-          safeFetch('/api/intel/summary'),
-          safeFetch('/api/intel/breaking'),
-          safeFetch('/api/intel/markets'),
-          safeFetch('/api/intel/flow'),
-        ]);
-
-        if (!active) return;
-        if (summaryData) setSummary(summaryData);
-        if (breakingData) setBreaking(breakingData.items || []);
-        if (marketsData) setMarkets(marketsData.items || []);
-        if (flowData) setFlow(flowData);
+        const res = await fetch('/api/intel/command');
+        if (!res.ok) return;
+        const json = (await res.json()) as IntelCommandPayload;
+        if (active) setIntel(json);
       } catch {
-        // ignore
+        // Keep last known-good payload in UI.
       } finally {
-        if (active) setLatencyMs(Math.round(performance.now() - start));
+        if (active) setLatencyMs(Math.round(performance.now() - started));
       }
     };
 
-    fetchAll();
-    const interval = setInterval(fetchAll, 30_000);
+    fetchCommand();
+    const interval = setInterval(fetchCommand, 30_000);
     return () => {
       active = false;
       clearInterval(interval);
     };
   }, []);
 
-  const topNarratives = useMemo(() => {
-    const list = summary?.narratives?.narratives || [];
-    return [...list].sort((a, b) => b.score - a.score).slice(0, 4);
-  }, [summary]);
-
-  const forecastWindows = summary?.forecast?.windows?.slice(0, 3) || [];
-  const riskScore = summary?.risk?.score ?? '—';
-  const riskBias = summary?.risk?.bias ?? 'unknown';
-  const nextEvent = summary?.nextEvent?.title || 'No critical events';
-  const posture = summary?.posture?.overallRecommendation || 'Posture pending';
-  const solana = flow?.solana;
-  const credit = flow?.credit;
-  const vol = flow?.vol;
-
   return (
     <TerminalShell
       menuBar={<TerminalMenuBar items={['FILE', 'FEEDS', 'ANALYSIS', 'ALERTS', 'MONITOR', 'HELP']} />}
       leftPane={
         <>
-          <TerminalPaneTitle>INTELLIGENCE FEEDS</TerminalPaneTitle>
+          <TerminalPaneTitle>LIVE WIRE</TerminalPaneTitle>
 
-          {/* Breaking */}
           <div style={{ marginBottom: '16px' }}>
             <div style={{ color: '#02ff81', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '6px' }}>
-              BREAKING
+              ALERTS
             </div>
-            {breaking.length === 0 ? (
-              <div style={{ color: '#8da294', fontSize: '11px' }}>Monitoring feeds...</div>
+            {intel.alerts.length === 0 ? (
+              <div style={{ color: '#8da294', fontSize: '11px' }}>No actionable alerts</div>
             ) : (
               <div style={{ display: 'grid', gap: '4px' }}>
-                {breaking.slice(0, 5).map((b) => (
-                  <div key={b.id} style={{ color: '#a8b4af', fontSize: '11px', lineHeight: '1.4' }}>
-                    <span style={{ color: '#02ff81' }}>[{b.tag}]</span> {b.title}
+                {intel.alerts.map((a) => (
+                  <div key={a.id} style={{ color: '#a8b4af', fontSize: '11px', lineHeight: '1.4' }}>
+                    <span style={{ color: '#02ff81' }}>[{a.tag}]</span> {a.title}
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Market Tape */}
           <div style={{ marginBottom: '16px' }}>
             <div style={{ color: '#02ff81', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '6px' }}>
               MARKET TAPE
             </div>
-            {markets.length === 0 ? (
-              <div style={{ color: '#8da294', fontSize: '11px' }}>Loading prices...</div>
+            {intel.tape.length === 0 ? (
+              <div style={{ color: '#8da294', fontSize: '11px' }}>Loading tape...</div>
             ) : (
               <div style={{ display: 'grid', gap: '2px' }}>
-                {markets.slice(0, 8).map((m) => (
-                  <div key={m.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
-                    <span style={{ color: '#02ff81' }}>{m.label}</span>
+                {intel.tape.slice(0, 8).map((t) => (
+                  <div key={t.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
+                    <span style={{ color: '#02ff81' }}>{t.label}</span>
                     <span style={{ color: '#dfe9e4' }}>
-                      {m.value.toLocaleString()}{m.unit ? ` ${m.unit}` : ''}
-                      {typeof m.change === 'number' && (
-                        <span style={{ color: m.change >= 0 ? '#02ff81' : '#ff4444', marginLeft: '6px' }}>
-                          {m.change > 0 ? '+' : ''}{m.change.toFixed(2)}%
+                      {t.value.toLocaleString()}
+                      {t.unit ? ` ${t.unit}` : ''}
+                      {typeof t.change === 'number' && (
+                        <span style={{ color: t.change >= 0 ? '#02ff81' : '#ff4444', marginLeft: '6px' }}>
+                          {t.change > 0 ? '+' : ''}
+                          {t.change.toFixed(2)}%
                         </span>
                       )}
                     </span>
@@ -157,24 +135,17 @@ export default function IntelClient() {
             )}
           </div>
 
-          {/* Top Narratives */}
           <div>
             <div style={{ color: '#02ff81', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '6px' }}>
-              TOP NARRATIVES
+              TOP DRIVERS
             </div>
-            {topNarratives.length === 0 ? (
-              <div style={{ color: '#8da294', fontSize: '11px' }}>No narratives available</div>
+            {intel.drivers.length === 0 ? (
+              <div style={{ color: '#8da294', fontSize: '11px' }}>No active drivers</div>
             ) : (
-              <div style={{ display: 'grid', gap: '8px' }}>
-                {topNarratives.map((n) => (
-                  <div key={n.id}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', marginBottom: '4px' }}>
-                      <span style={{ color: '#a8b4af' }}>{n.name}</span>
-                      <span style={{ color: '#02ff81' }}>{n.score}</span>
-                    </div>
-                    <div style={{ height: '3px', background: '#1f3e2f', borderRadius: '2px', overflow: 'hidden' }}>
-                      <div style={{ width: `${n.score}%`, height: '100%', background: '#02ff81', transition: 'width 0.3s' }} />
-                    </div>
+              <div style={{ display: 'grid', gap: '4px' }}>
+                {intel.drivers.map((driver) => (
+                  <div key={driver} style={{ color: '#a8b4af', fontSize: '11px' }}>
+                    ▸ {driver}
                   </div>
                 ))}
               </div>
@@ -184,31 +155,44 @@ export default function IntelClient() {
       }
       centerPane={
         <>
-          <TerminalPaneTitle>RISK ANALYSIS</TerminalPaneTitle>
+          <TerminalPaneTitle>SIGNAL STACK</TerminalPaneTitle>
           <TerminalTitle style={{ marginBottom: '8px' }}>GLOBAL RISK SCORE</TerminalTitle>
           <div style={{ fontSize: '32px', color: '#02ff81', fontWeight: 600, marginBottom: '16px' }}>
-            {riskScore}
+            {typeof intel.regime.risk_score === 'number' ? intel.regime.risk_score : '—'}
           </div>
 
           <TerminalKV>
-            <TerminalKVRow label="BIAS" value={String(riskBias).toUpperCase()} />
-            <TerminalKVRow label="REGIME" value={summary?.regime?.regime || 'UNKNOWN'} />
-            <TerminalKVRow label="NEXT EVENT" value={nextEvent} />
+            <TerminalKVRow label="BIAS" value={intel.regime.bias} />
+            <TerminalKVRow label="RISK BAND" value={intel.regime.band} />
+            <TerminalKVRow label="REGIME" value={intel.regime.regime} />
+            <TerminalKVRow label="CONFIDENCE" value={intel.regime.confidence !== null ? `${intel.regime.confidence}%` : '—'} />
+            <TerminalKVRow label="FRESHNESS" value={intel.regime.freshness.toUpperCase()} />
           </TerminalKV>
 
-          {/* 48H Forecast */}
           <div style={{ marginTop: '20px' }}>
             <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
-              48H FORECAST WINDOWS
+              EVENT WINDOW
             </div>
-            {forecastWindows.length === 0 ? (
-              <div style={{ color: '#8da294', fontSize: '11px' }}>No forecast windows loaded</div>
+            <TerminalKV>
+              <TerminalKVRow label="NEXT EVENT" value={intel.event_window.next_event} />
+              <TerminalKVRow label="EVENT TIME" value={intel.event_window.event_date ?? '—'} />
+              <TerminalKVRow
+                label="T-MINUS"
+                value={
+                  typeof intel.event_window.hours_to_event === 'number'
+                    ? `${intel.event_window.hours_to_event}h`
+                    : '—'
+                }
+              />
+            </TerminalKV>
+            {intel.event_window.windows.length === 0 ? (
+              <div style={{ color: '#8da294', fontSize: '11px', marginTop: '8px' }}>No forecast windows loaded</div>
             ) : (
-              <div style={{ display: 'grid', gap: '4px' }}>
-                {forecastWindows.map((w) => (
-                  <div key={w.windowStart} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
-                    <span style={{ color: '#a8b4af' }}>{w.eventName}</span>
-                    <span style={{ color: '#ffff00' }}>{w.expectedVolatility} VOL</span>
+              <div style={{ display: 'grid', gap: '4px', marginTop: '8px' }}>
+                {intel.event_window.windows.map((w) => (
+                  <div key={`${w.window_start}-${w.event_name}`} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px' }}>
+                    <span style={{ color: '#a8b4af' }}>{w.event_name}</span>
+                    <span style={{ color: '#ffff00' }}>{w.expected_volatility} VOL</span>
                   </div>
                 ))}
               </div>
@@ -219,17 +203,32 @@ export default function IntelClient() {
       rightPane={
         <>
           <TerminalPaneTitle>EXECUTION POSTURE</TerminalPaneTitle>
+          <TerminalTitle style={{ marginBottom: '8px' }}>{intel.posture.action}</TerminalTitle>
           <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.5', marginBottom: '16px' }}>
-            {posture}
+            {intel.posture.recommendation}
           </div>
 
           <TerminalKV>
-            <TerminalKVRow label="TPS" value={solana?.performance?.tps ?? '—'} />
-            <TerminalKVRow label="VALIDATORS" value={solana?.validators?.active ?? '—'} />
-            <TerminalKVRow label="VIX" value={vol?.data?.volatility?.[0]?.value ?? '—'} />
-            <TerminalKVRow label="CREDIT" value={credit?.data?.summary?.regime || '—'} />
-            <TerminalKVRow label="STRESS" value={credit?.data?.summary?.systemic_stress ?? '—'} />
+            <TerminalKVRow label="TPS" value={intel.metrics.tps !== null ? String(intel.metrics.tps) : '—'} />
+            <TerminalKVRow label="VALIDATORS" value={intel.metrics.validators !== null ? String(intel.metrics.validators) : '—'} />
+            <TerminalKVRow label="VIX" value={intel.metrics.vix !== null ? String(intel.metrics.vix) : '—'} />
+            <TerminalKVRow label="CREDIT" value={intel.metrics.credit_regime} />
+            <TerminalKVRow
+              label="STRESS"
+              value={intel.metrics.systemic_stress !== null ? String(intel.metrics.systemic_stress) : '—'}
+            />
           </TerminalKV>
+
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
+              DECISION CHECKS
+            </div>
+            <div style={{ display: 'grid', gap: '4px', fontSize: '11px', color: '#a8b4af' }}>
+              {intel.posture.checks.map((check) => (
+                <div key={check}>• {check}</div>
+              ))}
+            </div>
+          </div>
         </>
       }
       commandBar={
@@ -247,9 +246,10 @@ export default function IntelClient() {
       statusBar={
         <TerminalStatusBar
           items={[
-            { label: 'MODE', value: 'LIVE' },
-            { label: 'BIAS', value: String(riskBias).toUpperCase() },
-            { label: 'FRESHNESS', value: '30s' },
+            { label: 'MODE', value: intel.health.degraded_mode ? 'DEGRADED' : 'LIVE' },
+            { label: 'BIAS', value: intel.regime.bias },
+            { label: 'RISK', value: intel.regime.band },
+            { label: 'FRESHNESS', value: intel.regime.freshness.toUpperCase() },
             { label: 'LATENCY', value: latencyMs !== null ? `${latencyMs}ms` : '—' },
           ]}
         />
