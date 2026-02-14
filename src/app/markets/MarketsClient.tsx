@@ -38,10 +38,8 @@ export default function MarketsClient() {
       leftPane={
         <>
           <TerminalPaneTitle>
-            <img src={GC.danger} width={18} height={18} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-            <img src={GC.globeSmall} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            <img src={GC.globeLarge} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
             MARKET DIRECTORY
-            <img src={GC.oilFire} width={18} height={18} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
           </TerminalPaneTitle>
           <TerminalMarketList>
             {effectiveMarkets.map((market) => (
@@ -59,29 +57,26 @@ export default function MarketsClient() {
       centerPane={
         <>
           <TerminalPaneTitle>
-            <img src={GC.alert} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
             MARKET DETAILS
-            <img src={GC.alert} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
           </TerminalPaneTitle>
           {selectedMarket ? (
             <>
-              <TerminalTitle>
-                <img src={GC.blast} width={18} height={18} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-                {selectedMarket.name}
-                <img src={GC.blast} width={18} height={18} alt="" style={{ verticalAlign: 'middle', marginLeft: '8px' }} />
-              </TerminalTitle>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
+                <img src={GC.explosion} width={32} height={32} alt="" />
+                <TerminalTitle style={{ margin: 0 }}>{selectedMarket.name}</TerminalTitle>
+              </div>
               <TerminalThesis>{narrative?.overview ?? selectedMarket.description}</TerminalThesis>
               <TerminalKV>
                 <TerminalKVRow
-                  label={<><img src={GC.warning} width={12} height={12} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />CATEGORY</>}
+                  label="CATEGORY"
                   value={selectedMarket.category?.toUpperCase() || 'N/A'}
                 />
                 <TerminalKVRow
-                  label={<><img src={GC.danger} width={12} height={12} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />LEVERAGE</>}
+                  label="LEVERAGE"
                   value={`${selectedMarket.leverage}x`}
                 />
                 <TerminalKVRow
-                  label={<><img src={GC.impact} width={12} height={12} alt="" style={{ verticalAlign: 'middle', marginRight: '4px' }} />STATUS</>}
+                  label="STATUS"
                   value={selectedMarket.isTradable ? 'ACTIVE' : 'INACTIVE'}
                 />
                 <TerminalKVRow
@@ -114,26 +109,20 @@ export default function MarketsClient() {
       rightPane={
         <>
           <TerminalPaneTitle>
-            <img src={GC.missile} width={18} height={18} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-            <img src={GC.starBurst} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+            <img src={GC.starBurst} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
             ACTIONS
-            <img src={GC.alert} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
           </TerminalPaneTitle>
           {selectedMarket && (
             <>
               <Link href={`/markets/${selectedMarket.id}`}>
                 <TerminalButton fullWidth>
-                  <img src={GC.signal} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-                  <img src={GC.explosion} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
                   FULL INTELLIGENCE →
                 </TerminalButton>
               </Link>
               <Link href="/trade">
                 <TerminalButton variant="primary" fullWidth>
-                  <img src={GC.cash} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
-                  <img src={GC.stock} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+                  <img src={GC.fire1} width={18} height={18} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
                   GO TO TRADE
-                  <img src={GC.fire1} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginLeft: '6px' }} />
                 </TerminalButton>
               </Link>
             </>
