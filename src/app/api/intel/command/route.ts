@@ -63,6 +63,20 @@ function severityFromIntensity(intensity?: number): IntelAlertItem['severity'] {
   return 'low';
 }
 
+function isMostlyAscii(text: string): boolean {
+  if (!text) return false;
+  const nonAscii = text.replace(/[\x00-\x7F]/g, '').length;
+  return nonAscii / text.length < 0.2;
+}
+
+function isRecentEnough(timestamp: unknown, maxHours: number): boolean {
+  if (typeof timestamp !== 'string' || !timestamp) return false;
+  const d = new Date(timestamp);
+  if (Number.isNaN(d.getTime())) return false;
+  const ageHours = (Date.now() - d.getTime()) / (1000 * 60 * 60);
+  return ageHours <= maxHours;
+}
+
 function normalizeTape(tape: any): IntelTapeItem[] {
   const out: IntelTapeItem[] = [];
   for (const group of tape?.data?.tape || []) {
@@ -70,12 +84,15 @@ function normalizeTape(tape: any): IntelTapeItem[] {
       const label = entry.symbol || entry.type || entry.name;
       const value = entry.value ?? entry.oas ?? entry.rate ?? entry.price;
       if (typeof label !== 'string' || typeof value !== 'number') continue;
+      if (label === 'MOVE' || label === 'EM') continue;
+      if (entry.timestamp && !isRecentEnough(entry.timestamp, 96)) continue;
+      const normalizedUnit = entry.unit === 'ratio' ? undefined : entry.unit;
       out.push({
         id: `${group.category}-${label}`,
         label,
         value,
         change: typeof entry.change_24h === 'number' ? entry.change_24h : null,
-        unit: typeof entry.unit === 'string' ? entry.unit : undefined,
+        unit: typeof normalizedUnit === 'string' ? normalizedUnit : undefined,
         category: String(group.category || 'MARKET').toUpperCase(),
       });
     }
@@ -105,14 +122,22 @@ export async function GET() {
 
     const riskScore = typeof riskRes.data?.score === 'number' ? riskRes.data.score : null;
     const riskBias = String(riskRes.data?.bias || 'unknown').toUpperCase();
-    const driversFromRisk = Array.isArray(riskRes.data?.drivers) ? riskRes.data.drivers.filter((d: unknown) => typeof d === 'string') : [];
-    const driversFromNarratives = Array.isArray(narrativesRes.data?.narratives)
-      ? narrativesRes.data.narratives
-          .slice(0, 3)
-          .map((n: any) => n?.name)
-          .filter((n: unknown) => typeof n === 'string')
+    const topNarratives = Array.isArray(narrativesRes.data?.narratives)
+      ? [...narrativesRes.data.narratives]
+          .filter((n: any) => typeof n?.name === 'string' && typeof n?.score === 'number')
+          .sort((a: any, b: any) => b.score - a.score)
+          .slice(0, 4)
       : [];
-    const drivers = [...new Set([...driversFromRisk, ...driversFromNarratives])].slice(0, 4);
+
+    const narrativeDrivers = topNarratives.map((n: any) => `${n.name} (${n.score})`);
+    const riskDrivers = Array.isArray(riskRes.data?.drivers)
+      ? riskRes.data.drivers
+          .filter((d: unknown) => typeof d === 'string')
+          .map((d: string) => d.trim())
+          .filter((d: string) => d.length > 8 && !/no active|unknown|pending/i.test(d))
+      : [];
+
+    const drivers = [...new Set([...narrativeDrivers, ...riskDrivers])].slice(0, 4);
 
     const nextEventTitle =
       nextEventRes.data?.event?.event ||
@@ -142,10 +167,12 @@ export async function GET() {
       : [];
 
     const alerts: IntelAlertItem[] = [];
-    for (const item of (newsRes.data?.data?.breaking || []).slice(0, 2)) {
+    for (const item of (newsRes.data?.data?.breaking || []).slice(0, 3)) {
+      const title = item.headline || 'Breaking update';
+      if (!isMostlyAscii(title)) continue;
       alerts.push({
         id: item.url || item.headline || `news-${alerts.length}`,
-        title: item.headline || 'Breaking update',
+        title,
         tag: String(item.category || 'NEWS').toUpperCase(),
         severity:
           typeof item.importance === 'number'
@@ -161,10 +188,12 @@ export async function GET() {
         timestamp: toTimestamp(item.timestamp) || nowIso,
       });
     }
-    for (const item of (geoRes.data?.data?.events || []).slice(0, 2)) {
+    for (const item of (geoRes.data?.data?.events || []).slice(0, 3)) {
+      const title = item.headline || 'Geopolitical update';
+      if (!isMostlyAscii(title)) continue;
       alerts.push({
         id: item.url || item.headline || `geo-${alerts.length}`,
-        title: item.headline || 'Geopolitical update',
+        title,
         tag: String(item.event_type || item.region || 'GEO').toUpperCase(),
         severity: severityFromIntensity(item.intensity),
         source: item.source || 'GDELT',
