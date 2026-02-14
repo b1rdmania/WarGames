@@ -176,7 +176,18 @@
 @media (max-width: 768px) {
   .sideGlobeLeft,
   .sideGlobeRight {
-    display: none;
+    width: 56px;
+    height: 56px;
+    top: -4px;
+    opacity: 0.95;
+  }
+
+  .sideGlobeLeft {
+    left: 8px;
+  }
+
+  .sideGlobeRight {
+    right: 8px;
   }
 
   .title {
