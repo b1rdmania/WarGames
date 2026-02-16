@@ -24,20 +24,19 @@ export const hyperEVM = {
 const walletConnectProjectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
 
 const connectors = [
+  ...(walletConnectProjectId
+    ? [
+        walletConnect({
+          projectId: walletConnectProjectId,
+          showQrModal: true,
+        }),
+      ]
+    : []),
   injected(),
   coinbaseWallet({
     appName: 'WAR.MARKET',
   }),
-];
-
-if (walletConnectProjectId) {
-  connectors.unshift(
-    walletConnect({
-      projectId: walletConnectProjectId,
-      showQrModal: true,
-    })
-  );
-}
+] as const;
 
 export const config = createConfig({
   chains: [mainnet, arbitrum, base, optimism, hyperEVM],
