@@ -1,6 +1,6 @@
 import { createConfig, http } from 'wagmi';
 import { mainnet, arbitrum, base, optimism } from 'wagmi/chains';
-import { injected } from 'wagmi/connectors';
+import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors';
 
 // Define HyperEVM chain
 export const hyperEVM = {
@@ -21,12 +21,27 @@ export const hyperEVM = {
   },
 } as const;
 
+const walletConnectProjectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
+
+const connectors = [
+  injected(),
+  coinbaseWallet({
+    appName: 'WAR.MARKET',
+  }),
+];
+
+if (walletConnectProjectId) {
+  connectors.unshift(
+    walletConnect({
+      projectId: walletConnectProjectId,
+      showQrModal: true,
+    })
+  );
+}
+
 export const config = createConfig({
   chains: [mainnet, arbitrum, base, optimism, hyperEVM],
-  connectors: [
-    // Injected connector supports MetaMask, Rabby, Coinbase Wallet, Rainbow, and all other injected wallets
-    injected(),
-  ],
+  connectors,
   transports: {
     [mainnet.id]: http(),
     [arbitrum.id]: http(),

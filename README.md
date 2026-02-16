@@ -90,6 +90,9 @@ NEXT_PUBLIC_PEAR_CLIENT_ID=HLHackathon1
 
 # mainnet | testnet
 NEXT_PUBLIC_NETWORK=mainnet
+
+# Optional (recommended for mobile deep-link wallet connect)
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=
 ```
 
 ## Tech
@@ -104,6 +107,12 @@ NEXT_PUBLIC_NETWORK=mainnet
 - This is a hackathon build. It is not audited. Use small size.
 - iOS is gated to `/ios`. This UI is built for laptop/desktop.
 - Markets pages are browse-only on purpose. Trading happens on `/trade`.
+
+## Mobile wallet connect (important)
+
+- For reliable mobile wallet connection outside in-app browser, set `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID`.
+- Without it, injected wallets can fail in iOS/Android standalone browsers.
+- In-app wallet browsers (e.g. MetaMask/Rabby/Coinbase in-app browser) should still work via injected connector.
 
 ## Hackathon track + deck
 

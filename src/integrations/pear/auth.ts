@@ -189,3 +189,18 @@ export async function refreshAccessToken(): Promise<string> {
 
   return data.accessToken;
 }
+
+export async function logoutPearSession(refreshToken: string): Promise<void> {
+  const endpoint = '/auth/logout';
+  const response = await fetch(`${PEAR_CONFIG.apiUrl}${endpoint}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ refreshToken }),
+  });
+
+  if (!response.ok) {
+    throw await toPearApiError(response, endpoint);
+  }
+}

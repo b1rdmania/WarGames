@@ -8,6 +8,8 @@ import {
   loginWithEip712Signature,
   saveAuthTokens,
   getValidAccessToken,
+  getRefreshToken,
+  logoutPearSession,
   clearAuthTokens,
 } from '@/integrations/pear/auth';
 import { getAgentWallet, createAgentWallet } from '@/integrations/pear/agent';
@@ -227,6 +229,18 @@ export function PearProvider({ children }: { children: ReactNode }) {
   }
 
   function disconnect() {
+    const refreshToken = getRefreshToken();
+    if (refreshToken) {
+      // Best effort: invalidate server-side refresh token before local cleanup.
+      logoutPearSession(refreshToken).catch((err) => {
+        emitDebugLog({
+          level: 'warn',
+          scope: 'auth',
+          message: 'Logout endpoint failed',
+          data: { message: (err as Error)?.message },
+        });
+      });
+    }
     setAccessToken(null);
     setAgentWallet(null);
     setLastApiError(null);
