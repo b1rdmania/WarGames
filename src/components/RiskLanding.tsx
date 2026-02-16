@@ -32,7 +32,7 @@ export function RiskLanding() {
             <WarMark size={80} />
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
+          <div className={styles.titleWrapper}>
             <img src={GC.fire1} width={48} height={48} alt="" />
             <h1 className={styles.title}>WAR.MARKET</h1>
             <img src={GC.fire1} width={48} height={48} alt="" />
@@ -45,9 +45,9 @@ export function RiskLanding() {
             Taiwan invasion. Oil shock. AI collapse. Six narrative baskets.
           </p>
 
-          <div style={{ margin: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-            <img src={GC.trophy} width={20} height={20} alt="" style={{ verticalAlign: 'middle' }} />
-            <span style={{ color: '#02ff81', fontSize: '14px', fontWeight: 600 }}>HYPERLIQUID HACKATHON WINNER</span>
+          <div className={styles.badge}>
+            <img src={GC.trophy} width={20} height={20} alt="" />
+            <span className={styles.badgeText}>HYPERLIQUID HACKATHON WINNER</span>
           </div>
 
           <div className={styles.ctaGrid}>

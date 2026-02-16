@@ -25,6 +25,14 @@
   opacity: 0.9;
 }
 
+.titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
 .title {
   font-family: var(--font-mono);
   font-size: 48px;
@@ -32,7 +40,7 @@
   color: #02ff81;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin: 0;
 }
 
 .tagline {
@@ -153,8 +161,27 @@
   color: #9bb7a9;
 }
 
+/* Badge section */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.badgeText {
+  color: #02ff81;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
+  .titleWrapper {
+    gap: 12px;
+  }
+
   .title {
     font-size: 32px;
   }
@@ -162,6 +189,8 @@
   .ctaGrid {
     grid-template-columns: 1fr;
     max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .explainerGrid {
