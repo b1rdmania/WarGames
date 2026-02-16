@@ -1,5 +1,5 @@
-import MarketsClientWrapper from './MarketsClientWrapper';
+import { redirect } from 'next/navigation';
 
 export default function MarketsPage() {
-  return <MarketsClientWrapper />;
+  redirect('/trade');
 }
