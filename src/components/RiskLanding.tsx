@@ -35,7 +35,7 @@ export function RiskLanding() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
             <img src={GC.fire1} width={48} height={48} alt="" />
             <h1 className={styles.title}>WAR.MARKET</h1>
-            <img src={GC.explosion} width={44} height={44} alt="" />
+            <img src={GC.fire1} width={48} height={48} alt="" />
           </div>
 
           <p className={styles.tagline}>THE GLOBAL TENSION TERMINAL</p>
