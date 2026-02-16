@@ -48,48 +48,75 @@ export default function TradeClient() {
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
 
-  // Auth screen
-  if (!isAuthenticated) {
-    return (
-      <TerminalShell
-        statusBar={<TerminalStatusBar items={[{ label: 'STATE', value: 'AUTH REQUIRED' }]} />}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px', minHeight: '60vh' }}>
-          {!isConnected ? (
-            <div style={{ maxWidth: '420px', width: '100%', textAlign: 'center' }}>
-              <TerminalTitle>OPERATOR AUTHENTICATION</TerminalTitle>
-              <p style={{ color: '#a8b4af', marginTop: '16px', marginBottom: '24px', lineHeight: '1.5' }}>
-                Connect wallet to access trade terminal.
-              </p>
-              <TerminalButton
-                variant="primary"
-                fullWidth
-                disabled={isPending}
-                onClick={() => {
-                  (async () => {
-                    try {
-                      await connectWalletSafely({ connectors, connectAsync, disconnect });
-                    } catch (e) {
-                      console.error(e);
-                      toast.error((e as Error).message || 'Failed to connect wallet');
-                    }
-                  })();
-                }}
-              >
-                {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
-              </TerminalButton>
-            </div>
-          ) : (
-            <div style={{ maxWidth: '420px', width: '100%' }}>
-              <PearSetupCard />
-            </div>
-          )}
-        </div>
-      </TerminalShell>
-    );
-  }
+  // Right pane content based on auth state
+  const renderRightPane = () => {
+    if (!isConnected) {
+      return (
+        <>
+          <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
+          <div style={{ padding: '20px 0', textAlign: 'center' }}>
+            <TerminalTitle style={{ fontSize: '16px', marginBottom: '12px' }}>AUTHENTICATION REQUIRED</TerminalTitle>
+            <p style={{ color: '#a8b4af', marginBottom: '20px', lineHeight: '1.5', fontSize: '14px' }}>
+              Connect your wallet to execute trades.
+            </p>
+            <TerminalButton
+              variant="primary"
+              fullWidth
+              disabled={isPending}
+              onClick={() => {
+                (async () => {
+                  try {
+                    await connectWalletSafely({ connectors, connectAsync, disconnect });
+                  } catch (e) {
+                    console.error(e);
+                    toast.error((e as Error).message || 'Failed to connect wallet');
+                  }
+                })();
+              }}
+            >
+              {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
+            </TerminalButton>
+          </div>
+        </>
+      );
+    }
 
-  // Trading interface
+    if (!isAuthenticated) {
+      return (
+        <>
+          <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
+          <div style={{ padding: '20px 0' }}>
+            <PearSetupCard />
+          </div>
+        </>
+      );
+    }
+
+    // Fully authenticated - show execution ticket
+    return (
+      <>
+        <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
+        <TerminalSegment
+          options={[
+            { value: 'YES', label: 'YES' },
+            { value: 'NO', label: 'NO' },
+          ]}
+          value={side}
+          onChange={(v) => setSide(v as 'YES' | 'NO')}
+        />
+        <TerminalSizeRow sizes={[10, 25, 50]} value={size} onChange={setSize} />
+        <TerminalButton fullWidth disabled={!selectedMarket}>
+          ARM THESIS
+        </TerminalButton>
+        <TerminalButton variant="primary" fullWidth disabled={!selectedMarket}>
+          EXECUTE POSITION
+        </TerminalButton>
+        <TerminalNote>PRESS ENTER TO CONFIRM</TerminalNote>
+      </>
+    );
+  };
+
+  // 3-pane layout always visible
   return (
     <TerminalShell
       menuBar={<TerminalMenuBar items={['FILE', 'OPERATIONS', 'THESIS', 'EXECUTE', 'MONITOR', 'HELP']} />}
@@ -157,27 +184,7 @@ export default function TradeClient() {
           )}
         </>
       }
-      rightPane={
-        <>
-          <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
-          <TerminalSegment
-            options={[
-              { value: 'YES', label: 'YES' },
-              { value: 'NO', label: 'NO' },
-            ]}
-            value={side}
-            onChange={(v) => setSide(v as 'YES' | 'NO')}
-          />
-          <TerminalSizeRow sizes={[10, 25, 50]} value={size} onChange={setSize} />
-          <TerminalButton fullWidth disabled={!selectedMarket}>
-            ARM THESIS
-          </TerminalButton>
-          <TerminalButton variant="primary" fullWidth disabled={!selectedMarket}>
-            EXECUTE POSITION
-          </TerminalButton>
-          <TerminalNote>PRESS ENTER TO CONFIRM</TerminalNote>
-        </>
-      }
+      rightPane={renderRightPane()}
       commandBar={
         <TerminalCommandBar
           commands={[
@@ -193,10 +200,10 @@ export default function TradeClient() {
       statusBar={
         <TerminalStatusBar
           items={[
-            { label: 'SESSION', value: 'OPERATOR' },
-            { label: 'BALANCE', value: perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '$0.00' },
-            { label: 'STATE', value: side === 'YES' ? 'THESIS ARMED' : 'HEDGE MODE' },
-            { label: 'OPERATOR', value: address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'NONE' },
+            { label: 'SESSION', value: isAuthenticated ? 'OPERATOR' : 'BROWSE' },
+            { label: 'BALANCE', value: isAuthenticated && perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '—' },
+            { label: 'STATE', value: isAuthenticated ? (side === 'YES' ? 'THESIS ARMED' : 'HEDGE MODE') : 'READ-ONLY' },
+            { label: 'OPERATOR', value: address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'GUEST' },
           ]}
         />
       }
