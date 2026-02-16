@@ -62,9 +62,8 @@ export const MARKETS: PearMarketConfig[] = [
         { asset: 'BTC', weight: 0.20 },
       ],
       short: [
-        { asset: 'km:US500', weight: 0.50 },
-        { asset: 'xyz:TSLA', weight: 0.30 },
-        { asset: 'xyz:BABA', weight: 0.20 },
+        { asset: 'km:US500', weight: 0.60 },
+        { asset: 'xyz:TSLA', weight: 0.40 },
       ],
     },
     leverage: 3,
