@@ -32,10 +32,8 @@ export function TerminalNav() {
 
   const navItems = [
     { href: '/', label: 'HOME' },
-    { href: '/markets', label: 'MARKETS' },
     { href: '/trade', label: 'TRADE' },
     { href: '/portfolio', label: 'PORTFOLIO' },
-    { href: '/intel', label: 'INTEL' },
     { href: '/about', label: 'ABOUT' },
   ];
 

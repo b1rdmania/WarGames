@@ -14,7 +14,7 @@ import styles from './RiskLanding.module.css';
 export function RiskLanding() {
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'MARKETS', 'TRADE', 'INTEL', 'ABOUT', 'HELP']} />}
+      menuBar={<TerminalMenuBar items={['FILE', 'TRADE', 'ABOUT', 'HELP']} />}
       statusBar={
         <TerminalStatusBar
           items={[
