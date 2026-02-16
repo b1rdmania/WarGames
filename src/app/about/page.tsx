@@ -49,7 +49,7 @@ export default function AboutPage() {
           <div style={{ marginTop: '20px' }}>
             <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
               <img src={GC.fire2} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-              WHO IT'S FOR
+              WHO IT&apos;S FOR
             </div>
             <div style={{ color: '#a8b4af', fontSize: '12px', lineHeight: '1.6' }}>
               <div>▸ Traders who want a clean signal</div>
@@ -126,7 +126,7 @@ export default function AboutPage() {
               THE PROBLEM
             </div>
             <TerminalThesis>
-              Trading global risk is fragmented. Oil, FX, tech beta, and "risk-off" all live in separate silos.
+              Trading global risk is fragmented. Oil, FX, tech beta, and &quot;risk-off&quot; all live in separate silos.
               You react to noise instead of the signal.
             </TerminalThesis>
           </div>

@@ -35,7 +35,7 @@ export default function GTMPage() {
           <section className="tp-section">
             <h2 className="tp-h">What it is today</h2>
             <ul className="tp-bullets">
-              <li>Functional Hyperliquid composability proof: narrative baskets (Taiwan Strait, Commodities Shock, etc.) live in read-only mode; "GO TO TRADE" opens Pear execution.</li>
+              <li>Functional Hyperliquid composability proof: narrative baskets (Taiwan Strait, Commodities Shock, etc.) live in read-only mode; &quot;GO TO TRADE&quot; opens Pear execution.</li>
               <li>Flow exists from landing → markets → detail → trade → portfolio. The experience demonstrates HIP3 markets composability.</li>
               <li>Proof-of-concept stage—browse the story, test the rails, but it is not yet a partner-grade live product.</li>
             </ul>
@@ -45,12 +45,12 @@ export default function GTMPage() {
 
           {/* What it's missing */}
           <section className="tp-section">
-            <h2 className="tp-h">What it's missing</h2>
+            <h2 className="tp-h">What it&apos;s missing</h2>
             <ul className="tp-bullets">
-              <li>Basket composition still "me + AI." The markets/baskets need structured financial analysis: scenario logic, risk posture, and quant-style rationale for each weight/leverage pairing.</li>
+              <li>Basket composition still &quot;me + AI.&quot; The markets/baskets need structured financial analysis: scenario logic, risk posture, and quant-style rationale for each weight/leverage pairing.</li>
               <li>Narrative packaging: users need to immediately understand the risk/return story and what makes each basket move under stress.</li>
               <li>Visibility partner: I am strategic, not a community-builder. I can automate promo (X post + targeted RTs), but this needs a wingman or partner to roll it out coherently and own visibility operations.</li>
-              <li>Budget/ownership: There is no easy monetization beyond trading fees. I'm open to Pear adopting it internally or leaning into a broader partner/co-promotion model—get it working, get it interesting, let it snowball, and see where it leads. Long-term optionality includes a dedicated HIP3 market, composability with other Hyper-EVM builds, or a deeper commodities basket thesis if the buzz continues (hitting ~5k on Twitter unlocks additional plays), but the GTM plan keeps the focus tight on launch readiness for now.</li>
+              <li>Budget/ownership: There is no easy monetization beyond trading fees. I&apos;m open to Pear adopting it internally or leaning into a broader partner/co-promotion model—get it working, get it interesting, let it snowball, and see where it leads. Long-term optionality includes a dedicated HIP3 market, composability with other Hyper-EVM builds, or a deeper commodities basket thesis if the buzz continues (hitting ~5k on Twitter unlocks additional plays), but the GTM plan keeps the focus tight on launch readiness for now.</li>
               <li>Decision point: stay a polished demo or commit to adding the analysis + partner lift that makes it launch-ready.</li>
             </ul>
           </section>
@@ -63,7 +63,7 @@ export default function GTMPage() {
             <ul className="tp-bullets">
               <li>Announce the Hyperliquid hackathon win with one focused X post strategic RTs to start a War Markets X presence.</li>
               <li>Deliver quant/analysis notes + co-marketing with whoever does that. Articles about HL / HIP3 / geopolitical trading, etc.</li>
-              <li>Might need some UX help—I can do most of it and have started docs and a design refresh, but it's gone from degen to a bit too generic.</li>
+              <li>Might need some UX help—I can do most of it and have started docs and a design refresh, but it&apos;s gone from degen to a bit too generic.</li>
             </ul>
           </section>
 

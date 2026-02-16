@@ -10,6 +10,14 @@ export interface AssetPrice {
   change24h: number;
 }
 
+type WsMarketDataMessage = {
+  prices?: Record<string, AssetPrice>;
+};
+
+function hasPriceMap(data: unknown): data is WsMarketDataMessage {
+  return typeof data === 'object' && data !== null && 'prices' in data;
+}
+
 export function useLiveMarketData(address: string | undefined) {
   const [prices, setPrices] = useState<Record<string, AssetPrice>>({
     BTC: { symbol: 'BTC', price: 95420, change24h: 2.3 },
@@ -30,7 +38,7 @@ export function useLiveMarketData(address: string | undefined) {
         emitDebugLog({ level: 'info', scope: 'market-data', message: 'received', data });
 
         // Update prices from WebSocket data
-        if (data.prices) {
+        if (hasPriceMap(data) && data.prices) {
           setPrices(prev => ({
             ...prev,
             ...data.prices,

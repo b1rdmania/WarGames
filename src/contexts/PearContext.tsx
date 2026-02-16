@@ -162,9 +162,19 @@ export function PearProvider({ children }: { children: ReactNode }) {
 
       setStatusLine('AUTH: SIGN EIP-712');
       // Ensure domain chainId is a number (API may return string)
+      const rawDomain = eip712Data.domain;
       const normalizedDomain = {
-        ...eip712Data.domain,
-        chainId: Number(eip712Data.domain.chainId),
+        name: rawDomain?.name,
+        version: rawDomain?.version,
+        chainId: Number(rawDomain?.chainId),
+        verifyingContract:
+          typeof rawDomain?.verifyingContract === 'string' && rawDomain.verifyingContract.startsWith('0x')
+            ? (rawDomain.verifyingContract as `0x${string}`)
+            : undefined,
+        salt:
+          typeof rawDomain?.salt === 'string' && rawDomain.salt.startsWith('0x')
+            ? (rawDomain.salt as `0x${string}`)
+            : undefined,
       };
       const signature = await signTypedDataAsync({
         account: address,

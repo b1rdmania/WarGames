@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Intel routes are deprecated/disabled from active product scope.
+    "src/app/intel/**",
+    "src/app/api/intel/**",
   ]),
   // Theme coherence enforcement rules
   {
@@ -22,7 +25,7 @@ const eslintConfig = defineConfig([
           patterns: [
             {
               group: ["**/labs/_archive/**"],
-              message: "Do not import from archived labs. Use active themes: terminal, geocities, norad",
+              message: "Do not import from archived labs. Use active themes: terminal, geocities, norad, control-room",
             },
             {
               group: ["**/docs/_archive/**"],

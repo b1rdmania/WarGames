@@ -3,6 +3,35 @@ import { getMarketById, MARKETS } from './markets';
 import type { PearPosition, ExecutePositionParams } from './types';
 import { emitDebugLog } from '@/lib/debugLog';
 
+type PearApiAsset = {
+  coin?: string;
+  size?: number;
+};
+
+type PearApiPosition = {
+  positionId?: string;
+  positionValue?: number;
+  entryRatio?: number;
+  markRatio?: number;
+  unrealizedPnl?: number;
+  unrealizedPnlPercentage?: number;
+  createdAt?: string;
+  marginUsed?: number;
+  stopLoss?: PearPosition['stopLoss'];
+  takeProfit?: PearPosition['takeProfit'];
+  longAssets?: PearApiAsset[];
+  shortAssets?: PearApiAsset[];
+};
+
+function readErrorMessage(value: unknown, fallback: string): string {
+  if (!value || typeof value !== 'object') return fallback;
+  const record = value as Record<string, unknown>;
+  if (typeof record.error === 'string') return record.error;
+  if (typeof record.message === 'string') return record.message;
+  if (typeof record.detail === 'string') return record.detail;
+  return fallback;
+}
+
 export async function executePosition(
   accessToken: string,
   params: ExecutePositionParams
@@ -84,15 +113,10 @@ export async function executePosition(
 
   if (!response.ok) {
     const hasTradFiAssets = [...longAssets, ...shortAssets].some(
-      (a: any) => a.asset?.startsWith('xyz:') || a.asset?.startsWith('km:') || a.asset?.startsWith('vntl:')
+      (a) => a.asset?.startsWith('xyz:') || a.asset?.startsWith('km:') || a.asset?.startsWith('vntl:')
     );
 
-    const rawMsg =
-      responseData?.error ||
-      responseData?.message ||
-      responseData?.detail ||
-      response.statusText ||
-      `HTTP ${response.status}`;
+    const rawMsg = readErrorMessage(responseData, response.statusText || `HTTP ${response.status}`);
 
     const msg = String(rawMsg || '').toLowerCase();
     const looksLikeMarketHours =
@@ -125,13 +149,11 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.error || error.message || 'Failed to fetch positions');
+    throw new Error(readErrorMessage(error, 'Failed to fetch positions'));
   }
 
-  const positions = await response.json();
-
-  // Debug: Log raw position data
-  console.log('📊 Raw positions from Pear API:', JSON.stringify(positions, null, 2));
+  const positionsRaw = await response.json();
+  const positions = Array.isArray(positionsRaw) ? positionsRaw as PearApiPosition[] : [];
 
   const normCoin = (raw: unknown): string | null => {
     if (typeof raw !== 'string') return null;
@@ -140,9 +162,9 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
     return s.toUpperCase();
   };
 
-  const deriveMarket = (pos: any): { marketId: string; side: 'long' | 'short' } => {
-    const posLongCoins = (pos?.longAssets ?? []).map((a: any) => normCoin(a.coin)).filter(Boolean) as string[];
-    const posShortCoins = (pos?.shortAssets ?? []).map((a: any) => normCoin(a.coin)).filter(Boolean) as string[];
+  const deriveMarket = (pos: PearApiPosition): { marketId: string; side: 'long' | 'short' } => {
+    const posLongCoins = (pos.longAssets ?? []).map((a) => normCoin(a.coin)).filter(Boolean) as string[];
+    const posShortCoins = (pos.shortAssets ?? []).map((a) => normCoin(a.coin)).filter(Boolean) as string[];
 
     if (posLongCoins.length === 0 || posShortCoins.length === 0) {
       return { marketId: 'unknown', side: 'long' };
@@ -189,23 +211,39 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
   };
 
   // Transform API response to our format
-  return positions.map((pos: any) => ({
-    id: pos.positionId,
+  return positions.map((pos) => ({
+    id: String(pos.positionId ?? 'unknown'),
     ...deriveMarket(pos),
-    longAsset: pos?.longAssets?.[0]?.coin,
-    shortAsset: pos?.shortAssets?.[0]?.coin,
-    size: pos.positionValue.toString(),
-    entryPrice: pos.entryRatio.toString(),
-    currentPrice: pos.markRatio.toString(),
-    pnl: pos.unrealizedPnl.toString(),
-    pnlPercent: pos.unrealizedPnlPercentage.toString(),
-    timestamp: new Date(pos.createdAt).getTime(),
+    longAsset: pos.longAssets?.[0]?.coin,
+    shortAsset: pos.shortAssets?.[0]?.coin,
+    size: String(pos.positionValue ?? 0),
+    entryPrice: String(pos.entryRatio ?? 0),
+    currentPrice: String(pos.markRatio ?? 0),
+    pnl: String(pos.unrealizedPnl ?? 0),
+    pnlPercent: String(pos.unrealizedPnlPercentage ?? 0),
+    timestamp: new Date(pos.createdAt ?? Date.now()).getTime(),
     // Enhanced fields
-    marginUsed: pos.marginUsed?.toString(),
+    marginUsed: pos.marginUsed !== undefined ? String(pos.marginUsed) : undefined,
     stopLoss: pos.stopLoss,
     takeProfit: pos.takeProfit,
-    longAssets: pos.longAssets,
-    shortAssets: pos.shortAssets,
+    longAssets: pos.longAssets
+      ?.filter((asset): asset is Required<PearApiAsset> => Boolean(asset.coin && typeof asset.size === 'number'))
+      .map((asset) => ({
+        coin: asset.coin,
+        size: asset.size,
+        entryPrice: 0,
+        leverage: 0,
+        fundingPaid: 0,
+      })),
+    shortAssets: pos.shortAssets
+      ?.filter((asset): asset is Required<PearApiAsset> => Boolean(asset.coin && typeof asset.size === 'number'))
+      .map((asset) => ({
+        coin: asset.coin,
+        size: asset.size,
+        entryPrice: 0,
+        leverage: 0,
+        fundingPaid: 0,
+      })),
   }));
 }
 
@@ -226,7 +264,7 @@ export async function closePosition(
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new Error(error.error || error.message || 'Failed to close position');
+    throw new Error(readErrorMessage(error, 'Failed to close position'));
   }
 
   return await response.json();

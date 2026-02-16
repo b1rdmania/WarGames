@@ -8,7 +8,7 @@ export type PearWsChannel = 'positions' | 'open-orders' | 'trade-histories' | 't
 export function connectPearWebsocket(args: {
   address: string;
   channels: PearWsChannel[];
-  onMessage?: (data: any) => void;
+  onMessage?: (data: unknown) => void;
   onError?: (ev: Event) => void;
 }) {
   const ws = new WebSocket(PEAR_WS_URL);
@@ -46,4 +46,3 @@ export function connectPearWebsocket(args: {
 
   return ws;
 }
-

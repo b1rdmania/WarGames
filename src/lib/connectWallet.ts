@@ -1,14 +1,17 @@
 import type { Connector } from 'wagmi';
 
 type ConnectAsync = (args: { connector: Connector }) => Promise<unknown>;
+type MaybeErrorLike = { shortMessage?: string; message?: string; code?: number };
+type ConnectorWithProvider = Connector & { getProvider?: () => Promise<unknown> };
+type Eip1193Provider = { request?: (args: { method: string }) => Promise<unknown> };
 
 function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
 function getErrMessage(e: unknown): string {
-  const anyE = e as any;
-  return (anyE?.shortMessage || anyE?.message || '').toString();
+  const errorLike = e as MaybeErrorLike | null;
+  return (errorLike?.shortMessage || errorLike?.message || '').toString();
 }
 
 function isAlreadyConnectedErr(msg: string) {
@@ -16,8 +19,8 @@ function isAlreadyConnectedErr(msg: string) {
 }
 
 function isUserRejected(e: unknown, msg: string) {
-  const anyE = e as any;
-  return anyE?.code === 4001 || msg.toLowerCase().includes('user rejected') || msg.toLowerCase().includes('rejected');
+  const errorLike = e as MaybeErrorLike | null;
+  return errorLike?.code === 4001 || msg.toLowerCase().includes('user rejected') || msg.toLowerCase().includes('rejected');
 }
 
 function isMobileBrowser() {
@@ -27,7 +30,7 @@ function isMobileBrowser() {
 }
 
 function getConnectorId(c: Connector): string {
-  return ((c as any)?.id || '').toString().toLowerCase();
+  return ((c as { id?: string }).id || '').toString().toLowerCase();
 }
 
 function orderConnectors(connectors: readonly Connector[]): Connector[] {
@@ -77,29 +80,22 @@ export async function connectWalletSafely(opts: {
       }
 
       if (isAlreadyConnectedErr(msg)) {
-        // Try clearing stale connector state, then retry.
         try {
           disconnect?.();
         } catch {
-          // ignore
+          // ignore stale disconnect failures
         }
         await sleep(50);
+      }
 
-        try {
-          await connectAsync({ connector });
-          return;
-        } catch {
-          // Last resort: ask the provider directly for accounts (helps when wallet is locked).
-          try {
-            const provider: any = await (connector as any).getProvider?.();
-            await provider?.request?.({ method: 'eth_requestAccounts' });
-            await connectAsync({ connector });
-            return;
-          } catch {
-            lastErrorMessage =
-              'Wallet appears connected but locked. Open your wallet, unlock it, then click CONNECT again.';
-          }
-        }
+      try {
+        const provider = await (connector as ConnectorWithProvider).getProvider?.() as Eip1193Provider | undefined;
+        await provider?.request?.({ method: 'eth_requestAccounts' });
+        await connectAsync({ connector });
+        return;
+      } catch {
+        lastErrorMessage =
+          'Wallet appears connected but locked. Open your wallet, unlock it, then click CONNECT again.';
       }
     }
   }
@@ -109,5 +105,6 @@ export async function connectWalletSafely(opts: {
       `${lastErrorMessage || 'Failed to connect wallet'}. On mobile, use wallet in-app browser or set NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID for deep-link connection.`
     );
   }
+
   throw new Error(lastErrorMessage || 'Failed to connect wallet');
 }

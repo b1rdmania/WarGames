@@ -3,15 +3,15 @@
 
 .page {
   min-height: 100vh;
-  background: #080a0c;
-  color: #d7dbde;
+  background: var(--bg-deep);
+  color: var(--text-primary);
   font-family: var(--font-mono);
   padding: 12px;
 }
 
 /* Navigation Bar */
 .nav {
-  border: 1px solid #1f3e2f;
+  border: 1px solid var(--border);
   padding: 8px 12px;
   display: flex;
   justify-content: space-between;
@@ -29,7 +29,7 @@
 }
 
 .navBrand {
-  color: #02ff81;
+  color: var(--primary);
   font-weight: 600;
 }
 
@@ -39,19 +39,19 @@
 }
 
 .navLink {
-  color: #9bb7a9;
+  color: var(--text-secondary);
   text-decoration: none;
   padding: 4px 8px;
   transition: color 0.15s, background 0.15s;
 }
 
 .navLink:hover {
-  color: #02ff81;
+  color: var(--primary);
 }
 
 .navLinkActive {
-  color: #08110d;
-  background: #02ff81;
+  color: var(--bg-deep);
+  background: var(--primary);
 }
 
 .navRight {
@@ -61,15 +61,15 @@
 }
 
 .navMusicLabel {
-  color: #9bb7a9;
+  color: var(--text-secondary);
   margin-right: 6px;
   font-size: 11px;
 }
 
 .navMusicBtn {
-  border: 1px solid #1f3e2f;
-  background: #0d1210;
-  color: #c2cbc7;
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  color: var(--text-primary);
   padding: 4px 8px;
   font: inherit;
   text-transform: uppercase;
@@ -84,13 +84,13 @@
 }
 
 .navMusicBtn:hover {
-  border-color: #02ff81;
+  border-color: var(--primary);
 }
 
 .navMusicBtnActive {
-  background: #02ff81;
-  border-color: #02ff81;
-  color: #08110d;
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--bg-deep);
 }
 
 @media (max-width: 980px) {
@@ -120,7 +120,7 @@
 .menu,
 .commandBar,
 .statusBar {
-  border: 1px solid #1f3e2f;
+  border: 1px solid var(--border);
   padding: 8px 10px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -131,28 +131,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #02ff81;
+  color: var(--primary);
 }
 
 .back {
-  color: #d7dbde;
+  color: var(--text-primary);
   text-decoration: none;
   transition: color 0.15s;
 }
 
 .back:hover {
-  color: #02ff81;
+  color: var(--primary);
 }
 
 .menu {
   margin-top: 8px;
-  color: #9bb7a9;
+  color: var(--text-secondary);
 }
 
 /* Shell - 3-column grid */
 .shell {
   margin-top: 8px;
-  border: 1px solid #1f3e2f;
+  border: 1px solid var(--border);
   display: grid;
   grid-template-columns: 280px 1fr 320px;
   min-height: 62vh;
@@ -160,7 +160,7 @@
 
 .pane {
   padding: 12px;
-  border-right: 1px solid #1f3e2f;
+  border-right: 1px solid var(--border);
   overflow-y: auto;
 }
 
@@ -169,7 +169,7 @@
 }
 
 .paneTitle {
-  color: #02ff81;
+  color: var(--primary);
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -185,9 +185,9 @@
 .marketRow {
   display: flex;
   justify-content: space-between;
-  border: 1px solid #1f3e2f;
-  background: #0d1210;
-  color: #a2aba6;
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  color: var(--text-secondary);
   padding: 8px;
   font-size: 12px;
   font-family: inherit;
@@ -198,18 +198,18 @@
 }
 
 .marketRow:hover {
-  border-color: #02ff81;
+  border-color: var(--primary);
 }
 
 .marketRowActive {
-  color: #08110d;
-  background: #02ff81;
-  border-color: #02ff81;
+  color: var(--bg-deep);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 /* Title & Thesis */
 .title {
-  color: #f2f5f4;
+  color: var(--text-primary);
   text-transform: uppercase;
   font-size: 18px;
   letter-spacing: 0.06em;
@@ -218,7 +218,7 @@
 
 .thesis {
   margin-top: 10px;
-  color: #a8b4af;
+  color: var(--text-secondary);
   line-height: 1.5;
   max-width: 62ch;
 }
@@ -226,25 +226,25 @@
 /* Key-Value Grid */
 .kv {
   margin-top: 16px;
-  border-top: 1px solid #1f3e2f;
+  border-top: 1px solid var(--border);
 }
 
 .kv > div {
   display: flex;
   justify-content: space-between;
   padding: 9px 0;
-  border-bottom: 1px solid #1f3e2f;
+  border-bottom: 1px solid var(--border);
   font-size: 12px;
 }
 
 .kv span {
-  color: #90a59a;
+  color: var(--secondary);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
 .kv strong {
-  color: #dfe9e4;
+  color: var(--text-primary);
   font-weight: 500;
 }
 
@@ -256,9 +256,9 @@
 }
 
 .segment button {
-  border: 1px solid #1f3e2f;
-  background: #0d1210;
-  color: #c2cbc7;
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  color: var(--text-primary);
   padding: 10px;
   font: inherit;
   text-transform: uppercase;
@@ -269,7 +269,7 @@
 }
 
 .segment button:hover {
-  border-color: #02ff81;
+  border-color: var(--primary);
 }
 
 /* Size Row */
@@ -281,9 +281,9 @@
 }
 
 .sizeRow button {
-  border: 1px solid #1f3e2f;
-  background: #0d1210;
-  color: #c2cbc7;
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  color: var(--text-primary);
   padding: 10px;
   font: inherit;
   text-transform: uppercase;
@@ -294,23 +294,23 @@
 }
 
 .sizeRow button:hover {
-  border-color: #02ff81;
+  border-color: var(--primary);
 }
 
 /* Active State */
 .segmentActive {
-  background: #02ff81 !important;
-  border-color: #02ff81 !important;
-  color: #08110d !important;
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--bg-deep) !important;
 }
 
 /* Buttons */
 .action {
   margin-top: 12px;
   width: 100%;
-  border: 1px solid #1f3e2f;
-  background: #0d1210;
-  color: #c2cbc7;
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  color: var(--text-primary);
   padding: 10px;
   font: inherit;
   text-transform: uppercase;
@@ -321,7 +321,7 @@
 }
 
 .action:hover:not(:disabled) {
-  border-color: #02ff81;
+  border-color: var(--primary);
 }
 
 .action:disabled {
@@ -332,9 +332,9 @@
 .actionPrimary {
   margin-top: 8px;
   width: 100%;
-  border: 1px solid #02ff81;
-  background: #0d1210;
-  color: #02ff81;
+  border: 1px solid var(--primary);
+  background: var(--bg-warm);
+  color: var(--primary);
   padding: 10px;
   font: inherit;
   text-transform: uppercase;
@@ -345,8 +345,8 @@
 }
 
 .actionPrimary:hover:not(:disabled) {
-  background: #02ff81;
-  color: #08110d;
+  background: var(--primary);
+  color: var(--bg-deep);
 }
 
 .actionPrimary:disabled {
@@ -357,7 +357,7 @@
 /* Note */
 .note {
   margin-top: 10px;
-  color: #8da294;
+  color: var(--text-muted);
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -372,8 +372,8 @@
 }
 
 .commandBar span {
-  color: #08110d;
-  background: #02ff81;
+  color: var(--bg-deep);
+  background: var(--primary);
   padding: 6px;
   text-align: center;
 }
@@ -383,7 +383,7 @@
   margin-top: 8px;
   display: flex;
   justify-content: space-between;
-  color: #02ff81;
+  color: var(--primary);
 }
 
 /* Responsive */
@@ -394,7 +394,7 @@
 
   .pane {
     border-right: none;
-    border-bottom: 1px solid #1f3e2f;
+    border-bottom: 1px solid var(--border);
   }
 
   .pane:last-child {

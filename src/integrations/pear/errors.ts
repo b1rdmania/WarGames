@@ -13,10 +13,11 @@ export class PearApiError extends Error {
 }
 
 export async function toPearApiError(res: Response, endpoint: string): Promise<PearApiError> {
-  const body = await res.json().catch(() => ({}));
+  const body = await res.json().catch(() => ({} as Record<string, unknown>));
+  const errorBody = typeof body === 'object' && body !== null ? body as Record<string, unknown> : {};
   const message =
-    (body as any)?.error ||
-    (body as any)?.message ||
+    (typeof errorBody.error === 'string' ? errorBody.error : undefined) ||
+    (typeof errorBody.message === 'string' ? errorBody.message : undefined) ||
     `Request failed (${res.status})`;
   // Client-side logging (safe): avoid secrets; include endpoint/status/body shape.
   if (typeof window !== 'undefined') {
@@ -30,4 +31,3 @@ export async function toPearApiError(res: Response, endpoint: string): Promise<P
   }
   return new PearApiError({ endpoint, status: res.status, message, body });
 }
-

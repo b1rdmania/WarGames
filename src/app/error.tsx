@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { WarMark } from '@/components/WarMark';
 
 export default function Error({
@@ -29,7 +30,7 @@ export default function Error({
           >
             Try again
           </button>
-          <a
+          <Link
             href="/markets"
             className="px-6 py-3 font-semibold rounded-md transition-colors hover:opacity-90"
             style={{
@@ -38,7 +39,7 @@ export default function Error({
             }}
           >
             Go to Markets
-          </a>
+          </Link>
         </div>
       </div>
     </main>

@@ -5,6 +5,24 @@ import type { PearAuthResponse } from './types';
 const EXPIRY_BUFFER_MS = 60_000; // refresh 60s before expiry
 const USER_ADDR_KEY = 'pear_user_address';
 const FALLBACK_CLIENT_ID = 'HLHackathon1';
+type TypedDataDomainLike = {
+  name?: string;
+  version?: string;
+  chainId?: number | string;
+  verifyingContract?: string;
+  salt?: string;
+};
+type TypedDataFieldLike = {
+  name: string;
+  type: string;
+};
+type Eip712Types = Record<string, readonly TypedDataFieldLike[]>;
+export type Eip712MessageResponse = {
+  domain: TypedDataDomainLike;
+  types: Eip712Types;
+  primaryType: string;
+  message: { timestamp: number; [key: string]: unknown };
+};
 
 export async function fetchEip712Message(address: string, clientId: string) {
   // Spec: docs/pear-docs/AUTHENTICATION.md (GET /auth/eip712-message)
@@ -15,7 +33,7 @@ export async function fetchEip712Message(address: string, clientId: string) {
   return res.json();
 }
 
-export async function getAuthEip712Message(address: string): Promise<{ eip712Data: any; clientId: string }> {
+export async function getAuthEip712Message(address: string): Promise<{ eip712Data: Eip712MessageResponse; clientId: string }> {
   const normalizedAddress = address.toLowerCase();
   let effectiveClientId = PEAR_CONFIG.clientId;
   try {
@@ -26,7 +44,8 @@ export async function getAuthEip712Message(address: string): Promise<{ eip712Dat
     // This keeps the demo unblocked even if Vercel env var was misconfigured.
     if (
       err instanceof Error &&
-      (err as any).status === 401 &&
+      'status' in err &&
+      (err as { status?: number }).status === 401 &&
       effectiveClientId !== FALLBACK_CLIENT_ID
     ) {
       effectiveClientId = FALLBACK_CLIENT_ID;
@@ -178,9 +197,13 @@ export async function refreshAccessToken(): Promise<string> {
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
+    const errorBody = await response.json().catch(() => ({} as Record<string, unknown>));
     clearAuthTokens();
-    throw new Error(error.error || error.message || 'Failed to refresh token');
+    const message =
+      (typeof errorBody.error === 'string' ? errorBody.error : undefined) ||
+      (typeof errorBody.message === 'string' ? errorBody.message : undefined) ||
+      'Failed to refresh token';
+    throw new Error(message);
   }
 
   const data = await response.json();

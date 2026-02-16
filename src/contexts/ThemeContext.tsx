@@ -26,19 +26,15 @@ const ThemeContext = createContext<ThemeState | undefined>(undefined);
 const STORAGE_KEY = 'wm_theme';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeId>(DEFAULT_THEME);
-
-  // Load from localStorage on mount
-  useEffect(() => {
+  const [theme, setThemeState] = useState<ThemeId>(() => {
+    if (typeof window === 'undefined') return DEFAULT_THEME;
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored && isValidThemeId(stored)) {
-        setThemeState(stored);
-      }
+      return stored && isValidThemeId(stored) ? stored : DEFAULT_THEME;
     } catch {
-      /* ignore */
+      return DEFAULT_THEME;
     }
-  }, []);
+  });
 
   // Sync data-theme attribute to <html> and persist
   useEffect(() => {

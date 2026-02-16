@@ -50,8 +50,8 @@ export function PositionCard({
   const isProfitable = pnl >= 0;
 
   // Map position assets to our narrative market
-  const actualLong = compactCoins(position.longAssets as any) ?? cleanCoin(position.longAsset) ?? '—';
-  const actualShort = compactCoins(position.shortAssets as any) ?? cleanCoin(position.shortAsset) ?? '—';
+  const actualLong = compactCoins(position.longAssets) ?? cleanCoin(position.longAsset) ?? '—';
+  const actualShort = compactCoins(position.shortAssets) ?? cleanCoin(position.shortAsset) ?? '—';
   const market = position.marketId && position.marketId !== 'unknown' ? getMarketById(position.marketId) : undefined;
   const displayName = market?.name || (actualLong !== '—' && actualShort !== '—' ? `${actualLong}/${actualShort}` : 'Position');
 
