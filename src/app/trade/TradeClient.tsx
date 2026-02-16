@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { PearSetupCard } from '@/components/PearSetupCard';
@@ -26,6 +27,7 @@ import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { connectWalletSafely } from '@/lib/connectWallet';
+import { GC } from '@/app/labs/geocities-gifs';
 
 function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
@@ -93,7 +95,10 @@ export default function TradeClient() {
       menuBar={<TerminalMenuBar items={['FILE', 'OPERATIONS', 'THESIS', 'EXECUTE', 'MONITOR', 'HELP']} />}
       leftPane={
         <>
-          <TerminalPaneTitle>MARKET DIRECTORY</TerminalPaneTitle>
+          <TerminalPaneTitle>
+            <img src={GC.globeLarge} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+            MARKET DIRECTORY
+          </TerminalPaneTitle>
           <TerminalMarketList>
             {(effectiveMarkets ?? []).map((market) => (
               <TerminalMarketRow
@@ -138,6 +143,14 @@ export default function TradeClient() {
                 <TerminalKVRow label="LEVERAGE" value={`${selectedMarket.leverage}x`} />
                 <TerminalKVRow label="CATEGORY" value={selectedMarket.category?.toUpperCase() || 'N/A'} />
               </TerminalKV>
+              <div style={{ marginTop: '16px' }}>
+                <Link href={`/markets/${selectedMarket.id}`}>
+                  <TerminalButton fullWidth>
+                    <img src={GC.signal} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+                    FULL INTELLIGENCE →
+                  </TerminalButton>
+                </Link>
+              </div>
             </>
           ) : (
             <div style={{ color: '#8da294', marginTop: '20px' }}>SELECT A MARKET TO VIEW DETAILS</div>
