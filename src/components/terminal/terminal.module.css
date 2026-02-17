@@ -318,6 +318,11 @@
   color: var(--primary);
 }
 
+.sessionMenuBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .sessionMeta {
   color: var(--text-muted);
   font-size: 10px;
