@@ -37,7 +37,7 @@ export function RiskLanding() {
             <img src={GC.fire1} width={48} height={48} alt="" />
           </div>
 
-          <p className={styles.tagline}>THE GLOBAL TENSION TERMINAL</p>
+          <p className={styles.tagline}>HYPERLIQUID GEOPOLITICAL TRADING TERMINAL</p>
 
           <p className={styles.subtitle}>
             Geopolitical chaos becomes tradeable positions.<br />
