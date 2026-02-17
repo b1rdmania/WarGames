@@ -37,11 +37,11 @@ export function RiskLanding() {
             <img src={GC.fire1} width={48} height={48} alt="" />
           </div>
 
-          <p className={styles.tagline}>HYPERLIQUID GEOPOLITICAL TRADING TERMINAL</p>
+          <p className={styles.tagline}>THE GLOBAL TENSION TERMINAL</p>
 
           <p className={styles.subtitle}>
             Geopolitical chaos becomes tradeable positions.<br />
-            Taiwan invasion. Oil shock. AI collapse. Six narrative baskets.
+            Taiwan invasion. Oil shock. AI collapse. One click.
           </p>
 
           <div className={styles.badge}>
@@ -50,14 +50,14 @@ export function RiskLanding() {
           </div>
 
           <div className={styles.ctaGrid}>
-            <Link href="/markets">
+            <Link href="/trade">
               <TerminalButton fullWidth>
-                BROWSE MARKETS
+                VIEW THE THESES
               </TerminalButton>
             </Link>
             <Link href="/trade">
               <TerminalButton variant="primary" fullWidth>
-                START TRADING
+                START TRADING →
               </TerminalButton>
             </Link>
           </div>
