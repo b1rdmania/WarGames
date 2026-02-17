@@ -57,11 +57,28 @@
   line-height: 1.7;
 }
 
+.bodySmall {
+  margin-top: 6px;
+  font-size: 11px;
+}
+
 .titleRow {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 10px;
+}
+
+.titleNoMargin {
+  margin: 0;
+}
+
+.sectionGap24 {
+  margin-top: 24px;
+}
+
+.sectionGap20 {
+  margin-top: 20px;
 }
 
 /* Sell block */
@@ -91,6 +108,10 @@
 .ctaStack {
   display: grid;
   gap: 8px;
+}
+
+.linkReset {
+  text-decoration: none;
 }
 
 /* Roadmap list */

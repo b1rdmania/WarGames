@@ -43,12 +43,10 @@ export default function AboutPage() {
       }
     >
       <div className={styles.grid}>
-
-        {/* STORY — center top on desktop; first section on mobile */}
         <section className={styles.story}>
           <div className={styles.titleRow}>
             <img src={GC.fire1} width={40} height={40} alt="" />
-            <TerminalTitle style={{ margin: 0 }}>WAR.MARKET</TerminalTitle>
+            <TerminalTitle className={styles.titleNoMargin}>WAR.MARKET</TerminalTitle>
             <img src={GC.fire1} width={40} height={40} alt="" />
           </div>
 
@@ -56,7 +54,7 @@ export default function AboutPage() {
             A terminal for trading global stress. Narrative baskets executed via Pear on Hyperliquid.
           </p>
 
-          <div style={{ marginTop: '24px' }}>
+          <div className={styles.sectionGap24}>
             <div className={styles.sectionLabel}>
               <img src={GC.warning} width={20} height={20} alt="" />
               THE PROBLEM
@@ -67,7 +65,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div style={{ marginTop: '20px' }}>
+          <div className={styles.sectionGap20}>
             <div className={styles.sectionLabel}>
               <img src={GC.starBurst} width={20} height={20} alt="" />
               THE RESPONSE
@@ -79,7 +77,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* SELL — right column on desktop; second section on mobile */}
         <section className={styles.sell}>
           <TerminalPaneTitle>ACTIONS</TerminalPaneTitle>
 
@@ -94,16 +91,15 @@ export default function AboutPage() {
           </div>
 
           <div className={styles.ctaStack}>
-            <Link href="/trade" style={{ textDecoration: 'none' }}>
+            <Link href="/markets" className={styles.linkReset}>
               <TerminalButton fullWidth>BROWSE MARKETS →</TerminalButton>
             </Link>
-            <Link href="/trade" style={{ textDecoration: 'none' }}>
+            <Link href="/trade" className={styles.linkReset}>
               <TerminalButton variant="primary" fullWidth>OPEN TRADE →</TerminalButton>
             </Link>
           </div>
         </section>
 
-        {/* META — left column on desktop; third section on mobile */}
         <section className={styles.meta}>
           <TerminalPaneTitle>POWERED BY</TerminalPaneTitle>
           <div className={styles.body}>
@@ -111,7 +107,7 @@ export default function AboutPage() {
             <div>SETTLEMENT: Hyperliquid</div>
           </div>
 
-          <div style={{ marginTop: '20px' }}>
+          <div className={styles.sectionGap20}>
             <div className={styles.sectionLabel}>WHO IT&apos;S FOR</div>
             <div className={styles.body}>
               <div>▸ Traders who want a clean signal</div>
@@ -120,63 +116,37 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div style={{ marginTop: '20px' }}>
+          <div className={styles.sectionGap20}>
             <div className={styles.sectionLabel}>BUILT BY</div>
             <div className={styles.body}>
-              <a
-                href="https://x.com/b1rdmania"
-                target="_blank"
-                rel="noreferrer"
-                className={styles.link}
-              >
+              <a href="https://x.com/b1rdmania" target="_blank" rel="noreferrer" className={styles.link}>
                 @b1rdmania
               </a>
             </div>
-            <div className={styles.body} style={{ marginTop: '6px', fontSize: '11px' }}>
+            <div className={`${styles.body} ${styles.bodySmall}`}>
               Music:{' '}
-              <a
-                href="https://wario.style"
-                target="_blank"
-                rel="noreferrer"
-                className={styles.link}
-              >
+              <a href="https://wario.style" target="_blank" rel="noreferrer" className={styles.link}>
                 wario.style
               </a>
             </div>
           </div>
 
-          <div style={{ marginTop: '20px' }}>
+          <div className={styles.sectionGap20}>
             <div className={styles.sectionLabel}>LINKS</div>
             <div className={styles.links}>
-              <a
-                href="https://github.com/b1rdmania/WarGames"
-                target="_blank"
-                rel="noreferrer"
-                className={styles.link}
-              >
+              <a href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer" className={styles.link}>
                 GitHub
               </a>
-              <a
-                href="https://www.pear.garden/"
-                target="_blank"
-                rel="noreferrer"
-                className={styles.link}
-              >
+              <a href="https://www.pear.garden/" target="_blank" rel="noreferrer" className={styles.link}>
                 Pear Protocol
               </a>
-              <a
-                href="https://hyperliquid.xyz"
-                target="_blank"
-                rel="noreferrer"
-                className={styles.link}
-              >
+              <a href="https://hyperliquid.xyz" target="_blank" rel="noreferrer" className={styles.link}>
                 Hyperliquid
               </a>
             </div>
           </div>
         </section>
 
-        {/* ROADMAP — center bottom on desktop; fourth section on mobile */}
         <section className={styles.roadmap}>
           <div className={styles.sectionLabel}>ROADMAP</div>
           <ul className={styles.roadmapList}>
@@ -205,7 +175,6 @@ export default function AboutPage() {
             </li>
           </ul>
         </section>
-
       </div>
     </TerminalShell>
   );
