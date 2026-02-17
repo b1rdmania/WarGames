@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { GC } from '@/app/labs/geocities-gifs';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import { PositionCard } from '@/components/PositionCard';
 import {
@@ -227,6 +228,9 @@ export default function PortfolioClient() {
           >
             {refreshingPositions ? 'SYNCING...' : 'REFRESH POSITIONS'}
           </TerminalButton>
+          <div style={{ textAlign: 'center', marginTop: '24px' }}>
+            <img src={GC.coin} width={48} height={48} alt="" />
+          </div>
         </>
       }
       commandBar={
