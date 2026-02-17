@@ -9,30 +9,21 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.war.market"),
   title: {
-    default: "war.market",
-    template: "%s — war.market",
+    default: "WAR.MARKET",
+    template: "%s — WAR.MARKET",
   },
-  description: "Trade the tension. One-click basket trades for macro conviction.",
+  description: "Geopolitical chaos becomes tradeable positions. Taiwan invasion. Oil shock. AI collapse. One click on Hyperliquid.",
   openGraph: {
     type: "website",
     url: "https://www.war.market",
-    siteName: "war.market",
-    title: "war.market",
-    description: "Trade the tension. One-click basket trades for macro conviction.",
-    images: [
-      {
-        url: "/ghimage.png",
-        width: 1200,
-        height: 630,
-        alt: "war.market",
-      },
-    ],
+    siteName: "WAR.MARKET",
+    title: "WAR.MARKET — The Global Tension Terminal",
+    description: "Geopolitical chaos becomes tradeable positions. Taiwan invasion. Oil shock. AI collapse. One click on Hyperliquid.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "war.market",
-    description: "Trade the tension. One-click basket trades for macro conviction.",
-    images: ["/ghimage.png"],
+    title: "WAR.MARKET — The Global Tension Terminal",
+    description: "Geopolitical chaos becomes tradeable positions. Taiwan invasion. Oil shock. AI collapse. One click on Hyperliquid.",
   },
   icons: {
     icon: "/favicon.png",
