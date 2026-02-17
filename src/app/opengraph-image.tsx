@@ -5,6 +5,8 @@ export const alt = 'WAR.MARKET — The Global Tension Terminal';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
+const BASE = 'https://www.war.market';
+
 export default function Image() {
   return new ImageResponse(
     (
@@ -18,63 +20,51 @@ export default function Image() {
           alignItems: 'center',
           justifyContent: 'center',
           fontFamily: 'monospace',
-          border: '2px solid #1f3e2f',
           padding: '60px',
           boxSizing: 'border-box',
         }}
       >
-        {/* Corner borders */}
+        {/* Corner accents */}
         <div style={{ position: 'absolute', top: 20, left: 20, width: 40, height: 40, borderTop: '2px solid #02ff81', borderLeft: '2px solid #02ff81', display: 'flex' }} />
         <div style={{ position: 'absolute', top: 20, right: 20, width: 40, height: 40, borderTop: '2px solid #02ff81', borderRight: '2px solid #02ff81', display: 'flex' }} />
         <div style={{ position: 'absolute', bottom: 20, left: 20, width: 40, height: 40, borderBottom: '2px solid #02ff81', borderLeft: '2px solid #02ff81', display: 'flex' }} />
         <div style={{ position: 'absolute', bottom: 20, right: 20, width: 40, height: 40, borderBottom: '2px solid #02ff81', borderRight: '2px solid #02ff81', display: 'flex' }} />
 
-        {/* Title */}
-        <div
-          style={{
-            fontSize: 96,
-            fontWeight: 700,
-            color: '#02ff81',
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
-            marginBottom: 16,
-            display: 'flex',
-          }}
-        >
-          WAR.MARKET
+        {/* Globe */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`${BASE}/gifs/globeLarge.gif`} width={100} height={100} alt="" style={{ marginBottom: 24, opacity: 0.9 }} />
+
+        {/* Title row with flames */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginBottom: 20 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`${BASE}/gifs/fire1.gif`} width={60} height={60} alt="" />
+          <div
+            style={{
+              fontSize: 96,
+              fontWeight: 700,
+              color: '#02ff81',
+              letterSpacing: '0.06em',
+              display: 'flex',
+            }}
+          >
+            WAR.MARKET
+          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`${BASE}/gifs/fire1.gif`} width={60} height={60} alt="" />
         </div>
 
         {/* Tagline */}
         <div
           style={{
-            fontSize: 22,
+            fontSize: 20,
             color: '#8da294',
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
-            marginBottom: 48,
+            marginBottom: 40,
             display: 'flex',
           }}
         >
           THE GLOBAL TENSION TERMINAL
-        </div>
-
-        {/* Markets row */}
-        <div style={{ display: 'flex', gap: 12, marginBottom: 48 }}>
-          {['TAIWAN', 'OIL SHOCK', 'AI BUBBLE', 'RISK OFF'].map((label) => (
-            <div
-              key={label}
-              style={{
-                border: '1px solid #1f3e2f',
-                padding: '8px 16px',
-                color: '#a8b4af',
-                fontSize: 13,
-                letterSpacing: '0.1em',
-                display: 'flex',
-              }}
-            >
-              {label}
-            </div>
-          ))}
         </div>
 
         {/* Footer */}
