@@ -15,6 +15,7 @@ import {
   TerminalThesis,
   TerminalKV,
   TerminalKVRow,
+  TerminalSessionBadge,
 } from '@/components/terminal';
 
 function cleanSymbol(s: string) {
@@ -56,7 +57,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
 
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'DETAILS', 'COMPOSITION', 'NARRATIVE', 'EXECUTE', 'HELP']} />}
+      menuBar={<TerminalMenuBar items={['FILE', 'DETAILS', 'COMPOSITION', 'NARRATIVE', 'EXECUTE', 'HELP']} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
           <TerminalPaneTitle>MARKET INTELLIGENCE</TerminalPaneTitle>

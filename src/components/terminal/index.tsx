@@ -4,10 +4,16 @@ import styles from './terminal.module.css';
 export { TerminalShell } from './TerminalShell';
 export { TerminalHeader } from './TerminalHeader';
 export { TerminalNav } from './TerminalNav';
+export { TerminalSessionBadge } from './TerminalSessionBadge';
 
 // Menu Bar
-export function TerminalMenuBar({ items }: { items: string[] }) {
-  return <div className={styles.menu}>{items.join('  ')}</div>;
+export function TerminalMenuBar({ items, right }: { items: string[]; right?: ReactNode }) {
+  return (
+    <div className={styles.menu}>
+      <span className={styles.menuItems}>{items.join('  ')}</span>
+      {right ? <span className={styles.menuRight}>{right}</span> : null}
+    </div>
+  );
 }
 
 // Pane Title

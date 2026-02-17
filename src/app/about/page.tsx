@@ -8,6 +8,7 @@ import {
   TerminalButton,
   TerminalStatusBar,
   TerminalTitle,
+  TerminalSessionBadge,
 } from '@/components/terminal';
 import styles from './about.module.css';
 
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'OVERVIEW', 'ROADMAP', 'HELP']} />}
+      menuBar={<TerminalMenuBar items={['FILE', 'OVERVIEW', 'ROADMAP', 'HELP']} right={<TerminalSessionBadge />} />}
       statusBar={
         <TerminalStatusBar
           items={[

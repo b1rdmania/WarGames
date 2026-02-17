@@ -196,6 +196,110 @@
 .menu {
   margin-top: 8px;
   color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.menuItems {
+  min-width: 0;
+}
+
+.menuRight {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.sessionWrap {
+  position: relative;
+}
+
+.sessionBadge {
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+  min-width: 180px;
+  padding: 5px 8px;
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.sessionBadgeLive {
+  border-color: var(--primary);
+}
+
+.sessionBadgeIdle {
+  border-color: var(--border);
+}
+
+.sessionDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 70%, transparent);
+  flex-shrink: 0;
+}
+
+.sessionBadgeIdle .sessionDot {
+  background: var(--text-muted);
+  box-shadow: none;
+}
+
+.sessionText {
+  flex: 1;
+  text-align: left;
+}
+
+.sessionChevron {
+  color: var(--text-muted);
+}
+
+.sessionMenu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  width: 200px;
+  border: 1px solid var(--border);
+  background: var(--bg-deep);
+  z-index: 30;
+  padding: 6px;
+}
+
+.sessionMenuBtn {
+  width: 100%;
+  text-align: left;
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+  padding: 7px 8px;
+  margin-bottom: 6px;
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.sessionMenuBtn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.sessionMeta {
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 2px 0;
 }
 
 /* Shell - 3-column grid */

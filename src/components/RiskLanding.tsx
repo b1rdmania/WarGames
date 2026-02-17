@@ -6,6 +6,7 @@ import {
   TerminalMenuBar,
   TerminalButton,
   TerminalStatusBar,
+  TerminalSessionBadge,
 } from '@/components/terminal';
 import { GC } from '@/app/labs/geocities-gifs';
 import styles from './RiskLanding.module.css';
@@ -13,7 +14,7 @@ import styles from './RiskLanding.module.css';
 export function RiskLanding() {
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'TRADE', 'ABOUT', 'HELP']} />}
+      menuBar={<TerminalMenuBar items={['FILE', 'TRADE', 'ABOUT', 'HELP']} right={<TerminalSessionBadge />} />}
       statusBar={
         <TerminalStatusBar
           items={[

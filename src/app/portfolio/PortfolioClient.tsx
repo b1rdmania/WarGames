@@ -17,6 +17,7 @@ import {
   TerminalTitle,
   TerminalKV,
   TerminalKVRow,
+  TerminalSessionBadge,
 } from '@/components/terminal';
 import { usePear } from '@/contexts/PearContext';
 import { useVaultBalances } from '@/hooks/useVaultBalances';
@@ -146,7 +147,7 @@ export default function PortfolioClient() {
   // Portfolio interface
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'POSITIONS', 'ANALYTICS', 'CLOSE', 'MONITOR', 'HELP']} />}
+      menuBar={<TerminalMenuBar items={['FILE', 'POSITIONS', 'ANALYTICS', 'CLOSE', 'MONITOR', 'HELP']} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
           <TerminalPaneTitle>POSITION DIRECTORY</TerminalPaneTitle>

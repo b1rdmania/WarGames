@@ -21,6 +21,7 @@ import {
   TerminalSegment,
   TerminalSizeRow,
   TerminalNote,
+  TerminalSessionBadge,
 } from '@/components/terminal';
 import { usePear } from '@/contexts/PearContext';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
@@ -122,7 +123,7 @@ export default function TradeClient() {
   // 3-pane layout always visible
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'OPERATIONS', 'THESIS', 'EXECUTE', 'MONITOR', 'HELP']} />}
+      menuBar={<TerminalMenuBar items={['FILE', 'OPERATIONS', 'THESIS', 'EXECUTE', 'MONITOR', 'HELP']} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
           <TerminalPaneTitle>

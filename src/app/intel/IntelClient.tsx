@@ -10,6 +10,7 @@ import {
   TerminalTitle,
   TerminalKV,
   TerminalKVRow,
+  TerminalSessionBadge,
 } from '@/components/terminal';
 import type { IntelCommandPayload } from '@/types/intelCommand';
 
@@ -86,7 +87,7 @@ export default function IntelClient() {
 
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'FEEDS', 'ANALYSIS', 'ALERTS', 'MONITOR', 'HELP']} />}
+      menuBar={<TerminalMenuBar items={['FILE', 'FEEDS', 'ANALYSIS', 'ALERTS', 'MONITOR', 'HELP']} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
           <TerminalPaneTitle>LIVE WIRE</TerminalPaneTitle>
