@@ -27,6 +27,7 @@ export const MARKETS: PearMarketConfig[] = [
       ],
     },
     leverage: 3,
+    status: 'paused',
   },
 
   {
@@ -48,6 +49,7 @@ export const MARKETS: PearMarketConfig[] = [
       ],
     },
     leverage: 2,
+    status: 'paused',
   },
 
   {
@@ -67,6 +69,7 @@ export const MARKETS: PearMarketConfig[] = [
       ],
     },
     leverage: 3,
+    status: 'paused',
   },
 
   {
@@ -86,6 +89,7 @@ export const MARKETS: PearMarketConfig[] = [
       ],
     },
     leverage: 3,
+    status: 'paused',
   },
 
   // === CRYPTO (24/7 TRADING) ===
@@ -100,6 +104,7 @@ export const MARKETS: PearMarketConfig[] = [
       short: 'BTC',
     },
     leverage: 3,
+    status: 'paused',
   },
 
   {
@@ -112,6 +117,7 @@ export const MARKETS: PearMarketConfig[] = [
       short: 'ETH',
     },
     leverage: 3,
+    status: 'paused',
   },
 
   {
@@ -124,6 +130,7 @@ export const MARKETS: PearMarketConfig[] = [
       short: 'BTC',
     },
     leverage: 3,
+    status: 'paused',
   },
 
 ];

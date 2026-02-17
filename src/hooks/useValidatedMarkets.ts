@@ -47,11 +47,14 @@ export function useValidatedMarkets() {
   const markets: ValidatedMarket[] = useMemo(() => {
     // Important: avoid flashing the fallback pair (BTC/ETH) while we are still
     // loading active symbols. We only remap once we have a real symbol set.
+    const applyStatus = (ms: ValidatedMarket[]) =>
+      ms.map((m) => ({ ...m, isTradable: m.status === 'paused' ? false : m.isTradable }));
+
     if (activeSymbols === null) {
       // Optimistic default: show canonical baskets/pairs immediately; tradability is unknown until validated.
-      return MARKETS.map((m) => ({ ...m, isTradable: true })) as ValidatedMarket[];
+      return applyStatus(MARKETS.map((m) => ({ ...m, isTradable: true })) as ValidatedMarket[]);
     }
-    return validateNarrativeMarkets(MARKETS, activeSymbols);
+    return applyStatus(validateNarrativeMarkets(MARKETS, activeSymbols));
   }, [activeSymbols]);
 
   return {

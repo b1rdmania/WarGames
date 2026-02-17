@@ -14,6 +14,7 @@ export interface PearMarketConfig {
   name: string;
   description: string;
   category: 'geopolitical' | 'tech' | 'macro' | 'crypto';
+  status?: 'live' | 'paused';
   // Simple pairs (backward compatible)
   pairs?: {
     long: string;
