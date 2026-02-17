@@ -201,6 +201,25 @@ export default function TradeClient() {
             <div style={{ color: 'var(--loss)' }}>INSUFFICIENT MARGIN FOR THIS SIZE</div>
           ) : null}
         </div>
+        <div style={{ marginTop: '8px', color: 'var(--text-muted)', fontSize: '10px', lineHeight: 1.5 }}>
+          EXECUTION BY PEAR PROTOCOL · SETTLEMENT ON HYPERLIQUID
+        </div>
+        <a
+          href="https://docs.pearprotocol.io"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: 'inline-block',
+            marginTop: '4px',
+            color: 'var(--primary)',
+            fontSize: '10px',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            textDecoration: 'none',
+          }}
+        >
+          LEARN ABOUT PEAR →
+        </a>
         <TerminalButton variant="primary" fullWidth disabled={!selectedMarket || !canExecute}>
           EXECUTE POSITION
         </TerminalButton>

@@ -77,6 +77,25 @@ export default function AboutPage() {
               weighted and ready. Pear executes both sides atomically on Hyperliquid. You hold a view, not six tickets.
             </p>
           </div>
+
+          <div className={styles.sectionGap20}>
+            <div className={styles.sectionLabel}>PEAR EXECUTION</div>
+            <p className={styles.body}>
+              WAR.MARKET is the thesis layer. Pear Protocol is the execution layer. Every trade you place here routes
+              through Pear, with settlement on Hyperliquid.
+            </p>
+            <div className={styles.links}>
+              <a href="https://docs.pearprotocol.io" target="_blank" rel="noreferrer" className={styles.link}>
+                Pear docs
+              </a>
+              <a href="https://www.pear.garden/" target="_blank" rel="noreferrer" className={styles.link}>
+                Pear Protocol
+              </a>
+              <a href="https://hyperliquid.xyz" target="_blank" rel="noreferrer" className={styles.link}>
+                Hyperliquid
+              </a>
+            </div>
+          </div>
         </section>
 
         <section className={styles.sell}>
