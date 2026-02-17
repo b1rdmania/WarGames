@@ -20,7 +20,6 @@ import {
   TerminalKVRow,
   TerminalSegment,
   TerminalSizeRow,
-  TerminalNote,
   TerminalSessionBadge,
 } from '@/components/terminal';
 import { usePear } from '@/contexts/PearContext';
@@ -48,6 +47,7 @@ export default function TradeClient() {
   const [leverage, setLeverage] = useState(
     effectiveMarkets?.[0]?.effectiveLeverage ?? effectiveMarkets?.[0]?.leverage ?? 1
   );
+  const [showQuickSizes, setShowQuickSizes] = useState(false);
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
@@ -60,10 +60,6 @@ export default function TradeClient() {
     Boolean(selectedMarket && selectedMarket.isTradable) &&
     size > 0 &&
     (availableMargin === null || size <= availableMargin);
-  const sizePct =
-    availableMargin && availableMargin > 0
-      ? Math.min(100, Math.max(1, Math.round((size / availableMargin) * 100)))
-      : 0;
 
   // Right pane content based on auth state
   const renderRightPane = () => {
@@ -125,8 +121,9 @@ export default function TradeClient() {
           onChange={(v) => setSide(v as 'YES' | 'NO')}
         />
         <div style={{ marginTop: '10px' }}>
-          <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px' }}>
-            AVAILABLE MARGIN {availableMargin !== null ? `$${availableMargin.toFixed(2)}` : '—'}
+          <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px', display: 'flex', justifyContent: 'space-between' }}>
+            <span>SIZE (USDC)</span>
+            <span>AVAIL {availableMargin !== null ? `$${availableMargin.toFixed(2)}` : '—'}</span>
           </div>
           <input
             type="number"
@@ -152,29 +149,33 @@ export default function TradeClient() {
             }}
           />
           <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px' }}>
-            POSITION SIZE (USDC)
+            ENTER MARGIN SIZE TO DEPLOY
           </div>
         </div>
-        <TerminalSizeRow sizes={[10, 25, 50]} value={size} onChange={setSize} />
-        <div style={{ marginTop: '10px' }}>
-          <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px' }}>
-            SIZE ALLOCATION {availableMargin ? `${sizePct}%` : '—'}
-          </div>
-          <input
-            type="range"
-            min={1}
-            max={100}
-            step={1}
-            value={Math.max(1, sizePct)}
-            disabled={!availableMargin || availableMargin <= 0}
-            onChange={(e) => {
-              if (!availableMargin || availableMargin <= 0) return;
-              const pct = Number(e.target.value);
-              if (!Number.isFinite(pct)) return;
-              setSize(Math.max(1, Math.round((availableMargin * pct) / 100)));
+        <div style={{ marginTop: '8px' }}>
+          <button
+            type="button"
+            onClick={() => setShowQuickSizes((v) => !v)}
+            style={{
+              width: '100%',
+              border: '1px solid var(--border)',
+              background: 'var(--bg-warm)',
+              color: 'var(--text-secondary)',
+              padding: '8px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '11px',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
             }}
-            style={{ width: '100%', accentColor: 'var(--primary)' }}
-          />
+          >
+            {showQuickSizes ? 'HIDE QUICK SIZES' : 'QUICK SIZES'}
+          </button>
+          {showQuickSizes ? (
+            <div style={{ marginTop: '8px' }}>
+              <TerminalSizeRow sizes={[10, 25, 50]} value={size} onChange={setSize} />
+            </div>
+          ) : null}
         </div>
         {selectedMarket && (
           <div style={{ marginTop: '10px' }}>
@@ -190,24 +191,19 @@ export default function TradeClient() {
               onChange={(e) => setLeverage(Number(e.target.value))}
               style={{ width: '100%', accentColor: 'var(--primary)' }}
             />
-            <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px' }}>
-              MAX PERMITTED: {maxPermittedLeverage}x
-            </div>
           </div>
         )}
         <div style={{ marginTop: '10px', color: 'var(--text-muted)', fontSize: '10px', lineHeight: 1.5 }}>
-          <div>NOTIONAL EXPOSURE: ${notional.toFixed(2)}</div>
+          <div>
+            NOTIONAL ${notional.toFixed(2)} · MAX {maxPermittedLeverage}x
+          </div>
           {availableMargin !== null && size > availableMargin ? (
             <div style={{ color: 'var(--loss)' }}>INSUFFICIENT MARGIN FOR THIS SIZE</div>
           ) : null}
         </div>
-        <TerminalButton fullWidth disabled={!selectedMarket || !canExecute}>
-          ARM THESIS
-        </TerminalButton>
         <TerminalButton variant="primary" fullWidth disabled={!selectedMarket || !canExecute}>
           EXECUTE POSITION
         </TerminalButton>
-        <TerminalNote>PRESS ENTER TO CONFIRM</TerminalNote>
       </>
     );
   };
