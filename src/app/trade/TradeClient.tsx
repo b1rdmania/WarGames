@@ -96,10 +96,13 @@ export default function TradeClient() {
     return (
       <>
         <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
+        <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>
+          DIRECTION
+        </div>
         <TerminalSegment
           options={[
-            { value: 'YES', label: 'YES' },
-            { value: 'NO', label: 'NO' },
+            { value: 'YES', label: 'YES / THESIS' },
+            { value: 'NO', label: 'NO / FADE' },
           ]}
           value={side}
           onChange={(v) => setSide(v as 'YES' | 'NO')}
@@ -202,7 +205,7 @@ export default function TradeClient() {
           items={[
             { label: 'SESSION', value: isAuthenticated ? 'OPERATOR' : 'BROWSE' },
             { label: 'BALANCE', value: isAuthenticated && perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '—' },
-            { label: 'STATE', value: isAuthenticated ? (side === 'YES' ? 'THESIS ARMED' : 'HEDGE MODE') : 'READ-ONLY' },
+            { label: 'STATE', value: isAuthenticated ? (side === 'YES' ? 'THESIS ARMED' : 'FADE MODE') : 'READ-ONLY' },
             { label: 'OPERATOR', value: address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'GUEST' },
           ]}
         />

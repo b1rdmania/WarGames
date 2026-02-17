@@ -77,7 +77,7 @@ export default function MarketsClient() {
                 />
                 <TerminalKVRow
                   label="STATUS"
-                  value={selectedMarket.isTradable ? 'ACTIVE' : 'INACTIVE'}
+                  value={selectedMarket.isTradable ? 'LIVE' : 'PAUSED'}
                 />
                 <TerminalKVRow
                   label="LONG"

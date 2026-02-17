@@ -40,19 +40,19 @@ export function RiskLanding() {
           <p className={styles.tagline}>THE GLOBAL TENSION TERMINAL</p>
 
           <p className={styles.subtitle}>
-            Geopolitical chaos becomes tradeable positions.<br />
+            Macro stress becomes tradable positions.<br />
             Taiwan invasion. Oil shock. AI collapse. One click.
           </p>
 
           <div className={styles.badge}>
             <img src={GC.trophy} width={20} height={20} alt="" />
-            <span className={styles.badgeText}>HYPERLIQUID HACKATHON WINNER</span>
+            <span className={styles.badgeText}>HACKATHON WINNER</span>
           </div>
 
           <div className={styles.ctaGrid}>
-            <Link href="/trade">
+            <Link href="/markets">
               <TerminalButton fullWidth>
-                VIEW THE THESES
+                BROWSE MARKETS
               </TerminalButton>
             </Link>
             <Link href="/trade">

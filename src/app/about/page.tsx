@@ -51,7 +51,7 @@ export default function AboutPage() {
           </div>
 
           <p className={styles.body}>
-            A terminal for trading global stress. Narrative baskets executed via Pear on Hyperliquid.
+            Trade global stress through narrative long/short baskets. Powered by Pear Protocol. Settled on Hyperliquid.
           </p>
 
           <div className={styles.sectionGap24}>
@@ -60,8 +60,9 @@ export default function AboutPage() {
               THE PROBLEM
             </div>
             <p className={styles.body}>
-              Trading global risk is fragmented. Oil, FX, tech beta, and &quot;risk-off&quot; all live in separate silos.
-              You react to noise instead of the signal.
+              Global risk moves in one piece. The assets that respond to it don&apos;t.
+              A Taiwan crisis hits chips, defence stocks, shipping, and safe havens at once — but you trade each one separately.
+              By the time you&apos;ve built the position, the move is over.
             </p>
           </div>
 
@@ -71,8 +72,8 @@ export default function AboutPage() {
               THE RESPONSE
             </div>
             <p className={styles.body}>
-              WAR.MARKET creates one view. You see the stress signal. You trade the stress signal.
-              No interpretation layer — just volatility packaged into clear long/short structures.
+              WAR.MARKET gives you one button. Pick a thesis and the basket is already built — long legs, short legs,
+              weighted and ready. Pear executes both sides atomically on Hyperliquid. You hold a view, not six tickets.
             </p>
           </div>
         </section>
@@ -110,9 +111,9 @@ export default function AboutPage() {
           <div className={styles.sectionGap20}>
             <div className={styles.sectionLabel}>WHO IT&apos;S FOR</div>
             <div className={styles.body}>
-              <div>▸ Traders who want a clean signal</div>
-              <div>▸ Macro hedges without TradFi rails</div>
-              <div>▸ Degens who prefer one button and a thesis</div>
+              <div>▸ Macro traders tired of leg-by-leg execution</div>
+              <div>▸ Hedgers who want exposure without TradFi rails</div>
+              <div>▸ Anyone with a thesis and a wallet</div>
             </div>
           </div>
 
@@ -156,13 +157,10 @@ export default function AboutPage() {
             </li>
             <li className={styles.done}>✓ Launch on Pear Protocol mainnet</li>
             <li>UX redesign for production</li>
-            <li>Quant rationale per basket (weights + risk briefs)</li>
+            <li>Quant rationale per basket</li>
             <li>Charts from Hyperliquid</li>
             <li>Community market creation</li>
-            <li>
-              <img src={GC.explosion} width={14} height={14} alt="" />
-              Go LIVE
-            </li>
+            <li>Go live</li>
             <li>
               <img src={GC.moneyBag} width={14} height={14} alt="" />
               $WAR token
