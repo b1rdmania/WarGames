@@ -1,0 +1,168 @@
+/* About page — custom layout using named grid areas.
+   Desktop: 3 columns (meta | story + roadmap | sell)
+   Mobile:  single column in conversion order (story → sell → meta → roadmap)
+*/
+
+.grid {
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  min-height: 62vh;
+  display: grid;
+  grid-template-columns: 260px 1fr 300px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "meta  story   sell"
+    "meta  roadmap sell";
+}
+
+/* Sections */
+.meta {
+  grid-area: meta;
+  padding: 16px;
+  border-right: 1px solid var(--border);
+}
+
+.story {
+  grid-area: story;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sell {
+  grid-area: sell;
+  padding: 16px;
+  border-left: 1px solid var(--border);
+}
+
+.roadmap {
+  grid-area: roadmap;
+  padding: 16px;
+}
+
+/* Shared typography */
+.sectionLabel {
+  color: var(--primary);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.body {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+/* Sell block */
+.sellCard {
+  border: 1px solid var(--border);
+  background: var(--bg-deep);
+  padding: 20px 16px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.sellBadge {
+  color: var(--primary);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0 12px;
+}
+
+.sellStats {
+  color: var(--text-secondary);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.ctaStack {
+  display: grid;
+  gap: 8px;
+}
+
+/* Roadmap list */
+.roadmapList {
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 2;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.roadmapList li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.done {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.separator {
+  color: var(--text-muted);
+  margin: 4px 0;
+  font-size: 11px;
+}
+
+/* Links */
+.links {
+  display: grid;
+  gap: 4px;
+}
+
+.link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Mobile — hide command bar, reorder sections */
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "story"
+      "sell"
+      "meta"
+      "roadmap";
+    min-height: unset;
+  }
+
+  .meta,
+  .story,
+  .sell,
+  .roadmap {
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .roadmap {
+    border-bottom: none;
+  }
+
+  .story {
+    border-bottom: 1px solid var(--border);
+  }
+}
