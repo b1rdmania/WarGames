@@ -4,6 +4,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { closePosition } from '@/integrations/pear/positions';
 import { getMarketById } from '@/integrations/pear/markets';
+import { getPearPositionUrl } from '@/integrations/pear/links';
 import type { PearPosition } from '@/integrations/pear/types';
 
 function cleanCoin(raw?: string): string | null {
@@ -180,7 +181,7 @@ export function PositionCard({
       <div className="flex items-center justify-between text-[11px] text-text-muted mb-4 border-t border-border-subtle pt-3">
         <span>Opened {timeDisplay}</span>
         <a
-          href="https://app.pear.garden/dashboard"
+          href={getPearPositionUrl(position.id)}
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary hover:underline"
