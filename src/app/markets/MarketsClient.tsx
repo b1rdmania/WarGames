@@ -74,7 +74,7 @@ export default function MarketsClient() {
                 />
                 <TerminalKVRow
                   label="LEVERAGE"
-                  value={`${selectedMarket.leverage}x`}
+                  value={`${selectedMarket.effectiveLeverage ?? selectedMarket.leverage}x`}
                 />
                 <TerminalKVRow
                   label="STATUS"

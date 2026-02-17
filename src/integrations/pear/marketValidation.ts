@@ -5,54 +5,67 @@ export type ValidatedMarket = PearMarketConfig & {
   unavailableReason?: string;
   resolvedPairs?: ResolvedPairs;
   resolvedBasket?: ResolvedBasket;
+  maxAllowedLeverage?: number;
+  effectiveLeverage: number;
 };
 
-function pickFallbackPair(symbols: Set<string>): ResolvedPairs {
-  // Best default for a hackathon demo: almost always available.
-  if (symbols.has('BTC') && symbols.has('ETH')) return { long: 'BTC', short: 'ETH' };
-  if (symbols.has('ETH') && symbols.has('BTC')) return { long: 'ETH', short: 'BTC' };
+function normalized(symbol: string): string {
+  return symbol.trim().toUpperCase();
+}
 
-  const list = Array.from(symbols);
-  if (list.length >= 2) return { long: list[0], short: list[1] };
+function base(symbol: string): string {
+  return normalized(symbol).split(':').pop() ?? normalized(symbol);
+}
 
-  // Absolute last resort. Even if validation failed, this keeps the UI coherent.
-  return { long: 'BTC', short: 'ETH' };
+function lookupCap(symbol: string, leverageCaps: Map<string, number>): number | undefined {
+  return leverageCaps.get(normalized(symbol)) ?? leverageCaps.get(base(symbol));
 }
 
 export function validateNarrativeMarkets(
   markets: PearMarketConfig[],
-  activeSymbols: Set<string>
+  activeSymbols: Set<string>,
+  leverageCaps: Map<string, number> = new Map()
 ): ValidatedMarket[] {
-  // Normalize symbol set ONCE outside the loop
   const activeUpper = activeSymbols.size
-    ? new Set(Array.from(activeSymbols).map((s) => s.toUpperCase()))
+    ? new Set(
+        Array.from(activeSymbols).flatMap((s) => {
+          const up = s.toUpperCase();
+          return [up, up.split(':').pop() ?? up];
+        })
+      )
     : new Set<string>();
 
   return markets.map((m) => {
-    // Basket markets: validate each leg. IMPORTANT: never swap the basket to a fallback,
-    // since that can cause users to trade the wrong underlying.
     if (m.basket) {
       const missing: string[] = [];
       for (const a of m.basket.long) {
-        if (!activeUpper.has(a.asset.toUpperCase())) missing.push(a.asset);
+        if (!activeUpper.has(a.asset.toUpperCase()) && !activeUpper.has(base(a.asset))) missing.push(a.asset);
       }
       for (const a of m.basket.short) {
-        if (!activeUpper.has(a.asset.toUpperCase())) missing.push(a.asset);
+        if (!activeUpper.has(a.asset.toUpperCase()) && !activeUpper.has(base(a.asset))) missing.push(a.asset);
       }
 
       const ok = missing.length === 0;
+      const legs = [...m.basket.long.map((a) => a.asset), ...m.basket.short.map((a) => a.asset)];
+      const perLegCaps = legs
+        .map((s) => lookupCap(s, leverageCaps))
+        .filter((v): v is number => typeof v === 'number');
+      const maxAllowedLeverage = perLegCaps.length === legs.length ? Math.max(1, Math.floor(Math.min(...perLegCaps))) : undefined;
+      const effectiveLeverage = maxAllowedLeverage ? Math.min(m.leverage, maxAllowedLeverage) : m.leverage;
+
       return {
         ...m,
         resolvedBasket: { ...m.basket },
         isTradable: ok,
         unavailableReason: ok ? undefined : `Inactive/unsupported leg(s): ${Array.from(new Set(missing)).join(', ')}`,
+        maxAllowedLeverage,
+        effectiveLeverage,
       };
     }
 
-    // Pair markets (backward compatible)
     if (m.pairs) {
-      const longOk = activeUpper.has(m.pairs.long.toUpperCase());
-      const shortOk = activeUpper.has(m.pairs.short.toUpperCase());
+      const longOk = activeUpper.has(m.pairs.long.toUpperCase()) || activeUpper.has(base(m.pairs.long));
+      const shortOk = activeUpper.has(m.pairs.short.toUpperCase()) || activeUpper.has(base(m.pairs.short));
       const ok = longOk && shortOk;
 
       const missing = [
@@ -60,20 +73,29 @@ export function validateNarrativeMarkets(
         ...(shortOk ? [] : [`${m.pairs.short}`]),
       ];
 
+      const longCap = lookupCap(m.pairs.long, leverageCaps);
+      const shortCap = lookupCap(m.pairs.short, leverageCaps);
+      const maxAllowedLeverage =
+        typeof longCap === 'number' && typeof shortCap === 'number'
+          ? Math.max(1, Math.floor(Math.min(longCap, shortCap)))
+          : undefined;
+      const effectiveLeverage = maxAllowedLeverage ? Math.min(m.leverage, maxAllowedLeverage) : m.leverage;
+
       return {
         ...m,
         resolvedPairs: { ...m.pairs },
         isTradable: ok,
         unavailableReason: ok ? undefined : (missing.length ? `Inactive/unsupported leg(s): ${missing.join(', ')}` : 'Inactive/unsupported pair'),
+        maxAllowedLeverage,
+        effectiveLeverage,
       };
     }
 
-    // No pairs/basket: invalid config
     return {
       ...m,
       isTradable: false,
       unavailableReason: 'Invalid market config (no pairs/basket)',
+      effectiveLeverage: m.leverage,
     };
   });
 }
-

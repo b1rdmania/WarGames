@@ -65,7 +65,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
           <TerminalThesis>{overview}</TerminalThesis>
           <TerminalKV>
             <TerminalKVRow label="CATEGORY" value={market.category?.toUpperCase() || 'N/A'} />
-            <TerminalKVRow label="LEVERAGE" value={`${market.leverage}x`} />
+            <TerminalKVRow label="LEVERAGE" value={`${market.effectiveLeverage ?? market.leverage}x`} />
             <TerminalKVRow label="STATUS" value={market.isTradable ? 'LIVE' : 'PAUSED'} />
           </TerminalKV>
           {narrative?.why && (
@@ -149,7 +149,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
         <TerminalStatusBar
           items={[
             { label: 'MARKET', value: market.id.toUpperCase().replace(/-/g, '_') },
-            { label: 'LEVERAGE', value: `${market.leverage}x` },
+            { label: 'LEVERAGE', value: `${market.effectiveLeverage ?? market.leverage}x` },
             { label: 'MODE', value: 'INTEL' },
             { label: 'STATUS', value: market.isTradable ? 'LIVE' : 'PAUSED' },
           ]}

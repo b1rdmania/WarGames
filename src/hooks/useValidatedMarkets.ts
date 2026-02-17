@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { MARKETS } from '@/integrations/pear/markets';
-import { getActiveAssetSymbols } from '@/integrations/pear/activeMarkets';
+import { getActiveMarketDiscovery } from '@/integrations/pear/activeMarkets';
 import { validateNarrativeMarkets, type ValidatedMarket } from '@/integrations/pear/marketValidation';
 
 function buildConfiguredAssetSet(): Set<string> {
@@ -22,22 +22,25 @@ function buildConfiguredAssetSet(): Set<string> {
 
 export function useValidatedMarkets() {
   const [activeSymbols, setActiveSymbols] = useState<Set<string> | null>(null);
+  const [leverageCaps, setLeverageCaps] = useState<Map<string, number>>(new Map());
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     let mounted = true;
-    getActiveAssetSymbols()
-      .then((s) => {
+    getActiveMarketDiscovery()
+      .then((discovery) => {
         if (!mounted) return;
+        setLeverageCaps(discovery.maxLeverageBySymbol);
         // Degraded mode: if discovery returns empty, keep configured markets tradable
         // instead of hard-disabling the whole board.
-        setActiveSymbols(s.size > 0 ? s : buildConfiguredAssetSet());
+        setActiveSymbols(discovery.symbols.size > 0 ? discovery.symbols : buildConfiguredAssetSet());
       })
       .catch((e) => {
         if (!mounted) return;
         setError(e as Error);
         // Degraded mode on discovery failure: preserve canonical configured markets.
         setActiveSymbols(buildConfiguredAssetSet());
+        setLeverageCaps(new Map());
       });
     return () => {
       mounted = false;
@@ -52,10 +55,12 @@ export function useValidatedMarkets() {
 
     if (activeSymbols === null) {
       // Optimistic default: show canonical baskets/pairs immediately; tradability is unknown until validated.
-      return applyStatus(MARKETS.map((m) => ({ ...m, isTradable: true })) as ValidatedMarket[]);
+      return applyStatus(
+        MARKETS.map((m) => ({ ...m, isTradable: true, effectiveLeverage: m.leverage })) as ValidatedMarket[]
+      );
     }
-    return applyStatus(validateNarrativeMarkets(MARKETS, activeSymbols));
-  }, [activeSymbols]);
+    return applyStatus(validateNarrativeMarkets(MARKETS, activeSymbols, leverageCaps));
+  }, [activeSymbols, leverageCaps]);
 
   return {
     markets,

@@ -19,6 +19,8 @@ export function TradingPanel({
       resolvedBasket?: ResolvedBasket;
       isTradable?: boolean;
       unavailableReason?: string;
+      effectiveLeverage?: number;
+      maxAllowedLeverage?: number;
     }
   >;
   balance: string | null;
@@ -47,6 +49,7 @@ export function TradingPanel({
 
   const effectivePairs = market.resolvedPairs ?? market.pairs;
   const effectiveBasket = market.resolvedBasket ?? market.basket;
+  const leverage = market.effectiveLeverage ?? market.leverage;
 
   const longLabel =
     effectivePairs?.long ?? (effectiveBasket ? formatBasketLabel(effectiveBasket.long) : '—');
@@ -98,7 +101,7 @@ export function TradingPanel({
           </div>
           <div className="tm-row">
             <div className="tm-k">Leverage</div>
-            <div className="tm-v text-pear-lime">{market.leverage}x</div>
+            <div className="tm-v text-pear-lime">{leverage}x</div>
           </div>
         </div>
 
@@ -161,7 +164,7 @@ export function TradingPanel({
           <div className="tm-row">
             <div className="tm-k">Notional</div>
             <div className="tm-v">
-              ${amountNum && market.leverage ? (amountNum * market.leverage).toFixed(2) : '0.00'}
+              ${amountNum && leverage ? (amountNum * leverage).toFixed(2) : '0.00'}
             </div>
           </div>
         </div>
@@ -177,7 +180,7 @@ export function TradingPanel({
                   marketId: market.id,
                   side,
                   amount,
-                  leverage: market.leverage,
+                  leverage,
                   resolvedPairs: market.resolvedPairs,
                   resolvedBasket: market.resolvedBasket,
                 });

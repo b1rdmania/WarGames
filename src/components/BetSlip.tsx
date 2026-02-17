@@ -74,6 +74,7 @@ export function BetSlip({
 
   const resolvedPairs = market.resolvedPairs ?? market.pairs;
   const resolvedBasket = market.resolvedBasket ?? market.basket;
+  const leverage = market.effectiveLeverage ?? market.leverage;
 
   const longLeg =
     resolvedPairs?.long ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.long) : '—');
@@ -213,7 +214,7 @@ export function BetSlip({
                   marketId: market.id,
                   side,
                   amount,
-                  leverage: market.leverage,
+                  leverage,
                   resolvedPairs: market.resolvedPairs,
                   resolvedBasket: market.resolvedBasket,
                 });
@@ -246,4 +247,3 @@ export function BetSlip({
     </div>
   );
 }
-

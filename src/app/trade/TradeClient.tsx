@@ -45,6 +45,9 @@ export default function TradeClient() {
   const [selectedMarketId, setSelectedMarketId] = useState<string | null>(effectiveMarkets?.[0]?.id ?? null);
   const [side, setSide] = useState<'YES' | 'NO'>('YES');
   const [size, setSize] = useState(25);
+  const [leverage, setLeverage] = useState(
+    effectiveMarkets?.[0]?.effectiveLeverage ?? effectiveMarkets?.[0]?.leverage ?? 1
+  );
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
@@ -109,6 +112,25 @@ export default function TradeClient() {
           onChange={(v) => setSide(v as 'YES' | 'NO')}
         />
         <TerminalSizeRow sizes={[10, 25, 50]} value={size} onChange={setSize} />
+        {selectedMarket && (
+          <div style={{ marginTop: '10px' }}>
+            <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px' }}>
+              LEVERAGE {leverage}x
+            </div>
+            <input
+              type="range"
+              min={1}
+              max={selectedMarket.maxAllowedLeverage ?? selectedMarket.effectiveLeverage ?? selectedMarket.leverage}
+              step={1}
+              value={leverage}
+              onChange={(e) => setLeverage(Number(e.target.value))}
+              style={{ width: '100%' }}
+            />
+            <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px' }}>
+              MAX PERMITTED: {(selectedMarket.maxAllowedLeverage ?? selectedMarket.effectiveLeverage ?? selectedMarket.leverage)}x
+            </div>
+          </div>
+        )}
         <TerminalButton fullWidth disabled={!selectedMarket}>
           ARM THESIS
         </TerminalButton>
@@ -137,7 +159,10 @@ export default function TradeClient() {
                 code={market.id.toUpperCase().replace(/-/g, '_')}
                 status={market.isTradable ? 'LIVE' : 'PAUSED'}
                 active={selectedMarketId === market.id}
-                onClick={() => setSelectedMarketId(market.id)}
+                onClick={() => {
+                  setSelectedMarketId(market.id);
+                  setLeverage(market.effectiveLeverage ?? market.leverage);
+                }}
               />
             ))}
           </TerminalMarketList>
@@ -171,7 +196,7 @@ export default function TradeClient() {
                       : '—'
                   }
                 />
-                <TerminalKVRow label="LEVERAGE" value={`${selectedMarket.leverage}x`} />
+                <TerminalKVRow label="LEVERAGE" value={`${selectedMarket.effectiveLeverage ?? selectedMarket.leverage}x`} />
                 <TerminalKVRow label="CATEGORY" value={selectedMarket.category?.toUpperCase() || 'N/A'} />
               </TerminalKV>
               <div style={{ marginTop: '16px' }}>

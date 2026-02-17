@@ -72,6 +72,7 @@ export function BetSlipPanel({
 
   const resolvedPairs = market.resolvedPairs ?? market.pairs;
   const resolvedBasket = market.resolvedBasket ?? market.basket;
+  const leverage = market.effectiveLeverage ?? market.leverage;
 
   const longLeg = resolvedPairs?.long?.split(':').pop() ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.long) : '—');
   const shortLeg = resolvedPairs?.short?.split(':').pop() ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
@@ -88,7 +89,7 @@ export function BetSlipPanel({
       <div className={styles.header}>
         <div className={styles.headerInfo}>
           <div className={styles.marketName}>{market.name}</div>
-          <div className={styles.leverage}>{market.leverage}x leverage</div>
+          <div className={styles.leverage}>{leverage}x leverage</div>
         </div>
         <button onClick={onClear} className={styles.clearBtn}>
           Clear
@@ -230,7 +231,7 @@ export function BetSlipPanel({
               marketId: market.id,
               side,
               amount,
-              leverage: market.leverage,
+              leverage,
               resolvedPairs: market.resolvedPairs,
               resolvedBasket: market.resolvedBasket,
             });
