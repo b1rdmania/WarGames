@@ -6,7 +6,12 @@
   background: var(--bg-deep);
   color: var(--text-primary);
   font-family: var(--font-mono);
-  padding: 12px;
+  box-sizing: border-box;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+  overflow-x: hidden;
 }
 
 /* Navigation Bar */

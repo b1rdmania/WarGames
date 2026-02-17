@@ -16,7 +16,7 @@
 /* Hero Section */
 .hero {
   text-align: center;
-  max-width: 800px;
+  width: min(100%, 800px);
   margin: 0 auto;
 }
 
@@ -79,10 +79,13 @@
 
 .ctaGrid {
   display: grid;
+  width: min(100%, 520px);
   grid-template-columns: repeat(2, minmax(0, 240px));
   gap: 12px;
   justify-content: center;
   margin-bottom: 24px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ctaGrid a {
@@ -207,6 +210,7 @@
   }
 
   .ctaGrid {
+    width: min(100%, 320px);
     grid-template-columns: 1fr;
     max-width: 300px;
     margin-left: auto;
