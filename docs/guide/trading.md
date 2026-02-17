@@ -28,9 +28,11 @@ If you have $500 in your agent wallet and open a $100 position, you have $400 re
 
 ## Leverage
 
-Each market has fixed leverage. You can't adjust it.
+Leverage is adjustable in the trade ticket.
 
-| Market type | Typical leverage |
+Each market has a maximum permitted leverage based on its underlying legs. You can choose any value from 1x up to that cap.
+
+| Market type | Typical max leverage |
 |-------------|------------------|
 | Crypto pairs | 2x |
 | Geopolitical | 2–3x |
