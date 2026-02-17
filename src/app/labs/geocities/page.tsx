@@ -81,7 +81,7 @@ export default function GeoCitiesLabPage() {
 
       <div className={styles.features}>
         {[
-          { icon: GC.globeSmall, title: '[THE SIGNAL]', text: 'Oil, rates, tech, war. Its all one regime!! WAR.MARKET collapses the noise into readable stress baskets.' },
+          { icon: GC.globeLarge, title: '[THE SIGNAL]', text: 'Oil, rates, tech, war. Its all one regime!! WAR.MARKET collapses the noise into readable stress baskets.' },
           { icon: GC.computer, title: '[HOW IT TRADES]', text: 'You sign once. Pear spins up an agent wallet and executes the basket legs non-custodially. EASY!!!' },
           { icon: GC.moneyBag, title: '[THE MARKETS]', text: 'Pick a narrative like Taiwan Crisis or AI Bubble Pop. Click YES or NO. Boom. Position opened. LFG!!' },
         ].map((item) => (

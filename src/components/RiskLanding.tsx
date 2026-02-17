@@ -7,7 +7,6 @@ import {
   TerminalButton,
   TerminalStatusBar,
 } from '@/components/terminal';
-import { WarMark } from './WarMark';
 import { GC } from '@/app/labs/geocities-gifs';
 import styles from './RiskLanding.module.css';
 
@@ -29,7 +28,7 @@ export function RiskLanding() {
       <div className={styles.terminal}>
         <section className={styles.hero}>
           <div className={styles.logoMark}>
-            <WarMark size={80} />
+            <img src={GC.globeLarge} width={120} height={120} alt="" />
           </div>
 
           <div className={styles.titleWrapper}>

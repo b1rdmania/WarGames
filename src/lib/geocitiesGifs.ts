@@ -36,7 +36,6 @@ export const GC = {
 
   // Globe
   globeLarge: `${B}46IFPABPKDVU6GGCYOFNROALJJEZ465G.gif`,
-  globeSmall: `${B}2BDK66BWLK42ADEG52TMSEUEDO6IZDTX.gif`,
   globeAlt: `${B}3KM6MPL6QJCV36EATD5G4WBTM67XNG5R.gif`,
 
   // Money / gold

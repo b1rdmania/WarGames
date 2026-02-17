@@ -26,7 +26,6 @@ export const GC = {
 
   // Globe
   globeLarge: '/gifs/globeLarge.gif',
-  globeSmall: '/gifs/globeSmall.gif',
 
   // Money / gold
   coin: '/gifs/coin.gif',

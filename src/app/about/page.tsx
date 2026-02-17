@@ -82,7 +82,7 @@ export default function AboutPage() {
 
           <div style={{ marginTop: '20px' }}>
             <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
-              <img src={GC.globeSmall} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
+              <img src={GC.globeLarge} width={14} height={14} alt="" style={{ verticalAlign: 'middle', marginRight: '6px' }} />
               LINKS
             </div>
             <div style={{ color: '#a8b4af', fontSize: '12px', display: 'grid', gap: '4px' }}>
