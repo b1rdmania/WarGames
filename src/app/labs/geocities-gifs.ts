@@ -39,6 +39,24 @@ export const GC = {
   // Computer / tech
   computer: '/gifs/computer.gif',
 
+  // New downloads
+  missile2      : '/gifs/missile2.gif',
+  bomb          : '/gifs/bomb.gif',
+  tank          : '/gifs/tank.gif',
+  nuclear       : '/gifs/nuclear.gif',
+  skull         : '/gifs/skull.gif',
+  radar         : '/gifs/radar.gif',
+  target        : '/gifs/target.gif',
+  satellite     : '/gifs/satellite.gif',
+  dollar        : '/gifs/dollar.gif',
+  chart         : '/gifs/chart.gif',
+  crash         : '/gifs/crash.gif',
+  eagle         : '/gifs/eagle.gif',
+  atom          : '/gifs/atom.gif',
+  siren         : '/gifs/siren.gif',
+  lightning     : '/gifs/lightning.gif',
+  countdown     : '/gifs/countdown.gif',
+
   // War themes (aliases of working GIFs)
   blast: '/gifs/blast.gif',        // explosion
   alert: '/gifs/alert.gif',        // fireSmall
