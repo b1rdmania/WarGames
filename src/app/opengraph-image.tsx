@@ -22,9 +22,7 @@ export default function Image() {
         }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={`${BASE}/gifs/globeLarge.gif`} width={220} height={220} alt="" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={`${BASE}/gifs/fire1.gif`} width={220} height={220} alt="" />
+        <img src={`${BASE}/gifs/fire1.gif`} width={500} height={500} alt="" />
       </div>
     ),
     { ...size },
