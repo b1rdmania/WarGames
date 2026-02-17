@@ -10,7 +10,7 @@ function SpeakerIcon({ muted }: { muted: boolean }) {
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M11 5L6.5 9H3v6h3.5L11 19V5z"
-        stroke={muted ? 'var(--text-muted)' : 'var(--primary)'}
+        stroke={muted ? 'var(--loss)' : 'currentColor'}
         strokeWidth="2"
         strokeLinejoin="round"
       />
@@ -18,7 +18,7 @@ function SpeakerIcon({ muted }: { muted: boolean }) {
         <path d="M16 9l5 6M21 9l-5 6" stroke="var(--loss)" strokeWidth="2" strokeLinecap="round" />
       ) : (
         <>
-          <path d="M14.5 8.5c1 .9 1.5 2.1 1.5 3.5s-.5 2.6-1.5 3.5" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" />
+          <path d="M14.5 8.5c1 .9 1.5 2.1 1.5 3.5s-.5 2.6-1.5 3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           <path d="M17.5 6c1.7 1.6 2.5 3.6 2.5 6s-.8 4.4-2.5 6" stroke="var(--secondary)" strokeWidth="2" strokeLinecap="round" />
         </>
       )}
@@ -74,7 +74,7 @@ export function TerminalNav() {
         ))}
         <button
           type="button"
-          className={`${styles.navMusicBtn} ${!muted ? styles.navMusicBtnActive : ''}`}
+          className={`${styles.navMusicBtn} ${styles.navMusicMute} ${muted ? styles.navMusicMuteMuted : styles.navMusicMuteLive}`}
           onClick={() => toggleMuted()}
           aria-label={muted ? 'Unmute music' : 'Mute music'}
           title={muted ? 'Unmute' : 'Mute'}
