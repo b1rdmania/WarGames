@@ -1,7 +1,6 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { usePathname } from 'next/navigation';
 
 type Track = { id: number; url: string; label: string };
 
@@ -28,9 +27,6 @@ const STORAGE_KEYS = {
 };
 
 export function MusicProvider({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const isSplash = pathname === '/';
-
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [selectedTrackId, setSelectedTrackId] = useState<number>(1);
@@ -45,7 +41,6 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     async (nextTrackId: number, nextMuted: boolean) => {
       const audio = audioRef.current;
       if (!audio) return;
-      if (isSplash) return; // splash page: no music
 
       const next = TRACKS.find((t) => t.id === nextTrackId) ?? TRACKS[0];
       try {
@@ -74,22 +69,8 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         }
       }
     },
-    [isSplash]
+    []
   );
-
-  // Load persisted settings once.
-  useEffect(() => {
-    try {
-      // Start muted by default - user can opt in to music
-      setSelectedTrackId(1);
-      setMuted(true);
-      localStorage.setItem(STORAGE_KEYS.trackId, '1');
-      localStorage.setItem(STORAGE_KEYS.muted, 'true');
-    } catch {
-      // ignore
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // Persist changes.
   useEffect(() => {
@@ -109,18 +90,6 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     audio.loop = true;
     audio.volume = 1.0;
     audio.muted = muted;
-
-    // Splash page: always stop/pause (splash has its own splash-only audio).
-    if (isSplash) {
-      try {
-        audio.pause();
-        audio.currentTime = 0;
-        audio.src = '';
-      } catch {
-        // ignore
-      }
-      return;
-    }
 
     // Set source to the selected track.
     if (audio.src !== window.location.origin + selectedTrack.url) {
@@ -166,7 +135,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener('pointerdown', onFirstInteract);
       window.removeEventListener('keydown', onFirstInteract);
     };
-  }, [isSplash, muted, selectedTrack.url]);
+  }, [muted, selectedTrack.url]);
 
   const setTrack = useCallback(
     (id: number) => {
@@ -246,4 +215,3 @@ export function useMusic() {
   if (!ctx) throw new Error('useMusic must be used within MusicProvider');
   return ctx;
 }
-
