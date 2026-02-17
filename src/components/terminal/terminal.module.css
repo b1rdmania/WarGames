@@ -150,10 +150,6 @@
 }
 
 @media (max-width: 640px) {
-  .menu {
-    display: none;
-  }
-
   .nav {
     padding: 10px;
   }
@@ -161,6 +157,34 @@
   .navLink {
     padding: 6px 4px;
     font-size: 11px;
+  }
+
+  .menu {
+    font-size: 11px;
+    padding: 8px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .menuItems {
+    width: 100%;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  .menuRight {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .sessionBadge {
+    min-width: 148px;
+    font-size: 10px;
+    padding: 5px 7px;
+  }
+
+  .sessionMenu {
+    width: 170px;
   }
 }
 

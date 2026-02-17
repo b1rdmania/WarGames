@@ -148,7 +148,7 @@ export default function TradeClient() {
               color: 'var(--text-primary)',
               padding: '10px',
               fontFamily: 'var(--font-mono)',
-              fontSize: '14px',
+              fontSize: '16px',
             }}
           />
           <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px' }}>
@@ -173,7 +173,7 @@ export default function TradeClient() {
               if (!Number.isFinite(pct)) return;
               setSize(Math.max(1, Math.round((availableMargin * pct) / 100)));
             }}
-            style={{ width: '100%' }}
+            style={{ width: '100%', accentColor: 'var(--primary)' }}
           />
         </div>
         {selectedMarket && (
@@ -188,7 +188,7 @@ export default function TradeClient() {
               step={1}
               value={leverage}
               onChange={(e) => setLeverage(Number(e.target.value))}
-              style={{ width: '100%' }}
+              style={{ width: '100%', accentColor: 'var(--primary)' }}
             />
             <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px' }}>
               MAX PERMITTED: {maxPermittedLeverage}x
