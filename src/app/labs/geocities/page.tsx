@@ -26,7 +26,7 @@ export default function GeoCitiesLabPage() {
       {/* Header */}
       <div className={styles.header}>
         <img src={GC.sparkle1} width={40} height={40} alt="" />
-        <img src={GC.starBurst} width={40} height={40} alt="" />
+        <img src={GC.sparkle1} width={40} height={40} alt="" />
         <img src={GC.sparkle1} width={40} height={40} alt="" />
         <br />
         <span className={styles.title}>
@@ -38,7 +38,7 @@ export default function GeoCitiesLabPage() {
         </span>
         <br />
         <img src={GC.sparkle1} width={40} height={40} alt="" />
-        <img src={GC.starBurst} width={40} height={40} alt="" />
+        <img src={GC.sparkle1} width={40} height={40} alt="" />
         <img src={GC.sparkle1} width={40} height={40} alt="" />
       </div>
 

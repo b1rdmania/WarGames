@@ -14,14 +14,16 @@ export const GC = {
   // Stars / sparkles
   sparkle1: '/gifs/sparkle1.gif',
   sparkle2: '/gifs/sparkle2.gif',
-  starBurst: '/gifs/starBurst.gif',
 
   // Under construction
   constructionWorker: '/gifs/constructionWorker.gif',
   newBadge: '/gifs/newBadge.gif',
 
-  // Globe
+  // Globes / world
   globeLarge: '/gifs/globeLarge.gif',
+  globe2: '/gifs/globe2.gif',
+  earthSpin: '/gifs/earthSpin.gif',
+  worldMap: '/gifs/worldMap.gif',
 
   // Money / gold
   coin: '/gifs/coin.gif',

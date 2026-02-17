@@ -110,7 +110,7 @@ export default function MarketsClient() {
       rightPane={
         <>
           <TerminalPaneTitle>
-            <img src={GC.starBurst} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+            <img src={GC.sparkle1} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
             ACTIONS
           </TerminalPaneTitle>
           {selectedMarket && (

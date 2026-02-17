@@ -69,7 +69,7 @@ export default function AboutPage() {
 
           <div className={styles.sectionGap20}>
             <div className={styles.sectionLabel}>
-              <img src={GC.starBurst} width={20} height={20} alt="" />
+              <img src={GC.sparkle1} width={20} height={20} alt="" />
               THE RESPONSE
             </div>
             <p className={styles.body}>
