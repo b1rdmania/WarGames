@@ -51,6 +51,19 @@ export default function TradeClient() {
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
+  const availableMargin = isAuthenticated && perpUsdc ? Math.max(0, Number(perpUsdc)) : null;
+  const maxPermittedLeverage = selectedMarket
+    ? (selectedMarket.maxAllowedLeverage ?? selectedMarket.effectiveLeverage ?? selectedMarket.leverage)
+    : 1;
+  const notional = Number.isFinite(size * leverage) ? size * leverage : 0;
+  const canExecute =
+    Boolean(selectedMarket && selectedMarket.isTradable) &&
+    size > 0 &&
+    (availableMargin === null || size <= availableMargin);
+  const sizePct =
+    availableMargin && availableMargin > 0
+      ? Math.min(100, Math.max(1, Math.round((size / availableMargin) * 100)))
+      : 0;
 
   // Right pane content based on auth state
   const renderRightPane = () => {
@@ -111,7 +124,58 @@ export default function TradeClient() {
           value={side}
           onChange={(v) => setSide(v as 'YES' | 'NO')}
         />
+        <div style={{ marginTop: '10px' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px' }}>
+            AVAILABLE MARGIN {availableMargin !== null ? `$${availableMargin.toFixed(2)}` : '—'}
+          </div>
+          <input
+            type="number"
+            min={1}
+            step={1}
+            value={Number.isFinite(size) ? size : 1}
+            onChange={(e) => {
+              const next = Number(e.target.value);
+              if (!Number.isFinite(next) || next <= 0) {
+                setSize(1);
+                return;
+              }
+              setSize(Math.round(next));
+            }}
+            style={{
+              width: '100%',
+              border: '1px solid var(--border)',
+              background: 'var(--bg-warm)',
+              color: 'var(--text-primary)',
+              padding: '10px',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '14px',
+            }}
+          />
+          <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px' }}>
+            POSITION SIZE (USDC)
+          </div>
+        </div>
         <TerminalSizeRow sizes={[10, 25, 50]} value={size} onChange={setSize} />
+        <div style={{ marginTop: '10px' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px' }}>
+            SIZE ALLOCATION {availableMargin ? `${sizePct}%` : '—'}
+          </div>
+          <input
+            type="range"
+            min={1}
+            max={100}
+            step={1}
+            value={Math.max(1, sizePct)}
+            disabled={!availableMargin || availableMargin <= 0}
+            onChange={(e) => {
+              if (!availableMargin || availableMargin <= 0) return;
+              const pct = Number(e.target.value);
+              if (!Number.isFinite(pct)) return;
+              setSize(Math.max(1, Math.round((availableMargin * pct) / 100)));
+            }}
+            style={{ width: '100%' }}
+          />
+        </div>
         {selectedMarket && (
           <div style={{ marginTop: '10px' }}>
             <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px' }}>
@@ -120,21 +184,27 @@ export default function TradeClient() {
             <input
               type="range"
               min={1}
-              max={selectedMarket.maxAllowedLeverage ?? selectedMarket.effectiveLeverage ?? selectedMarket.leverage}
+              max={maxPermittedLeverage}
               step={1}
               value={leverage}
               onChange={(e) => setLeverage(Number(e.target.value))}
               style={{ width: '100%' }}
             />
             <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px' }}>
-              MAX PERMITTED: {(selectedMarket.maxAllowedLeverage ?? selectedMarket.effectiveLeverage ?? selectedMarket.leverage)}x
+              MAX PERMITTED: {maxPermittedLeverage}x
             </div>
           </div>
         )}
-        <TerminalButton fullWidth disabled={!selectedMarket}>
+        <div style={{ marginTop: '10px', color: 'var(--text-muted)', fontSize: '10px', lineHeight: 1.5 }}>
+          <div>NOTIONAL EXPOSURE: ${notional.toFixed(2)}</div>
+          {availableMargin !== null && size > availableMargin ? (
+            <div style={{ color: 'var(--loss)' }}>INSUFFICIENT MARGIN FOR THIS SIZE</div>
+          ) : null}
+        </div>
+        <TerminalButton fullWidth disabled={!selectedMarket || !canExecute}>
           ARM THESIS
         </TerminalButton>
-        <TerminalButton variant="primary" fullWidth disabled={!selectedMarket}>
+        <TerminalButton variant="primary" fullWidth disabled={!selectedMarket || !canExecute}>
           EXECUTE POSITION
         </TerminalButton>
         <TerminalNote>PRESS ENTER TO CONFIRM</TerminalNote>
