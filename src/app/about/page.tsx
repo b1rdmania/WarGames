@@ -103,12 +103,14 @@ export default function AboutPage() {
 
         <section className={styles.meta}>
           <TerminalPaneTitle>POWERED BY</TerminalPaneTitle>
-          <div className={styles.body}>
-            <div>EXECUTION: Pear Protocol</div>
-            <div>SETTLEMENT: Hyperliquid</div>
+          <div className={styles.metaBlock}>
+            <div className={styles.body}>
+              <div>EXECUTION: Pear Protocol</div>
+              <div>SETTLEMENT: Hyperliquid</div>
+            </div>
           </div>
 
-          <div className={styles.sectionGap20}>
+          <div className={styles.metaBlock}>
             <div className={styles.sectionLabel}>WHO IT&apos;S FOR</div>
             <div className={styles.body}>
               <div>▸ Macro traders tired of leg-by-leg execution</div>
@@ -117,7 +119,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className={styles.sectionGap20}>
+          <div className={styles.metaBlock}>
             <div className={styles.sectionLabel}>BUILT BY</div>
             <div className={styles.body}>
               <a href="https://x.com/b1rdmania" target="_blank" rel="noreferrer" className={styles.link}>
@@ -132,7 +134,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className={styles.sectionGap20}>
+          <div className={styles.metaBlock}>
             <div className={styles.sectionLabel}>LINKS</div>
             <div className={styles.links}>
               <a href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noreferrer" className={styles.link}>
@@ -145,6 +147,10 @@ export default function AboutPage() {
                 Hyperliquid
               </a>
             </div>
+          </div>
+
+          <div className={styles.metaGifFooter}>
+            <img src={GC.coolSite} width={88} height={31} alt="GeoCities cool site badge" />
           </div>
         </section>
 

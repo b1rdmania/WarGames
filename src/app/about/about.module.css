@@ -81,6 +81,12 @@
   margin-top: 20px;
 }
 
+.metaBlock {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
 /* Sell block */
 .sellCard {
   border: 1px solid var(--border);
@@ -144,17 +150,27 @@
 /* Links */
 .links {
   display: grid;
-  gap: 4px;
+  gap: 8px;
 }
 
 .link {
-  color: var(--primary);
+  color: var(--text-secondary);
   text-decoration: none;
   font-size: 12px;
 }
 
 .link:hover {
-  text-decoration: underline;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.metaGifFooter {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  opacity: 0.85;
 }
 
 /* Mobile — hide command bar, reorder sections */
