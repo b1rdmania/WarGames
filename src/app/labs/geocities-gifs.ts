@@ -39,37 +39,27 @@ export const GC = {
   // Computer / tech
   computer: '/gifs/computer.gif',
 
-  // New downloads
-  missile2      : '/gifs/missile2.gif',
-  bomb          : '/gifs/bomb.gif',
-  tank          : '/gifs/tank.gif',
-  nuclear       : '/gifs/nuclear.gif',
-  skull         : '/gifs/skull.gif',
-  radar         : '/gifs/radar.gif',
-  target        : '/gifs/target.gif',
-  satellite     : '/gifs/satellite.gif',
-  dollar        : '/gifs/dollar.gif',
-  chart         : '/gifs/chart.gif',
-  crash         : '/gifs/crash.gif',
-  eagle         : '/gifs/eagle.gif',
-  atom          : '/gifs/atom.gif',
-  siren         : '/gifs/siren.gif',
-  lightning     : '/gifs/lightning.gif',
-  countdown     : '/gifs/countdown.gif',
+  // Military / war room
+  missile2: '/gifs/missile2.gif',
+  bomb: '/gifs/bomb.gif',
+  tank: '/gifs/tank.gif',
+  nuclear: '/gifs/nuclear.gif',
+  skull: '/gifs/skull.gif',
+  radar: '/gifs/radar.gif',
+  target: '/gifs/target.gif',
+  satellite: '/gifs/satellite.gif',
 
-  // War themes (aliases of working GIFs)
-  blast: '/gifs/blast.gif',        // explosion
-  alert: '/gifs/alert.gif',        // fireSmall
-  impact: '/gifs/impact.gif',      // starBurst
-  danger: '/gifs/danger.gif',      // fire1
-  warning: '/gifs/warning.gif',    // sparkle2
+  // Markets / urgency
+  dollar: '/gifs/dollar.gif',
+  chart: '/gifs/chart.gif',
+  crash: '/gifs/crash.gif',
+  eagle: '/gifs/eagle.gif',
+  atom: '/gifs/atom.gif',
+  siren: '/gifs/siren.gif',
+  lightning: '/gifs/lightning.gif',
+  countdown: '/gifs/countdown.gif',
 
-  // Market/theme specific
-  energy: '/gifs/energy.gif',      // fire2 - for oil markets
-  oilFire: '/gifs/oilFire.gif',    // fire3 - for oil shock
-  tech: '/gifs/tech.gif',          // computer - for AI/tech themes
-  stock: '/gifs/stock.gif',        // coin - for trading
-  cash: '/gifs/cash.gif',          // moneyBag - for money themes
-  missile: '/gifs/missile.gif',    // explosion - for military
-  signal: '/gifs/signal.gif',      // starBurst - for alerts/signals
+  // In use — kept as named references
+  warning: '/gifs/warning.gif',
+  signal: '/gifs/signal.gif',
 } as const;
