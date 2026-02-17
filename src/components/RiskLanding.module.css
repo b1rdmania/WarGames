@@ -199,6 +199,7 @@
 @media (max-width: 768px) {
   .titleWrapper {
     gap: 12px;
+  }
 
   .terminal {
     min-height: 66svh;
