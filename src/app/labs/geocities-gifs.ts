@@ -16,10 +16,6 @@ export const GC = {
   sparkle2: '/gifs/sparkle2.gif',
   starBurst: '/gifs/starBurst.gif',
 
-  // Dividers
-  dividerChain: '/gifs/dividerChain.gif',
-  dividerColor: '/gifs/dividerColor.gif',
-
   // Under construction
   constructionWorker: '/gifs/constructionWorker.gif',
   newBadge: '/gifs/newBadge.gif',
@@ -52,12 +48,7 @@ export const GC = {
   // Markets / urgency
   dollar: '/gifs/dollar.gif',
   chart: '/gifs/chart.gif',
-  crash: '/gifs/crash.gif',
-  eagle: '/gifs/eagle.gif',
   atom: '/gifs/atom.gif',
-  siren: '/gifs/siren.gif',
-  lightning: '/gifs/lightning.gif',
-  countdown: '/gifs/countdown.gif',
 
   // In use — kept as named references
   warning: '/gifs/warning.gif',

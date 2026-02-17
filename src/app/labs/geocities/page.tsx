@@ -66,7 +66,7 @@ export default function GeoCitiesLabPage() {
 
       <br />
       <div className={styles.center}>
-        <img src={GC.dividerChain} width={500} height={12} alt="" />
+        
       </div>
       <br />
 
@@ -95,7 +95,7 @@ export default function GeoCitiesLabPage() {
 
       <br />
       <div className={styles.center}>
-        <img src={GC.dividerColor} width={500} height={12} alt="" />
+        
       </div>
       <br />
 
@@ -173,7 +173,7 @@ export default function GeoCitiesLabPage() {
 
       <br />
       <div className={styles.center}>
-        <img src={GC.dividerColor} width={500} height={12} alt="" />
+        
       </div>
       <br />
 
@@ -197,7 +197,7 @@ export default function GeoCitiesLabPage() {
 
       <br />
       <div className={styles.center}>
-        <img src={GC.dividerChain} width={500} height={12} alt="" />
+        
       </div>
       <br />
 
