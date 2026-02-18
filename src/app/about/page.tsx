@@ -5,7 +5,6 @@ import {
   TerminalMenuBar,
   TerminalPaneTitle,
   TerminalStatusBar,
-  TerminalTitle,
   TerminalSessionBadge,
 } from '@/components/terminal';
 import styles from './about.module.css';
@@ -65,7 +64,7 @@ export default function AboutPage() {
 
         <section className={styles.story}>
           <div className={styles.titleRow}>
-            <TerminalTitle className={styles.titleNoMargin}>WAR.MARKET</TerminalTitle>
+            <div className={styles.sectionLabel}>ABOUT WAR MARKET</div>
           </div>
           <p className={styles.body}>
             Trade global stress through narrative long/short baskets.
