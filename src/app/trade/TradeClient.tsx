@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
@@ -34,6 +34,14 @@ function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
 }
 
+const CATEGORY_ORDER = ['macro', 'geopolitical', 'crypto', 'tech'] as const;
+const CATEGORY_LABEL: Record<(typeof CATEGORY_ORDER)[number], string> = {
+  macro: 'MACRO',
+  geopolitical: 'GEOPOLITICS',
+  crypto: 'CRYPTO',
+  tech: 'DEGEN',
+};
+
 export default function TradeClient() {
   const { isConnected, address } = useAccount();
   const { connectAsync, connectors, isPending } = useConnect();
@@ -49,6 +57,12 @@ export default function TradeClient() {
     effectiveMarkets?.[0]?.effectiveLeverage ?? effectiveMarkets?.[0]?.leverage ?? 1
   );
   const [isExecuting, setIsExecuting] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
+    macro: true,
+    geopolitical: true,
+    crypto: true,
+    tech: true,
+  });
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
@@ -61,6 +75,19 @@ export default function TradeClient() {
     Boolean(selectedMarket && selectedMarket.isTradable) &&
     size > 0 &&
     (availableMargin === null || size <= availableMargin);
+  const groupedMarkets = useMemo(() => {
+    const groups: Record<string, typeof effectiveMarkets> = {
+      macro: [],
+      geopolitical: [],
+      crypto: [],
+      tech: [],
+    };
+    for (const market of effectiveMarkets ?? []) {
+      const key = market.category in groups ? market.category : 'macro';
+      groups[key].push(market);
+    }
+    return groups;
+  }, [effectiveMarkets]);
 
   const handleExecute = async () => {
     if (!accessToken || !selectedMarket || !canExecute || isExecuting) return;
@@ -248,18 +275,49 @@ export default function TradeClient() {
             MARKET DIRECTORY
           </TerminalPaneTitle>
           <TerminalMarketList>
-            {(effectiveMarkets ?? []).map((market) => (
-              <TerminalMarketRow
-                key={market.id}
-                code={market.id.toUpperCase().replace(/-/g, '_')}
-                status={market.isTradable ? 'LIVE' : 'PAUSED'}
-                active={selectedMarketId === market.id}
-                onClick={() => {
-                  setSelectedMarketId(market.id);
-                  setLeverage(market.effectiveLeverage ?? market.leverage);
-                }}
-              />
-            ))}
+            {CATEGORY_ORDER.map((category) => {
+              const markets = groupedMarkets[category] ?? [];
+              if (markets.length === 0) return null;
+              const expanded = expandedGroups[category] ?? true;
+              return (
+                <div key={category}>
+                  <button
+                    type="button"
+                    onClick={() => setExpandedGroups((prev) => ({ ...prev, [category]: !expanded }))}
+                    style={{
+                      width: '100%',
+                      textAlign: 'left',
+                      border: '1px solid var(--border)',
+                      background: 'var(--bg-warm)',
+                      color: 'var(--text-secondary)',
+                      padding: '8px 10px',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '11px',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                      marginTop: '8px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {expanded ? '▾' : '▸'} {CATEGORY_LABEL[category]}
+                  </button>
+                  {expanded
+                    ? markets.map((market) => (
+                        <TerminalMarketRow
+                          key={market.id}
+                          code={market.id.toUpperCase().replace(/-/g, '_')}
+                          status={market.isTradable ? 'LIVE' : 'PAUSED'}
+                          active={selectedMarketId === market.id}
+                          onClick={() => {
+                            setSelectedMarketId(market.id);
+                            setLeverage(market.effectiveLeverage ?? market.leverage);
+                          }}
+                        />
+                      ))
+                    : null}
+                </div>
+              );
+            })}
           </TerminalMarketList>
         </>
       }
