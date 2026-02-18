@@ -99,7 +99,8 @@ export default function AboutPage() {
             <p className={styles.body}>
               1) Select a market thesis<br />
               2) Set direction, size, and leverage<br />
-              3) Execute and monitor in portfolio
+              3) WAR.MARKET routes execution through the Pear Protocol API and settles on Hyperliquid<br />
+              4) Monitor in portfolio and verify positions on Pear Protocol or Hyperliquid directly
             </p>
           </div>
         </section>
