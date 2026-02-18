@@ -148,7 +148,7 @@ export default function PortfolioClient() {
   // Portfolio interface
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'POSITIONS', 'ANALYTICS', 'CLOSE', 'MONITOR', 'HELP']} right={<TerminalSessionBadge />} />}
+      menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
           <TerminalPaneTitle>POSITION DIRECTORY</TerminalPaneTitle>

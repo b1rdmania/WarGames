@@ -8,9 +8,10 @@ export { TerminalSessionBadge } from './TerminalSessionBadge';
 
 // Menu Bar
 export function TerminalMenuBar({ items, right }: { items: string[]; right?: ReactNode }) {
+  const hasItems = items.length > 0;
   return (
-    <div className={styles.menu}>
-      <span className={styles.menuItems}>{items.join('  ')}</span>
+    <div className={`${styles.menu} ${!hasItems ? styles.menuRightOnly : ''}`}>
+      {hasItems ? <span className={styles.menuItems}>{items.join('  ')}</span> : null}
       {right ? <span className={styles.menuRight}>{right}</span> : null}
     </div>
   );

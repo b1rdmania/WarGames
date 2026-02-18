@@ -226,6 +226,10 @@
   gap: 12px;
 }
 
+.menuRightOnly {
+  justify-content: flex-end;
+}
+
 .menuItems {
   min-width: 0;
 }

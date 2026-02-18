@@ -87,7 +87,7 @@ export default function IntelClient() {
 
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'FEEDS', 'ANALYSIS', 'ALERTS', 'MONITOR', 'HELP']} right={<TerminalSessionBadge />} />}
+      menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
           <TerminalPaneTitle>LIVE WIRE</TerminalPaneTitle>

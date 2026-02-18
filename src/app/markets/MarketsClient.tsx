@@ -35,7 +35,7 @@ export default function MarketsClient() {
 
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'BROWSE', 'DETAIL', 'INTEL', 'HELP']} right={<TerminalSessionBadge />} />}
+      menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
           <TerminalPaneTitle>

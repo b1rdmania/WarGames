@@ -57,7 +57,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
 
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'DETAILS', 'COMPOSITION', 'NARRATIVE', 'EXECUTE', 'HELP']} right={<TerminalSessionBadge />} />}
+      menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
           <TerminalPaneTitle>MARKET INTELLIGENCE</TerminalPaneTitle>

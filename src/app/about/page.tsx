@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <TerminalShell
-      menuBar={<TerminalMenuBar items={['FILE', 'OVERVIEW', 'ROADMAP', 'HELP']} right={<TerminalSessionBadge />} />}
+      menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       statusBar={
         <TerminalStatusBar
           items={[
