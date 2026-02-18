@@ -12,18 +12,18 @@ export const metadata: Metadata = {
     default: "WAR.MARKET",
     template: "%s — WAR.MARKET",
   },
-  description: "Geopolitical chaos becomes tradeable positions. Taiwan invasion. Oil shock. AI collapse. One click on Hyperliquid.",
+  description: "Trade global stress through narrative long/short baskets on Hyperliquid.",
   openGraph: {
     type: "website",
     url: "https://www.war.market",
     siteName: "WAR.MARKET",
     title: "WAR.MARKET — The Global Tension Terminal",
-    description: "Geopolitical chaos becomes tradeable positions. Taiwan invasion. Oil shock. AI collapse. One click on Hyperliquid.",
+    description: "Trade global stress through narrative long/short baskets on Hyperliquid.",
   },
   twitter: {
     card: "summary_large_image",
     title: "WAR.MARKET — The Global Tension Terminal",
-    description: "Geopolitical chaos becomes tradeable positions. Taiwan invasion. Oil shock. AI collapse. One click on Hyperliquid.",
+    description: "Trade global stress through narrative long/short baskets on Hyperliquid.",
   },
   icons: {
     icon: "/favicon.png",
