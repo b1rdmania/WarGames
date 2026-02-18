@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm install vitepress && npx vitepress build .",
+  "outputDirectory": ".vitepress/dist",
+  "framework": null,
+  "installCommand": "echo skip"
+}
