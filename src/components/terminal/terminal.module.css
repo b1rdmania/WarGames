@@ -143,13 +143,13 @@
     flex-wrap: wrap;
     gap: 8px;
     width: 100%;
-    padding-top: 2px;
-    border-top: 1px solid var(--border-subtle);
+    padding-top: 4px;
   }
 
   .navMusicLabel {
-    min-width: 72px;
-    margin-right: 2px;
+    min-width: 60px;
+    margin-right: 4px;
+    font-size: 10px;
   }
 }
 
@@ -197,6 +197,32 @@
 
   .sessionMenu {
     width: 170px;
+  }
+
+  .navRight {
+    display: grid;
+    grid-template-columns: auto repeat(5, minmax(28px, auto));
+    align-items: center;
+    column-gap: 6px;
+    row-gap: 0;
+    width: 100%;
+  }
+
+  .navMusicLabel {
+    min-width: 0;
+    margin-right: 0;
+    font-size: 10px;
+  }
+
+  .navMusicBtn {
+    min-width: 30px;
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+
+  .navMusicMute {
+    min-width: 30px;
+    padding: 3px;
   }
 }
 
@@ -412,12 +438,22 @@
   min-width: 56px;
   margin-left: 10px;
   text-align: right;
-  border: 1px solid var(--border);
-  padding: 2px 6px;
-  font-size: 10px;
+  padding: 0;
+  font-size: 11px;
   letter-spacing: 0.06em;
   color: var(--text-muted);
-  background: var(--bg-deep);
+}
+
+.marketStatusLive {
+  color: var(--primary);
+}
+
+.marketStatusPaused {
+  color: #a68a4f;
+}
+
+.marketStatusStopped {
+  color: #c97171;
 }
 
 .marketRow:hover {
@@ -425,15 +461,9 @@
 }
 
 .marketRowActive {
-  color: var(--bg-deep);
-  background: var(--primary);
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
   border-color: var(--primary);
-}
-
-.marketRowActive .marketStatus {
-  color: var(--bg-deep);
-  border-color: color-mix(in srgb, var(--bg-deep) 35%, transparent);
-  background: color-mix(in srgb, var(--primary) 80%, white 20%);
 }
 
 /* Title & Thesis */
@@ -639,15 +669,4 @@
     gap: 4px;
   }
 
-  .marketRowActive {
-    color: var(--primary);
-    background: color-mix(in srgb, var(--primary) 12%, transparent);
-    border-color: var(--primary);
-  }
-
-  .marketRowActive .marketStatus {
-    color: var(--primary);
-    border-color: var(--primary);
-    background: color-mix(in srgb, var(--primary) 10%, transparent);
-  }
 }
