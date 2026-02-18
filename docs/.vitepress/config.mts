@@ -16,7 +16,6 @@ export default defineConfig({
     nav: [
       { text: 'Docs', link: '/' },
       { text: 'Guide', link: '/guide/' },
-      { text: 'Brand', link: '/brand/' },
       { text: 'App', link: 'https://war.market' },
     ],
 
@@ -46,22 +45,6 @@ export default defineConfig({
             { text: 'Risk', link: '/guide/risk' },
           ]
         },
-        {
-          text: 'Brand',
-          items: [
-            { text: 'Philosophy', link: '/brand/' },
-            { text: 'Narrative system', link: '/brand/narrative-system' },
-            { text: 'Voice', link: '/brand/voice' },
-            { text: 'Design system', link: '/brand/design' },
-            { text: 'Archetype research', link: '/design-systems/' },
-            { text: 'DOS/Norton system', link: '/design-systems/dos-norton-system' },
-            { text: 'Bloomberg system', link: '/design-systems/bloomberg-system' },
-            { text: 'NORAD system', link: '/design-systems/norad-system' },
-            { text: 'NORAD iteration brief', link: '/design-systems/norad-iteration-brief' },
-            { text: 'Assets', link: '/brand/assets' },
-            { text: 'Icons', link: '/brand/icons' },
-          ]
-        }
       ]
     },
 
