@@ -93,6 +93,15 @@ export default function AboutPage() {
               3) Execute and monitor in portfolio.
             </p>
           </div>
+
+          <div className={styles.sectionGap20}>
+            <div className={styles.sectionLabel}>THE OPPORTUNITY</div>
+            <p className={styles.body}>
+              Hyperliquid and novel HIP-3 markets from teams like TradeXYZ Ventures with Lynx open a new composability layer
+              for synthetic equities. WAR.MARKET uses the Pear Protocol API to structure and execute narrative baskets
+              instantly, turning multi-leg macro views into one coherent trade.
+            </p>
+          </div>
         </section>
 
         <section className={styles.credits}>
