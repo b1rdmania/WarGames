@@ -46,7 +46,7 @@ export default function AboutPage() {
           <TerminalPaneTitle>VISUAL LOG</TerminalPaneTitle>
           <div className={styles.visualStack}>
             <div className={styles.visualCard}>
-              <img src={GC.globeLarge} width={94} height={94} alt="" />
+              <img src={GC.earthSpin} width={94} height={94} alt="" />
               <div className={styles.visualCaption}>GLOBAL STRESS MAP</div>
             </div>
             <div className={styles.visualCard}>

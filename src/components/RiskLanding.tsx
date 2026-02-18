@@ -29,7 +29,7 @@ export function RiskLanding() {
       <div className={styles.terminal}>
         <section className={styles.hero}>
           <div className={styles.logoMark}>
-            <img src={GC.globeLarge} width={120} height={120} alt="" />
+            <img src={GC.earthSpin} width={120} height={120} alt="" />
           </div>
 
           <div className={styles.titleWrapper}>

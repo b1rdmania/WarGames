@@ -181,7 +181,7 @@ export default function TradeClient() {
       leftPane={
         <>
           <TerminalPaneTitle>
-            <img src={GC.globeLarge} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+            <img src={GC.earthSpin} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
             MARKET DIRECTORY
           </TerminalPaneTitle>
           <TerminalMarketList>
