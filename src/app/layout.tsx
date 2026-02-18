@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://www.war.market",
     siteName: "WAR.MARKET",
-    title: "WAR.MARKET — The Global Tension Terminal",
-    description: "Trade global stress through narrative long/short baskets on Hyperliquid.",
+    title: "War Market - The Global Tension Terminal",
+    description: "Trade macro stress through narrative baskets on Hyperliquid",
   },
   twitter: {
     card: "summary_large_image",
-    title: "WAR.MARKET — The Global Tension Terminal",
-    description: "Trade global stress through narrative long/short baskets on Hyperliquid.",
+    title: "War Market - The Global Tension Terminal",
+    description: "Trade macro stress through narrative baskets on Hyperliquid",
   },
   icons: {
     icon: "/favicon.png",
