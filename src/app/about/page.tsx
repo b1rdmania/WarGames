@@ -67,8 +67,16 @@ export default function AboutPage() {
             <div className={styles.sectionLabel}>ABOUT WAR MARKET</div>
           </div>
           <p className={styles.body}>
-            Trade global stress through narrative long/short baskets.
+            Trade macro stress through narrative baskets on Hyperliquid.
           </p>
+
+          <div className={styles.sectionGap20}>
+            <div className={styles.sectionLabel}>THE OPPORTUNITY</div>
+            <p className={styles.body}>
+              HIP-3 markets on Hyperliquid open a composability layer for synthetic equities. WAR.MARKET uses the Pear
+              Protocol API to package multi-leg macro views into one executable trade.
+            </p>
+          </div>
 
           <div className={styles.sectionGap24}>
             <div className={styles.sectionLabel}>THE PROBLEM</div>
@@ -81,25 +89,17 @@ export default function AboutPage() {
           <div className={styles.sectionGap20}>
             <div className={styles.sectionLabel}>THE RESPONSE</div>
             <p className={styles.body}>
-              WAR.MARKET turns narrative views into pre-defined long/short baskets. You pick a thesis, size it, and execute one coherent position.
+              WAR.MARKET converts narrative views into ready-to-trade long/short structures. Choose a thesis, set size
+              and leverage, and execute in one flow.
             </p>
           </div>
 
           <div className={styles.sectionGap20}>
             <div className={styles.sectionLabel}>HOW IT WORKS</div>
             <p className={styles.body}>
-              1) Select a market thesis.<br />
-              2) Choose direction, size, leverage.<br />
-              3) Execute and monitor in portfolio.
-            </p>
-          </div>
-
-          <div className={styles.sectionGap20}>
-            <div className={styles.sectionLabel}>THE OPPORTUNITY</div>
-            <p className={styles.body}>
-              HIP-3 markets on Hyperliquid unlock a new composability layer for synthetic equities. WAR.MARKET uses the
-              Pear Protocol API on top of that stack to structure and execute narrative baskets instantly, turning multi-leg
-              macro views into one coherent trade.
+              1) Select a market thesis<br />
+              2) Set direction, size, and leverage<br />
+              3) Execute and monitor in portfolio
             </p>
           </div>
         </section>
@@ -111,7 +111,6 @@ export default function AboutPage() {
             <div className={styles.body}>
               <div>Execution: Pear Protocol</div>
               <div>Settlement: Hyperliquid</div>
-              <div>Interface: Next.js + Wagmi</div>
             </div>
           </div>
           <div className={styles.metaBlock}>
