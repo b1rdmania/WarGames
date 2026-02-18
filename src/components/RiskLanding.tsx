@@ -51,9 +51,9 @@ export function RiskLanding() {
           </div>
 
           <div className={styles.ctaGrid}>
-            <Link href="/markets">
+            <Link href="/about">
               <TerminalButton fullWidth>
-                BROWSE MARKETS
+                ABOUT
               </TerminalButton>
             </Link>
             <Link href="/trade">
