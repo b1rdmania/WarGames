@@ -382,6 +382,13 @@
   min-height: 62vh;
 }
 
+.bottomPane {
+  margin-top: 8px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  background: var(--bg-deep);
+}
+
 .pane {
   padding: 12px;
   border-right: 1px solid var(--border);

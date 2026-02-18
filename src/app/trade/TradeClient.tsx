@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
@@ -27,7 +27,8 @@ import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { connectWalletSafely } from '@/lib/connectWallet';
 import { GC } from '@/app/labs/geocities-gifs';
-import { executePosition } from '@/integrations/pear/positions';
+import { closePosition, executePosition, getActivePositions } from '@/integrations/pear/positions';
+import type { PearPosition } from '@/integrations/pear/types';
 import { logTradeStatEvent } from '@/lib/stats/client';
 
 function cleanSymbol(s: string) {
@@ -67,6 +68,9 @@ export default function TradeClient() {
     effectiveMarkets?.[0]?.effectiveLeverage ?? effectiveMarkets?.[0]?.leverage ?? 1
   );
   const [isExecuting, setIsExecuting] = useState(false);
+  const [openPositions, setOpenPositions] = useState<PearPosition[]>([]);
+  const [loadingOpenPositions, setLoadingOpenPositions] = useState(false);
+  const [closingPositionId, setClosingPositionId] = useState<string | null>(null);
   const [expandedGroups, setExpandedGroups] = useState<Record<MarketGroup, boolean>>({
     macro: false,
     geopolitical: false,
@@ -100,6 +104,36 @@ export default function TradeClient() {
     }
     return groups;
   }, [effectiveMarkets]);
+
+  useEffect(() => {
+    if (!accessToken) {
+      setOpenPositions([]);
+      return;
+    }
+    let cancelled = false;
+    const load = async (silent = false) => {
+      try {
+        if (!silent) setLoadingOpenPositions(true);
+        const positions = await getActivePositions(accessToken);
+        if (cancelled) return;
+        setOpenPositions(positions);
+      } catch (e) {
+        if (!silent) {
+          toast.error((e as Error).message || 'Failed to load open positions');
+        }
+      } finally {
+        if (!silent && !cancelled) setLoadingOpenPositions(false);
+      }
+    };
+    void load(false);
+    const timer = window.setInterval(() => {
+      void load(true);
+    }, 45000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+    };
+  }, [accessToken]);
 
   const handleExecute = async () => {
     if (!accessToken || !selectedMarket || !canExecute || isExecuting) return;
@@ -137,6 +171,12 @@ export default function TradeClient() {
         status: 'success',
         orderId: result.orderId,
       });
+      try {
+        const positions = await getActivePositions(accessToken);
+        setOpenPositions(positions);
+      } catch {
+        // Non-blocking; status toast already shown for execution.
+      }
       toast.success('Position executed');
     } catch (e) {
       const message = (e as Error).message || 'Execution failed';
@@ -153,6 +193,21 @@ export default function TradeClient() {
       toast.error(message);
     } finally {
       setIsExecuting(false);
+    }
+  };
+
+  const handleClosePosition = async (positionId: string) => {
+    if (!accessToken || closingPositionId) return;
+    try {
+      setClosingPositionId(positionId);
+      await closePosition(accessToken, positionId);
+      const positions = await getActivePositions(accessToken);
+      setOpenPositions(positions);
+      toast.success('Position closed');
+    } catch (e) {
+      toast.error((e as Error).message || 'Failed to close position');
+    } finally {
+      setClosingPositionId(null);
     }
   };
 
@@ -386,6 +441,92 @@ export default function TradeClient() {
         </>
       }
       rightPane={renderRightPane()}
+      bottomPane={
+        <>
+          <TerminalPaneTitle>OPEN POSITIONS</TerminalPaneTitle>
+          {!isAuthenticated ? (
+            <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>
+              CONNECT + AUTHENTICATE TO MONITOR AND CLOSE LIVE POSITIONS.
+            </div>
+          ) : loadingOpenPositions ? (
+            <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>LOADING OPEN POSITIONS…</div>
+          ) : openPositions.length === 0 ? (
+            <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>NO OPEN POSITIONS</div>
+          ) : (
+            <div style={{ border: '1px solid var(--border)', background: 'var(--bg-warm)', overflowX: 'auto' }}>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1.5fr 0.8fr 0.8fr 0.8fr 0.8fr',
+                  gap: '8px',
+                  minWidth: '640px',
+                  padding: '8px 10px',
+                  borderBottom: '1px solid var(--border)',
+                  color: 'var(--text-muted)',
+                  fontSize: '10px',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                <span>Market</span>
+                <span>Side</span>
+                <span>Size</span>
+                <span>PnL</span>
+                <span style={{ textAlign: 'right' }}>Action</span>
+              </div>
+              {openPositions.slice(0, 6).map((position) => {
+                const pnl = Number(position.pnl);
+                return (
+                  <div
+                    key={position.id}
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1.5fr 0.8fr 0.8fr 0.8fr 0.8fr',
+                      gap: '8px',
+                      minWidth: '640px',
+                      padding: '8px 10px',
+                      borderBottom: '1px solid var(--border)',
+                      alignItems: 'center',
+                      fontSize: '12px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    <span style={{ color: 'var(--text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {position.marketId.replace(/-/g, '_')}
+                    </span>
+                    <span style={{ color: 'var(--text-primary)' }}>{position.side === 'long' ? 'YES' : 'NO'}</span>
+                    <span style={{ color: 'var(--text-secondary)' }}>${Number(position.size).toFixed(0)}</span>
+                    <span style={{ color: pnl >= 0 ? 'var(--primary)' : 'var(--loss)' }}>
+                      {pnl >= 0 ? '+' : ''}${pnl.toFixed(2)}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleClosePosition(position.id)}
+                      disabled={closingPositionId === position.id}
+                      style={{
+                        justifySelf: 'end',
+                        border: '1px solid var(--border)',
+                        background: 'var(--bg-deep)',
+                        color: 'var(--text-primary)',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '11px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.06em',
+                        padding: '5px 10px',
+                        cursor: closingPositionId === position.id ? 'not-allowed' : 'pointer',
+                        opacity: closingPositionId === position.id ? 0.5 : 1,
+                      }}
+                    >
+                      {closingPositionId === position.id ? 'CLOSING…' : 'CLOSE'}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </>
+      }
       commandBar={
         <TerminalCommandBar
           commands={[

@@ -9,6 +9,7 @@ interface TerminalShellProps {
   leftPane?: ReactNode;
   centerPane?: ReactNode;
   rightPane?: ReactNode;
+  bottomPane?: ReactNode;
   commandBar?: ReactNode;
   statusBar?: ReactNode;
   children?: ReactNode;
@@ -19,6 +20,7 @@ export function TerminalShell({
   leftPane,
   centerPane,
   rightPane,
+  bottomPane,
   commandBar,
   statusBar,
   children,
@@ -34,6 +36,7 @@ export function TerminalShell({
           {rightPane && <section className={styles.pane}>{rightPane}</section>}
         </div>
       )}
+      {bottomPane ? <section className={styles.bottomPane}>{bottomPane}</section> : null}
       {commandBar}
       {statusBar}
     </main>
