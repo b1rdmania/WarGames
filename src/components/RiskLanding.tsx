@@ -29,6 +29,15 @@ export function RiskLanding() {
       <div className={styles.terminal}>
         <div className={styles.bgNoise} />
         <div className={styles.bgScan} />
+        <div className={styles.fxLeft}>
+          <img src={GC.radar} width={56} height={56} alt="" />
+        </div>
+        <div className={styles.fxRight}>
+          <img src={GC.satellite} width={56} height={56} alt="" />
+        </div>
+        <div className={styles.marquee}>
+          LIVE FEED · MACRO SHOCKS · NARRATIVE BASKETS · ONE-CLICK EXECUTION ·
+        </div>
         <section className={styles.hero}>
           <div className={styles.alertChip}>
             <img src={GC.warning} width={14} height={14} alt="" />
@@ -47,8 +56,15 @@ export function RiskLanding() {
           <p className={styles.tagline}>THE GLOBAL TENSION TERMINAL</p>
 
           <p className={styles.subtitle}>
-            Tensions don&apos;t wait. Neither should your execution.
+            Trade headlines like positions.<br />
+            Build exposure before the crowd reprices.
           </p>
+
+          <div className={styles.stickerRow}>
+            <img src={GC.atom} width={28} height={28} alt="" />
+            <img src={GC.chart} width={28} height={28} alt="" />
+            <img src={GC.target} width={28} height={28} alt="" />
+          </div>
 
           <div className={styles.ctaGrid}>
             <Link href="/trade">
