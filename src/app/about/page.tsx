@@ -119,6 +119,9 @@ export default function AboutPage() {
                 Hyperliquid
               </a>
             </div>
+            <div className={styles.linksGif}>
+              <img src={GC.tank} width={56} height={56} alt="" />
+            </div>
           </div>
           <div className={`${styles.metaBlock} ${styles.creditsFooter}`}>
             <div className={styles.sectionLabel}>BUILT BY</div>
