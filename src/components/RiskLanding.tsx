@@ -47,7 +47,7 @@ export function RiskLanding() {
 
           <div className={styles.badge}>
             <img src={GC.trophy} width={20} height={20} alt="" />
-            <span className={styles.badgeText}>HACKATHON WINNER</span>
+            <span className={styles.badgeText}>TRADE HIP3 MARKETS ON HYPERLIQUID</span>
           </div>
 
           <div className={styles.ctaGrid}>
@@ -63,9 +63,6 @@ export function RiskLanding() {
             </Link>
           </div>
 
-          <div className={styles.poweredBy}>
-            POWERED BY PEAR PROTOCOL · HYPERLIQUID
-          </div>
         </section>
       </div>
     </TerminalShell>
