@@ -94,41 +94,10 @@ export default function AboutPage() {
               3) Execute and monitor in portfolio.
             </p>
           </div>
-
-          <div className={styles.sectionGap20}>
-            <div className={styles.sectionLabel}>ROADMAP</div>
-            <ul className={styles.roadmapList}>
-              <li className={styles.done}>Win hackathon</li>
-              <li className={styles.done}>Launch on Pear Protocol mainnet</li>
-              <li>UX redesign for production</li>
-              <li>Quant rationale per basket</li>
-              <li>Charts from Hyperliquid</li>
-              <li>Community market creation</li>
-              <li>Go live</li>
-              <li>$WAR token</li>
-              <li>HIP-3 native WAR indices on Hyperliquid</li>
-            </ul>
-          </div>
         </section>
 
         <section className={styles.credits}>
           <TerminalPaneTitle>CREDITS & LINKS</TerminalPaneTitle>
-          <div className={styles.metaBlock}>
-            <div className={styles.sectionLabel}>BUILT BY</div>
-            <div className={styles.body}>
-              <a href="https://x.com/b1rdmania" target="_blank" rel="noreferrer" className={styles.link}>
-                @b1rdmania
-              </a>
-            </div>
-          </div>
-          <div className={styles.metaBlock}>
-            <div className={styles.sectionLabel}>MUSIC</div>
-            <div className={styles.body}>
-              <a href="https://wario.style" target="_blank" rel="noreferrer" className={styles.link}>
-                wario.style
-              </a>
-            </div>
-          </div>
           <div className={styles.metaBlock}>
             <div className={styles.sectionLabel}>STACK</div>
             <div className={styles.body}>
@@ -148,6 +117,20 @@ export default function AboutPage() {
               </a>
               <a href="https://hyperliquid.xyz" target="_blank" rel="noreferrer" className={styles.link}>
                 Hyperliquid
+              </a>
+            </div>
+          </div>
+          <div className={`${styles.metaBlock} ${styles.creditsFooter}`}>
+            <div className={styles.sectionLabel}>BUILT BY</div>
+            <div className={styles.body}>
+              <a href="https://x.com/b1rdmania" target="_blank" rel="noreferrer" className={styles.link}>
+                @b1rdmania
+              </a>
+            </div>
+            <div className={`${styles.sectionLabel} ${styles.subLabel}`}>MUSIC</div>
+            <div className={styles.body}>
+              <a href="https://wario.style" target="_blank" rel="noreferrer" className={styles.link}>
+                wario.style
               </a>
             </div>
           </div>

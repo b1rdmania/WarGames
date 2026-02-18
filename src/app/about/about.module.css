@@ -20,6 +20,11 @@
   border-right: 1px solid var(--border);
 }
 
+.credits {
+  display: flex;
+  flex-direction: column;
+}
+
 .sectionLabel {
   color: var(--primary);
   font-size: 11px;
@@ -115,6 +120,14 @@
 
 .link:hover {
   color: var(--primary);
+}
+
+.creditsFooter {
+  margin-top: auto;
+}
+
+.subLabel {
+  margin-top: 12px;
 }
 
 @media (max-width: 900px) {
