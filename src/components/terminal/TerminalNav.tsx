@@ -31,7 +31,6 @@ export function TerminalNav() {
   const { tracks, selectedTrackId, muted, setTrack, toggleMuted } = useMusic();
 
   const navItems = [
-    { href: '/', label: 'HOME' },
     { href: '/trade', label: 'TRADE' },
     { href: '/portfolio', label: 'PORTFOLIO' },
     { href: '/stats', label: 'STATS' },
@@ -46,7 +45,7 @@ export function TerminalNav() {
   return (
     <div className={styles.nav}>
       <div className={styles.navLeft}>
-        <div className={styles.navBrand}>WAR.MARKET</div>
+        <Link href="/" className={styles.navBrand}>WAR.MARKET</Link>
         <div className={styles.navLinks}>
           {navItems.map((item) => (
             <Link
