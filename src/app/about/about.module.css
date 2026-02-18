@@ -127,4 +127,16 @@
     border-right: 0;
     border-bottom: 1px solid var(--border);
   }
+
+  .story {
+    order: 1;
+  }
+
+  .credits {
+    order: 2;
+  }
+
+  .visual {
+    order: 3;
+  }
 }
