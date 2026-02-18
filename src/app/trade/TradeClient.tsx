@@ -19,7 +19,6 @@ import {
   TerminalKV,
   TerminalKVRow,
   TerminalSegment,
-  TerminalSizeRow,
   TerminalSessionBadge,
 } from '@/components/terminal';
 import { usePear } from '@/contexts/PearContext';
@@ -43,11 +42,10 @@ export default function TradeClient() {
 
   const [selectedMarketId, setSelectedMarketId] = useState<string | null>(effectiveMarkets?.[0]?.id ?? null);
   const [side, setSide] = useState<'YES' | 'NO'>('YES');
-  const [size, setSize] = useState(25);
+  const [size, setSize] = useState(50);
   const [leverage, setLeverage] = useState(
     effectiveMarkets?.[0]?.effectiveLeverage ?? effectiveMarkets?.[0]?.leverage ?? 1
   );
-  const [showQuickSizes, setShowQuickSizes] = useState(false);
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
@@ -122,60 +120,28 @@ export default function TradeClient() {
         />
         <div style={{ marginTop: '10px' }}>
           <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px', display: 'flex', justifyContent: 'space-between' }}>
-            <span>SIZE (USDC)</span>
+            <span>SIZE ${size.toFixed(0)}</span>
             <span>AVAIL {availableMargin !== null ? `$${availableMargin.toFixed(2)}` : '—'}</span>
           </div>
           <input
-            type="number"
+            type="range"
             min={1}
             step={1}
-            value={Number.isFinite(size) ? size : 1}
+            max={Math.max(1, Math.floor(availableMargin ?? 1000))}
+            value={Number.isFinite(size) ? size : 50}
             onChange={(e) => {
               const next = Number(e.target.value);
-              if (!Number.isFinite(next) || next <= 0) {
-                setSize(1);
+              if (!Number.isFinite(next)) {
+                setSize(50);
                 return;
               }
-              setSize(Math.round(next));
+              setSize(Math.max(1, Math.round(next)));
             }}
             style={{
               width: '100%',
-              border: '1px solid var(--border)',
-              background: 'var(--bg-warm)',
-              color: 'var(--text-primary)',
-              padding: '10px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '16px',
+              accentColor: 'var(--primary)',
             }}
           />
-          <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px' }}>
-            ENTER MARGIN SIZE TO DEPLOY
-          </div>
-        </div>
-        <div style={{ marginTop: '8px' }}>
-          <button
-            type="button"
-            onClick={() => setShowQuickSizes((v) => !v)}
-            style={{
-              width: '100%',
-              border: '1px solid var(--border)',
-              background: 'var(--bg-warm)',
-              color: 'var(--text-secondary)',
-              padding: '8px',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '11px',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              cursor: 'pointer',
-            }}
-          >
-            {showQuickSizes ? 'HIDE QUICK SIZES' : 'QUICK SIZES'}
-          </button>
-          {showQuickSizes ? (
-            <div style={{ marginTop: '8px' }}>
-              <TerminalSizeRow sizes={[10, 25, 50]} value={size} onChange={setSize} />
-            </div>
-          ) : null}
         </div>
         {selectedMarket && (
           <div style={{ marginTop: '10px' }}>
@@ -201,25 +167,6 @@ export default function TradeClient() {
             <div style={{ color: 'var(--loss)' }}>INSUFFICIENT MARGIN FOR THIS SIZE</div>
           ) : null}
         </div>
-        <div style={{ marginTop: '8px', color: 'var(--text-muted)', fontSize: '10px', lineHeight: 1.5 }}>
-          EXECUTION BY PEAR PROTOCOL · SETTLEMENT ON HYPERLIQUID
-        </div>
-        <a
-          href="https://docs.pearprotocol.io"
-          target="_blank"
-          rel="noreferrer"
-          style={{
-            display: 'inline-block',
-            marginTop: '4px',
-            color: 'var(--primary)',
-            fontSize: '10px',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            textDecoration: 'none',
-          }}
-        >
-          LEARN ABOUT PEAR →
-        </a>
         <TerminalButton variant="primary" fullWidth disabled={!selectedMarket || !canExecute}>
           EXECUTE POSITION
         </TerminalButton>

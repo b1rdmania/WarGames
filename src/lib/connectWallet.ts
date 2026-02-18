@@ -40,9 +40,14 @@ function orderConnectors(connectors: readonly Connector[]): Connector[] {
     const aid = getConnectorId(a);
     const bid = getConnectorId(b);
     const rank = (id: string) => {
-      if (mobile && id.includes('walletconnect')) return 0;
+      // On mobile, prefer in-app injected wallets first.
+      // WalletConnect modal can stall on some iOS setups when wallet list fetch fails.
+      if (mobile && id.includes('injected')) return 0;
       if (mobile && id.includes('coinbase')) return 1;
-      if (id.includes('injected')) return 2;
+      if (mobile && id.includes('walletconnect')) return 2;
+      if (id.includes('injected')) return 0;
+      if (id.includes('coinbase')) return 1;
+      if (id.includes('walletconnect')) return 2;
       return 3;
     };
     return rank(aid) - rank(bid);
