@@ -338,9 +338,6 @@ export default function TradeClient() {
               );
             })}
           </TerminalMarketList>
-          <div style={{ marginTop: '14px', textAlign: 'center', opacity: 0.9 }}>
-            <img src={GC.worldMap} width={124} height={60} alt="" />
-          </div>
         </>
       }
       centerPane={
