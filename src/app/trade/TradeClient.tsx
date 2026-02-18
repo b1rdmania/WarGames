@@ -27,6 +27,8 @@ import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { connectWalletSafely } from '@/lib/connectWallet';
 import { GC } from '@/app/labs/geocities-gifs';
+import { executePosition } from '@/integrations/pear/positions';
+import { logTradeStatEvent } from '@/lib/stats/client';
 
 function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
@@ -46,6 +48,7 @@ export default function TradeClient() {
   const [leverage, setLeverage] = useState(
     effectiveMarkets?.[0]?.effectiveLeverage ?? effectiveMarkets?.[0]?.leverage ?? 1
   );
+  const [isExecuting, setIsExecuting] = useState(false);
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
@@ -58,6 +61,61 @@ export default function TradeClient() {
     Boolean(selectedMarket && selectedMarket.isTradable) &&
     size > 0 &&
     (availableMargin === null || size <= availableMargin);
+
+  const handleExecute = async () => {
+    if (!accessToken || !selectedMarket || !canExecute || isExecuting) return;
+    const clampedLeverage = Math.max(1, Math.min(leverage, maxPermittedLeverage));
+    const notionalUsd = size * clampedLeverage;
+
+    await logTradeStatEvent({
+      wallet: address,
+      marketId: selectedMarket.id,
+      side,
+      sizeUsd: size,
+      leverage: clampedLeverage,
+      notionalUsd,
+      status: 'attempted',
+    });
+
+    try {
+      setIsExecuting(true);
+      const result = await executePosition(accessToken, {
+        marketId: selectedMarket.id,
+        side: side === 'YES' ? 'long' : 'short',
+        amount: String(size),
+        leverage: clampedLeverage,
+        resolvedPairs: selectedMarket.resolvedPairs,
+        resolvedBasket: selectedMarket.resolvedBasket,
+      });
+
+      await logTradeStatEvent({
+        wallet: address,
+        marketId: selectedMarket.id,
+        side,
+        sizeUsd: size,
+        leverage: clampedLeverage,
+        notionalUsd,
+        status: 'success',
+        orderId: result.orderId,
+      });
+      toast.success('Position executed');
+    } catch (e) {
+      const message = (e as Error).message || 'Execution failed';
+      await logTradeStatEvent({
+        wallet: address,
+        marketId: selectedMarket.id,
+        side,
+        sizeUsd: size,
+        leverage: clampedLeverage,
+        notionalUsd,
+        status: 'failed',
+        error: message,
+      });
+      toast.error(message);
+    } finally {
+      setIsExecuting(false);
+    }
+  };
 
   // Right pane content based on auth state
   const renderRightPane = () => {
@@ -167,8 +225,13 @@ export default function TradeClient() {
             <div style={{ color: 'var(--loss)' }}>INSUFFICIENT MARGIN FOR THIS SIZE</div>
           ) : null}
         </div>
-        <TerminalButton variant="primary" fullWidth disabled={!selectedMarket || !canExecute}>
-          EXECUTE POSITION
+        <TerminalButton
+          variant="primary"
+          fullWidth
+          disabled={!selectedMarket || !canExecute || isExecuting}
+          onClick={handleExecute}
+        >
+          {isExecuting ? 'EXECUTING…' : 'EXECUTE POSITION'}
         </TerminalButton>
       </>
     );

@@ -34,6 +34,7 @@ export function TerminalNav() {
     { href: '/', label: 'HOME' },
     { href: '/trade', label: 'TRADE' },
     { href: '/portfolio', label: 'PORTFOLIO' },
+    { href: '/stats', label: 'STATS' },
     { href: '/about', label: 'ABOUT' },
   ];
 
