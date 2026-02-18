@@ -97,9 +97,9 @@ export default function AboutPage() {
           <div className={styles.sectionGap20}>
             <div className={styles.sectionLabel}>THE OPPORTUNITY</div>
             <p className={styles.body}>
-              HIP-3 markets on Hyperliquid, deployed through protocols such as Lynx, unlock a new composability layer for
-              synthetic equities. WAR.MARKET uses the Pear Protocol API on top of that stack to structure and execute
-              narrative baskets instantly, turning multi-leg macro views into one coherent trade.
+              HIP-3 markets on Hyperliquid unlock a new composability layer for synthetic equities. WAR.MARKET uses the
+              Pear Protocol API on top of that stack to structure and execute narrative baskets instantly, turning multi-leg
+              macro views into one coherent trade.
             </p>
           </div>
         </section>
