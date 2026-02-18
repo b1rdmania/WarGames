@@ -98,10 +98,13 @@ export default function StatsPage() {
               <div className={styles.kpi}><span>SUCCESS RATE</span><strong>{pct(successRate)}</strong></div>
               <div className={styles.kpi}><span>SUCCESSFUL TRADES</span><strong>{num(data.totals.successful)}</strong></div>
               <div className={styles.kpi}><span>UNIQUE WALLETS</span><strong>{num(data.totals.uniqueWallets)}</strong></div>
+            </div>
+          ) : null}
+          {data ? (
+            <div className={styles.kpisSecondary}>
               <div className={styles.kpi}><span>ACTIVE DAYS</span><strong>{num(activeDays)}</strong></div>
               <div className={styles.kpi}><span>AVG DAILY NOTIONAL</span><strong>${num(avgDailyNotional)}</strong></div>
               <div className={styles.kpi}><span>ATTEMPTS / FAILED</span><strong>{num(data.totals.attempted)} / {num(data.totals.failed)}</strong></div>
-              <div className={styles.kpi}><span>ATTRIBUTION</span><strong>CLIENTID</strong></div>
             </div>
           ) : null}
         </section>

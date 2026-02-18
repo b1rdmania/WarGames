@@ -21,6 +21,13 @@
   gap: 10px;
 }
 
+.kpisSecondary {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
 .kpi {
   border: 1px solid var(--border);
   background: var(--bg-warm);
@@ -38,6 +45,10 @@
 .kpi strong {
   color: var(--text-primary);
   font-size: 18px;
+}
+
+.kpisSecondary .kpi strong {
+  font-size: 14px;
 }
 
 .mix {
@@ -176,6 +187,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .kpisSecondary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .categoryGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -183,6 +198,10 @@
 
 @media (max-width: 620px) {
   .kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .kpisSecondary {
     grid-template-columns: 1fr;
   }
 
