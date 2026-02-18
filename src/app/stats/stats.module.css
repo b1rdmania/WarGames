@@ -40,6 +40,95 @@
   font-size: 18px;
 }
 
+.mix {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.mixRow {
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  padding: 8px 10px;
+}
+
+.mixLabel {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.mixBar {
+  height: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-deep);
+}
+
+.mixFill {
+  height: 100%;
+  background: color-mix(in srgb, var(--primary) 82%, white 18%);
+}
+
+.categoryGrid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.categoryCard {
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  padding: 10px;
+  display: grid;
+  gap: 4px;
+}
+
+.categoryCard span {
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.categoryCard strong {
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+.goals {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.goal {
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  padding: 8px 10px;
+}
+
+.goalHead {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-secondary);
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.goalBar {
+  height: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-deep);
+}
+
+.goalFill {
+  height: 100%;
+  background: color-mix(in srgb, var(--primary) 78%, white 22%);
+}
+
 .table {
   margin-top: 10px;
   border: 1px solid var(--border);
@@ -84,6 +173,10 @@
 
 @media (max-width: 900px) {
   .kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .categoryGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
