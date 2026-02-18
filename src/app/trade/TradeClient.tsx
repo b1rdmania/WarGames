@@ -45,8 +45,7 @@ const MARKET_GROUP_LABEL: Record<MarketGroup, string> = {
 };
 
 function marketGroupKey(market: { id: string; category: string; basket?: { long: Array<{ asset: string }> } }): MarketGroup {
-  const hasOilLeg = market.basket?.long?.some((a) => a.asset.toUpperCase().includes('CL')) ?? false;
-  if (market.id === 'middle-east-oil-shock' || hasOilLeg) return 'commodities';
+  if (market.id === 'taiwan-strait-crisis' || market.id === 'middle-east-oil-shock') return 'geopolitical';
   if (market.category === 'macro') return 'macro';
   if (market.category === 'geopolitical') return 'geopolitical';
   if (market.category === 'crypto') return 'crypto';
