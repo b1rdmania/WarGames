@@ -371,17 +371,36 @@
 
 .marketRow {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   border: 1px solid var(--border);
   background: var(--bg-warm);
   color: var(--text-secondary);
   padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
   font-size: 12px;
   font-family: inherit;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
   transition: all 0.15s;
+}
+
+.marketCode {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.marketStatus {
+  flex-shrink: 0;
+  min-width: 56px;
+  margin-left: 10px;
+  text-align: right;
 }
 
 .marketRow:hover {

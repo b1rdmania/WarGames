@@ -162,8 +162,8 @@ interface TerminalMarketRowProps extends React.ButtonHTMLAttributes<HTMLButtonEl
 export function TerminalMarketRow({ code, status, active, ...props }: TerminalMarketRowProps) {
   return (
     <button {...props} className={`${styles.marketRow} ${active ? styles.marketRowActive : ''}`}>
-      <span>{code}</span>
-      <span>{status}</span>
+      <span className={styles.marketCode}>{code}</span>
+      <span className={styles.marketStatus}>{status}</span>
     </button>
   );
 }
