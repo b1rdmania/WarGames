@@ -1,11 +1,9 @@
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { GC } from '@/app/labs/geocities-gifs';
 import {
   TerminalShell,
   TerminalMenuBar,
   TerminalPaneTitle,
-  TerminalButton,
   TerminalStatusBar,
   TerminalTitle,
   TerminalSessionBadge,
@@ -44,101 +42,77 @@ export default function AboutPage() {
       }
     >
       <div className={styles.grid}>
+        <section className={styles.visual}>
+          <TerminalPaneTitle>VISUAL LOG</TerminalPaneTitle>
+          <div className={styles.visualStack}>
+            <div className={styles.visualCard}>
+              <img src={GC.globeLarge} width={94} height={94} alt="" />
+              <div className={styles.visualCaption}>GLOBAL STRESS MAP</div>
+            </div>
+            <div className={styles.visualCard}>
+              <img src={GC.radar} width={88} height={88} alt="" />
+              <div className={styles.visualCaption}>SIGNAL SCAN</div>
+            </div>
+            <div className={styles.visualCard}>
+              <img src={GC.worldMap} width={116} height={56} alt="" />
+              <div className={styles.visualCaption}>NARRATIVE ROUTING</div>
+            </div>
+          </div>
+          <div className={styles.visualFooter}>
+            <img src={GC.coolSite} width={88} height={31} alt="GeoCities cool site badge" />
+          </div>
+        </section>
+
         <section className={styles.story}>
           <div className={styles.titleRow}>
-            <img src={GC.fire1} width={40} height={40} alt="" />
             <TerminalTitle className={styles.titleNoMargin}>WAR.MARKET</TerminalTitle>
-            <img src={GC.fire1} width={40} height={40} alt="" />
           </div>
-
           <p className={styles.body}>
-            Trade global stress through narrative long/short baskets. Powered by Pear Protocol. Settled on Hyperliquid.
+            Trade global stress through narrative long/short baskets.
           </p>
 
           <div className={styles.sectionGap24}>
-            <div className={styles.sectionLabel}>
-              <img src={GC.warning} width={20} height={20} alt="" />
-              THE PROBLEM
-            </div>
+            <div className={styles.sectionLabel}>THE PROBLEM</div>
             <p className={styles.body}>
-              Global risk moves in one piece. The assets that respond to it don&apos;t.
-              A Taiwan crisis hits chips, defence stocks, shipping, and safe havens at once — but you trade each one separately.
-              By the time you&apos;ve built the position, the move is over.
+              Global risk moves as one system. Execution doesn&apos;t. A single macro shock can hit chips, energy, FX, and beta at once,
+              but most traders still build exposure leg-by-leg across fragmented rails.
             </p>
           </div>
 
           <div className={styles.sectionGap20}>
-            <div className={styles.sectionLabel}>
-              <img src={GC.sparkle1} width={20} height={20} alt="" />
-              THE RESPONSE
-            </div>
+            <div className={styles.sectionLabel}>THE RESPONSE</div>
             <p className={styles.body}>
-              WAR.MARKET gives you one button. Pick a thesis and the basket is already built — long legs, short legs,
-              weighted and ready. Pear executes both sides atomically on Hyperliquid. You hold a view, not six tickets.
+              WAR.MARKET turns narrative views into pre-defined long/short baskets. You pick a thesis, size it, and execute one coherent position.
             </p>
           </div>
 
           <div className={styles.sectionGap20}>
-            <div className={styles.sectionLabel}>PEAR EXECUTION</div>
+            <div className={styles.sectionLabel}>HOW IT WORKS</div>
             <p className={styles.body}>
-              WAR.MARKET is the thesis layer. Pear Protocol is the execution layer. Every trade you place here routes
-              through Pear, with settlement on Hyperliquid.
+              1) Select a market thesis.<br />
+              2) Choose direction, size, leverage.<br />
+              3) Execute and monitor in portfolio.
             </p>
-            <div className={styles.links}>
-              <a href="https://docs.pearprotocol.io" target="_blank" rel="noreferrer" className={styles.link}>
-                Pear docs
-              </a>
-              <a href="https://www.pear.garden/" target="_blank" rel="noreferrer" className={styles.link}>
-                Pear Protocol
-              </a>
-              <a href="https://hyperliquid.xyz" target="_blank" rel="noreferrer" className={styles.link}>
-                Hyperliquid
-              </a>
-            </div>
+          </div>
+
+          <div className={styles.sectionGap20}>
+            <div className={styles.sectionLabel}>ROADMAP</div>
+            <ul className={styles.roadmapList}>
+              <li className={styles.done}>Win hackathon</li>
+              <li className={styles.done}>Launch on Pear Protocol mainnet</li>
+              <li>UX redesign for production</li>
+              <li>Quant rationale per basket</li>
+              <li>Charts from Hyperliquid</li>
+              <li>Community market creation</li>
+              <li>Go live</li>
+              <li>$WAR token</li>
+              <li>HIP-3 native WAR indices on Hyperliquid</li>
+            </ul>
           </div>
         </section>
 
-        <section className={styles.sell}>
-          <TerminalPaneTitle>ACTIONS</TerminalPaneTitle>
-
-          <div className={styles.sellCard}>
-            <img src={GC.trophy} width={32} height={32} alt="" />
-            <div className={styles.sellBadge}>Hyperliquid Hackathon Winner</div>
-            <div className={styles.sellStats}>
-              6 narrative markets<br />
-              Live on Pear Protocol<br />
-              Settled on Hyperliquid
-            </div>
-          </div>
-
-          <div className={styles.ctaStack}>
-            <Link href="/markets" className={styles.linkReset}>
-              <TerminalButton fullWidth>BROWSE MARKETS →</TerminalButton>
-            </Link>
-            <Link href="/trade" className={styles.linkReset}>
-              <TerminalButton variant="primary" fullWidth>OPEN TRADE →</TerminalButton>
-            </Link>
-          </div>
-        </section>
-
-        <section className={styles.meta}>
-          <TerminalPaneTitle>POWERED BY</TerminalPaneTitle>
-          <div className={styles.metaBlock}>
-            <div className={styles.body}>
-              <div>EXECUTION: Pear Protocol</div>
-              <div>SETTLEMENT: Hyperliquid</div>
-            </div>
-          </div>
-
-          <div className={styles.metaBlock}>
-            <div className={styles.sectionLabel}>WHO IT&apos;S FOR</div>
-            <div className={styles.body}>
-              <div>▸ Macro traders tired of leg-by-leg execution</div>
-              <div>▸ Hedgers who want exposure without TradFi rails</div>
-              <div>▸ Anyone with a thesis and a wallet</div>
-            </div>
-          </div>
-
+        <section className={styles.credits}>
+          <TerminalPaneTitle>CREDITS & LINKS</TerminalPaneTitle>
           <div className={styles.metaBlock}>
             <div className={styles.sectionLabel}>BUILT BY</div>
             <div className={styles.body}>
@@ -146,14 +120,23 @@ export default function AboutPage() {
                 @b1rdmania
               </a>
             </div>
-            <div className={`${styles.body} ${styles.bodySmall}`}>
-              Music:{' '}
+          </div>
+          <div className={styles.metaBlock}>
+            <div className={styles.sectionLabel}>MUSIC</div>
+            <div className={styles.body}>
               <a href="https://wario.style" target="_blank" rel="noreferrer" className={styles.link}>
                 wario.style
               </a>
             </div>
           </div>
-
+          <div className={styles.metaBlock}>
+            <div className={styles.sectionLabel}>STACK</div>
+            <div className={styles.body}>
+              <div>Execution: Pear Protocol</div>
+              <div>Settlement: Hyperliquid</div>
+              <div>Interface: Next.js + Wagmi</div>
+            </div>
+          </div>
           <div className={styles.metaBlock}>
             <div className={styles.sectionLabel}>LINKS</div>
             <div className={styles.links}>
@@ -168,36 +151,6 @@ export default function AboutPage() {
               </a>
             </div>
           </div>
-
-          <div className={styles.metaGifFooter}>
-            <img src={GC.coolSite} width={88} height={31} alt="GeoCities cool site badge" />
-          </div>
-        </section>
-
-        <section className={styles.roadmap}>
-          <div className={styles.sectionLabel}>ROADMAP</div>
-          <ul className={styles.roadmapList}>
-            <li className={styles.done}>
-              <img src={GC.trophy} width={14} height={14} alt="" />
-              Win hackathon
-            </li>
-            <li className={styles.done}>✓ Launch on Pear Protocol mainnet</li>
-            <li>UX redesign for production</li>
-            <li>Quant rationale per basket</li>
-            <li>Charts from Hyperliquid</li>
-            <li>Community market creation</li>
-            <li>Go live</li>
-            <li>
-              <img src={GC.moneyBag} width={14} height={14} alt="" />
-              $WAR token
-            </li>
-            <li>HIP-3 native WAR indices on Hyperliquid</li>
-            <li className={styles.separator}>——————</li>
-            <li>
-              <img src={GC.sparkle1} width={14} height={14} alt="" />
-              World Peace
-            </li>
-          </ul>
         </section>
       </div>
     </TerminalShell>
