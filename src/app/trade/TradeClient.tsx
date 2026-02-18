@@ -292,22 +292,29 @@ export default function TradeClient() {
               if (markets.length === 0) return null;
               const expanded = expandedGroups[category] ?? true;
               return (
-                <div key={category}>
+                <div
+                  key={category}
+                  style={{
+                    marginTop: '10px',
+                    border: '1px solid var(--border)',
+                    background: 'var(--bg-deep)',
+                  }}
+                >
                   <button
                     type="button"
                     onClick={() => setExpandedGroups((prev) => ({ ...prev, [category]: !expanded }))}
                     style={{
                       width: '100%',
                       textAlign: 'left',
-                      border: '1px solid var(--border)',
-                      background: 'var(--bg-warm)',
+                      border: 'none',
+                      borderBottom: expanded ? '1px solid var(--border)' : 'none',
+                      background: 'var(--bg-deep)',
                       color: 'var(--text-secondary)',
-                      padding: '8px 10px',
+                      padding: '10px 12px',
                       fontFamily: 'var(--font-mono)',
                       fontSize: '11px',
-                      letterSpacing: '0.08em',
+                      letterSpacing: '0.1em',
                       textTransform: 'uppercase',
-                      marginTop: '8px',
                       cursor: 'pointer',
                     }}
                   >
