@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'war.market',
+  title: 'WAR.MARKET',
   description: 'Trade narratives, not tickers.',
 
   srcExclude: ['_archive/**'],
