@@ -34,13 +34,24 @@ function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
 }
 
-const CATEGORY_ORDER = ['macro', 'geopolitical', 'crypto', 'tech'] as const;
-const CATEGORY_LABEL: Record<(typeof CATEGORY_ORDER)[number], string> = {
+const MARKET_GROUP_ORDER = ['macro', 'geopolitical', 'commodities', 'crypto', 'tech'] as const;
+type MarketGroup = (typeof MARKET_GROUP_ORDER)[number];
+const MARKET_GROUP_LABEL: Record<MarketGroup, string> = {
   macro: 'MACRO',
   geopolitical: 'GEOPOLITICS',
+  commodities: 'COMMODITIES',
   crypto: 'CRYPTO',
   tech: 'DEGEN',
 };
+
+function marketGroupKey(market: { id: string; category: string; basket?: { long: Array<{ asset: string }> } }): MarketGroup {
+  const hasOilLeg = market.basket?.long?.some((a) => a.asset.toUpperCase().includes('CL')) ?? false;
+  if (market.id === 'middle-east-oil-shock' || hasOilLeg) return 'commodities';
+  if (market.category === 'macro') return 'macro';
+  if (market.category === 'geopolitical') return 'geopolitical';
+  if (market.category === 'crypto') return 'crypto';
+  return 'tech';
+}
 
 export default function TradeClient() {
   const { isConnected, address } = useAccount();
@@ -50,18 +61,19 @@ export default function TradeClient() {
   const { perpUsdc } = useVaultBalances(accessToken);
   const { markets: effectiveMarkets } = useValidatedMarkets();
 
-  const [selectedMarketId, setSelectedMarketId] = useState<string | null>(effectiveMarkets?.[0]?.id ?? null);
+  const [selectedMarketId, setSelectedMarketId] = useState<string | null>('risk-on-risk-off');
   const [side, setSide] = useState<'YES' | 'NO'>('YES');
   const [size, setSize] = useState(50);
   const [leverage, setLeverage] = useState(
     effectiveMarkets?.[0]?.effectiveLeverage ?? effectiveMarkets?.[0]?.leverage ?? 1
   );
   const [isExecuting, setIsExecuting] = useState(false);
-  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
-    macro: true,
-    geopolitical: true,
-    crypto: true,
-    tech: true,
+  const [expandedGroups, setExpandedGroups] = useState<Record<MarketGroup, boolean>>({
+    macro: false,
+    geopolitical: false,
+    commodities: false,
+    crypto: false,
+    tech: false,
   });
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
@@ -76,14 +88,15 @@ export default function TradeClient() {
     size > 0 &&
     (availableMargin === null || size <= availableMargin);
   const groupedMarkets = useMemo(() => {
-    const groups: Record<string, typeof effectiveMarkets> = {
+    const groups: Record<MarketGroup, typeof effectiveMarkets> = {
       macro: [],
       geopolitical: [],
+      commodities: [],
       crypto: [],
       tech: [],
     };
     for (const market of effectiveMarkets ?? []) {
-      const key = market.category in groups ? market.category : 'macro';
+      const key = marketGroupKey(market);
       groups[key].push(market);
     }
     return groups;
@@ -275,7 +288,7 @@ export default function TradeClient() {
             MARKET DIRECTORY
           </TerminalPaneTitle>
           <TerminalMarketList>
-            {CATEGORY_ORDER.map((category) => {
+            {MARKET_GROUP_ORDER.map((category) => {
               const markets = groupedMarkets[category] ?? [];
               if (markets.length === 0) return null;
               const expanded = expandedGroups[category] ?? true;
@@ -299,7 +312,7 @@ export default function TradeClient() {
                       cursor: 'pointer',
                     }}
                   >
-                    {expanded ? '▾' : '▸'} {CATEGORY_LABEL[category]}
+                    {expanded ? '▾' : '▸'} {MARKET_GROUP_LABEL[category]}
                   </button>
                   {expanded
                     ? markets.map((market) => (
