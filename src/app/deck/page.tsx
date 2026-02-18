@@ -1,32 +1,29 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { RiskShell } from '@/components/RiskShell';
+import type { Metadata } from 'next';
+import {
+  TerminalShell,
+  TerminalMenuBar,
+  TerminalButton,
+  TerminalStatusBar,
+} from '@/components/terminal';
 
-type Slide = {
-  title: string;
-  kicker?: string;
-  body: React.ReactNode;
-};
-
-const TOTAL = 5;
-
-const SLIDES: Slide[] = [
+const SLIDES = [
   {
     kicker: 'Hyperliquid London Hackathon · Jan 16–18, 2026',
     title: 'WAR.MARKET',
     body: (
-      <div className="space-y-6">
-        <div className="text-4xl md:text-6xl font-mono font-extrabold tracking-widest text-white">
-          TRADE NARRATIVES.
-          <br />
-          <span className="text-pear-lime">NOT TICKERS.</span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div style={{ fontSize: '32px', fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '0.06em', lineHeight: 1.2 }}>
+          TRADE NARRATIVES.<br />
+          <span style={{ color: 'var(--primary)' }}>NOT TICKERS.</span>
         </div>
-        <div className="text-lg md:text-xl font-mono text-gray-300 leading-relaxed">
+        <div style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.7 }}>
           Pear executes the basket. Hyperliquid settles it.
         </div>
-        <div className="text-sm font-mono text-gray-500">
-          Live: <span className="text-white">https://www.war.market</span>
+        <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>
+          Live: <span style={{ color: 'var(--text-primary)' }}>https://www.war.market</span>
         </div>
       </div>
     ),
@@ -34,37 +31,30 @@ const SLIDES: Slide[] = [
   {
     title: 'WHY BUILD THIS',
     body: (
-      <div className="space-y-5 text-xl md:text-2xl font-mono text-gray-200 leading-snug">
-        <div>EVM chains don’t allow coherent trading of synthetic equities.</div>
-        <div>
-          Oracle latency is <span className="text-red-300">gameable</span>.
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '14px', lineHeight: 1.8 }}>
+        <div style={{ color: 'var(--text-secondary)' }}>EVM chains don&apos;t allow coherent trading of synthetic equities.</div>
+        <div style={{ color: 'var(--text-secondary)' }}>
+          Oracle latency is <span style={{ color: 'var(--loss)' }}>gameable</span>.
         </div>
-        <div className="text-gray-400">The result is mush. Not a market.</div>
+        <div style={{ color: 'var(--text-muted)' }}>The result is mush. Not a market.</div>
       </div>
     ),
   },
   {
     title: 'WHY HYPERLIQUID',
     body: (
-      <div className="space-y-6 font-mono">
-        <div className="text-xl md:text-2xl text-gray-200 leading-snug">
-          Hyperliquid does real-time trading.
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '13px', lineHeight: 1.8 }}>
+        <div style={{ color: 'var(--text-secondary)' }}>Hyperliquid does real-time trading.</div>
+        <div style={{ color: 'var(--text-secondary)' }}>
+          HIP-3 allows new markets (Trade.xyz style, real-time stocks).<br />
+          It&apos;s a <span style={{ color: 'var(--primary)' }}>game-changer</span>.
         </div>
-
-        <div className="text-lg md:text-xl text-gray-300 leading-relaxed">
-          HIP‑3 allows new markets (Trade.xyz style, real‑time stocks).
-          <br />
-          It’s a <span className="text-pear-lime">game-changer</span>.
+        <div style={{ color: 'var(--text-muted)' }}>
+          Creating index markets on-chain is expensive.<br />
+          Roughly <span style={{ color: 'var(--text-primary)' }}>~$20m stake</span> to do it &ldquo;for real&rdquo;.
         </div>
-
-        <div className="text-lg md:text-xl text-gray-400 leading-relaxed">
-          But creating index markets on-chain is expensive.
-          <br />
-          Roughly <span className="text-white">~$20m stake</span> scale to do it “for real”.
-        </div>
-
-        <div className="text-gray-400 text-lg">
-          Pear API gives an <span className="text-white">approximation</span> now.
+        <div style={{ color: 'var(--text-muted)' }}>
+          Pear API gives an <span style={{ color: 'var(--text-primary)' }}>approximation</span> now.
         </div>
       </div>
     ),
@@ -72,39 +62,27 @@ const SLIDES: Slide[] = [
   {
     title: 'WAR.MARKET',
     body: (
-      <div className="space-y-5 font-mono">
-        <div className="text-xl md:text-2xl text-gray-200 leading-snug">
-          War Markets turns complex financial architecture into a one-click narrative trade platform.
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '13px' }}>
+        <div style={{ color: 'var(--text-secondary)', lineHeight: 1.7 }}>
+          One-click narrative trade platform. Complex financial architecture made simple.
         </div>
-
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="pear-border bg-black/30 p-5">
-            <div className="text-xs text-gray-500 uppercase tracking-[0.18em] mb-2">LONG</div>
-            <div className="text-pear-lime text-2xl font-extrabold tracking-widest">WINNERS</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+          <div style={{ border: '1px solid var(--border)', padding: '12px', background: 'var(--bg-deep)' }}>
+            <div style={{ color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.18em', marginBottom: '6px' }}>LONG</div>
+            <div style={{ color: 'var(--primary)', fontWeight: 700, letterSpacing: '0.1em' }}>WINNERS</div>
           </div>
-          <div className="pear-border bg-black/30 p-5">
-            <div className="text-xs text-gray-500 uppercase tracking-[0.18em] mb-2">SHORT</div>
-            <div className="text-red-300 text-2xl font-extrabold tracking-widest">CASUALTIES</div>
+          <div style={{ border: '1px solid var(--border)', padding: '12px', background: 'var(--bg-deep)' }}>
+            <div style={{ color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.18em', marginBottom: '6px' }}>SHORT</div>
+            <div style={{ color: 'var(--loss)', fontWeight: 700, letterSpacing: '0.1em' }}>CASUALTIES</div>
           </div>
         </div>
-
-        <div className="text-gray-400 text-lg">One narrative → one basket → one position.</div>
-
-        <div className="pear-border bg-black/30 p-4">
-          <div className="text-xs text-gray-500 uppercase tracking-[0.18em] mb-2">
-            Example basket
-          </div>
-          <div className="text-pear-lime font-bold tracking-widest">TAIWAN STRAIT CRISIS</div>
-          <div className="mt-2 text-xs text-gray-400">
-            Thesis: US chip independence vs TSMC supply chain dependency
-          </div>
-          <div className="mt-3 text-sm">
-            <div>
-              <span className="text-pear-lime">LONG</span>: INTC (40%) · AMD (30%) · ORCL (30%)
-            </div>
-            <div>
-              <span className="text-red-300">SHORT</span>: NVDA (40%) · AAPL (35%) · TSLA (25%)
-            </div>
+        <div style={{ border: '1px solid var(--border)', padding: '12px', background: 'var(--bg-deep)' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.18em', marginBottom: '8px' }}>EXAMPLE BASKET</div>
+          <div style={{ color: 'var(--primary)', fontWeight: 700, letterSpacing: '0.08em', marginBottom: '4px' }}>TAIWAN STRAIT CRISIS</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '11px', marginBottom: '8px' }}>US chip independence vs TSMC supply chain dependency</div>
+          <div style={{ fontSize: '11px', lineHeight: 1.8 }}>
+            <div><span style={{ color: 'var(--primary)' }}>LONG</span>: INTC (40%) · AMD (30%) · ORCL (30%)</div>
+            <div><span style={{ color: 'var(--loss)' }}>SHORT</span>: NVDA (40%) · AAPL (35%) · TSLA (25%)</div>
           </div>
         </div>
       </div>
@@ -113,21 +91,20 @@ const SLIDES: Slide[] = [
   {
     title: 'WHY IT MATTERS',
     body: (
-      <div className="space-y-5 font-mono">
-        <div className="text-gray-300">
-          <span className="text-pear-lime">✓</span> Real execution (not a mock)
-        </div>
-        <div className="text-gray-300">
-          <span className="text-pear-lime">✓</span> New behavior: narrative → basket → one position
-        </div>
-        <div className="text-gray-300">
-          <span className="text-pear-lime">✓</span> Tight demo loop: auth → trade → P&amp;L → cash out
-        </div>
-        <div className="text-gray-400 text-lg">Built in 3 days. Shipped to mainnet.</div>
-        <div className="pt-2 text-xs text-gray-400">
-          Repo: <span className="text-white">https://github.com/b1rdmania/WarGames</span>
-          <br />
-          X: <span className="text-white">https://x.com/b1rdmania</span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', fontSize: '13px', lineHeight: 1.8 }}>
+        {[
+          'Real execution — not a mock',
+          'New behavior: narrative → basket → one position',
+          'Tight demo loop: auth → trade → P&L → cash out',
+        ].map((line) => (
+          <div key={line} style={{ color: 'var(--text-secondary)' }}>
+            <span style={{ color: 'var(--primary)' }}>✓</span> {line}
+          </div>
+        ))}
+        <div style={{ color: 'var(--text-muted)', marginTop: '8px' }}>Built in 3 days. Shipped to mainnet.</div>
+        <div style={{ marginTop: '8px', fontSize: '11px', color: 'var(--text-muted)', lineHeight: 1.9 }}>
+          Repo: <span style={{ color: 'var(--text-secondary)' }}>https://github.com/b1rdmania/WarGames</span><br />
+          X: <span style={{ color: 'var(--text-secondary)' }}>https://x.com/b1rdmania</span>
         </div>
       </div>
     ),
@@ -140,9 +117,8 @@ function clamp(n: number, min: number, max: number) {
 
 export default function DeckPage() {
   const [idx, setIdx] = useState(0);
-
   const slide = useMemo(() => SLIDES[idx]!, [idx]);
-  const total = TOTAL;
+  const total = SLIDES.length;
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -160,51 +136,57 @@ export default function DeckPage() {
   }, [total]);
 
   return (
-    <RiskShell showMusic={false} right={null}>
-      <div className="tp-wrap">
-        <div className="tp-frame min-h-[62vh] flex flex-col justify-between">
-          <div className="flex items-center justify-between gap-4">
-            <div className="text-xs font-mono text-gray-500 uppercase tracking-[0.18em]">
-              {slide.kicker ?? 'WAR.MARKET DECK'}
-            </div>
-            <div className="text-xs font-mono text-gray-500">
-              {idx + 1}/{total}
-            </div>
+    <TerminalShell
+      menuBar={<TerminalMenuBar items={['FILE', 'DECK', 'OVERVIEW', 'HELP']} />}
+      statusBar={
+        <TerminalStatusBar
+          items={[
+            { label: 'DECK', value: 'WAR.MARKET' },
+            { label: 'SLIDE', value: `${idx + 1} / ${total}` },
+            { label: 'NAV', value: '← → KEYS' },
+          ]}
+        />
+      }
+    >
+      <div style={{
+        marginTop: '8px',
+        border: '1px solid var(--border)',
+        minHeight: '62vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: '24px',
+        background: 'var(--bg-deep)',
+      }}>
+        {/* Kicker + slide counter */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            {slide.kicker ?? 'WAR.MARKET DECK'}
           </div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '11px' }}>{idx + 1} / {total}</div>
+        </div>
 
-          <div className="mt-10">
-            <div className="text-4xl md:text-6xl font-mono font-extrabold tracking-widest text-pear-lime">
-              {slide.title}
-            </div>
-            <div className="mt-8">{slide.body}</div>
+        {/* Slide content */}
+        <div style={{ flex: 1 }}>
+          <div style={{ color: 'var(--primary)', fontSize: '28px', fontWeight: 700, letterSpacing: '0.08em', marginBottom: '24px' }}>
+            {slide.title}
           </div>
+          {slide.body}
+        </div>
 
-          <div className="mt-10 flex items-center justify-between gap-3">
-            <button
-              type="button"
-              className="tm-btn px-4 py-2"
-              onClick={() => setIdx((i) => clamp(i - 1, 0, total - 1))}
-              disabled={idx === 0}
-            >
-              PREV
-            </button>
-
-            <div className="text-[11px] font-mono text-gray-500 text-center">
-              Use ← / → keys
-            </div>
-
-            <button
-              type="button"
-              className="tm-btn px-4 py-2"
-              onClick={() => setIdx((i) => clamp(i + 1, 0, total - 1))}
-              disabled={idx === total - 1}
-            >
-              NEXT
-            </button>
+        {/* Navigation */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '32px', gap: '12px' }}>
+          <TerminalButton onClick={() => setIdx((i) => clamp(i - 1, 0, total - 1))} disabled={idx === 0}>
+            ← PREV
+          </TerminalButton>
+          <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em' }}>
+            USE ← → KEYS
           </div>
+          <TerminalButton onClick={() => setIdx((i) => clamp(i + 1, 0, total - 1))} disabled={idx === total - 1}>
+            NEXT →
+          </TerminalButton>
         </div>
       </div>
-    </RiskShell>
+    </TerminalShell>
   );
 }
-
