@@ -378,7 +378,7 @@ export default function TradeClient() {
                 <Link href={`/markets/${selectedMarket.id}`}>
                   <TerminalButton fullWidth>
                     <img src={GC.signal} width={16} height={16} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-                    FULL INTELLIGENCE →
+                    FULL INTELLIGENCE BRIEF →
                   </TerminalButton>
                 </Link>
               </div>
