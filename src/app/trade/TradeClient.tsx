@@ -30,6 +30,7 @@ import { GC } from '@/app/labs/geocities-gifs';
 import { closePosition, executePosition, getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
 import { logTradeStatEvent } from '@/lib/stats/client';
+import { getHyperliquidPortfolioUrl, getPearPositionUrl } from '@/integrations/pear/links';
 
 function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
@@ -457,9 +458,9 @@ export default function TradeClient() {
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '1.5fr 0.8fr 0.8fr 0.8fr 0.8fr',
+                  gridTemplateColumns: '1.5fr 0.7fr 0.8fr 0.8fr 1.1fr',
                   gap: '8px',
-                  minWidth: '640px',
+                  minWidth: '760px',
                   padding: '8px 10px',
                   borderBottom: '1px solid var(--border)',
                   color: 'var(--text-muted)',
@@ -481,9 +482,9 @@ export default function TradeClient() {
                     key={position.id}
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: '1.5fr 0.8fr 0.8fr 0.8fr 0.8fr',
+                      gridTemplateColumns: '1.5fr 0.7fr 0.8fr 0.8fr 1.1fr',
                       gap: '8px',
-                      minWidth: '640px',
+                      minWidth: '760px',
                       padding: '8px 10px',
                       borderBottom: '1px solid var(--border)',
                       alignItems: 'center',
@@ -500,26 +501,63 @@ export default function TradeClient() {
                     <span style={{ color: pnl >= 0 ? 'var(--primary)' : 'var(--loss)' }}>
                       {pnl >= 0 ? '+' : ''}${pnl.toFixed(2)}
                     </span>
-                    <button
-                      type="button"
-                      onClick={() => handleClosePosition(position.id)}
-                      disabled={closingPositionId === position.id}
-                      style={{
-                        justifySelf: 'end',
-                        border: '1px solid var(--border)',
-                        background: 'var(--bg-deep)',
-                        color: 'var(--text-primary)',
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '11px',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.06em',
-                        padding: '5px 10px',
-                        cursor: closingPositionId === position.id ? 'not-allowed' : 'pointer',
-                        opacity: closingPositionId === position.id ? 0.5 : 1,
-                      }}
-                    >
-                      {closingPositionId === position.id ? 'CLOSING…' : 'CLOSE'}
-                    </button>
+                    <div style={{ justifySelf: 'end', display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      <a
+                        href={getHyperliquidPortfolioUrl()}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          border: '1px solid var(--border)',
+                          background: 'var(--bg-deep)',
+                          color: 'var(--text-secondary)',
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '10px',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.06em',
+                          padding: '5px 8px',
+                          textDecoration: 'none',
+                        }}
+                      >
+                        HYPER
+                      </a>
+                      <a
+                        href={getPearPositionUrl(position.id)}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          border: '1px solid var(--border)',
+                          background: 'var(--bg-deep)',
+                          color: 'var(--text-secondary)',
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '10px',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.06em',
+                          padding: '5px 8px',
+                          textDecoration: 'none',
+                        }}
+                      >
+                        PEAR
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => handleClosePosition(position.id)}
+                        disabled={closingPositionId === position.id}
+                        style={{
+                          border: '1px solid var(--border)',
+                          background: 'var(--bg-deep)',
+                          color: 'var(--text-primary)',
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '11px',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.06em',
+                          padding: '5px 10px',
+                          cursor: closingPositionId === position.id ? 'not-allowed' : 'pointer',
+                          opacity: closingPositionId === position.id ? 0.5 : 1,
+                        }}
+                      >
+                        {closingPositionId === position.id ? 'CLOSING…' : 'CLOSE'}
+                      </button>
+                    </div>
                   </div>
                 );
               })}

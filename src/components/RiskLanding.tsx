@@ -19,7 +19,7 @@ export function RiskLanding() {
         <TerminalStatusBar
           items={[
             { label: 'PROJECT', value: 'WAR.MARKET' },
-            { label: 'EXECUTION', value: 'PEAR PROTOCOL' },
+            { label: 'PRODUCT', value: 'NARRATIVE BASKETS' },
             { label: 'SETTLEMENT', value: 'HYPERLIQUID' },
             { label: 'STATE', value: 'LIVE' },
           ]}

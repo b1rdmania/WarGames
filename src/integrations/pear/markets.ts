@@ -16,14 +16,14 @@ export const MARKETS: PearMarketConfig[] = [
     category: 'geopolitical',
     basket: {
       long: [
-        { asset: 'xyz:INTC', weight: 0.40 },
-        { asset: 'xyz:AMD', weight: 0.30 },
-        { asset: 'xyz:ORCL', weight: 0.30 },
+        { asset: 'xyz:INTC', weight: 0.20 },
+        { asset: 'xyz:AMD', weight: 0.15 },
+        { asset: 'xyz:ORCL', weight: 0.15 },
       ],
       short: [
-        { asset: 'xyz:NVDA', weight: 0.40 },
-        { asset: 'xyz:AAPL', weight: 0.35 },
-        { asset: 'xyz:TSLA', weight: 0.25 },
+        { asset: 'xyz:NVDA', weight: 0.20 },
+        { asset: 'xyz:AAPL', weight: 0.175 },
+        { asset: 'xyz:TSLA', weight: 0.125 },
       ],
     },
     leverage: 3,
@@ -37,15 +37,15 @@ export const MARKETS: PearMarketConfig[] = [
     category: 'geopolitical',
     basket: {
       long: [
-        { asset: 'xyz:GOLD', weight: 0.35 },
-        { asset: 'xyz:INTC', weight: 0.30 },
-        { asset: 'xyz:COIN', weight: 0.20 },
-        { asset: 'xyz:MSTR', weight: 0.15 },
+        { asset: 'xyz:GOLD', weight: 0.175 },
+        { asset: 'xyz:INTC', weight: 0.15 },
+        { asset: 'xyz:COIN', weight: 0.10 },
+        { asset: 'xyz:MSTR', weight: 0.075 },
       ],
       short: [
-        { asset: 'xyz:NVDA', weight: 0.55 },
-        { asset: 'xyz:META', weight: 0.25 },
-        { asset: 'xyz:GOOGL', weight: 0.20 },
+        { asset: 'xyz:NVDA', weight: 0.275 },
+        { asset: 'xyz:META', weight: 0.125 },
+        { asset: 'xyz:GOOGL', weight: 0.10 },
       ],
     },
     leverage: 2,
@@ -59,13 +59,13 @@ export const MARKETS: PearMarketConfig[] = [
     category: 'geopolitical',
     basket: {
       long: [
-        { asset: 'xyz:CL', weight: 0.50 },
-        { asset: 'xyz:GOLD', weight: 0.30 },
-        { asset: 'BTC', weight: 0.20 },
+        { asset: 'xyz:CL', weight: 0.25 },
+        { asset: 'xyz:GOLD', weight: 0.15 },
+        { asset: 'BTC', weight: 0.10 },
       ],
       short: [
-        { asset: 'km:US500', weight: 0.60 },
-        { asset: 'xyz:TSLA', weight: 0.40 },
+        { asset: 'km:US500', weight: 0.30 },
+        { asset: 'xyz:TSLA', weight: 0.20 },
       ],
     },
     leverage: 3,
@@ -79,13 +79,13 @@ export const MARKETS: PearMarketConfig[] = [
     category: 'macro',
     basket: {
       long: [
-        { asset: 'xyz:NVDA', weight: 0.40 },
-        { asset: 'xyz:TSLA', weight: 0.30 },
-        { asset: 'xyz:COIN', weight: 0.30 },
+        { asset: 'xyz:NVDA', weight: 0.20 },
+        { asset: 'xyz:TSLA', weight: 0.15 },
+        { asset: 'xyz:COIN', weight: 0.15 },
       ],
       short: [
-        { asset: 'xyz:GOLD', weight: 0.60 },
-        { asset: 'BTC', weight: 0.40 },
+        { asset: 'xyz:GOLD', weight: 0.30 },
+        { asset: 'BTC', weight: 0.20 },
       ],
     },
     leverage: 3,
@@ -139,17 +139,17 @@ export const MARKETS: PearMarketConfig[] = [
     description: 'Hyperliquid token momentum vs broad L1 majors',
     category: 'crypto',
     basket: {
-      long: [{ asset: 'HYPE', weight: 1.0 }],
+      long: [{ asset: 'HYPE', weight: 0.5 }],
       short: [
-        { asset: 'ETH', weight: 0.20 },
-        { asset: 'SOL', weight: 0.20 },
-        { asset: 'AVAX', weight: 0.20 },
-        { asset: 'SUI', weight: 0.20 },
-        { asset: 'APT', weight: 0.20 },
+        { asset: 'ETH', weight: 0.10 },
+        { asset: 'SOL', weight: 0.10 },
+        { asset: 'AVAX', weight: 0.10 },
+        { asset: 'SUI', weight: 0.10 },
+        { asset: 'APT', weight: 0.10 },
       ],
     },
     leverage: 3,
-    status: 'live',
+    status: 'paused',
   },
 
 ];
