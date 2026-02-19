@@ -65,6 +65,15 @@ const MARKET_NARRATIVES: Record<string, {
     longLabel: '⚡ SMART CONTRACT ARMY',
     shortLabel: '💤 BOOMER COIN',
   },
+  'hype-vs-l1s': {
+    thesis: 'HYPE keeps taking mindshare while legacy L1 beta fragments. Relative momentum stays with Hyperliquid.',
+    overview: 'Single-conviction long vs diversified L1 short basket.',
+    why: 'When one venue captures attention and flow, relative performance can diverge hard vs broad chain beta.',
+    model: 'Long HYPE vs short ETH/SOL/AVAX/SUI/APT with equal weights on the short side.',
+    poweredBy: 'Pear execution + Hyperliquid settlement.',
+    longLabel: '🚀 HYPE CONVICTION',
+    shortLabel: '🧺 L1 INDEX SHORT',
+  },
 };
 
 export function getMarketNarrative(marketId: string) {

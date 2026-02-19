@@ -104,7 +104,7 @@ export const MARKETS: PearMarketConfig[] = [
       short: 'BTC',
     },
     leverage: 3,
-    status: 'paused',
+    status: 'live',
   },
 
   {
@@ -117,7 +117,7 @@ export const MARKETS: PearMarketConfig[] = [
       short: 'ETH',
     },
     leverage: 3,
-    status: 'paused',
+    status: 'live',
   },
 
   {
@@ -130,7 +130,26 @@ export const MARKETS: PearMarketConfig[] = [
       short: 'BTC',
     },
     leverage: 3,
-    status: 'paused',
+    status: 'live',
+  },
+
+  {
+    id: 'hype-vs-l1s',
+    name: 'HYPE vs L1 Basket',
+    description: 'Hyperliquid token momentum vs broad L1 majors',
+    category: 'crypto',
+    basket: {
+      long: [{ asset: 'HYPE', weight: 1.0 }],
+      short: [
+        { asset: 'ETH', weight: 0.20 },
+        { asset: 'SOL', weight: 0.20 },
+        { asset: 'AVAX', weight: 0.20 },
+        { asset: 'SUI', weight: 0.20 },
+        { asset: 'APT', weight: 0.20 },
+      ],
+    },
+    leverage: 3,
+    status: 'live',
   },
 
 ];

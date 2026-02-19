@@ -41,7 +41,7 @@ export function RiskLanding() {
           <p className={styles.tagline}>THE GLOBAL TENSION TERMINAL</p>
 
           <p className={styles.subtitle}>
-            Macro stress becomes tradable positions.<br />
+            One-click macro baskets on Hyperliquid.<br />
             Taiwan invasion. Oil shock. AI collapse. One click.
           </p>
 
