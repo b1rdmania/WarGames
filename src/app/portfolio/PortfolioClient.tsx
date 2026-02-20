@@ -38,6 +38,7 @@ export default function PortfolioClient() {
   const [positions, setPositions] = useState<PearPosition[]>([]);
   const [loadingPositions, setLoadingPositions] = useState(false);
   const [refreshingPositions, setRefreshingPositions] = useState(false);
+  const [positionsError, setPositionsError] = useState<string | null>(null);
   const [hasLoadedPositions, setHasLoadedPositions] = useState(false);
   const [selectedPositionId, setSelectedPositionId] = useState<string | null>(null);
 
@@ -52,9 +53,11 @@ export default function PortfolioClient() {
       try {
         const pos = await getActivePositions(accessToken);
         setPositions(pos);
+        setPositionsError(null);
         setHasLoadedPositions(true);
       } catch (err) {
         console.error('Failed to load positions:', err);
+        setPositionsError((err as Error).message || 'Failed to load positions');
         emitDebugLog({ level: 'error', scope: 'positions', message: 'load failed', data: { message: (err as Error).message } });
       } finally {
         if (!silent) setLoadingPositions(false);
@@ -79,9 +82,11 @@ export default function PortfolioClient() {
           setRefreshingPositions(true);
           const pos = await getActivePositions(accessToken);
           setPositions(pos);
+          setPositionsError(null);
           setHasLoadedPositions(true);
           emitDebugLog({ level: 'info', scope: 'positions', message: 'refreshed from ws' });
         } catch (e) {
+          setPositionsError((e as Error).message || 'Failed to refresh positions');
           emitDebugLog({ level: 'warn', scope: 'positions', message: 'ws refresh failed', data: { message: (e as Error).message } });
         } finally {
           setRefreshingPositions(false);
@@ -152,6 +157,11 @@ export default function PortfolioClient() {
       leftPane={
         <>
           <TerminalPaneTitle>POSITION DIRECTORY</TerminalPaneTitle>
+          {positionsError ? (
+            <div style={{ color: 'var(--loss)', marginTop: '10px', marginBottom: '10px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              POSITION FEED ERROR: {positionsError}
+            </div>
+          ) : null}
           {loadingPositions && !hasLoadedPositions ? (
             <div style={{ color: '#8da294', marginTop: '20px' }}>LOADING POSITIONS...</div>
           ) : positions.length === 0 ? (
@@ -217,9 +227,11 @@ export default function PortfolioClient() {
               try {
                 const pos = await getActivePositions(accessToken);
                 setPositions(pos);
+                setPositionsError(null);
                 setHasLoadedPositions(true);
                 toast.success('Refreshed');
               } catch {
+                setPositionsError('Manual refresh failed');
                 toast.error('Failed to refresh');
               } finally {
                 setRefreshingPositions(false);
