@@ -58,6 +58,19 @@ export default function PortfolioClient() {
   }>>([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [historyError, setHistoryError] = useState<string | null>(null);
+  const [myRoutedEvents, setMyRoutedEvents] = useState<Array<{
+    ts: number;
+    marketId: string;
+    side: 'YES' | 'NO';
+    status: 'attempted' | 'success' | 'failed';
+    sizeUsd: number;
+    leverage: number;
+    notionalUsd: number;
+    wallet?: string;
+    orderId?: string;
+    error?: string;
+  }>>([]);
+  const [protocolTotals, setProtocolTotals] = useState<{ notionalUsd: number; uniqueWallets: number } | null>(null);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -156,8 +169,67 @@ export default function PortfolioClient() {
     };
   }, [isAuthenticated, historyScope, address]);
 
+  useEffect(() => {
+    if (!isAuthenticated || !address) return;
+    let mounted = true;
+    const loadMyRouted = async () => {
+      try {
+        const params = new URLSearchParams({ limit: '200', wallet: address });
+        const res = await fetch(`/api/stats/events?${params.toString()}`, { cache: 'no-store' });
+        const json = (await res.json()) as { ok: boolean; events?: typeof myRoutedEvents; error?: string };
+        if (!res.ok || !json.ok) throw new Error(json.error || 'Failed to load routed stats');
+        if (!mounted) return;
+        setMyRoutedEvents(Array.isArray(json.events) ? json.events : []);
+      } catch {
+        if (!mounted) return;
+        setMyRoutedEvents([]);
+      }
+    };
+    void loadMyRouted();
+    return () => {
+      mounted = false;
+    };
+  }, [isAuthenticated, address]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    let mounted = true;
+    const loadProtocolTotals = async () => {
+      try {
+        const res = await fetch('/api/stats/summary?days=30', { cache: 'no-store' });
+        const json = (await res.json()) as {
+          totals?: { notionalUsd?: number; uniqueWallets?: number };
+        };
+        if (!res.ok) return;
+        if (!mounted) return;
+        setProtocolTotals({
+          notionalUsd: Number(json.totals?.notionalUsd ?? 0),
+          uniqueWallets: Number(json.totals?.uniqueWallets ?? 0),
+        });
+      } catch {
+        if (!mounted) return;
+        setProtocolTotals(null);
+      }
+    };
+    void loadProtocolTotals();
+    return () => {
+      mounted = false;
+    };
+  }, [isAuthenticated]);
+
   const totalPnl = positions.reduce((sum, pos) => sum + Number(pos.pnl), 0);
   const selectedPosition = positions.find(p => p.id === selectedPositionId) ?? null;
+  const positiveOpen = positions.filter((p) => Number(p.pnl) >= 0).length;
+  const openWinRate = positions.length > 0 ? (positiveOpen / positions.length) * 100 : 0;
+  const successfulMyTrades = myRoutedEvents.filter((e) => e.status === 'success');
+  const totalMyRoutedNotional = successfulMyTrades.reduce((sum, e) => sum + Number(e.notionalUsd || 0), 0);
+  const myWarPoints = Math.floor(totalMyRoutedNotional);
+  const pendingWarPoints = Math.floor(
+    myRoutedEvents
+      .filter((e) => e.status === 'attempted')
+      .reduce((sum, e) => sum + Number(e.notionalUsd || 0), 0)
+  );
+  const fmtUsd = (n: number) => `$${n.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
 
   // Auth screen
   if (!isAuthenticated) {
@@ -384,7 +456,7 @@ export default function PortfolioClient() {
       }
       rightPane={
         <>
-          <TerminalPaneTitle>PORTFOLIO SUMMARY</TerminalPaneTitle>
+          <TerminalPaneTitle>MY STATS</TerminalPaneTitle>
           <TerminalKV>
             <TerminalKVRow
               label="TOTAL P&L"
@@ -394,7 +466,38 @@ export default function PortfolioClient() {
                 </span>
               }
             />
-            <TerminalKVRow label="OPEN POSITIONS" value={positions.length.toString()} />
+            <TerminalKVRow label="OPEN WIN RATE" value={`${openWinRate.toFixed(0)}%`} />
+            <TerminalKVRow label="MY ROUTED NOTIONAL" value={fmtUsd(totalMyRoutedNotional)} />
+          </TerminalKV>
+
+          <div style={{ marginTop: '10px' }}>
+            <TerminalPaneTitle>WAR POINTS</TerminalPaneTitle>
+            <TerminalKV>
+              <TerminalKVRow label="TOTAL POINTS" value={myWarPoints.toLocaleString()} />
+              <TerminalKVRow label="PENDING" value={pendingWarPoints.toLocaleString()} />
+              <TerminalKVRow label="SUCCESSFUL TRADES" value={successfulMyTrades.length.toString()} />
+            </TerminalKV>
+          </div>
+
+          <div style={{ marginTop: '10px' }}>
+            <TerminalPaneTitle>PROTOCOL SNAPSHOT</TerminalPaneTitle>
+            <TerminalKV>
+              <TerminalKVRow
+                label="30D ROUTED VOLUME"
+                value={protocolTotals ? fmtUsd(protocolTotals.notionalUsd) : '—'}
+              />
+              <TerminalKVRow
+                label="ACTIVE WALLETS"
+                value={protocolTotals ? protocolTotals.uniqueWallets.toString() : '—'}
+              />
+              <TerminalKVRow label="OPEN POSITIONS" value={positions.length.toString()} />
+            </TerminalKV>
+          </div>
+
+          <div style={{ marginTop: '10px' }}>
+            <TerminalPaneTitle>PORTFOLIO ACTIONS</TerminalPaneTitle>
+          </div>
+          <TerminalKV>
             <TerminalKVRow label="BALANCE" value={perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '$0.00'} />
           </TerminalKV>
           <TerminalButton
