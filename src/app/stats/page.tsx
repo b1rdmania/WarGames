@@ -1,10 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   TerminalShell,
   TerminalMenuBar,
   TerminalPaneTitle,
+  TerminalCommandBar,
+  TerminalKV,
+  TerminalKVRow,
   TerminalStatusBar,
   TerminalSessionBadge,
 } from '@/components/terminal';
@@ -25,21 +28,24 @@ export default function StatsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const run = async () => {
-      try {
-        const res = await fetch('/api/stats/summary?days=30', { cache: 'no-store' });
-        if (!res.ok) throw new Error('Failed to load stats');
-        const json = (await res.json()) as StatsSummary;
-        setData(json);
-      } catch (e) {
-        setError((e as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    run();
+  const loadStats = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await fetch('/api/stats/summary?days=30', { cache: 'no-store' });
+      if (!res.ok) throw new Error('Failed to load stats');
+      const json = (await res.json()) as StatsSummary;
+      setData(json);
+      setError(null);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    void loadStats();
+  }, [loadStats]);
 
   const successRate = data && data.totals.attempted > 0
     ? (data.totals.successful / data.totals.attempted) * 100
@@ -73,84 +79,98 @@ export default function StatsPage() {
       ]
     : [];
 
+  const pulseWindow = (data?.daily ?? []).slice(-7);
+  const maxPulse = Math.max(1, ...pulseWindow.map((d) => d.successful));
+
   return (
     <TerminalShell
       menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
-      statusBar={
-        <TerminalStatusBar
-          items={[
-            { label: 'PAGE', value: 'STATS' },
-            { label: 'WINDOW', value: '30D' },
-            { label: 'SOURCE', value: data?.storage?.toUpperCase() ?? '—' },
-            { label: 'STATE', value: loading ? 'LOADING' : error ? 'ERROR' : 'LIVE' },
-          ]}
-        />
-      }
-    >
-      <div className={styles.wrap}>
-        <section className={styles.panel}>
+      leftPane={
+        <div className={styles.pane}>
           <TerminalPaneTitle>ROUTING PROOF</TerminalPaneTitle>
+          <div className={styles.hero}>{data ? `$${num(data.totals.notionalUsd)}` : '$0'}</div>
+          <div className={styles.heroLabel}>TOTAL NOTIONAL ROUTED</div>
+          <div className={styles.divider} />
           {loading ? <div className={styles.muted}>LOADING…</div> : null}
           {error ? <div className={styles.error}>{error}</div> : null}
-          {data ? (
-            <div className={styles.kpis}>
-              <div className={styles.kpi}><span>NOTIONAL ROUTED</span><strong>${num(data.totals.notionalUsd)}</strong></div>
-              <div className={styles.kpi}><span>SUCCESS RATE</span><strong>{pct(successRate)}</strong></div>
-              <div className={styles.kpi}><span>SUCCESSFUL TRADES</span><strong>{num(data.totals.successful)}</strong></div>
-              <div className={styles.kpi}><span>UNIQUE WALLETS</span><strong>{num(data.totals.uniqueWallets)}</strong></div>
-            </div>
-          ) : null}
-          {data ? (
-            <div className={styles.kpisSecondary}>
-              <div className={styles.kpi}><span>ACTIVE DAYS</span><strong>{num(activeDays)}</strong></div>
-              <div className={styles.kpi}><span>AVG DAILY NOTIONAL</span><strong>${num(avgDailyNotional)}</strong></div>
-              <div className={styles.kpi}><span>ATTEMPTS / FAILED</span><strong>{num(data.totals.attempted)} / {num(data.totals.failed)}</strong></div>
-            </div>
-          ) : null}
-        </section>
-
-        <section className={styles.panel}>
-          <TerminalPaneTitle>MARKET MIX</TerminalPaneTitle>
-          {data ? (
-            <div className={styles.mix}>
-              {(data.topMarkets ?? []).slice(0, 5).map((m) => {
-                const w = data.totals.notionalUsd > 0 ? (m.notionalUsd / data.totals.notionalUsd) * 100 : 0;
-                return (
-                  <div key={m.marketId} className={styles.mixRow}>
-                    <div className={styles.mixLabel}>
-                      <span>{m.marketId.toUpperCase()}</span>
-                      <span>{num(m.successfulTrades)} trades · ${num(m.notionalUsd)}</span>
-                    </div>
-                    <div className={styles.mixBar}>
-                      <div className={styles.mixFill} style={{ width: `${Math.min(100, Math.max(2, w))}%` }} />
-                    </div>
-                  </div>
-                );
-              })}
-              {data.topMarkets.length === 0 ? <div className={styles.muted}>NO ROUTED TRADES YET.</div> : null}
-            </div>
-          ) : null}
-          <div className={styles.categoryGrid}>
-            {[
-              { key: 'macro', label: 'MACRO' },
-              { key: 'geopolitical', label: 'GEOPOLITICS' },
-              { key: 'crypto', label: 'CRYPTO' },
-              { key: 'tech', label: 'DEGEN' },
-            ].map((c) => {
-              const value = categoryTotals[c.key as keyof typeof categoryTotals];
-              const share = totalCategoryNotional > 0 ? (value / totalCategoryNotional) * 100 : 0;
+          <TerminalKV>
+            <TerminalKVRow label="SUCCESS RATE" value={pct(successRate)} />
+            <TerminalKVRow label="SUCCESSFUL TRADES" value={num(data?.totals.successful ?? 0)} />
+            <TerminalKVRow label="UNIQUE WALLETS" value={num(data?.totals.uniqueWallets ?? 0)} />
+            <TerminalKVRow label="ACTIVE DAYS" value={num(activeDays)} />
+            <TerminalKVRow label="AVG DAILY NOTIONAL" value={`$${num(avgDailyNotional)}`} />
+            <TerminalKVRow
+              label="ATTEMPTS / FAILED"
+              value={`${num(data?.totals.attempted ?? 0)} / ${num(data?.totals.failed ?? 0)}`}
+            />
+          </TerminalKV>
+        </div>
+      }
+      centerPane={
+        <div className={styles.pane}>
+          <TerminalPaneTitle>MARKET ACTIVITY</TerminalPaneTitle>
+          <div className={styles.mix}>
+            {(data?.topMarkets ?? []).slice(0, 5).map((m) => {
+              const w = (data?.totals.notionalUsd ?? 0) > 0 ? (m.notionalUsd / (data?.totals.notionalUsd ?? 1)) * 100 : 0;
               return (
-                <div key={c.key} className={styles.categoryCard}>
-                  <span>{c.label}</span>
-                  <strong>{pct(share)}</strong>
+                <div key={m.marketId} className={styles.mixRow}>
+                  <div className={styles.mixLabel}>
+                    <span>{m.marketId.toUpperCase()}</span>
+                    <span>{num(m.successfulTrades)} trades · ${num(m.notionalUsd)}</span>
+                  </div>
+                  <div className={styles.mixBar}>
+                    <div className={styles.mixFill} style={{ width: `${Math.min(100, Math.max(2, w))}%` }} />
+                  </div>
                 </div>
               );
             })}
+            {(data?.topMarkets.length ?? 0) === 0 ? <div className={styles.muted}>NO ROUTED TRADES YET.</div> : null}
           </div>
-        </section>
 
-        <section className={styles.panel}>
-          <TerminalPaneTitle>WARM-UP TARGETS</TerminalPaneTitle>
+          <div className={styles.subsection}>
+            <div className={styles.subhead}>CATEGORY MIX</div>
+            <TerminalKV>
+              {[
+                { key: 'macro', label: 'MACRO' },
+                { key: 'geopolitical', label: 'GEOPOLITICS' },
+                { key: 'crypto', label: 'CRYPTO' },
+                { key: 'tech', label: 'DEGEN' },
+              ].map((c) => {
+                const value = categoryTotals[c.key as keyof typeof categoryTotals];
+                const share = totalCategoryNotional > 0 ? (value / totalCategoryNotional) * 100 : 0;
+                return <TerminalKVRow key={c.key} label={c.label} value={pct(share)} />;
+              })}
+            </TerminalKV>
+          </div>
+
+          <div className={styles.subsection}>
+            <div className={styles.subhead}>7-DAY PULSE</div>
+            <div className={styles.pulse}>
+              {pulseWindow.map((d) => {
+                const heightPct = Math.max(4, Math.round((d.successful / maxPulse) * 100));
+                const day = new Date(`${d.date}T00:00:00Z`).toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 1);
+                return (
+                  <div key={d.date} className={styles.pulseWrap}>
+                    <div className={styles.pulseBar} style={{ height: `${heightPct}%` }} />
+                    <div className={styles.pulseLabel}>{day}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      }
+      rightPane={
+        <div className={styles.pane}>
+          <TerminalPaneTitle>TARGETS & HISTORY</TerminalPaneTitle>
+          <button
+            type="button"
+            className={styles.refreshBtn}
+            onClick={() => void loadStats()}
+          >
+            REFRESH DATA
+          </button>
+          <div className={styles.subhead}>WARM-UP TARGETS</div>
           <div className={styles.goals}>
             {goals.map((g) => {
               const progress = g.target > 0 ? (g.current / g.target) * 100 : 0;
@@ -167,22 +187,48 @@ export default function StatsPage() {
               );
             })}
           </div>
-        </section>
 
-        <section className={styles.panel}>
-          <TerminalPaneTitle>LAST 7 DAYS</TerminalPaneTitle>
-          <div className={styles.table}>
-            <div className={styles.head}><span>DATE</span><span>SUCCESS</span><span>NOTIONAL</span></div>
-            {(data?.daily ?? []).slice(-7).map((d) => (
-              <div key={d.date} className={styles.row}>
-                <span>{d.date}</span>
-                <span>{num(d.successful)}</span>
-                <span>${num(d.notionalUsd)}</span>
+          <div className={styles.subsection}>
+            <div className={styles.subhead}>DAILY LOG</div>
+            <div className={styles.table}>
+              <div className={styles.head}>
+                <span>DATE</span>
+                <span>OK</span>
+                <span>$</span>
               </div>
-            ))}
+              {(data?.daily ?? []).slice(-7).map((d) => (
+                <div key={d.date} className={styles.row}>
+                  <span>{d.date.slice(5)}</span>
+                  <span>{num(d.successful)}</span>
+                  <span>${num(d.notionalUsd)}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </section>
-      </div>
-    </TerminalShell>
+        </div>
+      }
+      commandBar={
+        <TerminalCommandBar
+          commands={[
+            { key: 'F1', label: 'HELP' },
+            { key: 'F2', label: 'MARKETS' },
+            { key: 'F3', label: 'TRADE' },
+            { key: 'F4', label: 'PORTFOLIO' },
+            { key: 'F5', label: 'INTEL' },
+            { key: 'F9', label: 'REFRESH' },
+          ]}
+        />
+      }
+      statusBar={
+        <TerminalStatusBar
+          items={[
+            { label: 'PAGE', value: 'STATS' },
+            { label: 'WINDOW', value: '30D' },
+            { label: 'SOURCE', value: data?.storage?.toUpperCase() ?? '—' },
+            { label: 'STATE', value: loading ? 'LOADING' : error ? 'ERROR' : 'LIVE' },
+          ]}
+        />
+      }
+    />
   );
 }

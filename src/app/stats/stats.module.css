@@ -1,60 +1,62 @@
-.wrap {
-  margin-top: 8px;
-  border: 1px solid var(--border);
+.pane {
   display: grid;
-  grid-template-columns: 1fr;
-}
-
-.panel {
-  border-bottom: 1px solid var(--border);
-  padding: 14px;
-}
-
-.panel:last-child {
-  border-bottom: 0;
-}
-
-.kpis {
-  margin-top: 12px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
 
-.kpisSecondary {
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+.hero {
+  font-size: 32px;
+  line-height: 1;
+  color: var(--primary);
+  letter-spacing: 0.03em;
 }
 
-.kpi {
-  border: 1px solid var(--border);
-  background: var(--bg-warm);
-  padding: 10px;
-  display: grid;
-  gap: 6px;
-}
-
-.kpi span {
+.heroLabel {
+  margin-top: 4px;
   color: var(--text-muted);
   font-size: 10px;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.kpi strong {
-  color: var(--text-primary);
-  font-size: 18px;
+.divider {
+  border-top: 1px solid var(--border);
+  margin: 8px 0 2px;
 }
 
-.kpisSecondary .kpi strong {
-  font-size: 14px;
+.subsection {
+  margin-top: 6px;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+.subhead {
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.refreshBtn {
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.refreshBtn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .mix {
-  margin-top: 10px;
+  margin-top: 2px;
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .mixRow {
@@ -83,36 +85,39 @@
   background: color-mix(in srgb, var(--primary) 82%, white 18%);
 }
 
-.categoryGrid {
-  margin-top: 12px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
+.pulse {
+  margin-top: 8px;
+  height: 86px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
 }
 
-.categoryCard {
-  border: 1px solid var(--border);
-  background: var(--bg-warm);
-  padding: 10px;
+.pulseWrap {
+  flex: 1;
   display: grid;
   gap: 4px;
 }
 
-.categoryCard span {
-  color: var(--text-muted);
-  font-size: 10px;
-  letter-spacing: 0.08em;
+.pulseBar {
+  width: 100%;
+  min-height: 2px;
+  background: color-mix(in srgb, var(--primary) 82%, white 18%);
+  transition: height 0.3s ease;
 }
 
-.categoryCard strong {
-  color: var(--text-primary);
-  font-size: 16px;
+.pulseLabel {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .goals {
-  margin-top: 10px;
+  margin-top: 6px;
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .goal {
@@ -124,6 +129,7 @@
 .goalHead {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   color: var(--text-secondary);
   font-size: 11px;
   margin-bottom: 6px;
@@ -141,16 +147,16 @@
 }
 
 .table {
-  margin-top: 10px;
+  margin-top: 8px;
   border: 1px solid var(--border);
 }
 
 .head,
 .row {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
-  gap: 12px;
-  padding: 8px 10px;
+  grid-template-columns: 1fr 0.6fr 0.9fr;
+  gap: 10px;
+  padding: 7px 8px;
 }
 
 .head {
@@ -158,6 +164,7 @@
   color: var(--text-muted);
   font-size: 10px;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .row {
@@ -171,44 +178,11 @@
 }
 
 .muted {
-  margin-top: 10px;
   color: var(--text-muted);
   font-size: 12px;
 }
 
 .error {
-  margin-top: 10px;
   color: var(--loss);
   font-size: 12px;
-}
-
-@media (max-width: 900px) {
-  .kpis {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .kpisSecondary {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .categoryGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 620px) {
-  .kpis {
-    grid-template-columns: 1fr;
-  }
-
-  .kpisSecondary {
-    grid-template-columns: 1fr;
-  }
-
-  .head,
-  .row {
-    grid-template-columns: 1.1fr 1fr 1fr;
-    gap: 8px;
-    padding: 8px;
-  }
 }
