@@ -42,8 +42,9 @@ export default function PortfolioClient() {
   const [hasLoadedPositions, setHasLoadedPositions] = useState(false);
   const [selectedPositionId, setSelectedPositionId] = useState<string | null>(null);
   const [portfolioTab, setPortfolioTab] = useState<'positions' | 'history'>('positions');
-  const [historyScope, setHistoryScope] = useState<'wallet' | 'all'>('wallet');
+  const [historyScope, setHistoryScope] = useState<'wallet' | 'all' | 'hyperliquid'>('wallet');
   const [historyRows, setHistoryRows] = useState<Array<{
+    source?: 'war' | 'hyperliquid';
     ts: number;
     marketId: string;
     side: 'YES' | 'NO';
@@ -129,8 +130,14 @@ export default function PortfolioClient() {
       setLoadingHistory(true);
       try {
         const params = new URLSearchParams({ limit: '60' });
+        let endpoint = '/api/stats/events';
         if (historyScope === 'wallet' && address) params.set('wallet', address);
-        const res = await fetch(`/api/stats/events?${params.toString()}`, { cache: 'no-store' });
+        if (historyScope === 'hyperliquid') {
+          if (!address) throw new Error('Wallet address required for Hyperliquid history');
+          endpoint = '/api/hyperliquid/fills';
+          params.set('wallet', address);
+        }
+        const res = await fetch(`${endpoint}?${params.toString()}`, { cache: 'no-store' });
         const json = (await res.json()) as { ok: boolean; events?: typeof historyRows; error?: string };
         if (!res.ok || !json.ok) throw new Error(json.error || 'Failed to load trade history');
         if (!mounted) return;
@@ -259,7 +266,7 @@ export default function PortfolioClient() {
             </TerminalMarketList>
           ) : (
             <div style={{ color: 'var(--text-muted)', fontSize: '11px', lineHeight: 1.7, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-              Use center panel for history feed. Scope toggle shows either routed trades for this wallet or all War.Market routed flow.
+              Use center panel for history feed. Scope toggle shows wallet-only routed trades, all routed War.Market flow, or full Hyperliquid fills.
             </div>
           )}
         </>
@@ -322,6 +329,23 @@ export default function PortfolioClient() {
                 >
                   All Routed
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setHistoryScope('hyperliquid')}
+                  style={{
+                    border: '1px solid var(--border)',
+                    background: historyScope === 'hyperliquid' ? 'var(--primary)' : 'var(--bg-warm)',
+                    color: historyScope === 'hyperliquid' ? 'var(--bg-deep)' : 'var(--text-secondary)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    padding: '6px 10px',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                  }}
+                >
+                  All Hyperliquid
+                </button>
               </div>
 
               {loadingHistory ? (
@@ -331,14 +355,19 @@ export default function PortfolioClient() {
                   HISTORY ERROR: {historyError}
                 </div>
               ) : historyRows.length === 0 ? (
-                <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>NO ROUTED TRADES IN THIS SCOPE.</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>
+                  {historyScope === 'hyperliquid' ? 'NO HYPERLIQUID FILLS FOUND FOR THIS WALLET.' : 'NO ROUTED TRADES IN THIS SCOPE.'}
+                </div>
               ) : (
                 <div style={{ border: '1px solid var(--border)', background: 'var(--bg-warm)', overflowX: 'auto' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 0.6fr 0.8fr 0.7fr 0.9fr', minWidth: '760px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                    <span>Time</span><span>Market</span><span>Side</span><span>Status</span><span>Lev</span><span>Notional</span>
+                  <div style={{ display: 'grid', gridTemplateColumns: '0.8fr 1fr 1.2fr 0.6fr 0.8fr 0.7fr 0.9fr', minWidth: '860px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    <span>Source</span><span>Time</span><span>Market</span><span>Side</span><span>Status</span><span>Lev</span><span>Notional</span>
                   </div>
                   {historyRows.map((row, idx) => (
-                    <div key={`${row.ts}-${row.marketId}-${idx}`} style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 0.6fr 0.8fr 0.7fr 0.9fr', minWidth: '760px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>
+                    <div key={`${row.ts}-${row.marketId}-${idx}`} style={{ display: 'grid', gridTemplateColumns: '0.8fr 1fr 1.2fr 0.6fr 0.8fr 0.7fr 0.9fr', minWidth: '860px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>
+                      <span style={{ color: row.source === 'hyperliquid' ? 'var(--secondary)' : 'var(--primary)' }}>
+                        {row.source === 'hyperliquid' ? 'HL' : 'WAR'}
+                      </span>
                       <span>{new Date(row.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                       <span>{row.marketId.replace(/-/g, '_')}</span>
                       <span style={{ color: row.side === 'YES' ? 'var(--primary)' : 'var(--loss)' }}>{row.side}</span>

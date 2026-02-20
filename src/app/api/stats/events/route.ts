@@ -8,7 +8,10 @@ export async function GET(req: Request) {
     const url = new URL(req.url);
     const limit = Number(url.searchParams.get('limit') ?? 50);
     const wallet = url.searchParams.get('wallet') ?? undefined;
-    const events = await getRecentTradeStatEvents(limit, wallet);
+    const events = (await getRecentTradeStatEvents(limit, wallet)).map((evt) => ({
+      ...evt,
+      source: 'war' as const,
+    }));
     return NextResponse.json({ ok: true, events });
   } catch (error) {
     return NextResponse.json(
