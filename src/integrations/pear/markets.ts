@@ -149,7 +149,7 @@ export const MARKETS: PearMarketConfig[] = [
       ],
     },
     leverage: 3,
-    status: 'paused',
+    status: 'live',
   },
 
 ];
