@@ -13,8 +13,10 @@ export function getPearDashboardUrl(): string {
 export function getPearPositionUrl(positionId?: string): string {
   const base = normalizeBaseUrl(process.env.NEXT_PUBLIC_PEAR_APP_URL);
   const id = (positionId ?? '').trim();
+  // Pear app does not reliably deep-link by position id across environments.
+  // Route users to dashboard open positions view; keep id as a hint.
   if (!id || id === 'unknown') return `${base}/dashboard`;
-  return `${base}/positions/${encodeURIComponent(id)}`;
+  return `${base}/dashboard?positionId=${encodeURIComponent(id)}`;
 }
 
 export function getHyperliquidPortfolioUrl(): string {
