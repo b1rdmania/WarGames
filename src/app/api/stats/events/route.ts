@@ -1,7 +1,22 @@
 import { NextResponse } from 'next/server';
-import { recordTradeStatEvent } from '@/lib/stats/store';
+import { getRecentTradeStatEvents, recordTradeStatEvent } from '@/lib/stats/store';
 
 export const runtime = 'nodejs';
+
+export async function GET(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const limit = Number(url.searchParams.get('limit') ?? 50);
+    const wallet = url.searchParams.get('wallet') ?? undefined;
+    const events = await getRecentTradeStatEvents(limit, wallet);
+    return NextResponse.json({ ok: true, events });
+  } catch (error) {
+    return NextResponse.json(
+      { ok: false, error: (error as Error).message || 'Failed to read events' },
+      { status: 500 }
+    );
+  }
+}
 
 export async function POST(req: Request) {
   try {

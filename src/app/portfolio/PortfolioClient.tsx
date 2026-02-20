@@ -41,6 +41,22 @@ export default function PortfolioClient() {
   const [positionsError, setPositionsError] = useState<string | null>(null);
   const [hasLoadedPositions, setHasLoadedPositions] = useState(false);
   const [selectedPositionId, setSelectedPositionId] = useState<string | null>(null);
+  const [portfolioTab, setPortfolioTab] = useState<'positions' | 'history'>('positions');
+  const [historyScope, setHistoryScope] = useState<'wallet' | 'all'>('wallet');
+  const [historyRows, setHistoryRows] = useState<Array<{
+    ts: number;
+    marketId: string;
+    side: 'YES' | 'NO';
+    status: 'attempted' | 'success' | 'failed';
+    sizeUsd: number;
+    leverage: number;
+    notionalUsd: number;
+    wallet?: string;
+    orderId?: string;
+    error?: string;
+  }>>([]);
+  const [loadingHistory, setLoadingHistory] = useState(false);
+  const [historyError, setHistoryError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -106,6 +122,33 @@ export default function PortfolioClient() {
     };
   }, [accessToken, address]);
 
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    let mounted = true;
+    const loadHistory = async () => {
+      setLoadingHistory(true);
+      try {
+        const params = new URLSearchParams({ limit: '60' });
+        if (historyScope === 'wallet' && address) params.set('wallet', address);
+        const res = await fetch(`/api/stats/events?${params.toString()}`, { cache: 'no-store' });
+        const json = (await res.json()) as { ok: boolean; events?: typeof historyRows; error?: string };
+        if (!res.ok || !json.ok) throw new Error(json.error || 'Failed to load trade history');
+        if (!mounted) return;
+        setHistoryRows(Array.isArray(json.events) ? json.events : []);
+        setHistoryError(null);
+      } catch (e) {
+        if (!mounted) return;
+        setHistoryError((e as Error).message || 'Failed to load trade history');
+      } finally {
+        if (mounted) setLoadingHistory(false);
+      }
+    };
+    void loadHistory();
+    return () => {
+      mounted = false;
+    };
+  }, [isAuthenticated, historyScope, address]);
+
   const totalPnl = positions.reduce((sum, pos) => sum + Number(pos.pnl), 0);
   const selectedPosition = positions.find(p => p.id === selectedPositionId) ?? null;
 
@@ -157,16 +200,52 @@ export default function PortfolioClient() {
       leftPane={
         <>
           <TerminalPaneTitle>POSITION DIRECTORY</TerminalPaneTitle>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px', marginBottom: '10px' }}>
+            <button
+              type="button"
+              onClick={() => setPortfolioTab('positions')}
+              style={{
+                border: '1px solid var(--border)',
+                background: portfolioTab === 'positions' ? 'var(--primary)' : 'var(--bg-warm)',
+                color: portfolioTab === 'positions' ? 'var(--bg-deep)' : 'var(--text-secondary)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                padding: '7px 8px',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+              }}
+            >
+              OPEN POSITIONS
+            </button>
+            <button
+              type="button"
+              onClick={() => setPortfolioTab('history')}
+              style={{
+                border: '1px solid var(--border)',
+                background: portfolioTab === 'history' ? 'var(--primary)' : 'var(--bg-warm)',
+                color: portfolioTab === 'history' ? 'var(--bg-deep)' : 'var(--text-secondary)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                padding: '7px 8px',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+              }}
+            >
+              TRADE HISTORY
+            </button>
+          </div>
           {positionsError ? (
             <div style={{ color: 'var(--loss)', marginTop: '10px', marginBottom: '10px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               POSITION FEED ERROR: {positionsError}
             </div>
           ) : null}
-          {loadingPositions && !hasLoadedPositions ? (
+          {portfolioTab === 'positions' && loadingPositions && !hasLoadedPositions ? (
             <div style={{ color: '#8da294', marginTop: '20px' }}>LOADING POSITIONS...</div>
-          ) : positions.length === 0 ? (
+          ) : portfolioTab === 'positions' && positions.length === 0 ? (
             <div style={{ color: '#8da294', marginTop: '20px' }}>NO ACTIVE POSITIONS</div>
-          ) : (
+          ) : portfolioTab === 'positions' ? (
             <TerminalMarketList>
               {positions.map((position) => (
                 <TerminalMarketRow
@@ -178,28 +257,99 @@ export default function PortfolioClient() {
                 />
               ))}
             </TerminalMarketList>
+          ) : (
+            <div style={{ color: 'var(--text-muted)', fontSize: '11px', lineHeight: 1.7, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              Use center panel for history feed. Scope toggle shows either routed trades for this wallet or all War.Market routed flow.
+            </div>
           )}
         </>
       }
       centerPane={
         <>
-          <TerminalPaneTitle>POSITION DETAILS</TerminalPaneTitle>
-          {selectedPosition ? (
-            <div style={{ marginTop: '-10px' }}>
-              <PositionCard
-                position={selectedPosition}
-                accessToken={accessToken ?? ''}
-                onClose={async () => {
-                  if (!accessToken) return;
-                  const pos = await getActivePositions(accessToken);
-                  setPositions(pos);
-                  setHasLoadedPositions(true);
-                  setSelectedPositionId(null);
-                }}
-              />
-            </div>
+          <TerminalPaneTitle>{portfolioTab === 'positions' ? 'POSITION DETAILS' : 'TRADE HISTORY'}</TerminalPaneTitle>
+          {portfolioTab === 'positions' ? (
+            selectedPosition ? (
+              <div style={{ marginTop: '-10px' }}>
+                <PositionCard
+                  position={selectedPosition}
+                  accessToken={accessToken ?? ''}
+                  onClose={async () => {
+                    if (!accessToken) return;
+                    const pos = await getActivePositions(accessToken);
+                    setPositions(pos);
+                    setHasLoadedPositions(true);
+                    setSelectedPositionId(null);
+                  }}
+                />
+              </div>
+            ) : (
+              <div style={{ color: '#8da294', marginTop: '20px' }}>SELECT A POSITION TO VIEW DETAILS</div>
+            )
           ) : (
-            <div style={{ color: '#8da294', marginTop: '20px' }}>SELECT A POSITION TO VIEW DETAILS</div>
+            <div style={{ marginTop: '-2px' }}>
+              <div style={{ display: 'flex', gap: '8px', marginBottom: '10px' }}>
+                <button
+                  type="button"
+                  onClick={() => setHistoryScope('wallet')}
+                  style={{
+                    border: '1px solid var(--border)',
+                    background: historyScope === 'wallet' ? 'var(--primary)' : 'var(--bg-warm)',
+                    color: historyScope === 'wallet' ? 'var(--bg-deep)' : 'var(--text-secondary)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    padding: '6px 10px',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                  }}
+                >
+                  My Wallet
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setHistoryScope('all')}
+                  style={{
+                    border: '1px solid var(--border)',
+                    background: historyScope === 'all' ? 'var(--primary)' : 'var(--bg-warm)',
+                    color: historyScope === 'all' ? 'var(--bg-deep)' : 'var(--text-secondary)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    padding: '6px 10px',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                  }}
+                >
+                  All Routed
+                </button>
+              </div>
+
+              {loadingHistory ? (
+                <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>LOADING TRADE HISTORY…</div>
+              ) : historyError ? (
+                <div style={{ color: 'var(--loss)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  HISTORY ERROR: {historyError}
+                </div>
+              ) : historyRows.length === 0 ? (
+                <div style={{ color: 'var(--text-muted)', fontSize: '12px' }}>NO ROUTED TRADES IN THIS SCOPE.</div>
+              ) : (
+                <div style={{ border: '1px solid var(--border)', background: 'var(--bg-warm)', overflowX: 'auto' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 0.6fr 0.8fr 0.7fr 0.9fr', minWidth: '760px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    <span>Time</span><span>Market</span><span>Side</span><span>Status</span><span>Lev</span><span>Notional</span>
+                  </div>
+                  {historyRows.map((row, idx) => (
+                    <div key={`${row.ts}-${row.marketId}-${idx}`} style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 0.6fr 0.8fr 0.7fr 0.9fr', minWidth: '760px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>
+                      <span>{new Date(row.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                      <span>{row.marketId.replace(/-/g, '_')}</span>
+                      <span style={{ color: row.side === 'YES' ? 'var(--primary)' : 'var(--loss)' }}>{row.side}</span>
+                      <span style={{ color: row.status === 'success' ? 'var(--primary)' : row.status === 'failed' ? 'var(--loss)' : 'var(--text-muted)' }}>{row.status}</span>
+                      <span>{row.leverage}x</span>
+                      <span>${Number(row.notionalUsd).toFixed(2)}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         </>
       }
