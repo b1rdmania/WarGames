@@ -27,6 +27,7 @@ import type { PearPosition } from '@/integrations/pear/types';
 import { connectPearWebsocket } from '@/integrations/pear/websocket';
 import { emitDebugLog } from '@/lib/debugLog';
 import { connectWalletSafely } from '@/lib/connectWallet';
+import { getHyperliquidPortfolioUrl, getPearDashboardUrl } from '@/integrations/pear/links';
 
 export default function PortfolioClient() {
   const { isConnected, address } = useAccount();
@@ -230,6 +231,8 @@ export default function PortfolioClient() {
       .reduce((sum, e) => sum + Number(e.notionalUsd || 0), 0)
   );
   const fmtUsd = (n: number) => `$${n.toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+  const hyperliquidUrl = getHyperliquidPortfolioUrl();
+  const pearUrl = getPearDashboardUrl();
 
   // Auth screen
   if (!isAuthenticated) {
@@ -432,11 +435,11 @@ export default function PortfolioClient() {
                 </div>
               ) : (
                 <div style={{ border: '1px solid var(--border)', background: 'var(--bg-warm)', overflowX: 'auto' }}>
-                  <div style={{ display: 'grid', gridTemplateColumns: '0.8fr 1fr 1.2fr 0.6fr 0.8fr 0.7fr 0.9fr', minWidth: '860px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                    <span>Source</span><span>Time</span><span>Market</span><span>Side</span><span>Status</span><span>Lev</span><span>Notional</span>
+                  <div style={{ display: 'grid', gridTemplateColumns: '0.75fr 0.9fr 1.2fr 0.55fr 0.8fr 0.6fr 0.85fr 1fr 0.8fr', minWidth: '1120px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    <span>Source</span><span>Time</span><span>Market</span><span>Side</span><span>Status</span><span>Lev</span><span>Notional</span><span>Trade ID</span><span>Links</span>
                   </div>
                   {historyRows.map((row, idx) => (
-                    <div key={`${row.ts}-${row.marketId}-${idx}`} style={{ display: 'grid', gridTemplateColumns: '0.8fr 1fr 1.2fr 0.6fr 0.8fr 0.7fr 0.9fr', minWidth: '860px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>
+                    <div key={`${row.ts}-${row.marketId}-${idx}`} style={{ display: 'grid', gridTemplateColumns: '0.75fr 0.9fr 1.2fr 0.55fr 0.8fr 0.6fr 0.85fr 1fr 0.8fr', minWidth: '1120px', gap: '8px', padding: '8px 10px', borderBottom: '1px solid var(--border)', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>
                       <span style={{ color: row.source === 'hyperliquid' ? 'var(--secondary)' : 'var(--primary)' }}>
                         {row.source === 'hyperliquid' ? 'HL' : 'WAR'}
                       </span>
@@ -446,6 +449,11 @@ export default function PortfolioClient() {
                       <span style={{ color: row.status === 'success' ? 'var(--primary)' : row.status === 'failed' ? 'var(--loss)' : 'var(--text-muted)' }}>{row.status}</span>
                       <span>{row.leverage}x</span>
                       <span>${Number(row.notionalUsd).toFixed(2)}</span>
+                      <span>{row.orderId ? `${String(row.orderId).slice(0, 8)}...` : '—'}</span>
+                      <span style={{ display: 'inline-flex', gap: '8px' }}>
+                        <a href={hyperliquidUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--secondary)', textDecoration: 'none' }}>HL ↗</a>
+                        <a href={pearUrl} target="_blank" rel="noreferrer" style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}>PEAR ↗</a>
+                      </span>
                     </div>
                   ))}
                 </div>

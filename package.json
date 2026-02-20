@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "check:theme": "bash scripts/check-theme-coherence.sh",
+    "check:markets": "node scripts/check-markets.mjs",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
