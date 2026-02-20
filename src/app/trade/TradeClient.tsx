@@ -36,6 +36,31 @@ function cleanSymbol(s: string) {
   return s.split(':').pop()!.trim();
 }
 
+const SESSION_GATED_PREFIXES = ['xyz:', 'vntl:', 'km:'];
+
+function isSessionGatedAsset(asset: string): boolean {
+  const normalized = asset.trim().toLowerCase();
+  return SESSION_GATED_PREFIXES.some((prefix) => normalized.startsWith(prefix));
+}
+
+function isLikelyUsSessionOpenNow(): boolean {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    hour12: false,
+    weekday: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).formatToParts(new Date());
+
+  const weekday = parts.find((p) => p.type === 'weekday')?.value ?? 'Mon';
+  const hour = Number(parts.find((p) => p.type === 'hour')?.value ?? '0');
+  const minute = Number(parts.find((p) => p.type === 'minute')?.value ?? '0');
+  const isWeekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(weekday);
+  if (!isWeekday) return false;
+  const minutes = hour * 60 + minute;
+  return minutes >= 9 * 60 + 30 && minutes < 16 * 60;
+}
+
 const MARKET_GROUP_ORDER = ['macro', 'geopolitical', 'commodities', 'crypto', 'tech'] as const;
 type MarketGroup = (typeof MARKET_GROUP_ORDER)[number];
 const MARKET_GROUP_LABEL: Record<MarketGroup, string> = {
@@ -69,6 +94,7 @@ export default function TradeClient() {
     effectiveMarkets?.[0]?.effectiveLeverage ?? effectiveMarkets?.[0]?.leverage ?? 1
   );
   const [isExecuting, setIsExecuting] = useState(false);
+  const [executionError, setExecutionError] = useState<string | null>(null);
   const [openPositions, setOpenPositions] = useState<PearPosition[]>([]);
   const [loadingOpenPositions, setLoadingOpenPositions] = useState(false);
   const [closingPositionId, setClosingPositionId] = useState<string | null>(null);
@@ -82,6 +108,16 @@ export default function TradeClient() {
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
+  const selectedAssets = selectedMarket
+    ? selectedMarket.pairs
+      ? [selectedMarket.pairs.long, selectedMarket.pairs.short]
+      : [
+          ...(selectedMarket.basket?.long.map((a) => a.asset) ?? []),
+          ...(selectedMarket.basket?.short.map((a) => a.asset) ?? []),
+        ]
+    : [];
+  const isSessionGatedMarket = selectedAssets.some((asset) => isSessionGatedAsset(asset));
+  const isLikelySessionOpen = isSessionGatedMarket ? isLikelyUsSessionOpenNow() : true;
   const availableMargin = isAuthenticated && perpUsdc ? Math.max(0, Number(perpUsdc)) : null;
   const maxPermittedLeverage = selectedMarket
     ? (selectedMarket.maxAllowedLeverage ?? selectedMarket.effectiveLeverage ?? selectedMarket.leverage)
@@ -179,8 +215,10 @@ export default function TradeClient() {
         // Non-blocking; status toast already shown for execution.
       }
       toast.success('Position executed');
+      setExecutionError(null);
     } catch (e) {
       const message = (e as Error).message || 'Execution failed';
+      setExecutionError(message);
       await logTradeStatEvent({
         wallet: address,
         marketId: selectedMarket.id,
@@ -210,6 +248,15 @@ export default function TradeClient() {
     } finally {
       setClosingPositionId(null);
     }
+  };
+
+  const switchToCryptoMarket = () => {
+    const firstCrypto = (effectiveMarkets ?? []).find((m) => m.category === 'crypto');
+    if (!firstCrypto) return;
+    setExpandedGroups((prev) => ({ ...prev, crypto: true }));
+    setSelectedMarketId(firstCrypto.id);
+    setLeverage(firstCrypto.effectiveLeverage ?? firstCrypto.leverage);
+    setExecutionError(null);
   };
 
   // Right pane content based on auth state
@@ -272,6 +319,11 @@ export default function TradeClient() {
           onChange={(v) => setSide(v as 'YES' | 'NO')}
         />
         <div style={{ marginTop: '10px' }}>
+          <div style={{ marginBottom: '8px', color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            {isSessionGatedMarket
+              ? `TRADING HOURS: WEEKDAYS (US SESSION) · ${isLikelySessionOpen ? 'OPEN NOW' : 'LIKELY CLOSED NOW'}`
+              : 'TRADING HOURS: 24/7'}
+          </div>
           <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '6px', display: 'flex', justifyContent: 'space-between' }}>
             <span>SIZE ${size.toFixed(0)}</span>
             <span>AVAIL {availableMargin !== null ? `$${availableMargin.toFixed(2)}` : '—'}</span>
@@ -320,6 +372,42 @@ export default function TradeClient() {
             <div style={{ color: 'var(--loss)' }}>INSUFFICIENT MARGIN FOR THIS SIZE</div>
           ) : null}
         </div>
+        {executionError ? (
+          <div
+            style={{
+              marginTop: '8px',
+              border: '1px solid var(--border)',
+              background: 'var(--bg-deep)',
+              padding: '8px',
+              fontSize: '10px',
+              lineHeight: 1.5,
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+            }}
+          >
+            <div style={{ color: 'var(--loss)' }}>EXECUTION MESSAGE: {executionError}</div>
+            {isSessionGatedMarket ? (
+              <button
+                type="button"
+                onClick={switchToCryptoMarket}
+                style={{
+                  marginTop: '8px',
+                  border: '1px solid var(--border)',
+                  background: 'var(--bg-warm)',
+                  color: 'var(--text-secondary)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  padding: '6px 8px',
+                  cursor: 'pointer',
+                }}
+              >
+                Switch to 24/7 Markets
+              </button>
+            ) : null}
+          </div>
+        ) : null}
         <TerminalButton
           variant="primary"
           fullWidth
@@ -386,6 +474,7 @@ export default function TradeClient() {
                           onClick={() => {
                             setSelectedMarketId(market.id);
                             setLeverage(market.effectiveLeverage ?? market.leverage);
+                            setExecutionError(null);
                           }}
                         />
                       ))
