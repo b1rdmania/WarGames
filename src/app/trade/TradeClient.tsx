@@ -27,7 +27,7 @@ import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { connectWalletSafely } from '@/lib/connectWallet';
 import { GC } from '@/app/labs/geocities-gifs';
-import { closePosition, executePosition, getActivePositions } from '@/integrations/pear/positions';
+import { closePositionVerified, executePosition, getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
 import { logTradeStatEvent } from '@/lib/stats/client';
 import { getHyperliquidPortfolioUrl, getPearPositionUrl } from '@/integrations/pear/links';
@@ -237,10 +237,14 @@ export default function TradeClient() {
     if (!accessToken || closingPositionId) return;
     try {
       setClosingPositionId(positionId);
-      await closePosition(accessToken, positionId);
+      const result = await closePositionVerified(accessToken, positionId);
       const positions = await getActivePositions(accessToken);
       setOpenPositions(positions);
-      toast.success('Position closed');
+      if (result.verifiedClosed) {
+        toast.success('Position closed');
+      } else {
+        toast.error('Close submitted but position still appears open. Please refresh and verify on Hyperliquid.');
+      }
     } catch (e) {
       toast.error((e as Error).message || 'Failed to close position');
     } finally {

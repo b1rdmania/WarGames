@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { closePosition } from '@/integrations/pear/positions';
+import { closePositionVerified } from '@/integrations/pear/positions';
 import { getMarketById } from '@/integrations/pear/markets';
 import { getHyperliquidPortfolioUrl, getPearPositionUrl } from '@/integrations/pear/links';
 import type { PearPosition } from '@/integrations/pear/types';
@@ -250,8 +250,12 @@ export function PositionCard({
           onClick={async () => {
             setClosing(true);
             try {
-              await closePosition(accessToken, position.id);
-              toast.success('Position closed');
+              const result = await closePositionVerified(accessToken, position.id);
+              if (result.verifiedClosed) {
+                toast.success('Position closed');
+              } else {
+                toast.error('Close submitted but position still appears open. Refresh and retry if needed.');
+              }
               onClose();
             } catch (e) {
               console.error(e);

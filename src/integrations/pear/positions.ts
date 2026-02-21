@@ -269,3 +269,53 @@ export async function closePosition(
 
   return await response.json();
 }
+
+async function sleep(ms: number) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function isPositionStillOpen(accessToken: string, positionId: string): Promise<boolean> {
+  const response = await fetch(`${PEAR_CONFIG.apiUrl}/positions`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(readErrorMessage(error, 'Failed to verify close status'));
+  }
+
+  const positionsRaw = await response.json();
+  const positions = Array.isArray(positionsRaw) ? positionsRaw as PearApiPosition[] : [];
+  return positions.some((p) => String(p.positionId ?? '') === positionId);
+}
+
+export async function closePositionVerified(
+  accessToken: string,
+  positionId: string,
+  opts?: { timeoutMs?: number; pollMs?: number }
+): Promise<{ orderId: string; verifiedClosed: boolean }> {
+  const timeoutMs = Math.max(3000, opts?.timeoutMs ?? 15000);
+  const pollMs = Math.max(500, opts?.pollMs ?? 1200);
+
+  const closeResult = await closePosition(accessToken, positionId);
+
+  const startedAt = Date.now();
+  let verifiedClosed = false;
+
+  while (Date.now() - startedAt < timeoutMs) {
+    const stillOpen = await isPositionStillOpen(accessToken, positionId);
+    if (!stillOpen) {
+      verifiedClosed = true;
+      break;
+    }
+    await sleep(pollMs);
+  }
+
+  return {
+    orderId: closeResult.orderId,
+    verifiedClosed,
+  };
+}

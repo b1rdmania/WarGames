@@ -360,7 +360,10 @@ export default function PortfolioClient() {
                     const pos = await getActivePositions(accessToken);
                     setPositions(pos);
                     setHasLoadedPositions(true);
-                    setSelectedPositionId(null);
+                    setSelectedPositionId((current) => {
+                      if (!current) return null;
+                      return pos.some((p) => p.id === current) ? current : null;
+                    });
                   }}
                 />
               </div>
