@@ -1,0 +1,43 @@
+# Stats / dashboard / telemetry
+stats
+statistics
+scoreboard
+score
+counter
+digital counter
+numbers
+meter
+gauge
+indicator
+progress
+loading bar
+
+# Charts / finance widgets
+line chart
+bar chart
+graph
+ticker tape
+stock chart
+market graph
+trend
+up arrow
+down arrow
+volatility
+
+# Calculator / terminal utilities
+calculator
+abacus
+terminal
+command line
+matrix numbers
+scrolling numbers
+radar sweep
+oscilloscope
+scope
+
+# Intel display vibes
+data stream
+scan
+signal
+satellite map
+world map

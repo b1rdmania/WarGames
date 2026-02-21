@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import type { PearMarketConfig, ResolvedBasket, ResolvedPairs } from '@/integrations/pear/types';
 import { executePosition } from '@/integrations/pear/positions';
 import { MarketDetail } from '@/components/MarketDetail';
+import { formatPairOrBasketSide } from '@/lib/marketDisplay';
 
 export function TradingPanel({
   accessToken,
@@ -39,22 +40,9 @@ export function TradingPanel({
 
   if (!market) return null;
 
-  const formatBasketLabel = (assets: { asset: string }[]) => {
-    const names = assets.map((a) => a.asset).filter(Boolean);
-    if (names.length === 0) return 'BASKET';
-    const shown = names.slice(0, 4);
-    const suffix = names.length > shown.length ? '…' : '';
-    return `${shown.join('+')}${suffix}`;
-  };
-
-  const effectivePairs = market.resolvedPairs ?? market.pairs;
-  const effectiveBasket = market.resolvedBasket ?? market.basket;
   const leverage = market.effectiveLeverage ?? market.leverage;
-
-  const longLabel =
-    effectivePairs?.long ?? (effectiveBasket ? formatBasketLabel(effectiveBasket.long) : '—');
-  const shortLabel =
-    effectivePairs?.short ?? (effectiveBasket ? formatBasketLabel(effectiveBasket.short) : '—');
+  const longLabel = formatPairOrBasketSide(market, 'long', { compact: true, maxItems: 3 });
+  const shortLabel = formatPairOrBasketSide(market, 'short', { compact: true, maxItems: 3 });
 
   return (
     <div className="pear-border bg-black/40 p-6 sticky top-6">

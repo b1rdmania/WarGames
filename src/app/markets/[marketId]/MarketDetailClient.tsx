@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { getMarketNarrative } from '@/components/MarketDetail';
+import { formatPairOrBasketSide, sideBalanceLabel, symbolWithName } from '@/lib/marketDisplay';
 import {
   TerminalShell,
   TerminalMenuBar,
@@ -17,10 +18,6 @@ import {
   TerminalKVRow,
   TerminalSessionBadge,
 } from '@/components/terminal';
-
-function cleanSymbol(s: string) {
-  return s.split(':').pop()!.trim();
-}
 
 function formatWeight(w: number) {
   return `${Math.round(w * 100)}%`;
@@ -52,6 +49,7 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
 
   const resolvedPairs = market.resolvedPairs ?? market.pairs;
   const resolvedBasket = market.resolvedBasket ?? market.basket;
+  const sideLabels = sideBalanceLabel(market);
   const narrative = getMarketNarrative(market.id);
   const overview = narrative?.overview ?? market.description;
 
@@ -83,28 +81,28 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
           <TerminalPaneTitle>INDEX COMPOSITION</TerminalPaneTitle>
           {resolvedPairs ? (
             <TerminalKV>
-              <TerminalKVRow label="LONG" value={cleanSymbol(resolvedPairs.long)} />
-              <TerminalKVRow label="SHORT" value={cleanSymbol(resolvedPairs.short)} />
+              <TerminalKVRow label={sideLabels.long} value={formatPairOrBasketSide(market, 'long')} />
+              <TerminalKVRow label={sideLabels.short} value={formatPairOrBasketSide(market, 'short')} />
             </TerminalKV>
           ) : resolvedBasket ? (
             <>
               <div style={{ marginBottom: '12px' }}>
                 <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
-                  LONG BASKET
+                  {sideLabels.long}
                 </div>
                 {resolvedBasket.long.map((a) => (
                   <div key={a.asset} style={{ color: '#dfe9e4', fontSize: '12px', marginBottom: '4px' }}>
-                    {cleanSymbol(a.asset)} ({formatWeight(a.weight)})
+                    {symbolWithName(a.asset)} ({formatWeight(a.weight)})
                   </div>
                 ))}
               </div>
               <div>
                 <div style={{ color: '#02ff81', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '8px' }}>
-                  SHORT BASKET
+                  {sideLabels.short}
                 </div>
                 {resolvedBasket.short.map((a) => (
                   <div key={a.asset} style={{ color: '#dfe9e4', fontSize: '12px', marginBottom: '4px' }}>
-                    {cleanSymbol(a.asset)} ({formatWeight(a.weight)})
+                    {symbolWithName(a.asset)} ({formatWeight(a.weight)})
                   </div>
                 ))}
               </div>

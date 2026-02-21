@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { BetSlipPanel } from '@/components/BetSlipPanel';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
+import { formatPairOrBasketSide } from '@/lib/marketDisplay';
 import styles from './ControlRoomTradeSurface.module.css';
 
 type OpsLevel = 'INFO' | 'ALERT' | 'EXEC';
@@ -17,31 +18,15 @@ function stamp(date = new Date()) {
   return date.toTimeString().slice(0, 8);
 }
 
-function symbol(raw: string) {
-  return raw.split(':').pop() ?? raw;
-}
-
-function basketLabel(assets: { asset: string }[]) {
-  const names = assets.map((a) => symbol(a.asset)).filter(Boolean);
-  if (names.length <= 3) return names.join('+');
-  return `${names.slice(0, 2).join('+')}+${names.length - 2}`;
-}
-
 function marketCode(id: string) {
   return id.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 7);
 }
 
 function marketLegs(m: ValidatedMarket) {
-  const pairs = m.resolvedPairs ?? m.pairs;
-  if (pairs) return { long: symbol(pairs.long), short: symbol(pairs.short) };
-  const basket = m.resolvedBasket ?? m.basket;
-  if (basket) {
-    return {
-      long: basketLabel(basket.long),
-      short: basketLabel(basket.short),
-    };
-  }
-  return { long: '—', short: '—' };
+  return {
+    long: formatPairOrBasketSide(m, 'long', { compact: true, maxItems: 2 }),
+    short: formatPairOrBasketSide(m, 'short', { compact: true, maxItems: 2 }),
+  };
 }
 
 export function ControlRoomTradeSurface({

@@ -2,23 +2,11 @@
 
 import Link from 'next/link';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
+import { formatPairOrBasketSide } from '@/lib/marketDisplay';
 import styles from './MarketFeed.module.css';
 
-function cleanSymbol(s: string) {
-  // Pear can return namespaced symbols like "xyz:INTC" or "km:US500".
-  return s.split(':').pop()!.trim();
-}
-
 function formatPunchline(m: ValidatedMarket) {
-  const pairs = m.resolvedPairs ?? m.pairs;
-  const basket = m.resolvedBasket ?? m.basket;
-  if (pairs) {
-    return `${cleanSymbol(pairs.long)} vs ${cleanSymbol(pairs.short)}`;
-  }
-  if (basket) {
-    return `${basket.long.map((x) => cleanSymbol(x.asset)).join(' + ')} vs ${basket.short.map((x) => cleanSymbol(x.asset)).join(' + ')}`;
-  }
-  return '—';
+  return `${formatPairOrBasketSide(m, 'long')} vs ${formatPairOrBasketSide(m, 'short')}`;
 }
 
 function MarketCardReadOnly({ market }: { market: ValidatedMarket }) {

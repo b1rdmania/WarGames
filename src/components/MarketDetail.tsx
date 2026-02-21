@@ -1,6 +1,7 @@
 'use client';
 
 import type { PearMarketConfig } from '@/integrations/pear/types';
+import { symbolWithName } from '@/lib/marketDisplay';
 
 const MARKET_NARRATIVES: Record<string, {
   thesis: string;
@@ -122,7 +123,7 @@ export function MarketDetail({ market }: { market: PearMarketConfig }) {
                 <div key={idx} className="flex items-center justify-between text-xs font-mono">
                   <div className="flex items-center gap-2">
                     <span className="text-gray-400">▸</span>
-                    <span className="text-white font-bold">{asset.asset}</span>
+                    <span className="text-white font-bold">{symbolWithName(asset.asset)}</span>
                   </div>
                   <span className="text-gray-400">{(asset.weight * 100).toFixed(1)}%</span>
                 </div>
@@ -138,7 +139,7 @@ export function MarketDetail({ market }: { market: PearMarketConfig }) {
                 <div key={idx} className="flex items-center justify-between text-xs font-mono">
                   <div className="flex items-center gap-2">
                     <span className="text-gray-400">▸</span>
-                    <span className="text-white font-bold">{asset.asset}</span>
+                    <span className="text-white font-bold">{symbolWithName(asset.asset)}</span>
                   </div>
                   <span className="text-gray-400">{(asset.weight * 100).toFixed(1)}%</span>
                 </div>
@@ -153,11 +154,11 @@ export function MarketDetail({ market }: { market: PearMarketConfig }) {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <div className="text-xs font-mono text-pear-lime mb-2">{longLabel}</div>
-              <div className="text-sm font-mono text-white font-bold">{market.pairs!.long}</div>
+              <div className="text-sm font-mono text-white font-bold">{symbolWithName(market.pairs!.long)}</div>
             </div>
             <div>
               <div className="text-xs font-mono text-red-400 mb-2">{shortLabel}</div>
-              <div className="text-sm font-mono text-white font-bold">{market.pairs!.short}</div>
+              <div className="text-sm font-mono text-white font-bold">{symbolWithName(market.pairs!.short)}</div>
             </div>
           </div>
         </>

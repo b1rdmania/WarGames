@@ -1,6 +1,7 @@
 'use client';
 
 import type { PearMarketConfig, ResolvedPairs } from '@/integrations/pear/types';
+import { formatPairOrBasketSide } from '@/lib/marketDisplay';
 
 interface MarketCardProps {
   market: PearMarketConfig & {
@@ -12,32 +13,14 @@ interface MarketCardProps {
 }
 
 export function MarketCard({ market, onBet }: MarketCardProps) {
-  const categoryColors = {
-    geopolitical: 'bg-red-900/20 border-red-500/30',
-    tech: 'bg-blue-900/20 border-blue-500/30',
-    macro: 'bg-emerald-900/10 border-emerald-500/25',
-    crypto: 'bg-purple-900/20 border-purple-500/30',
-  };
-
   const categoryLabels = {
     geopolitical: 'GEOPOLITICAL',
     tech: 'TECH/INDUSTRY',
     macro: 'MACRO',
     crypto: 'CRYPTO',
   };
-
-  const pairs = market.resolvedPairs ?? market.pairs;
-
-  const formatBasketLabel = (assets: { asset: string }[]) => {
-    const names = assets.map((a) => a.asset).filter(Boolean);
-    if (names.length === 0) return 'BASKET';
-    const shown = names.slice(0, 4);
-    const suffix = names.length > shown.length ? '…' : '';
-    return `${shown.join('+')}${suffix}`;
-  };
-
-  const longLabel = pairs?.long ?? (market.basket ? formatBasketLabel(market.basket.long) : '—');
-  const shortLabel = pairs?.short ?? (market.basket ? formatBasketLabel(market.basket.short) : '—');
+  const longLabel = formatPairOrBasketSide(market, 'long', { compact: true, maxItems: 3 });
+  const shortLabel = formatPairOrBasketSide(market, 'short', { compact: true, maxItems: 3 });
 
   return (
     <div className="bg-black/40 pear-border p-4 hover:pear-glow transition-colors">

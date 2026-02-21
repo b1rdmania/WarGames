@@ -9,6 +9,10 @@
     "lint": "eslint",
     "check:theme": "bash scripts/check-theme-coherence.sh",
     "check:markets": "node scripts/check-markets.mjs",
+    "gifs:pull": "node scripts/fetch-gifs.mjs",
+    "gifs:catalog": "node scripts/catalog-gifs.mjs --scope inbox --organize",
+    "gifs:review": "node scripts/catalog-gifs.mjs --scope all",
+    "gifs:apply": "node scripts/apply-gif-decisions.mjs",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"

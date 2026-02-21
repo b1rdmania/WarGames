@@ -31,10 +31,7 @@ import { closePosition, executePosition, getActivePositions } from '@/integratio
 import type { PearPosition } from '@/integrations/pear/types';
 import { logTradeStatEvent } from '@/lib/stats/client';
 import { getHyperliquidPortfolioUrl, getPearPositionUrl } from '@/integrations/pear/links';
-
-function cleanSymbol(s: string) {
-  return s.split(':').pop()!.trim();
-}
+import { formatPairOrBasketSide, sideBalanceLabel } from '@/lib/marketDisplay';
 
 const SESSION_GATED_PREFIXES = ['xyz:', 'vntl:', 'km:'];
 
@@ -107,6 +104,7 @@ export default function TradeClient() {
   });
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
+  const selectedSideLabels = selectedMarket ? sideBalanceLabel(selectedMarket) : { long: 'LONG', short: 'SHORT' };
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
   const selectedAssets = selectedMarket
     ? selectedMarket.pairs
@@ -494,24 +492,12 @@ export default function TradeClient() {
               <TerminalThesis>{narrative?.thesis ?? selectedMarket.description}</TerminalThesis>
               <TerminalKV>
                 <TerminalKVRow
-                  label="LONG"
-                  value={
-                    selectedMarket.pairs
-                      ? cleanSymbol(selectedMarket.pairs.long)
-                      : selectedMarket.basket
-                      ? selectedMarket.basket.long.map(a => cleanSymbol(a.asset)).join('+')
-                      : '—'
-                  }
+                  label={selectedSideLabels.long}
+                  value={formatPairOrBasketSide(selectedMarket, 'long')}
                 />
                 <TerminalKVRow
-                  label="SHORT"
-                  value={
-                    selectedMarket.pairs
-                      ? cleanSymbol(selectedMarket.pairs.short)
-                      : selectedMarket.basket
-                      ? selectedMarket.basket.short.map(a => cleanSymbol(a.asset)).join('+')
-                      : '—'
-                  }
+                  label={selectedSideLabels.short}
+                  value={formatPairOrBasketSide(selectedMarket, 'short')}
                 />
                 <TerminalKVRow label="LEVERAGE" value={`${selectedMarket.effectiveLeverage ?? selectedMarket.leverage}x`} />
                 <TerminalKVRow label="CATEGORY" value={selectedMarket.category?.toUpperCase() || 'N/A'} />

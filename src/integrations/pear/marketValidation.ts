@@ -42,10 +42,9 @@ function basketConfigError(marketId: string, basket: { long: Array<{ asset: stri
 
   const longSum = sideWeightSum(basket.long);
   const shortSum = sideWeightSum(basket.short);
-  const totalSum = longSum + shortSum;
   const eps = 0.001;
-  if (Math.abs(totalSum - 1) > eps) {
-    return `Invalid basket weights for ${marketId}: long=${longSum.toFixed(3)} short=${shortSum.toFixed(3)} total=${totalSum.toFixed(3)} (expected total 1.000)`;
+  if (Math.abs(longSum - 1) > eps || Math.abs(shortSum - 1) > eps) {
+    return `Invalid basket weights for ${marketId}: long=${longSum.toFixed(3)} short=${shortSum.toFixed(3)} (expected 1.000 each side)`;
   }
 
   return undefined;

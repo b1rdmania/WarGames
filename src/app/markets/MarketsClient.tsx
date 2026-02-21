@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { GC } from '@/app/labs/geocities-gifs';
+import { formatPairOrBasketSide, sideBalanceLabel } from '@/lib/marketDisplay';
 import {
   TerminalShell,
   TerminalMenuBar,
@@ -20,10 +21,6 @@ import {
   TerminalKVRow,
   TerminalSessionBadge,
 } from '@/components/terminal';
-
-function cleanSymbol(s: string) {
-  return s.split(':').pop()!.trim();
-}
 
 export default function MarketsClient() {
   const { markets: validatedMarkets } = useValidatedMarkets();
@@ -81,24 +78,12 @@ export default function MarketsClient() {
                   value={selectedMarket.isTradable ? 'LIVE' : 'PAUSED'}
                 />
                 <TerminalKVRow
-                  label="LONG"
-                  value={
-                    selectedMarket.pairs
-                      ? cleanSymbol(selectedMarket.pairs.long)
-                      : selectedMarket.basket
-                      ? selectedMarket.basket.long.map(a => cleanSymbol(a.asset)).join('+')
-                      : '—'
-                  }
+                  label={sideBalanceLabel(selectedMarket).long}
+                  value={formatPairOrBasketSide(selectedMarket, 'long')}
                 />
                 <TerminalKVRow
-                  label="SHORT"
-                  value={
-                    selectedMarket.pairs
-                      ? cleanSymbol(selectedMarket.pairs.short)
-                      : selectedMarket.basket
-                      ? selectedMarket.basket.short.map(a => cleanSymbol(a.asset)).join('+')
-                      : '—'
-                  }
+                  label={sideBalanceLabel(selectedMarket).short}
+                  value={formatPairOrBasketSide(selectedMarket, 'short')}
                 />
               </TerminalKV>
             </>

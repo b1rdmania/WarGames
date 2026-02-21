@@ -2,18 +2,8 @@
 
 import Link from 'next/link';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
+import { formatPairOrBasketSide } from '@/lib/marketDisplay';
 import styles from './MarketFeed.module.css';
-
-function cleanSymbol(s: string) {
-  // Pear can return namespaced symbols like "xyz:INTC" or "km:US500".
-  return s.split(':').pop()!.trim();
-}
-
-function formatBasketCompact(assets: { asset: string; weight?: number }[]) {
-  if (assets.length === 1) return cleanSymbol(assets[0].asset);
-  if (assets.length <= 2) return assets.map(a => cleanSymbol(a.asset)).join('+');
-  return `${cleanSymbol(assets[0].asset)}+${assets.length - 1} more`;
-}
 
 function MarketCard({
   market,
@@ -24,10 +14,8 @@ function MarketCard({
   isSelected: boolean;
   onPick: (market: ValidatedMarket, side: 'long' | 'short') => void;
 }) {
-  const pairs = market.resolvedPairs ?? market.pairs;
-  const basket = market.resolvedBasket ?? market.basket;
-  const longLabel = pairs ? cleanSymbol(pairs.long) : basket ? formatBasketCompact(basket.long) : '—';
-  const shortLabel = pairs ? cleanSymbol(pairs.short) : basket ? formatBasketCompact(basket.short) : '—';
+  const longLabel = formatPairOrBasketSide(market, 'long', { compact: true, maxItems: 3 });
+  const shortLabel = formatPairOrBasketSide(market, 'short', { compact: true, maxItems: 3 });
 
   return (
     <div className={`${styles.card} ${isSelected ? styles.cardSelected : ''}`}>
@@ -99,10 +87,8 @@ export function MarketFeed({
         </thead>
         <tbody>
           {markets.map((m) => {
-            const pairs = m.resolvedPairs ?? m.pairs;
-            const basket = m.resolvedBasket ?? m.basket;
-            const longLabel = pairs ? cleanSymbol(pairs.long) : basket ? formatBasketCompact(basket.long) : '—';
-            const shortLabel = pairs ? cleanSymbol(pairs.short) : basket ? formatBasketCompact(basket.short) : '—';
+            const longLabel = formatPairOrBasketSide(m, 'long', { compact: true, maxItems: 3 });
+            const shortLabel = formatPairOrBasketSide(m, 'short', { compact: true, maxItems: 3 });
             return (
               <tr key={m.id} className={`${styles.row} ${selectedMarketId === m.id ? styles.rowSelected : ''}`}>
                 <td className={styles.td}>

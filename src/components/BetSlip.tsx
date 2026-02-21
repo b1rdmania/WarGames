@@ -4,12 +4,7 @@ import { useMemo, useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import { executePosition } from '@/integrations/pear/positions';
-
-function formatBasketLabel(assets: { asset: string; weight?: number }[]) {
-  const names = assets.map((a) => a.asset).filter(Boolean);
-  if (names.length === 0) return 'BASKET';
-  return names.join(' + ');
-}
+import { formatPairOrBasketSide } from '@/lib/marketDisplay';
 
 export function BetSlip({
   isOpen,
@@ -72,14 +67,9 @@ export function BetSlip({
   const directionLabel = side === 'long' ? 'YES' : 'NO';
   const directionHint = side === 'long' ? 'Betting UP (long)' : 'Betting DOWN (short)';
 
-  const resolvedPairs = market.resolvedPairs ?? market.pairs;
-  const resolvedBasket = market.resolvedBasket ?? market.basket;
   const leverage = market.effectiveLeverage ?? market.leverage;
-
-  const longLeg =
-    resolvedPairs?.long ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.long) : '—');
-  const shortLeg =
-    resolvedPairs?.short ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
+  const longLeg = formatPairOrBasketSide(market, 'long', { compact: true, maxItems: 3 });
+  const shortLeg = formatPairOrBasketSide(market, 'short', { compact: true, maxItems: 3 });
 
   return (
     <div className="fixed inset-0 z-[1000] bg-black/80 flex items-end md:items-center justify-center p-3">

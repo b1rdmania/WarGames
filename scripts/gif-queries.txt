@@ -1,0 +1,44 @@
+# Trade / markets
+ticker
+stock
+chart
+dollar
+coin
+cash
+vault
+bank
+crash
+
+# Intel / war room
+radar
+satellite
+target
+reticle
+signal
+encrypted
+classified
+secure channel
+terminal cursor
+map ping
+
+# Threat / urgency
+missile
+bomb
+nuclear
+tank
+warning
+alert
+siren
+countdown
+explosion
+
+# Retro-web / esoteric
+under construction
+new badge
+guestbook
+web ring
+netscape
+alien
+ufo
+flame divider
+spinning skull

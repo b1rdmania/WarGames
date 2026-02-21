@@ -4,14 +4,8 @@ import { useMemo, useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import { executePosition } from '@/integrations/pear/positions';
+import { formatPairOrBasketSide } from '@/lib/marketDisplay';
 import styles from './BetSlipPanel.module.css';
-
-function formatBasketLabel(assets: { asset: string; weight?: number }[]) {
-  const names = assets.map((a) => a.asset.split(':').pop()).filter(Boolean);
-  if (names.length === 0) return 'Basket';
-  if (names.length <= 3) return names.join(' + ');
-  return `${names.slice(0, 2).join(' + ')} +${names.length - 2}`;
-}
 
 export function BetSlipPanel({
   market,
@@ -70,12 +64,9 @@ export function BetSlipPanel({
     );
   }
 
-  const resolvedPairs = market.resolvedPairs ?? market.pairs;
-  const resolvedBasket = market.resolvedBasket ?? market.basket;
   const leverage = market.effectiveLeverage ?? market.leverage;
-
-  const longLeg = resolvedPairs?.long?.split(':').pop() ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.long) : '—');
-  const shortLeg = resolvedPairs?.short?.split(':').pop() ?? (resolvedBasket ? formatBasketLabel(resolvedBasket.short) : '—');
+  const longLeg = formatPairOrBasketSide(market, 'long', { compact: true, maxItems: 3 });
+  const shortLeg = formatPairOrBasketSide(market, 'short', { compact: true, maxItems: 3 });
 
   const submitBtnClass = !side
     ? styles.submitBtnNeutral
