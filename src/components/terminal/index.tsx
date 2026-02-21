@@ -157,11 +157,12 @@ interface TerminalMarketRowProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   code: string;
   status: string;
   active?: boolean;
+  statusTone?: 'default' | 'danger';
 }
 
-export function TerminalMarketRow({ code, status, active, ...props }: TerminalMarketRowProps) {
+export function TerminalMarketRow({ code, status, active, statusTone = 'default', ...props }: TerminalMarketRowProps) {
   const normalized = status.trim().toUpperCase();
-  const statusClass =
+  const normalizedClass =
     normalized === 'LIVE'
       ? styles.marketStatusLive
       : normalized === 'PAUSED'
@@ -169,6 +170,7 @@ export function TerminalMarketRow({ code, status, active, ...props }: TerminalMa
       : normalized === 'STOPPED'
       ? styles.marketStatusStopped
       : '';
+  const statusClass = statusTone === 'danger' ? styles.marketStatusStopped : normalizedClass;
 
   return (
     <button {...props} className={`${styles.marketRow} ${active ? styles.marketRowActive : ''}`}>

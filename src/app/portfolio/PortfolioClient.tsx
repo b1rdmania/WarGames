@@ -6,6 +6,7 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { GC } from '@/app/labs/geocities-gifs';
 import { PearSetupCard } from '@/components/PearSetupCard';
 import { PositionCard } from '@/components/PositionCard';
+import type { HyperliquidReconciliation } from '@/components/PositionCard';
 import {
   TerminalShell,
   TerminalMenuBar,
@@ -29,11 +30,27 @@ import { emitDebugLog } from '@/lib/debugLog';
 import { connectWalletSafely } from '@/lib/connectWallet';
 import { getHyperliquidPortfolioUrl, getPearDashboardUrl } from '@/integrations/pear/links';
 
+type HyperliquidOpenPositionsResponse = {
+  ok: boolean;
+  wallet?: string;
+  fetchedAt?: number;
+  longCoins?: string[];
+  shortCoins?: string[];
+  error?: string;
+};
+
+function normalizeCoin(raw?: string): string | null {
+  if (!raw) return null;
+  const s = raw.split(':').pop()?.trim().replace(/^[^A-Za-z0-9]+/, '');
+  if (!s || s === '-' || s === '—') return null;
+  return s.toUpperCase();
+}
+
 export default function PortfolioClient() {
   const { isConnected, address } = useAccount();
   const { connectAsync, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
-  const { accessToken, isAuthenticated } = usePear();
+  const { accessToken, isAuthenticated, agentWallet } = usePear();
   const { perpUsdc } = useVaultBalances(accessToken);
 
   const [positions, setPositions] = useState<PearPosition[]>([]);
@@ -41,6 +58,15 @@ export default function PortfolioClient() {
   const [refreshingPositions, setRefreshingPositions] = useState(false);
   const [positionsError, setPositionsError] = useState<string | null>(null);
   const [hasLoadedPositions, setHasLoadedPositions] = useState(false);
+  const [hlOpen, setHlOpen] = useState<{
+    wallet: string;
+    source: 'agent' | 'wallet';
+    longCoins: string[];
+    shortCoins: string[];
+    fetchedAt: number;
+    error?: string;
+  } | null>(null);
+  const [loadingHlOpen, setLoadingHlOpen] = useState(false);
   const [selectedPositionId, setSelectedPositionId] = useState<string | null>(null);
   const [portfolioTab, setPortfolioTab] = useState<'positions' | 'history'>('positions');
   const [historyScope, setHistoryScope] = useState<'wallet' | 'all' | 'hyperliquid'>('wallet');
@@ -72,6 +98,43 @@ export default function PortfolioClient() {
     error?: string;
   }>>([]);
   const [protocolTotals, setProtocolTotals] = useState<{ notionalUsd: number; uniqueWallets: number } | null>(null);
+  const hlWallet = agentWallet ?? address ?? null;
+  const hlWalletSource: 'agent' | 'wallet' = agentWallet ? 'agent' : 'wallet';
+
+  const loadHyperliquidOpen = useCallback(async () => {
+    if (!hlWallet) {
+      setHlOpen(null);
+      return;
+    }
+    setLoadingHlOpen(true);
+    try {
+      const res = await fetch(`/api/hyperliquid/open-positions?wallet=${encodeURIComponent(hlWallet)}`, {
+        cache: 'no-store',
+      });
+      const json = (await res.json()) as HyperliquidOpenPositionsResponse;
+      if (!res.ok || !json.ok) {
+        throw new Error(json.error || 'Failed to load Hyperliquid open positions');
+      }
+      setHlOpen({
+        wallet: json.wallet || hlWallet,
+        source: hlWalletSource,
+        longCoins: Array.isArray(json.longCoins) ? json.longCoins : [],
+        shortCoins: Array.isArray(json.shortCoins) ? json.shortCoins : [],
+        fetchedAt: Number(json.fetchedAt ?? Date.now()),
+      });
+    } catch (err) {
+      setHlOpen({
+        wallet: hlWallet,
+        source: hlWalletSource,
+        longCoins: [],
+        shortCoins: [],
+        fetchedAt: Date.now(),
+        error: (err as Error).message || 'Failed to load Hyperliquid open positions',
+      });
+    } finally {
+      setLoadingHlOpen(false);
+    }
+  }, [hlWallet, hlWalletSource]);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -86,6 +149,7 @@ export default function PortfolioClient() {
         setPositions(pos);
         setPositionsError(null);
         setHasLoadedPositions(true);
+        await loadHyperliquidOpen();
       } catch (err) {
         console.error('Failed to load positions:', err);
         setPositionsError((err as Error).message || 'Failed to load positions');
@@ -99,7 +163,7 @@ export default function PortfolioClient() {
     loadPositions({ silent: false });
     const interval = setInterval(() => loadPositions({ silent: true }), 60000);
     return () => clearInterval(interval);
-  }, [accessToken]);
+  }, [accessToken, loadHyperliquidOpen]);
 
   useEffect(() => {
     if (!accessToken || !address) return;
@@ -115,6 +179,7 @@ export default function PortfolioClient() {
           setPositions(pos);
           setPositionsError(null);
           setHasLoadedPositions(true);
+          await loadHyperliquidOpen();
           emitDebugLog({ level: 'info', scope: 'positions', message: 'refreshed from ws' });
         } catch (e) {
           setPositionsError((e as Error).message || 'Failed to refresh positions');
@@ -135,7 +200,7 @@ export default function PortfolioClient() {
       if (timer) window.clearTimeout(timer);
       ws.close();
     };
-  }, [accessToken, address]);
+  }, [accessToken, address, loadHyperliquidOpen]);
 
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -220,6 +285,76 @@ export default function PortfolioClient() {
 
   const totalPnl = positions.reduce((sum, pos) => sum + Number(pos.pnl), 0);
   const selectedPosition = positions.find(p => p.id === selectedPositionId) ?? null;
+  const getPositionHyperliquidCheck = (position: PearPosition): HyperliquidReconciliation => {
+    if (!hlWallet) {
+      return {
+        state: 'unavailable',
+        source: hlWalletSource,
+        note: 'No wallet available for HL reconciliation.',
+      };
+    }
+
+    if (loadingHlOpen && !hlOpen) {
+      return { state: 'loading', wallet: hlWallet, source: hlWalletSource };
+    }
+
+    if (!hlOpen || hlOpen.error) {
+      return {
+        state: 'unavailable',
+        wallet: hlWallet,
+        source: hlWalletSource,
+        note: hlOpen?.error || 'HL data unavailable.',
+      };
+    }
+
+    const expectedLong = Array.from(
+      new Set(
+        (position.longAssets ?? [])
+          .map((asset) => normalizeCoin(asset.coin))
+          .filter((coin): coin is string => Boolean(coin))
+      )
+    );
+    const expectedShort = Array.from(
+      new Set(
+        (position.shortAssets ?? [])
+          .map((asset) => normalizeCoin(asset.coin))
+          .filter((coin): coin is string => Boolean(coin))
+      )
+    );
+
+    const fallbackLong = normalizeCoin(position.longAsset);
+    const fallbackShort = normalizeCoin(position.shortAsset);
+    if (expectedLong.length === 0 && fallbackLong) expectedLong.push(fallbackLong);
+    if (expectedShort.length === 0 && fallbackShort) expectedShort.push(fallbackShort);
+
+    if (expectedLong.length === 0 && expectedShort.length === 0) {
+      return {
+        state: 'unavailable',
+        wallet: hlOpen.wallet,
+        source: hlOpen.source,
+        note: 'No leg data returned from position feed.',
+      };
+    }
+
+    const hlLongSet = new Set(hlOpen.longCoins);
+    const hlShortSet = new Set(hlOpen.shortCoins);
+    const matchedLong = expectedLong.filter((coin) => hlLongSet.has(coin));
+    const matchedShort = expectedShort.filter((coin) => hlShortSet.has(coin));
+    const missingLong = expectedLong.filter((coin) => !hlLongSet.has(coin));
+    const missingShort = expectedShort.filter((coin) => !hlShortSet.has(coin));
+    const verified = missingLong.length === 0 && missingShort.length === 0;
+
+    return {
+      state: verified ? 'verified' : 'mismatch',
+      wallet: hlOpen.wallet,
+      source: hlOpen.source,
+      matchedLong,
+      matchedShort,
+      missingLong,
+      missingShort,
+      note: `Wallet ${hlOpen.wallet.slice(0, 6)}...${hlOpen.wallet.slice(-4)} checked against live HL positions.`,
+    };
+  };
   const positiveOpen = positions.filter((p) => Number(p.pnl) >= 0).length;
   const openWinRate = positions.length > 0 ? (positiveOpen / positions.length) * 100 : 0;
   const successfulMyTrades = myRoutedEvents.filter((e) => e.status === 'success');
@@ -329,15 +464,20 @@ export default function PortfolioClient() {
             <div style={{ color: '#8da294', marginTop: '20px' }}>NO ACTIVE POSITIONS</div>
           ) : portfolioTab === 'positions' ? (
             <TerminalMarketList>
-              {positions.map((position) => (
-                <TerminalMarketRow
-                  key={position.id}
-                  code={position.marketId.toUpperCase().replace(/-/g, '_')}
-                  status={`${Number(position.pnl) >= 0 ? '+' : ''}$${Number(position.pnl).toFixed(2)}`}
-                  active={selectedPositionId === position.id}
-                  onClick={() => setSelectedPositionId(position.id)}
-                />
-              ))}
+              {positions.map((position) => {
+                const check = getPositionHyperliquidCheck(position);
+                const mismatch = check.state === 'mismatch';
+                return (
+                  <TerminalMarketRow
+                    key={position.id}
+                    code={position.marketId.toUpperCase().replace(/-/g, '_')}
+                    status={`${mismatch ? '! ' : ''}${Number(position.pnl) >= 0 ? '+' : ''}$${Number(position.pnl).toFixed(2)}`}
+                    statusTone={mismatch ? 'danger' : 'default'}
+                    active={selectedPositionId === position.id}
+                    onClick={() => setSelectedPositionId(position.id)}
+                  />
+                );
+              })}
             </TerminalMarketList>
           ) : (
             <div style={{ color: 'var(--text-muted)', fontSize: '11px', lineHeight: 1.7, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
@@ -355,11 +495,13 @@ export default function PortfolioClient() {
                 <PositionCard
                   position={selectedPosition}
                   accessToken={accessToken ?? ''}
+                  hyperliquidCheck={getPositionHyperliquidCheck(selectedPosition)}
                   onClose={async () => {
                     if (!accessToken) return;
                     const pos = await getActivePositions(accessToken);
                     setPositions(pos);
                     setHasLoadedPositions(true);
+                    await loadHyperliquidOpen();
                     setSelectedPositionId((current) => {
                       if (!current) return null;
                       return pos.some((p) => p.id === current) ? current : null;
@@ -522,6 +664,7 @@ export default function PortfolioClient() {
                 setPositions(pos);
                 setPositionsError(null);
                 setHasLoadedPositions(true);
+                await loadHyperliquidOpen();
                 toast.success('Refreshed');
               } catch {
                 setPositionsError('Manual refresh failed');

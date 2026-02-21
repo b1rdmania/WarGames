@@ -6,6 +6,9 @@ import { emitDebugLog } from '@/lib/debugLog';
 type PearApiAsset = {
   coin?: string;
   size?: number;
+  entryPrice?: number;
+  leverage?: number;
+  fundingPaid?: number;
 };
 
 type PearApiPosition = {
@@ -170,11 +173,11 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
       return { marketId: 'unknown', side: 'long' };
     }
 
-    // Helper to check if arrays have significant overlap (>50% match)
-    const hasOverlap = (arr1: string[], arr2: string[]): boolean => {
-      const set2 = new Set(arr2);
-      const matches = arr1.filter(x => set2.has(x)).length;
-      return matches >= Math.min(arr1.length, arr2.length) * 0.5;
+    // Strict subset matcher to avoid false market mapping.
+    // If we cannot confidently map to one configured market, keep it as unknown.
+    const containsAll = (actual: string[], expected: string[]): boolean => {
+      const actualSet = new Set(actual);
+      return expected.every((asset) => actualSet.has(asset));
     };
 
     // Check against all configured markets (both pairs AND baskets)
@@ -197,11 +200,11 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
         const basketShortCoins = m.basket.short.map((a) => normCoin(a.asset)).filter(Boolean) as string[];
 
         // Check if position matches market's long side
-        if (hasOverlap(posLongCoins, basketLongCoins) && hasOverlap(posShortCoins, basketShortCoins)) {
+        if (containsAll(posLongCoins, basketLongCoins) && containsAll(posShortCoins, basketShortCoins)) {
           return { marketId: m.id, side: 'long' };
         }
         // Check if position matches market's short side (inverted)
-        if (hasOverlap(posLongCoins, basketShortCoins) && hasOverlap(posShortCoins, basketLongCoins)) {
+        if (containsAll(posLongCoins, basketShortCoins) && containsAll(posShortCoins, basketLongCoins)) {
           return { marketId: m.id, side: 'short' };
         }
       }
@@ -227,22 +230,22 @@ export async function getActivePositions(accessToken: string): Promise<PearPosit
     stopLoss: pos.stopLoss,
     takeProfit: pos.takeProfit,
     longAssets: pos.longAssets
-      ?.filter((asset): asset is Required<PearApiAsset> => Boolean(asset.coin && typeof asset.size === 'number'))
+      ?.filter((asset) => Boolean(asset.coin))
       .map((asset) => ({
-        coin: asset.coin,
-        size: asset.size,
-        entryPrice: 0,
-        leverage: 0,
-        fundingPaid: 0,
+        coin: String(asset.coin),
+        size: Number(asset.size ?? 0),
+        entryPrice: Number(asset.entryPrice ?? 0),
+        leverage: Number(asset.leverage ?? 0),
+        fundingPaid: Number(asset.fundingPaid ?? 0),
       })),
     shortAssets: pos.shortAssets
-      ?.filter((asset): asset is Required<PearApiAsset> => Boolean(asset.coin && typeof asset.size === 'number'))
+      ?.filter((asset) => Boolean(asset.coin))
       .map((asset) => ({
-        coin: asset.coin,
-        size: asset.size,
-        entryPrice: 0,
-        leverage: 0,
-        fundingPaid: 0,
+        coin: String(asset.coin),
+        size: Number(asset.size ?? 0),
+        entryPrice: Number(asset.entryPrice ?? 0),
+        leverage: Number(asset.leverage ?? 0),
+        fundingPaid: Number(asset.fundingPaid ?? 0),
       })),
   }));
 }

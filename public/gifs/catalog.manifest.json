@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-21T10:01:37.058Z",
+  "generatedAt": "2026-02-21T12:03:06.905Z",
   "scope": "all",
   "thresholds": {
     "maxKb": 1536,
@@ -7,10 +7,10 @@
     "reviewAspect": 3.6
   },
   "counts": {
-    "total": 522,
+    "total": 508,
     "autoAccept": 329,
     "needsReview": 36,
-    "rejected": 157
+    "rejected": 143
   },
   "entries": [
     {
@@ -3469,46 +3469,6 @@
       "fetchedAt": "2026-02-20T21:07:54.673Z"
     },
     {
-      "id": "radar-sweep-3CBSW6ZDVQBRGGWZS2PR6QZ63E2RH6SG",
-      "path": "approved/radar-sweep-3CBSW6ZDVQBRGGWZS2PR6QZ63E2RH6SG.gif",
-      "webPath": "/gifs/approved/radar-sweep-3CBSW6ZDVQBRGGWZS2PR6QZ63E2RH6SG.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 5.8,
-      "width": 75,
-      "height": 75,
-      "frames": 8,
-      "themes": [
-        "intel"
-      ],
-      "mood": "signal",
-      "source": "https://blob.gifcities.org/gifcities/3CBSW6ZDVQBRGGWZS2PR6QZ63E2RH6SG.gif",
-      "query": "radar sweep",
-      "fetchedAt": "2026-02-21T00:14:47.587Z"
-    },
-    {
-      "id": "radar-sweep-3ZOVGJKL7OI5HTNHBPVQ4QKUSPTXFYMA",
-      "path": "approved/radar-sweep-3ZOVGJKL7OI5HTNHBPVQ4QKUSPTXFYMA.gif",
-      "webPath": "/gifs/approved/radar-sweep-3ZOVGJKL7OI5HTNHBPVQ4QKUSPTXFYMA.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 7.5,
-      "width": 75,
-      "height": 75,
-      "frames": 8,
-      "themes": [
-        "intel"
-      ],
-      "mood": "signal",
-      "source": "https://blob.gifcities.org/gifcities/3ZOVGJKL7OI5HTNHBPVQ4QKUSPTXFYMA.gif",
-      "query": "radar sweep",
-      "fetchedAt": "2026-02-21T00:14:48.008Z"
-    },
-    {
       "id": "radar-sweep-4HGHQ34M2K2QZ2DHJ6JDT7Z3EDF5YMGF",
       "path": "approved/radar-sweep-4HGHQ34M2K2QZ2DHJ6JDT7Z3EDF5YMGF.gif",
       "webPath": "/gifs/approved/radar-sweep-4HGHQ34M2K2QZ2DHJ6JDT7Z3EDF5YMGF.gif",
@@ -3525,46 +3485,6 @@
       "source": "https://blob.gifcities.org/gifcities/4HGHQ34M2K2QZ2DHJ6JDT7Z3EDF5YMGF.gif",
       "query": "radar sweep",
       "fetchedAt": "2026-02-21T00:14:48.429Z"
-    },
-    {
-      "id": "radar-sweep-552BXMRJ53NLA7AW6ZXG2IBZMBKOBJ2Q",
-      "path": "approved/radar-sweep-552BXMRJ53NLA7AW6ZXG2IBZMBKOBJ2Q.gif",
-      "webPath": "/gifs/approved/radar-sweep-552BXMRJ53NLA7AW6ZXG2IBZMBKOBJ2Q.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 15.5,
-      "width": 80,
-      "height": 80,
-      "frames": 36,
-      "themes": [
-        "intel"
-      ],
-      "mood": "signal",
-      "source": "https://blob.gifcities.org/gifcities/552BXMRJ53NLA7AW6ZXG2IBZMBKOBJ2Q.gif",
-      "query": "radar sweep",
-      "fetchedAt": "2026-02-21T00:14:48.977Z"
-    },
-    {
-      "id": "radar-sweep-67YOT2JZHAXRSQ7CRP2NBZHQJYJ4NFOU",
-      "path": "approved/radar-sweep-67YOT2JZHAXRSQ7CRP2NBZHQJYJ4NFOU.gif",
-      "webPath": "/gifs/approved/radar-sweep-67YOT2JZHAXRSQ7CRP2NBZHQJYJ4NFOU.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 9.3,
-      "width": 64,
-      "height": 61,
-      "frames": 8,
-      "themes": [
-        "intel"
-      ],
-      "mood": "signal",
-      "source": "https://blob.gifcities.org/gifcities/67YOT2JZHAXRSQ7CRP2NBZHQJYJ4NFOU.gif",
-      "query": "radar sweep",
-      "fetchedAt": "2026-02-21T00:14:49.403Z"
     },
     {
       "id": "reticle-2J6LEKQPEFQOZ5D427OWXALBQO4GSXE4",
@@ -5103,26 +5023,6 @@
       "fetchedAt": "2026-02-21T00:14:11.446Z"
     },
     {
-      "id": "ticker-tape-5UKWWN3FHRQD2O7TFVUPRVXYIZSTNDNL",
-      "path": "approved/ticker-tape-5UKWWN3FHRQD2O7TFVUPRVXYIZSTNDNL.gif",
-      "webPath": "/gifs/approved/ticker-tape-5UKWWN3FHRQD2O7TFVUPRVXYIZSTNDNL.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 9.8,
-      "width": 88,
-      "height": 31,
-      "frames": 9,
-      "themes": [
-        "trade"
-      ],
-      "mood": "reward",
-      "source": "https://blob.gifcities.org/gifcities/5UKWWN3FHRQD2O7TFVUPRVXYIZSTNDNL.gif",
-      "query": "ticker tape",
-      "fetchedAt": "2026-02-21T00:14:11.846Z"
-    },
-    {
       "id": "trend-35WAZU7VSHUCVWLHTAJXDDJ4J2R4AQ23",
       "path": "approved/trend-35WAZU7VSHUCVWLHTAJXDDJ4J2R4AQ23.gif",
       "webPath": "/gifs/approved/trend-35WAZU7VSHUCVWLHTAJXDDJ4J2R4AQ23.gif",
@@ -6369,9 +6269,134 @@
       "fetchedAt": null
     },
     {
-      "id": "digital-counter-6KSUL2BT4U2SXY4PTBIGR42DL4NLIWQ2",
-      "path": "inbox/digital-counter-6KSUL2BT4U2SXY4PTBIGR42DL4NLIWQ2.gif",
-      "webPath": "/gifs/inbox/digital-counter-6KSUL2BT4U2SXY4PTBIGR42DL4NLIWQ2.gif",
+      "id": "line-chart",
+      "path": "library/charts/line-chart.gif",
+      "webPath": "/gifs/library/charts/line-chart.gif",
+      "status": "reject",
+      "reasons": [
+        "duplicate",
+        "banner_ratio:3.70"
+      ],
+      "sizeKb": 4.8,
+      "width": 370,
+      "height": 100,
+      "frames": 8,
+      "themes": [
+        "trade"
+      ],
+      "mood": "reward",
+      "source": null,
+      "query": null,
+      "fetchedAt": null
+    },
+    {
+      "id": "radar",
+      "path": "library/intel/radar.gif",
+      "webPath": "/gifs/library/intel/radar.gif",
+      "status": "reject",
+      "reasons": [
+        "duplicate",
+        "banner_ratio:4.63"
+      ],
+      "sizeKb": 5.5,
+      "width": 185,
+      "height": 40,
+      "frames": 2,
+      "themes": [
+        "intel"
+      ],
+      "mood": "signal",
+      "source": null,
+      "query": null,
+      "fetchedAt": null
+    },
+    {
+      "id": "reticle",
+      "path": "library/intel/reticle.gif",
+      "webPath": "/gifs/library/intel/reticle.gif",
+      "status": "reject",
+      "reasons": [
+        "duplicate",
+        "banner_ratio:4.86"
+      ],
+      "sizeKb": 12.4,
+      "width": 180,
+      "height": 37,
+      "frames": 15,
+      "themes": [
+        "intel"
+      ],
+      "mood": "signal",
+      "source": null,
+      "query": null,
+      "fetchedAt": null
+    },
+    {
+      "id": "dollar-2",
+      "path": "library/money/dollar-2.gif",
+      "webPath": "/gifs/library/money/dollar-2.gif",
+      "status": "reject",
+      "reasons": [
+        "duplicate"
+      ],
+      "sizeKb": 57.1,
+      "width": 150,
+      "height": 88,
+      "frames": 8,
+      "themes": [
+        "trade"
+      ],
+      "mood": "reward",
+      "source": null,
+      "query": null,
+      "fetchedAt": null
+    },
+    {
+      "id": "dollar",
+      "path": "library/money/dollar.gif",
+      "webPath": "/gifs/library/money/dollar.gif",
+      "status": "reject",
+      "reasons": [
+        "duplicate",
+        "banner_ratio:3.67"
+      ],
+      "sizeKb": 6.9,
+      "width": 110,
+      "height": 30,
+      "frames": 8,
+      "themes": [
+        "trade"
+      ],
+      "mood": "reward",
+      "source": null,
+      "query": null,
+      "fetchedAt": null
+    },
+    {
+      "id": "alien",
+      "path": "library/retro/alien.gif",
+      "webPath": "/gifs/library/retro/alien.gif",
+      "status": "reject",
+      "reasons": [
+        "duplicate",
+        "tiny_dimensions:14x15"
+      ],
+      "sizeKb": 3.1,
+      "width": 14,
+      "height": 15,
+      "frames": 11,
+      "themes": [
+        "retro-web"
+      ],
+      "mood": "absurd",
+      "source": null,
+      "query": null,
+      "fetchedAt": null
+    },
+    {
+      "id": "countdown-2",
+      "path": "library/stats/countdown-2.gif",
+      "webPath": "/gifs/library/stats/countdown-2.gif",
       "status": "reject",
       "reasons": [
         "duplicate",
@@ -6385,9 +6410,72 @@
         "misc"
       ],
       "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/6KSUL2BT4U2SXY4PTBIGR42DL4NLIWQ2.gif",
-      "query": "digital counter",
-      "fetchedAt": "2026-02-21T00:13:24.775Z"
+      "source": null,
+      "query": null,
+      "fetchedAt": null
+    },
+    {
+      "id": "countdown",
+      "path": "library/stats/countdown.gif",
+      "webPath": "/gifs/library/stats/countdown.gif",
+      "status": "reject",
+      "reasons": [
+        "duplicate",
+        "banner_ratio:4.50"
+      ],
+      "sizeKb": 2.4,
+      "width": 90,
+      "height": 20,
+      "frames": 7,
+      "themes": [
+        "misc"
+      ],
+      "mood": "neutral",
+      "source": null,
+      "query": null,
+      "fetchedAt": null
+    },
+    {
+      "id": "matrix-numbers",
+      "path": "library/stats/matrix-numbers.gif",
+      "webPath": "/gifs/library/stats/matrix-numbers.gif",
+      "status": "reject",
+      "reasons": [
+        "duplicate",
+        "banner_ratio:4.36"
+      ],
+      "sizeKb": 7,
+      "width": 240,
+      "height": 55,
+      "frames": 4,
+      "themes": [
+        "misc"
+      ],
+      "mood": "neutral",
+      "source": null,
+      "query": null,
+      "fetchedAt": null
+    },
+    {
+      "id": "tank",
+      "path": "library/threat/tank.gif",
+      "webPath": "/gifs/library/threat/tank.gif",
+      "status": "reject",
+      "reasons": [
+        "duplicate",
+        "banner_ratio:4.29"
+      ],
+      "sizeKb": 3.7,
+      "width": 150,
+      "height": 35,
+      "frames": 9,
+      "themes": [
+        "threat"
+      ],
+      "mood": "threat",
+      "source": null,
+      "query": null,
+      "fetchedAt": null
     },
     {
       "id": "lightning",
@@ -7252,47 +7340,6 @@
       "fetchedAt": "2026-02-21T00:14:58.913Z"
     },
     {
-      "id": "digital-counter-2GKKPE7NGILZAOSBCJAJCDU6YYRHRPSU",
-      "path": "rejected/digital-counter-2GKKPE7NGILZAOSBCJAJCDU6YYRHRPSU.gif",
-      "webPath": "/gifs/rejected/digital-counter-2GKKPE7NGILZAOSBCJAJCDU6YYRHRPSU.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 3.3,
-      "width": 82,
-      "height": 25,
-      "frames": 8,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/2GKKPE7NGILZAOSBCJAJCDU6YYRHRPSU.gif",
-      "query": "digital counter",
-      "fetchedAt": "2026-02-21T00:13:22.990Z"
-    },
-    {
-      "id": "digital-counter-3XYHYSNAXF37TH3SBZAS3GBP4NTQR7TW",
-      "path": "rejected/digital-counter-3XYHYSNAXF37TH3SBZAS3GBP4NTQR7TW.gif",
-      "webPath": "/gifs/rejected/digital-counter-3XYHYSNAXF37TH3SBZAS3GBP4NTQR7TW.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate",
-        "banner_ratio_reject:6.00"
-      ],
-      "sizeKb": 38.1,
-      "width": 120,
-      "height": 20,
-      "frames": 24,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/3XYHYSNAXF37TH3SBZAS3GBP4NTQR7TW.gif",
-      "query": "digital counter",
-      "fetchedAt": "2026-02-21T00:13:23.522Z"
-    },
-    {
       "id": "digital-counter-4XWQD5WC3VAFLA7CPIFZ2WYG3XT7QE3V",
       "path": "rejected/digital-counter-4XWQD5WC3VAFLA7CPIFZ2WYG3XT7QE3V.gif",
       "webPath": "/gifs/rejected/digital-counter-4XWQD5WC3VAFLA7CPIFZ2WYG3XT7QE3V.gif",
@@ -7312,26 +7359,6 @@
       "source": "https://blob.gifcities.org/gifcities/4XWQD5WC3VAFLA7CPIFZ2WYG3XT7QE3V.gif",
       "query": "digital counter",
       "fetchedAt": "2026-02-21T00:13:23.933Z"
-    },
-    {
-      "id": "digital-counter-5637B7PEDCTL2U5QHAORZAIB6AQH7VGJ",
-      "path": "rejected/digital-counter-5637B7PEDCTL2U5QHAORZAIB6AQH7VGJ.gif",
-      "webPath": "/gifs/rejected/digital-counter-5637B7PEDCTL2U5QHAORZAIB6AQH7VGJ.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 2.1,
-      "width": 82,
-      "height": 25,
-      "frames": 8,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/5637B7PEDCTL2U5QHAORZAIB6AQH7VGJ.gif",
-      "query": "digital counter",
-      "fetchedAt": "2026-02-21T00:13:24.380Z"
     },
     {
       "id": "encrypted-3H3QBUWXCLYZGEMHHOZNFS3W2AM4THVI",
@@ -7715,26 +7742,6 @@
       "fetchedAt": "2026-02-20T21:08:29.973Z"
     },
     {
-      "id": "market-graph-2AEVL6YH7ATYYZTYKXXTIM2AP5V4FXGZ",
-      "path": "rejected/market-graph-2AEVL6YH7ATYYZTYKXXTIM2AP5V4FXGZ.gif",
-      "webPath": "/gifs/rejected/market-graph-2AEVL6YH7ATYYZTYKXXTIM2AP5V4FXGZ.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 5.9,
-      "width": 100,
-      "height": 75,
-      "frames": 9,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/2AEVL6YH7ATYYZTYKXXTIM2AP5V4FXGZ.gif",
-      "query": "market graph",
-      "fetchedAt": "2026-02-21T00:14:15.850Z"
-    },
-    {
       "id": "market-graph-3ZTU2OELUA5RH47TSFRNQIRTCKLHDLYS",
       "path": "rejected/market-graph-3ZTU2OELUA5RH47TSFRNQIRTCKLHDLYS.gif",
       "webPath": "/gifs/rejected/market-graph-3ZTU2OELUA5RH47TSFRNQIRTCKLHDLYS.gif",
@@ -7753,26 +7760,6 @@
       "source": "https://blob.gifcities.org/gifcities/3ZTU2OELUA5RH47TSFRNQIRTCKLHDLYS.gif",
       "query": "market graph",
       "fetchedAt": "2026-02-21T00:14:17.120Z"
-    },
-    {
-      "id": "market-graph-4C4RPUIXBSER5FSSOIO73XN65QE6YHMB",
-      "path": "rejected/market-graph-4C4RPUIXBSER5FSSOIO73XN65QE6YHMB.gif",
-      "webPath": "/gifs/rejected/market-graph-4C4RPUIXBSER5FSSOIO73XN65QE6YHMB.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 6,
-      "width": 32,
-      "height": 32,
-      "frames": 5,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/4C4RPUIXBSER5FSSOIO73XN65QE6YHMB.gif",
-      "query": "market graph",
-      "fetchedAt": "2026-02-21T00:14:18.089Z"
     },
     {
       "id": "meter-2PFAM5Y3UBVJAFGWNMS4C2VOBRTRHZCP",
@@ -7895,46 +7882,6 @@
       "source": "https://blob.gifcities.org/gifcities/2OFBOV66AIF3PQXCEK3XZELKSP3C6KTS.gif",
       "query": "numbers",
       "fetchedAt": "2026-02-21T00:13:26.071Z"
-    },
-    {
-      "id": "numbers-2XHE4OM5X3QZV5FH76GW5HX27DUP7YZK",
-      "path": "rejected/numbers-2XHE4OM5X3QZV5FH76GW5HX27DUP7YZK.gif",
-      "webPath": "/gifs/rejected/numbers-2XHE4OM5X3QZV5FH76GW5HX27DUP7YZK.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 7.3,
-      "width": 80,
-      "height": 116,
-      "frames": 5,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/2XHE4OM5X3QZV5FH76GW5HX27DUP7YZK.gif",
-      "query": "numbers",
-      "fetchedAt": "2026-02-21T00:13:26.508Z"
-    },
-    {
-      "id": "numbers-2ZE3ENPNM4EYEG35O4YMK2B6YKQQEZRG",
-      "path": "rejected/numbers-2ZE3ENPNM4EYEG35O4YMK2B6YKQQEZRG.gif",
-      "webPath": "/gifs/rejected/numbers-2ZE3ENPNM4EYEG35O4YMK2B6YKQQEZRG.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 4.8,
-      "width": 125,
-      "height": 80,
-      "frames": 4,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/2ZE3ENPNM4EYEG35O4YMK2B6YKQQEZRG.gif",
-      "query": "numbers",
-      "fetchedAt": "2026-02-21T00:13:26.923Z"
     },
     {
       "id": "progress-2JRFP4RSUY52LDNJ3U5TBYHAQKCP6ZUK",
@@ -8258,89 +8205,6 @@
       "fetchedAt": "2026-02-21T00:13:13.958Z"
     },
     {
-      "id": "scoreboard-44V6RXUIOM4BIJK2KYRMABX6DR64H7ZG",
-      "path": "rejected/scoreboard-44V6RXUIOM4BIJK2KYRMABX6DR64H7ZG.gif",
-      "webPath": "/gifs/rejected/scoreboard-44V6RXUIOM4BIJK2KYRMABX6DR64H7ZG.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate",
-        "banner_ratio:4.50"
-      ],
-      "sizeKb": 20.3,
-      "width": 90,
-      "height": 20,
-      "frames": 39,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/44V6RXUIOM4BIJK2KYRMABX6DR64H7ZG.gif",
-      "query": "scoreboard",
-      "fetchedAt": "2026-02-21T00:13:14.615Z"
-    },
-    {
-      "id": "scoreboard-4BRMNTRPTNWRMLNSOSNUZUG4C6TEDS5A",
-      "path": "rejected/scoreboard-4BRMNTRPTNWRMLNSOSNUZUG4C6TEDS5A.gif",
-      "webPath": "/gifs/rejected/scoreboard-4BRMNTRPTNWRMLNSOSNUZUG4C6TEDS5A.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate",
-        "banner_ratio:4.50"
-      ],
-      "sizeKb": 2.4,
-      "width": 90,
-      "height": 20,
-      "frames": 7,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/4BRMNTRPTNWRMLNSOSNUZUG4C6TEDS5A.gif",
-      "query": "scoreboard",
-      "fetchedAt": "2026-02-21T00:13:15.011Z"
-    },
-    {
-      "id": "scoreboard-4CAOE72JIWUUKYLXOFZSVN3IX5XNUCGX",
-      "path": "rejected/scoreboard-4CAOE72JIWUUKYLXOFZSVN3IX5XNUCGX.gif",
-      "webPath": "/gifs/rejected/scoreboard-4CAOE72JIWUUKYLXOFZSVN3IX5XNUCGX.gif",
-      "status": "reject",
-      "reasons": [
-        "invalid:missing_trailer",
-        "duplicate"
-      ],
-      "sizeKb": 7.9,
-      "width": 90,
-      "height": 20,
-      "frames": 17,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/4CAOE72JIWUUKYLXOFZSVN3IX5XNUCGX.gif",
-      "query": "scoreboard",
-      "fetchedAt": "2026-02-21T00:13:15.532Z"
-    },
-    {
-      "id": "scoreboard-5637B7PEDCTL2U5QHAORZAIB6AQH7VGJ",
-      "path": "rejected/scoreboard-5637B7PEDCTL2U5QHAORZAIB6AQH7VGJ.gif",
-      "webPath": "/gifs/rejected/scoreboard-5637B7PEDCTL2U5QHAORZAIB6AQH7VGJ.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 2.1,
-      "width": 82,
-      "height": 25,
-      "frames": 8,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/5637B7PEDCTL2U5QHAORZAIB6AQH7VGJ.gif",
-      "query": "scoreboard",
-      "fetchedAt": "2026-02-21T00:13:16.052Z"
-    },
-    {
       "id": "scrolling-numbers-2QU72TN5SAYOCVQNQOSPCQWQUHNTX6YB",
       "path": "rejected/scrolling-numbers-2QU72TN5SAYOCVQNQOSPCQWQUHNTX6YB.gif",
       "webPath": "/gifs/rejected/scrolling-numbers-2QU72TN5SAYOCVQNQOSPCQWQUHNTX6YB.gif",
@@ -8379,26 +8243,6 @@
       "source": "https://blob.gifcities.org/gifcities/2UEN5TTKJOE2DJKHLO6ANGSSAYD4OWD3.gif",
       "query": "scrolling numbers",
       "fetchedAt": "2026-02-21T00:14:46.378Z"
-    },
-    {
-      "id": "scrolling-numbers-2XHE4OM5X3QZV5FH76GW5HX27DUP7YZK",
-      "path": "rejected/scrolling-numbers-2XHE4OM5X3QZV5FH76GW5HX27DUP7YZK.gif",
-      "webPath": "/gifs/rejected/scrolling-numbers-2XHE4OM5X3QZV5FH76GW5HX27DUP7YZK.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 7.3,
-      "width": 80,
-      "height": 116,
-      "frames": 5,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/2XHE4OM5X3QZV5FH76GW5HX27DUP7YZK.gif",
-      "query": "scrolling numbers",
-      "fetchedAt": "2026-02-21T00:14:46.777Z"
     },
     {
       "id": "secure-channel-2NJ4QBHYHC7BSYO5HMO5D5F3EFIHVTR2",
@@ -8662,68 +8506,6 @@
       "fetchedAt": "2026-02-21T00:13:08.347Z"
     },
     {
-      "id": "stats-3FVNRDFP3XWZFAMXVSRQ67BD3VQ54GKA",
-      "path": "rejected/stats-3FVNRDFP3XWZFAMXVSRQ67BD3VQ54GKA.gif",
-      "webPath": "/gifs/rejected/stats-3FVNRDFP3XWZFAMXVSRQ67BD3VQ54GKA.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 4.2,
-      "width": 32,
-      "height": 32,
-      "frames": 14,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/3FVNRDFP3XWZFAMXVSRQ67BD3VQ54GKA.gif",
-      "query": "stats",
-      "fetchedAt": "2026-02-21T00:13:08.778Z"
-    },
-    {
-      "id": "stats-46PX7URPUGCTHZKA6T2W74VPQN3W2E5B",
-      "path": "rejected/stats-46PX7URPUGCTHZKA6T2W74VPQN3W2E5B.gif",
-      "webPath": "/gifs/rejected/stats-46PX7URPUGCTHZKA6T2W74VPQN3W2E5B.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate",
-        "banner_ratio:3.85"
-      ],
-      "sizeKb": 3.9,
-      "width": 100,
-      "height": 26,
-      "frames": 3,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/46PX7URPUGCTHZKA6T2W74VPQN3W2E5B.gif",
-      "query": "stats",
-      "fetchedAt": "2026-02-21T00:13:09.244Z"
-    },
-    {
-      "id": "stats-4IPSYZ4IDAEQHZYGFZA6HNDHAMTVWDIY",
-      "path": "rejected/stats-4IPSYZ4IDAEQHZYGFZA6HNDHAMTVWDIY.gif",
-      "webPath": "/gifs/rejected/stats-4IPSYZ4IDAEQHZYGFZA6HNDHAMTVWDIY.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate",
-        "banner_ratio_reject:10.00"
-      ],
-      "sizeKb": 5.5,
-      "width": 600,
-      "height": 60,
-      "frames": 3,
-      "themes": [
-        "misc"
-      ],
-      "mood": "neutral",
-      "source": "https://blob.gifcities.org/gifcities/4IPSYZ4IDAEQHZYGFZA6HNDHAMTVWDIY.gif",
-      "query": "stats",
-      "fetchedAt": "2026-02-21T00:13:09.768Z"
-    },
-    {
       "id": "stats-54IF52HFYVZC3DWXKAESIKS7G7RNMU2X",
       "path": "rejected/stats-54IF52HFYVZC3DWXKAESIKS7G7RNMU2X.gif",
       "webPath": "/gifs/rejected/stats-54IF52HFYVZC3DWXKAESIKS7G7RNMU2X.gif",
@@ -8784,46 +8566,6 @@
       "fetchedAt": "2026-02-20T21:05:58.017Z"
     },
     {
-      "id": "stock-chart-2AEVL6YH7ATYYZTYKXXTIM2AP5V4FXGZ",
-      "path": "rejected/stock-chart-2AEVL6YH7ATYYZTYKXXTIM2AP5V4FXGZ.gif",
-      "webPath": "/gifs/rejected/stock-chart-2AEVL6YH7ATYYZTYKXXTIM2AP5V4FXGZ.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 5.9,
-      "width": 100,
-      "height": 75,
-      "frames": 9,
-      "themes": [
-        "trade"
-      ],
-      "mood": "reward",
-      "source": "https://blob.gifcities.org/gifcities/2AEVL6YH7ATYYZTYKXXTIM2AP5V4FXGZ.gif",
-      "query": "stock chart",
-      "fetchedAt": "2026-02-21T00:14:13.531Z"
-    },
-    {
-      "id": "stock-chart-2EEMJFNIGYRXGYNUSG2VUUD4EW4WPNO5",
-      "path": "rejected/stock-chart-2EEMJFNIGYRXGYNUSG2VUUD4EW4WPNO5.gif",
-      "webPath": "/gifs/rejected/stock-chart-2EEMJFNIGYRXGYNUSG2VUUD4EW4WPNO5.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 4.2,
-      "width": 32,
-      "height": 32,
-      "frames": 14,
-      "themes": [
-        "trade"
-      ],
-      "mood": "reward",
-      "source": "https://blob.gifcities.org/gifcities/2EEMJFNIGYRXGYNUSG2VUUD4EW4WPNO5.gif",
-      "query": "stock chart",
-      "fetchedAt": "2026-02-21T00:14:13.932Z"
-    },
-    {
       "id": "stock-chart-3LEHMLCHNXL2VOQRT5KW757PKGK2AUBW",
       "path": "rejected/stock-chart-3LEHMLCHNXL2VOQRT5KW757PKGK2AUBW.gif",
       "webPath": "/gifs/rejected/stock-chart-3LEHMLCHNXL2VOQRT5KW757PKGK2AUBW.gif",
@@ -8842,26 +8584,6 @@
       "source": "https://blob.gifcities.org/gifcities/3LEHMLCHNXL2VOQRT5KW757PKGK2AUBW.gif",
       "query": "stock chart",
       "fetchedAt": "2026-02-21T00:14:14.364Z"
-    },
-    {
-      "id": "stock-chart-4PMRULGTLUN5NGIZBOYMULGL44HFAQYD",
-      "path": "rejected/stock-chart-4PMRULGTLUN5NGIZBOYMULGL44HFAQYD.gif",
-      "webPath": "/gifs/rejected/stock-chart-4PMRULGTLUN5NGIZBOYMULGL44HFAQYD.gif",
-      "status": "reject",
-      "reasons": [
-        "duplicate"
-      ],
-      "sizeKb": 25.4,
-      "width": 200,
-      "height": 87,
-      "frames": 41,
-      "themes": [
-        "trade"
-      ],
-      "mood": "reward",
-      "source": "https://blob.gifcities.org/gifcities/4PMRULGTLUN5NGIZBOYMULGL44HFAQYD.gif",
-      "query": "stock chart",
-      "fetchedAt": "2026-02-21T00:14:14.900Z"
     },
     {
       "id": "terminal-2FNXW44H3F37CJ4A4IQFZGZSPUBQPF3F",

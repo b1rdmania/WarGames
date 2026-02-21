@@ -2,6 +2,11 @@
  * Curated animated GIF catalog - now served locally from /public/gifs/
  * Original source: gifcities.org (Internet Archive Geocities collection)
  */
+import { GIF_LIBRARY } from '@/lib/gif-library';
+
+const LIBRARY_GIFS: Record<string, string> = Object.fromEntries(
+  GIF_LIBRARY.map((item) => [`lib_${item.alias}`, item.path])
+);
 
 export const GC = {
   // Fire / flames
@@ -52,7 +57,20 @@ export const GC = {
   chart: '/gifs/chart.gif',
   atom: '/gifs/atom.gif',
 
+  // Reviewed library (accepted picks)
+  libAlien: '/gifs/library/retro/alien.gif',
+  libCountdown: '/gifs/library/stats/countdown.gif',
+  libCountdown2: '/gifs/library/stats/countdown-2.gif',
+  libMatrixNumbers: '/gifs/library/stats/matrix-numbers.gif',
+  libLineChart: '/gifs/library/charts/line-chart.gif',
+  libDollar: '/gifs/library/money/dollar.gif',
+  libDollar2: '/gifs/library/money/dollar-2.gif',
+  libRadar: '/gifs/library/intel/radar.gif',
+  libReticle: '/gifs/library/intel/reticle.gif',
+  libTank: '/gifs/library/threat/tank.gif',
+
   // In use — kept as named references
   warning: '/gifs/warning.gif',
   signal: '/gifs/signal.gif',
+  ...LIBRARY_GIFS,
 } as const;

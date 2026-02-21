@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import {
   TerminalShell,
@@ -88,6 +89,16 @@ export default function StatsPage() {
       leftPane={
         <div className={styles.pane}>
           <TerminalPaneTitle>ROUTING PROOF</TerminalPaneTitle>
+          <div className={styles.gifRow}>
+            <Image
+              src="/gifs/library/stats/matrix-numbers.gif"
+              width={86}
+              height={28}
+              alt="Animated matrix numbers"
+              unoptimized
+              className={styles.gifBadge}
+            />
+          </div>
           <div className={styles.hero}>{data ? `$${num(data.totals.notionalUsd)}` : '$0'}</div>
           <div className={styles.heroLabel}>TOTAL NOTIONAL ROUTED</div>
           <div className={styles.divider} />
@@ -109,6 +120,16 @@ export default function StatsPage() {
       centerPane={
         <div className={styles.pane}>
           <TerminalPaneTitle>MARKET ACTIVITY</TerminalPaneTitle>
+          <div className={styles.gifRow}>
+            <Image
+              src="/gifs/library/charts/line-chart.gif"
+              width={72}
+              height={34}
+              alt="Animated line chart"
+              unoptimized
+              className={styles.gifBadge}
+            />
+          </div>
           <div className={styles.mix}>
             {(data?.topMarkets ?? []).slice(0, 5).map((m) => {
               const w = (data?.totals.notionalUsd ?? 0) > 0 ? (m.notionalUsd / (data?.totals.notionalUsd ?? 1)) * 100 : 0;
@@ -163,6 +184,16 @@ export default function StatsPage() {
       rightPane={
         <div className={styles.pane}>
           <TerminalPaneTitle>TARGETS & HISTORY</TerminalPaneTitle>
+          <div className={styles.gifRow}>
+            <Image
+              src="/gifs/library/stats/countdown.gif"
+              width={74}
+              height={31}
+              alt="Animated countdown display"
+              unoptimized
+              className={styles.gifBadge}
+            />
+          </div>
           <button
             type="button"
             className={styles.refreshBtn}

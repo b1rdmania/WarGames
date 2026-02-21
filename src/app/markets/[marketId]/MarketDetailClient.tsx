@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { useValidatedMarkets } from '@/hooks/useValidatedMarkets';
@@ -58,7 +59,17 @@ export default function MarketDetailClient({ marketId }: { marketId: string }) {
       menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
-          <TerminalPaneTitle>MARKET INTELLIGENCE</TerminalPaneTitle>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '12px' }}>
+            <TerminalPaneTitle>MARKET INTELLIGENCE</TerminalPaneTitle>
+            <Image
+              src="/gifs/approved/coin-2ACZAWOHNIH6UIBBECMQTC4F4L5BRTD5.gif"
+              width={44}
+              height={44}
+              alt="CIA insignia"
+              unoptimized
+              style={{ imageRendering: 'pixelated', border: '1px solid var(--border)', padding: '2px', background: 'var(--bg-deep)' }}
+            />
+          </div>
           <TerminalTitle>{market.name}</TerminalTitle>
           <TerminalThesis>{overview}</TerminalThesis>
           <TerminalKV>

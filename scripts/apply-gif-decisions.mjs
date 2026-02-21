@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdirSync, readFileSync, renameSync } from 'fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, renameSync, unlinkSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -30,12 +30,29 @@ function moveSafe(fromAbs, toAbs) {
     renameSync(fromAbs, toAbs);
     return true;
   } catch {
-    return false;
+    try {
+      copyFileSync(fromAbs, toAbs);
+      unlinkSync(fromAbs);
+      return true;
+    } catch {
+      return false;
+    }
   }
 }
 
-function resolveInboxGifPath(id) {
-  return path.join(INBOX, `${id}.gif`);
+function resolvePath(dir, id) {
+  return path.join(dir, `${id}.gif`);
+}
+
+function resolveSource(id, action) {
+  const candidates =
+    action === 'approve'
+      ? [resolvePath(REJECTED, id), resolvePath(INBOX, id)]
+      : action === 'reject'
+      ? [resolvePath(APPROVED, id), resolvePath(INBOX, id)]
+      : [];
+
+  return candidates.find((p) => existsSync(p)) ?? null;
 }
 
 function main() {
@@ -53,8 +70,8 @@ function main() {
   let skipped = 0;
 
   for (const [id, action] of entries) {
-    const source = resolveInboxGifPath(id);
-    if (!existsSync(source)) {
+    const source = resolveSource(id, action);
+    if (!source) {
       skipped += 1;
       continue;
     }
@@ -65,7 +82,24 @@ function main() {
       continue;
     }
 
-    const target = path.join(targetDir, `${id}.gif`);
+    const target = resolvePath(targetDir, id);
+    if (source === target) {
+      skipped += 1;
+      continue;
+    }
+
+    if (existsSync(target)) {
+      try {
+        unlinkSync(source);
+        if (action === 'approve') movedApproved += 1;
+        if (action === 'reject') movedRejected += 1;
+        continue;
+      } catch {
+        skipped += 1;
+        continue;
+      }
+    }
+
     const ok = moveSafe(source, target);
     if (!ok) {
       skipped += 1;

@@ -3,6 +3,21 @@
   gap: 10px;
 }
 
+.gifRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: -2px;
+}
+
+.gifBadge {
+  image-rendering: pixelated;
+  border: 1px solid var(--border);
+  background: var(--bg-deep);
+  padding: 2px 4px;
+  opacity: 0.92;
+}
+
 .hero {
   font-size: 32px;
   line-height: 1;

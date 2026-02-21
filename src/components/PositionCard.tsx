@@ -7,18 +7,33 @@ import { getMarketById } from '@/integrations/pear/markets';
 import { getHyperliquidPortfolioUrl, getPearPositionUrl } from '@/integrations/pear/links';
 import type { PearPosition } from '@/integrations/pear/types';
 
+export interface HyperliquidReconciliation {
+  state: 'loading' | 'verified' | 'mismatch' | 'unavailable';
+  wallet?: string;
+  source?: 'agent' | 'wallet';
+  matchedLong?: string[];
+  matchedShort?: string[];
+  missingLong?: string[];
+  missingShort?: string[];
+  note?: string;
+}
+
 function cleanCoin(raw?: string): string | null {
   if (!raw) return null;
   const s = raw.split(':').pop()!.trim().replace(/^[^A-Za-z0-9]+/, '');
   if (!s || s === '-' || s === '—') return null;
-  return s;
+  return s.toUpperCase();
 }
 
 function compactCoins(list?: Array<{ coin?: string; asset?: string }>, max = 5): string | null {
   if (!list || list.length === 0) return null;
-  const coins = list
-    .map((a) => cleanCoin(a.coin ?? a.asset))
-    .filter((x): x is string => Boolean(x));
+  const coins = Array.from(
+    new Set(
+      list
+        .map((a) => cleanCoin(a.coin ?? a.asset))
+        .filter((x): x is string => Boolean(x))
+    )
+  );
   if (coins.length === 0) return null;
   if (coins.length <= max) return coins.join('+');
   return `${coins.slice(0, max).join('+')}+${coins.length - max}`;
@@ -28,10 +43,12 @@ export function PositionCard({
   position,
   accessToken,
   onClose,
+  hyperliquidCheck,
 }: {
   position: PearPosition;
   accessToken: string;
   onClose: () => void;
+  hyperliquidCheck?: HyperliquidReconciliation;
 }) {
   const [closing, setClosing] = useState(false);
 
@@ -205,6 +222,55 @@ export function PositionCard({
           <div style={{ color: 'var(--text-secondary)', marginTop: '3px' }}>
             S: {(shortLegs ?? []).join(', ') || actualShort}
           </div>
+        </div>
+      ) : null}
+
+      {hyperliquidCheck ? (
+        <div
+          style={{
+            marginTop: '10px',
+            paddingTop: '10px',
+            borderTop: '1px solid var(--border)',
+            fontSize: '11px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+          }}
+        >
+          <div style={{ color: 'var(--text-muted)' }}>
+            Hyperliquid Reconciliation ({hyperliquidCheck.source === 'agent' ? 'Agent Wallet' : 'Wallet'})
+          </div>
+          <div
+            style={{
+              marginTop: '4px',
+              color:
+                hyperliquidCheck.state === 'verified'
+                  ? 'var(--primary)'
+                  : hyperliquidCheck.state === 'mismatch'
+                  ? 'var(--loss)'
+                  : 'var(--text-secondary)',
+            }}
+          >
+            {hyperliquidCheck.state === 'loading'
+              ? 'Checking live HL positions...'
+              : hyperliquidCheck.state === 'verified'
+              ? 'Verified on HL'
+              : hyperliquidCheck.state === 'mismatch'
+              ? 'Mismatch with HL open positions'
+              : 'HL verification unavailable'}
+          </div>
+          {hyperliquidCheck.state === 'mismatch' && (hyperliquidCheck.missingLong?.length || hyperliquidCheck.missingShort?.length) ? (
+            <div style={{ marginTop: '4px', color: 'var(--loss)' }}>
+              {hyperliquidCheck.missingLong && hyperliquidCheck.missingLong.length > 0
+                ? `Missing LONG: ${hyperliquidCheck.missingLong.join(', ')}. `
+                : null}
+              {hyperliquidCheck.missingShort && hyperliquidCheck.missingShort.length > 0
+                ? `Missing SHORT: ${hyperliquidCheck.missingShort.join(', ')}.`
+                : null}
+            </div>
+          ) : null}
+          {hyperliquidCheck.note ? (
+            <div style={{ marginTop: '4px', color: 'var(--text-muted)' }}>{hyperliquidCheck.note}</div>
+          ) : null}
         </div>
       ) : null}
 
