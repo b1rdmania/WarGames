@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useState } from 'react';
 import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 import { hyperEVM } from '@/lib/wagmi';
+import { getHyperliquidOnboardingUrl } from '@/integrations/pear/links';
 import styles from './PearSetupCard.module.css';
 
 const CHAIN_NAMES: Record<number, string> = {
@@ -88,6 +89,9 @@ export function PearSetupCard({
           )}
         </p>
         <p className={styles.chainInfo}>
+          First trade only: approve agent wallet on Hyperliquid to activate execution.
+        </p>
+        <p className={styles.chainInfo}>
           Connected to {chainName}
           {isOnHyperEVM && <span className={styles.chainOk}>✓</span>}
         </p>
@@ -144,6 +148,14 @@ export function PearSetupCard({
             Switch Chain
           </button>
         )}
+        <a
+          href={getHyperliquidOnboardingUrl()}
+          target="_blank"
+          rel="noreferrer"
+          className={styles.btnSecondary}
+        >
+          Open Hyperliquid (Referral)
+        </a>
       </div>
     </div>
   );

@@ -24,3 +24,10 @@ export function getHyperliquidPortfolioUrl(): string {
   const base = source.replace(/\/+$/, '');
   return `${base}/portfolio`;
 }
+
+export function getHyperliquidOnboardingUrl(): string {
+  const explicit = (process.env.NEXT_PUBLIC_HYPERLIQUID_ONBOARDING_URL ?? '').trim();
+  if (explicit) return explicit;
+  const source = (process.env.NEXT_PUBLIC_HYPERLIQUID_APP_URL ?? '').trim() || DEFAULT_HYPERLIQUID_APP_URL;
+  return source.replace(/\/+$/, '');
+}
