@@ -80,7 +80,7 @@ export default function TradeClient() {
   const { isConnected, address } = useAccount();
   const { connectAsync, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
-  const { accessToken, isAuthenticated } = usePear();
+  const { accessToken, isAuthenticated, agentWalletApproval } = usePear();
   const { perpUsdc } = useVaultBalances(accessToken);
   const { markets: effectiveMarkets } = useValidatedMarkets();
 
@@ -124,7 +124,8 @@ export default function TradeClient() {
   const canExecute =
     Boolean(selectedMarket && selectedMarket.isTradable) &&
     size > 0 &&
-    (availableMargin === null || size <= availableMargin);
+    (availableMargin === null || size <= availableMargin) &&
+    agentWalletApproval !== 'pending';
   const groupedMarkets = useMemo(() => {
     const groups: Record<MarketGroup, typeof effectiveMarkets> = {
       macro: [],
@@ -294,11 +295,16 @@ export default function TradeClient() {
       );
     }
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated || agentWalletApproval === 'pending') {
       return (
         <>
           <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
           <div style={{ padding: '20px 0' }}>
+            {agentWalletApproval === 'pending' ? (
+              <div style={{ color: 'var(--loss)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px' }}>
+                Approval pending: complete Hyperliquid agent-wallet approval first.
+              </div>
+            ) : null}
             <PearSetupCard />
           </div>
         </>
@@ -370,6 +376,11 @@ export default function TradeClient() {
           <div>
             NOTIONAL ${notional.toFixed(2)} · MAX {maxPermittedLeverage}x
           </div>
+          {agentWalletApproval === 'pending' ? (
+            <div style={{ color: 'var(--loss)' }}>
+              AGENT WALLET APPROVAL PENDING · APPROVE ON HYPERLIQUID BEFORE EXECUTION
+            </div>
+          ) : null}
           {availableMargin !== null && size > availableMargin ? (
             <div style={{ color: 'var(--loss)' }}>INSUFFICIENT MARGIN FOR THIS SIZE</div>
           ) : null}
@@ -661,7 +672,7 @@ export default function TradeClient() {
           items={[
             { label: 'SESSION', value: isAuthenticated ? 'OPERATOR' : 'BROWSE' },
             { label: 'BALANCE', value: isAuthenticated && perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '—' },
-            { label: 'STATE', value: isAuthenticated ? (side === 'YES' ? 'THESIS ARMED' : 'FADE MODE') : 'READ-ONLY' },
+            { label: 'STATE', value: isAuthenticated ? (agentWalletApproval === 'pending' ? 'APPROVAL PENDING' : side === 'YES' ? 'THESIS ARMED' : 'FADE MODE') : 'READ-ONLY' },
             { label: 'OPERATOR', value: address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'GUEST' },
           ]}
         />

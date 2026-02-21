@@ -137,10 +137,12 @@
 .actions {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .btnPrimary {
   flex: 1;
+  min-width: 170px;
   background: var(--secondary);
   color: var(--bg-deep);
   border: none;
@@ -163,6 +165,9 @@
 }
 
 .btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   color: var(--primary);
   border: 1px solid var(--primary);
@@ -171,6 +176,7 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  text-decoration: none;
   cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease;
 }

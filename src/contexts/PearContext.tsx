@@ -19,6 +19,7 @@ import { emitDebugLog } from '@/lib/debugLog';
 interface PearContextValue {
   accessToken: string | null;
   agentWallet: string | null;
+  agentWalletApproval: 'unknown' | 'pending' | 'approved';
   isAuthenticated: boolean;
   isAuthenticating: boolean;
   isSessionExpired: boolean;
@@ -27,6 +28,7 @@ interface PearContextValue {
   statusLine: string;
   requiredChainId: number | null;
   runSetup: (createIfMissing?: boolean) => Promise<void>;
+  refreshAgentWalletStatus: () => Promise<void>;
   disconnect: () => void;
 }
 
@@ -40,6 +42,7 @@ export function PearProvider({ children }: { children: ReactNode }) {
 
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [agentWallet, setAgentWallet] = useState<string | null>(null);
+  const [agentWalletApproval, setAgentWalletApproval] = useState<'unknown' | 'pending' | 'approved'>('unknown');
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   const [error, setError] = useState<Error>();
@@ -54,6 +57,7 @@ export function PearProvider({ children }: { children: ReactNode }) {
     if (!isConnected || !address) {
       setAccessToken(null);
       setAgentWallet(null);
+      setAgentWalletApproval('unknown');
       setIsSessionExpired(false);
       clearAuthTokens();
       hadTokenRef.current = false;
@@ -81,6 +85,7 @@ export function PearProvider({ children }: { children: ReactNode }) {
         }
         setAccessToken(null);
         setAgentWallet(null);
+        setAgentWalletApproval('unknown');
         clearAuthTokens();
         hadTokenRef.current = false;
         return;
@@ -109,11 +114,20 @@ export function PearProvider({ children }: { children: ReactNode }) {
       const wallet = await getAgentWallet(token);
       if (wallet.exists) {
         setAgentWallet(wallet.address);
+        setAgentWalletApproval(wallet.approvalStatus);
+      } else {
+        setAgentWallet(null);
+        setAgentWalletApproval('unknown');
       }
     } catch (err) {
       console.error('Failed to load agent wallet:', err);
       if (err instanceof PearApiError) setLastApiError(err);
     }
+  }
+
+  async function refreshAgentWalletStatus() {
+    if (!accessToken) throw new Error('Not authenticated');
+    await loadAgentWallet(accessToken);
   }
 
   async function runSetup(createIfMissing: boolean = true) {
@@ -210,6 +224,7 @@ export function PearProvider({ children }: { children: ReactNode }) {
       }
 
       setAgentWallet(wallet.address || null);
+      setAgentWalletApproval(wallet.approvalStatus);
       setStatusLine('READY');
       emitDebugLog({ level: 'info', scope: 'setup', message: 'RUN SETUP ready' });
     } catch (err) {
@@ -253,6 +268,7 @@ export function PearProvider({ children }: { children: ReactNode }) {
     }
     setAccessToken(null);
     setAgentWallet(null);
+    setAgentWalletApproval('unknown');
     setLastApiError(null);
     setStatusLine('IDLE');
     clearAuthTokens();
@@ -261,6 +277,7 @@ export function PearProvider({ children }: { children: ReactNode }) {
   const value: PearContextValue = {
     accessToken,
     agentWallet,
+    agentWalletApproval,
     isAuthenticated: !!(accessToken && isConnected),
     isAuthenticating,
     isSessionExpired,
@@ -269,6 +286,7 @@ export function PearProvider({ children }: { children: ReactNode }) {
     statusLine,
     requiredChainId,
     runSetup,
+    refreshAgentWalletStatus,
     disconnect,
   };
 

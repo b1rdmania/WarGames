@@ -25,7 +25,16 @@ export function PearSetupCard({
   variant?: 'default' | 'portfolio' | 'trade';
 }) {
   const { address, isConnected } = useAccount();
-  const { runSetup, isAuthenticating, statusLine, agentWallet, error, lastApiError } = usePear();
+  const {
+    runSetup,
+    isAuthenticating,
+    statusLine,
+    agentWallet,
+    agentWalletApproval,
+    refreshAgentWalletStatus,
+    error,
+    lastApiError,
+  } = usePear();
   const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
   const [showDetails, setShowDetails] = useState(false);
@@ -54,6 +63,13 @@ export function PearSetupCard({
     authing: 'AUTHENTICATING',
     error: 'ERROR',
   };
+  const approvalLabel =
+    agentWalletApproval === 'approved'
+      ? 'CONFIRMED'
+      : agentWalletApproval === 'pending'
+      ? 'PENDING'
+      : 'UNKNOWN';
+  const approvalGif = agentWalletApproval === 'approved' ? '/gifs/signal.gif' : '/gifs/warning.gif';
 
   return (
     <div className={styles.card}>
@@ -79,6 +95,13 @@ export function PearSetupCard({
             {agentWallet ? formatAddr(agentWallet) : <span className={styles.statEmpty}>—</span>}
           </div>
         </div>
+      </div>
+      <div className={styles.statBox} style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+        <div>
+          <div className={styles.statLabel}>Hyperliquid Approval</div>
+          <div className={styles.statValue}>{approvalLabel}</div>
+        </div>
+        <img src={approvalGif} alt="" width={20} height={20} />
       </div>
 
       <div className={styles.guidance}>
@@ -156,6 +179,18 @@ export function PearSetupCard({
         >
           Open Hyperliquid (Referral)
         </a>
+        <button
+          type="button"
+          className={styles.btnSecondary}
+          disabled={!agentWallet || isAuthenticating}
+          onClick={() => {
+            refreshAgentWalletStatus()
+              .then(() => toast.success('Approval status refreshed'))
+              .catch((e) => toast.error((e as Error).message || 'Failed to refresh status'));
+          }}
+        >
+          Refresh Approval
+        </button>
       </div>
     </div>
   );
