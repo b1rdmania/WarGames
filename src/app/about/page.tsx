@@ -27,9 +27,10 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
-  const radarGif = getGifPath('radar', GC.radar);
-  const worldMapGif = getGifPath('world-map', GC.worldMap);
+  // Pin the About visual trio to the original set; these three work best together compositionally.
+  const earthSpinGif = GC.earthSpin;
+  const radarGif = GC.radar;
+  const worldMapGif = GC.worldMap;
   const tankGif = getGifPath('tank', GC.tank);
   const mobileScanGif = getGifPath('map-ping', radarGif);
 
