@@ -376,11 +376,6 @@ export default function TradeClient() {
           <div>
             NOTIONAL ${notional.toFixed(2)} · MAX {maxPermittedLeverage}x
           </div>
-          {agentWalletApproval === 'pending' ? (
-            <div style={{ color: 'var(--loss)' }}>
-              AGENT WALLET APPROVAL PENDING · APPROVE ON HYPERLIQUID BEFORE EXECUTION
-            </div>
-          ) : null}
           {availableMargin !== null && size > availableMargin ? (
             <div style={{ color: 'var(--loss)' }}>INSUFFICIENT MARGIN FOR THIS SIZE</div>
           ) : null}
