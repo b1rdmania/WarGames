@@ -63,6 +63,25 @@
   margin: 0 auto 32px;
 }
 
+.intelStrip {
+  margin: -12px auto 18px;
+  width: min(100%, 440px);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.92;
+}
+
+.intelStrip img {
+  image-rendering: pixelated;
+}
+
+.intelRule {
+  border-top: 1px solid var(--border);
+  height: 0;
+}
+
 .winnerLine {
   margin: 20px 0;
   display: flex;
@@ -208,6 +227,11 @@
 
   .title {
     font-size: 32px;
+  }
+
+  .intelStrip {
+    width: min(100%, 320px);
+    gap: 8px;
   }
 
   .ctaGrid {

@@ -429,6 +429,23 @@ export default function TradeClient() {
         >
           {isExecuting ? 'EXECUTING…' : 'EXECUTE POSITION'}
         </TerminalButton>
+        <div
+          aria-hidden="true"
+          style={{
+            marginTop: '14px',
+            paddingTop: '12px',
+            borderTop: '1px solid var(--border)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '10px',
+            opacity: 0.9,
+          }}
+        >
+          <img src="/gifs/library/money/dollar.gif" width={26} height={26} alt="" style={{ imageRendering: 'pixelated' }} />
+          <img src="/gifs/library/misc/scan.gif" width={74} height={14} alt="" style={{ imageRendering: 'pixelated', opacity: 0.8 }} />
+          <img src="/gifs/library/threat/alert.gif" width={38} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
+        </div>
       </>
     );
   };
@@ -439,10 +456,28 @@ export default function TradeClient() {
       menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
-          <TerminalPaneTitle>
-            <img src={GC.earthSpin} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-            MARKET DIRECTORY
-          </TerminalPaneTitle>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
+            <TerminalPaneTitle>
+              <img src={GC.earthSpin} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+              MARKET DIRECTORY
+            </TerminalPaneTitle>
+            <img src="/gifs/library/intel/satellite.gif" width={30} height={18} alt="" style={{ imageRendering: 'pixelated', opacity: 0.9 }} />
+          </div>
+          <div
+            aria-hidden="true"
+            style={{
+              marginTop: '-4px',
+              marginBottom: '10px',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              gap: '8px',
+              opacity: 0.9,
+            }}
+          >
+            <img src="/gifs/library/intel/radar-sweep.gif" width={60} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
+            <img src="/gifs/library/misc/down-arrow.gif" width={14} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
+          </div>
           <TerminalMarketList>
             {MARKET_GROUP_ORDER.map((category) => {
               const markets = groupedMarkets[category] ?? [];

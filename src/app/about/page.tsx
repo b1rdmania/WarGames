@@ -66,6 +66,20 @@ export default function AboutPage() {
           <div className={styles.titleRow}>
             <div className={styles.sectionLabel}>ABOUT WAR MARKET</div>
           </div>
+          <div className={styles.mobileVisualStrip} aria-hidden="true">
+            <div className={styles.mobileVisualItem}>
+              <img src={GC.earthSpin} width={48} height={48} alt="" />
+              <span>MAP</span>
+            </div>
+            <div className={styles.mobileVisualItem}>
+              <img src="/gifs/library/intel/radar-sweep.gif" width={64} height={16} alt="" />
+              <span>SCAN</span>
+            </div>
+            <div className={styles.mobileVisualItem}>
+              <img src={GC.worldMap} width={72} height={34} alt="" />
+              <span>ROUTE</span>
+            </div>
+          </div>
           <p className={styles.body}>
             Trade macro stress through narrative baskets on Hyperliquid.
           </p>

@@ -45,6 +45,12 @@ export function RiskLanding() {
             Taiwan invasion. Oil shock. AI collapse. One click.
           </p>
 
+          <div className={styles.intelStrip} aria-hidden="true">
+            <img src="/gifs/library/intel/satellite.gif" width={46} height={28} alt="" />
+            <div className={styles.intelRule} />
+            <img src="/gifs/library/misc/scan.gif" width={88} height={18} alt="" />
+          </div>
+
           <div className={styles.badge}>
             <img src={GC.trophy} width={20} height={20} alt="" />
             <span className={styles.badgeText}>TRADE HIP3 MARKETS ON HYPERLIQUID</span>
