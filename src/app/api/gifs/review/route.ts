@@ -58,13 +58,39 @@ function resolveSource(id: string, action: 'approve' | 'reject') {
   return candidates.find((p) => existsSync(p)) ?? null;
 }
 
-function applyFileMove(id: string, action: 'approve' | 'reject') {
+function applyFileAction(id: string, action: 'approve' | 'reject') {
+  if (action === 'reject') {
+    const source = resolveSource(id, action);
+    const rejectedPath = resolvePath(rejectedDir, id);
+    let deleted = false;
+
+    if (source && existsSync(source)) {
+      try {
+        unlinkSync(source);
+        deleted = true;
+      } catch {
+        return { moved: false, reason: 'delete_failed' };
+      }
+    }
+
+    // Clean any stale backup copy too, so rejects are truly gone.
+    if (existsSync(rejectedPath)) {
+      try {
+        unlinkSync(rejectedPath);
+        deleted = true;
+      } catch {
+        return { moved: false, reason: 'delete_stale_rejected_failed' };
+      }
+    }
+
+    return { moved: deleted, reason: deleted ? 'deleted' : 'source_not_found' };
+  }
+
   const source = resolveSource(id, action);
   if (!source) return { moved: false, reason: 'source_not_found' };
 
-  const targetDir = action === 'approve' ? approvedDir : rejectedDir;
-  mkdirSync(targetDir, { recursive: true });
-  const target = resolvePath(targetDir, id);
+  const target = resolvePath(approvedDir, id);
+  mkdirSync(approvedDir, { recursive: true });
 
   if (source === target) return { moved: false, reason: 'already_in_target' };
   if (existsSync(target)) {
@@ -113,7 +139,7 @@ export async function POST(req: Request) {
 
     let fileAction: { moved: boolean; reason: string } | null = null;
     if (action === 'approve' || action === 'reject') {
-      fileAction = applyFileMove(id, action);
+      fileAction = applyFileAction(id, action);
     }
 
     return NextResponse.json({ ok: true, id, action, decisions, fileAction });
