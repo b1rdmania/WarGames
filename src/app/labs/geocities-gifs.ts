@@ -2,11 +2,12 @@
  * Curated animated GIF catalog - now served locally from /public/gifs/
  * Original source: gifcities.org (Internet Archive Geocities collection)
  */
-import { GIF_LIBRARY } from '@/lib/gif-library';
+import { GIF_LIBRARY, GIF_LIBRARY_BY_ALIAS } from '@/lib/gif-library';
 
 const LIBRARY_GIFS: Record<string, string> = Object.fromEntries(
   GIF_LIBRARY.map((item) => [`lib_${item.alias}`, item.path])
 );
+const libraryPath = (alias: string, fallback: string) => GIF_LIBRARY_BY_ALIAS[alias]?.path ?? fallback;
 
 export const GC = {
   // Fire / flames
@@ -58,16 +59,16 @@ export const GC = {
   atom: '/gifs/atom.gif',
 
   // Reviewed library (accepted picks)
-  libAlien: '/gifs/library/retro/alien.gif',
-  libCountdown: '/gifs/library/stats/countdown.gif',
-  libCountdown2: '/gifs/library/stats/countdown-2.gif',
-  libMatrixNumbers: '/gifs/library/stats/matrix-numbers.gif',
-  libLineChart: '/gifs/library/charts/line-chart.gif',
-  libDollar: '/gifs/library/money/dollar.gif',
-  libDollar2: '/gifs/library/money/dollar-2.gif',
-  libRadar: '/gifs/library/intel/radar.gif',
-  libReticle: '/gifs/library/intel/reticle.gif',
-  libTank: '/gifs/library/threat/tank.gif',
+  libAlien: libraryPath('alien', '/gifs/library/retro/alien.gif'),
+  libCountdown: libraryPath('countdown', '/gifs/library/markets/countdown.gif'),
+  libCountdown2: libraryPath('countdown-2', '/gifs/library/markets/countdown-2.gif'),
+  libMatrixNumbers: libraryPath('matrix-numbers', '/gifs/library/markets/matrix-numbers.gif'),
+  libLineChart: libraryPath('line-chart', '/gifs/library/markets/line-chart.gif'),
+  libDollar: libraryPath('dollar', '/gifs/library/markets/dollar.gif'),
+  libDollar2: libraryPath('dollar-2', '/gifs/library/markets/dollar-2.gif'),
+  libRadar: libraryPath('radar', '/gifs/library/intel/radar.gif'),
+  libReticle: libraryPath('reticle', '/gifs/library/intel/reticle.gif'),
+  libTank: libraryPath('tank', '/gifs/library/threat/tank.gif'),
 
   // In use — kept as named references
   warning: '/gifs/warning.gif',

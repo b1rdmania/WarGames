@@ -30,6 +30,7 @@ const REJECTED_DIR = path.join(GIF_ROOT, 'rejected');
 const MANIFEST_PATH = path.join(GIF_ROOT, 'catalog.manifest.json');
 const REVIEW_PATH = path.join(GIF_ROOT, 'REVIEW.md');
 const SOURCES_PATH = path.join(INBOX_DIR, 'sources.json');
+const DECISIONS_PATH = path.join(GIF_ROOT, 'review.decisions.json');
 
 function parseArgs(argv) {
   const args = {
@@ -92,6 +93,15 @@ function readSources() {
   if (!existsSync(SOURCES_PATH)) return {};
   try {
     return JSON.parse(readFileSync(SOURCES_PATH, 'utf8'));
+  } catch {
+    return {};
+  }
+}
+
+function readDecisions() {
+  if (!existsSync(DECISIONS_PATH)) return {};
+  try {
+    return JSON.parse(readFileSync(DECISIONS_PATH, 'utf8'));
   } catch {
     return {};
   }
@@ -199,7 +209,9 @@ function inferMood(themes) {
   return 'neutral';
 }
 
-function statusFrom(reasons) {
+function statusFrom(reasons, explicitDecision) {
+  if (explicitDecision === 'reject') return 'reject';
+  if (explicitDecision === 'approve') return 'auto_accept';
   if (reasons.some(reason => ['invalid', 'duplicate', 'too_large', 'banner_ratio_reject'].includes(reason.code))) return 'reject';
   if (reasons.length > 0) return 'needs_review';
   return 'auto_accept';
@@ -266,6 +278,7 @@ function main() {
   const args = parseArgs(process.argv.slice(2));
   const files = listGifFiles(args.scope);
   const sources = readSources();
+  const decisions = readDecisions();
 
   const hashSeen = new Set();
   const entries = [];
@@ -299,13 +312,14 @@ function main() {
       }
     }
 
-    const status = statusFrom(reasons);
+    const id = filename.replace(/\.gif$/i, '');
+    const status = statusFrom(reasons, decisions[id]);
     const themes = inferTheme(filename);
 
     hashSeen.add(hash);
 
     entries.push({
-      id: filename.replace(/\.gif$/i, ''),
+      id,
       filename,
       path: relativeFromRoot(absPath),
       webPath: toWebPath(absPath),

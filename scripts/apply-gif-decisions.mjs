@@ -66,23 +66,54 @@ function main() {
   }
 
   let movedApproved = 0;
-  let movedRejected = 0;
+  let deletedRejected = 0;
   let skipped = 0;
 
   for (const [id, action] of entries) {
     const source = resolveSource(id, action);
+    if (!source && action === 'reject') {
+      const staleRejected = resolvePath(REJECTED, id);
+      if (existsSync(staleRejected)) {
+        try {
+          unlinkSync(staleRejected);
+          deletedRejected += 1;
+          continue;
+        } catch {
+          skipped += 1;
+          continue;
+        }
+      }
+    }
+
     if (!source) {
       skipped += 1;
       continue;
     }
 
-    const targetDir = action === 'approve' ? APPROVED : action === 'reject' ? REJECTED : null;
-    if (!targetDir) {
-      skipped += 1;
+    if (action === 'reject') {
+      let deleted = false;
+      try {
+        unlinkSync(source);
+        deleted = true;
+      } catch {
+        skipped += 1;
+        continue;
+      }
+
+      const staleRejected = resolvePath(REJECTED, id);
+      if (existsSync(staleRejected)) {
+        try {
+          unlinkSync(staleRejected);
+        } catch {
+          // Keep going; the primary source was deleted.
+        }
+      }
+
+      if (deleted) deletedRejected += 1;
       continue;
     }
 
-    const target = resolvePath(targetDir, id);
+    const target = resolvePath(APPROVED, id);
     if (source === target) {
       skipped += 1;
       continue;
@@ -91,8 +122,7 @@ function main() {
     if (existsSync(target)) {
       try {
         unlinkSync(source);
-        if (action === 'approve') movedApproved += 1;
-        if (action === 'reject') movedRejected += 1;
+        movedApproved += 1;
         continue;
       } catch {
         skipped += 1;
@@ -106,12 +136,11 @@ function main() {
       continue;
     }
 
-    if (action === 'approve') movedApproved += 1;
-    if (action === 'reject') movedRejected += 1;
+    movedApproved += 1;
   }
 
   console.log(`Moved to approved: ${movedApproved}`);
-  console.log(`Moved to rejected: ${movedRejected}`);
+  console.log(`Deleted on reject: ${deletedRejected}`);
   console.log(`Skipped: ${skipped}`);
   console.log('Next: run `npm run gifs:review` to regenerate manifest and review queue.');
 }

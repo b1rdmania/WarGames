@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { GC } from '@/app/labs/geocities-gifs';
+import { getGifPath } from '@/lib/gifPaths';
 import {
   TerminalShell,
   TerminalMenuBar,
@@ -26,6 +27,11 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
+  const radarGif = getGifPath('radar', GC.radar);
+  const worldMapGif = getGifPath('world-map', GC.worldMap);
+  const tankGif = getGifPath('tank', GC.tank);
+
   return (
     <TerminalShell
       menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
@@ -45,15 +51,15 @@ export default function AboutPage() {
           <TerminalPaneTitle>VISUAL LOG</TerminalPaneTitle>
           <div className={styles.visualStack}>
             <div className={styles.visualCard}>
-              <img src={GC.earthSpin} width={94} height={94} alt="" />
+              <img src={earthSpinGif} width={94} height={94} alt="" />
               <div className={styles.visualCaption}>GLOBAL STRESS MAP</div>
             </div>
             <div className={styles.visualCard}>
-              <img src={GC.radar} width={88} height={88} alt="" />
+              <img src={radarGif} width={88} height={88} alt="" />
               <div className={styles.visualCaption}>SIGNAL SCAN</div>
             </div>
             <div className={styles.visualCard}>
-              <img src={GC.worldMap} width={116} height={56} alt="" />
+              <img src={worldMapGif} width={116} height={56} alt="" />
               <div className={styles.visualCaption}>NARRATIVE ROUTING</div>
             </div>
           </div>
@@ -68,7 +74,7 @@ export default function AboutPage() {
           </div>
           <div className={styles.mobileVisualStrip} aria-hidden="true">
             <div className={styles.mobileVisualItem}>
-              <img src={GC.earthSpin} width={48} height={48} alt="" />
+              <img src={earthSpinGif} width={48} height={48} alt="" />
               <span>MAP</span>
             </div>
             <div className={styles.mobileVisualItem}>
@@ -76,7 +82,7 @@ export default function AboutPage() {
               <span>SCAN</span>
             </div>
             <div className={styles.mobileVisualItem}>
-              <img src={GC.worldMap} width={72} height={34} alt="" />
+              <img src={worldMapGif} width={72} height={34} alt="" />
               <span>ROUTE</span>
             </div>
           </div>
@@ -142,7 +148,7 @@ export default function AboutPage() {
               </a>
             </div>
             <div className={styles.linksGif}>
-              <img src={GC.tank} width={56} height={56} alt="" />
+              <img src={tankGif} width={56} height={56} alt="" />
             </div>
           </div>
           <div className={`${styles.metaBlock} ${styles.creditsFooter}`}>

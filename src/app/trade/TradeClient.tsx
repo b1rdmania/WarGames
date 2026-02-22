@@ -27,6 +27,7 @@ import { useVaultBalances } from '@/hooks/useVaultBalances';
 import { getMarketNarrative } from '@/components/MarketDetail';
 import { connectWalletSafely } from '@/lib/connectWallet';
 import { GC } from '@/app/labs/geocities-gifs';
+import { getGifPath } from '@/lib/gifPaths';
 import { closePositionVerified, executePosition, getActivePositions } from '@/integrations/pear/positions';
 import type { PearPosition } from '@/integrations/pear/types';
 import { logTradeStatEvent } from '@/lib/stats/client';
@@ -140,6 +141,10 @@ export default function TradeClient() {
     }
     return groups;
   }, [effectiveMarkets]);
+  const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
+  const satelliteGif = getGifPath('satellite', '/gifs/library/intel/satellite.gif');
+  const dollarGif = getGifPath('dollar', '/gifs/library/markets/dollar.gif');
+  const downArrowGif = getGifPath('down-arrow', '/gifs/library/retro/down-arrow.gif');
 
   useEffect(() => {
     if (!accessToken) {
@@ -437,7 +442,7 @@ export default function TradeClient() {
             opacity: 0.9,
           }}
         >
-          <img src="/gifs/library/money/dollar.gif" width={26} height={26} alt="" style={{ imageRendering: 'pixelated' }} />
+          <img src={dollarGif} width={26} height={26} alt="" style={{ imageRendering: 'pixelated' }} />
           <img src="/gifs/library/misc/scan.gif" width={74} height={14} alt="" style={{ imageRendering: 'pixelated', opacity: 0.8 }} />
           <img src="/gifs/library/threat/alert.gif" width={38} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
         </div>
@@ -453,10 +458,10 @@ export default function TradeClient() {
         <>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
             <TerminalPaneTitle>
-              <img src={GC.earthSpin} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+              <img src={earthSpinGif} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
               MARKET DIRECTORY
             </TerminalPaneTitle>
-            <img src="/gifs/library/intel/satellite.gif" width={30} height={18} alt="" style={{ imageRendering: 'pixelated', opacity: 0.9 }} />
+            <img src={satelliteGif} width={30} height={18} alt="" style={{ imageRendering: 'pixelated', opacity: 0.9 }} />
           </div>
           <div
             aria-hidden="true"
@@ -471,7 +476,7 @@ export default function TradeClient() {
             }}
           >
             <img src="/gifs/library/intel/radar-sweep.gif" width={60} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
-            <img src="/gifs/library/misc/down-arrow.gif" width={14} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
+            <img src={downArrowGif} width={14} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
           </div>
           <TerminalMarketList>
             {MARKET_GROUP_ORDER.map((category) => {

@@ -1,128 +1,25 @@
 {
-  "generatedAt": "2026-02-21T12:22:09.770Z",
-  "count": 316,
+  "generatedAt": "2026-02-22T21:45:50.805Z",
+  "count": 69,
   "categories": {
-    "stats": 38,
-    "threat": 63,
-    "retro": 48,
-    "money": 28,
-    "charts": 30,
-    "intel": 74,
-    "misc": 35
+    "markets": 19,
+    "retro": 19,
+    "threat": 13,
+    "intel": 18
   },
   "entries": [
     {
-      "id": "abacus-25AIG5CR4FLM7QTSXFDM4L2OQTIVKNQO",
-      "alias": "abacus",
-      "category": "stats",
-      "path": "/gifs/library/stats/abacus.gif",
-      "query": "abacus",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "abacus-3MO5NNTDWO5NYVGFLONGYKDO2THLXR6I",
-      "alias": "abacus-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/abacus-2.gif",
-      "query": "abacus",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "abacus-4C5IDVI4EFZMVICE2NULD22BPSGUZNOL",
-      "alias": "abacus-3",
-      "category": "stats",
-      "path": "/gifs/library/stats/abacus-3.gif",
-      "query": "abacus",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
       "id": "abacus-4NHRGJCQCIRTTNYV5MFGRIGJHULTIANV",
-      "alias": "abacus-4",
-      "category": "stats",
-      "path": "/gifs/library/stats/abacus-4.gif",
+      "alias": "abacus",
+      "category": "markets",
+      "path": "/gifs/library/markets/abacus.gif",
       "query": "abacus",
       "themes": [
         "misc"
       ]
     },
     {
-      "id": "alert-2SQKZNNDZJWGBJOLHXU3IH2AVHPVT3A3",
-      "alias": "alert",
-      "category": "threat",
-      "path": "/gifs/library/threat/alert.gif",
-      "query": "alert",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "alert-2ZJNALK4PAFPNZ4LBQTHC3ZPNYD2XVEC",
-      "alias": "alert-2",
-      "category": "threat",
-      "path": "/gifs/library/threat/alert-2.gif",
-      "query": "alert",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "alert-3E6CF23EIXB7CQL3YKJOAFGD3ZGAMZEX",
-      "alias": "alert-3",
-      "category": "threat",
-      "path": "/gifs/library/threat/alert-3.gif",
-      "query": "alert",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "alert-3G6IEQKHMH6KSF2TI52RBE76WOUQZXZF",
-      "alias": "alert-4",
-      "category": "threat",
-      "path": "/gifs/library/threat/alert-4.gif",
-      "query": "alert",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "alert-3QKWM2W3FBMDLC4U7UVOOO3WVPZQJQJ5",
-      "alias": "alert-5",
-      "category": "threat",
-      "path": "/gifs/library/threat/alert-5.gif",
-      "query": "alert",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "alert-4GM5TCDSAGGGKRVZK5OYHGJJW3W3VP7T",
-      "alias": "alert-6",
-      "category": "threat",
-      "path": "/gifs/library/threat/alert-6.gif",
-      "query": "alert",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "alert-4LKXXSNNIXBXQCDWRHOFKGZWIBWOK2X7",
-      "alias": "alert-7",
-      "category": "threat",
-      "path": "/gifs/library/threat/alert-7.gif",
-      "query": "alert",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "alien-2XSHV5QED7KUHES3UNAAKO43SIDXDWQV",
+      "id": "alien-6UNNNHLU5D366AONL2FD7IDVHHCIXFBJ",
       "alias": "alien",
       "category": "retro",
       "path": "/gifs/library/retro/alien.gif",
@@ -132,157 +29,17 @@
       ]
     },
     {
-      "id": "alien-3BWY6IDILUELDXYRJQNTZAO76QHUZRUB",
-      "alias": "alien-2",
-      "category": "retro",
-      "path": "/gifs/library/retro/alien-2.gif",
-      "query": "alien",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "alien-3S64L7NIVGZRT5IV5SZ5WXLLAJT67QUT",
-      "alias": "alien-3",
-      "category": "retro",
-      "path": "/gifs/library/retro/alien-3.gif",
-      "query": "alien",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "alien-4T5BC4RYMKZ6XYYZ4KGPERYEPZNTOA7K",
-      "alias": "alien-4",
-      "category": "retro",
-      "path": "/gifs/library/retro/alien-4.gif",
-      "query": "alien",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "alien-6UNNNHLU5D366AONL2FD7IDVHHCIXFBJ",
-      "alias": "alien-5",
-      "category": "retro",
-      "path": "/gifs/library/retro/alien-5.gif",
-      "query": "alien",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "alien-77MYUPEA4JB5CWWGMOMOTXJOFO2HMUNQ",
-      "alias": "alien-6",
-      "category": "retro",
-      "path": "/gifs/library/retro/alien-6.gif",
-      "query": "alien",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "bank-2OQUJACGCYIWRZCQ2CTM5WKMUVBUFDFS",
-      "alias": "bank",
-      "category": "money",
-      "path": "/gifs/library/money/bank.gif",
-      "query": "bank",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "bank-2T3BT6E4LKPO4XZ3WJ7PGUCK7K5HV7P7",
-      "alias": "bank-2",
-      "category": "money",
-      "path": "/gifs/library/money/bank-2.gif",
-      "query": "bank",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
       "id": "bank-3G247EJ36W747SBUNLO4OA75NTFRQIUD",
-      "alias": "bank-3",
-      "category": "money",
-      "path": "/gifs/library/money/bank-3.gif",
+      "alias": "bank",
+      "category": "markets",
+      "path": "/gifs/library/markets/bank.gif",
       "query": "bank",
       "themes": [
         "trade"
       ]
     },
     {
-      "id": "bank-4YIATDXI7QXTZ6V35W65F4D25IJX6SKW",
-      "alias": "bank-4",
-      "category": "money",
-      "path": "/gifs/library/money/bank-4.gif",
-      "query": "bank",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "bank-66AHUODGRRTOYZRDGDIX4XJOJHSXCYJA",
-      "alias": "bank-5",
-      "category": "money",
-      "path": "/gifs/library/money/bank-5.gif",
-      "query": "bank",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "bar-chart-2EEMJFNIGYRXGYNUSG2VUUD4EW4WPNO5",
-      "alias": "bar-chart",
-      "category": "charts",
-      "path": "/gifs/library/charts/bar-chart.gif",
-      "query": "bar chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "bar-chart-2JRTTN6M6EWZXMKN2UAYIE2LYSGJ2GPG",
-      "alias": "bar-chart-2",
-      "category": "charts",
-      "path": "/gifs/library/charts/bar-chart-2.gif",
-      "query": "bar chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "bar-chart-2MQRULMXADHHVJSWG6NBMKR6E3VYJZ4G",
-      "alias": "bar-chart-3",
-      "category": "charts",
-      "path": "/gifs/library/charts/bar-chart-3.gif",
-      "query": "bar chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "bar-chart-3PIGL7LLHSVQGCBBIO4X556JLDOSW6V5",
-      "alias": "bar-chart-4",
-      "category": "charts",
-      "path": "/gifs/library/charts/bar-chart-4.gif",
-      "query": "bar chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "bar-chart-3QJVNN3BU4BNV6FW52Y4JQQR4MS7EZYM",
-      "alias": "bar-chart-5",
-      "category": "charts",
-      "path": "/gifs/library/charts/bar-chart-5.gif",
-      "query": "bar chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "bomb-2CT34TZECW5SN6B5AFTBG3AQXQV5IVD6",
+      "id": "bomb-3X5CQAU2P52VMEWYBGQHPF3UCUFDKHVG",
       "alias": "bomb",
       "category": "threat",
       "path": "/gifs/library/threat/bomb.gif",
@@ -292,290 +49,10 @@
       ]
     },
     {
-      "id": "bomb-2IEDIQMD6H6DYJAHNTLVHE3HCDJAKIXV",
-      "alias": "bomb-2",
-      "category": "threat",
-      "path": "/gifs/library/threat/bomb-2.gif",
-      "query": "bomb",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "bomb-2JF4THY2N537ZONDXEPOCHDMELRHHUAP",
-      "alias": "bomb-3",
-      "category": "threat",
-      "path": "/gifs/library/threat/bomb-3.gif",
-      "query": "bomb",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "bomb-3X5CQAU2P52VMEWYBGQHPF3UCUFDKHVG",
-      "alias": "bomb-4",
-      "category": "threat",
-      "path": "/gifs/library/threat/bomb-4.gif",
-      "query": "bomb",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "bomb-4XD3IOZ7K4YFLS5V7KA4NYMCVK7CZDXB",
-      "alias": "bomb-5",
-      "category": "threat",
-      "path": "/gifs/library/threat/bomb-5.gif",
-      "query": "bomb",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "bomb-5446MD7NHTXMIOBQE4XHJNURYXASC7LF",
-      "alias": "bomb-6",
-      "category": "threat",
-      "path": "/gifs/library/threat/bomb-6.gif",
-      "query": "bomb",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "bomb-5S3L4ZEW3UFHAPWAU66AJZDVWK4TPCF2",
-      "alias": "bomb-7",
-      "category": "threat",
-      "path": "/gifs/library/threat/bomb-7.gif",
-      "query": "bomb",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "calculator-2B6PV5YJIA6LGBGAM5GRP5MXWJ474RXT",
-      "alias": "calculator",
-      "category": "stats",
-      "path": "/gifs/library/stats/calculator.gif",
-      "query": "calculator",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "calculator-2LAOGSDM4QNCN5AHUBSR6PSQLXARTPW6",
-      "alias": "calculator-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/calculator-2.gif",
-      "query": "calculator",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "calculator-2XYURTSP2D7AOXXOCSXWAMPGWYIYGKXX",
-      "alias": "calculator-3",
-      "category": "stats",
-      "path": "/gifs/library/stats/calculator-3.gif",
-      "query": "calculator",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "calculator-3SPXAPAYK5YM4K53UAAPHWZS4CMPD4EG",
-      "alias": "calculator-4",
-      "category": "stats",
-      "path": "/gifs/library/stats/calculator-4.gif",
-      "query": "calculator",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "calculator-45RHX7GJZBZAF3S3HICIBQ4NTH247XGS",
-      "alias": "calculator-5",
-      "category": "stats",
-      "path": "/gifs/library/stats/calculator-5.gif",
-      "query": "calculator",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "cash-24QT4RAGXIUVX4NHRNUCMTP2N5CPB7CH",
-      "alias": "cash",
-      "category": "money",
-      "path": "/gifs/library/money/cash.gif",
-      "query": "cash",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "cash-44TVLJ3WJV5NDABHRQRFZBWBTNC5B4WR",
-      "alias": "cash-2",
-      "category": "money",
-      "path": "/gifs/library/money/cash-2.gif",
-      "query": "cash",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "chart-2DVGNK52LRK4RTX2V6P2672RMJUSEK6T",
-      "alias": "chart",
-      "category": "charts",
-      "path": "/gifs/library/charts/chart.gif",
-      "query": "chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "chart-2NQO53U75V3CAQMZKX5637FVMNQ6QBUS",
-      "alias": "chart-2",
-      "category": "charts",
-      "path": "/gifs/library/charts/chart-2.gif",
-      "query": "chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "chart-4LVEGALMN3DVK74I5RLDP6GDWMY6NBHY",
-      "alias": "chart-3",
-      "category": "charts",
-      "path": "/gifs/library/charts/chart-3.gif",
-      "query": "chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "chart-77HDHK4JY52JSXJBTEVLB6BKSR4KPCLH",
-      "alias": "chart-4",
-      "category": "charts",
-      "path": "/gifs/library/charts/chart-4.gif",
-      "query": "chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "classified-5CM2BT4BG2C64BN4IJX67OPGKTYGKKK7",
-      "alias": "classified",
-      "category": "intel",
-      "path": "/gifs/library/intel/classified.gif",
-      "query": "classified",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "classified-5DRZWGM4IYGMUY5WJCG5Y5LMMFN5DWMI",
-      "alias": "classified-2",
-      "category": "intel",
-      "path": "/gifs/library/intel/classified-2.gif",
-      "query": "classified",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "classified-6JAFR3IYQNHRXNDX2ZZCMABDVFITQAHU",
-      "alias": "classified-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/classified-3.gif",
-      "query": "classified",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "classified-6UJ27OSMMWYFEOPUPOKPZEZMXHFCNIXU",
-      "alias": "classified-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/classified-4.gif",
-      "query": "classified",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
       "id": "coin-2ACZAWOHNIH6UIBBECMQTC4F4L5BRTD5",
       "alias": "coin",
-      "category": "money",
-      "path": "/gifs/library/money/coin.gif",
-      "query": "coin",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "coin-3BJNERBH62RWEU7M63AVB5AE7L643FNO",
-      "alias": "coin-2",
-      "category": "money",
-      "path": "/gifs/library/money/coin-2.gif",
-      "query": "coin",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "coin-3XQLW2253B7N75UY4KJ7T47PCPSCSEZL",
-      "alias": "coin-3",
-      "category": "money",
-      "path": "/gifs/library/money/coin-3.gif",
-      "query": "coin",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "coin-6EVWHIPHW3NNS3LKBQRD4HAAGPWNOFWG",
-      "alias": "coin-4",
-      "category": "money",
-      "path": "/gifs/library/money/coin-4.gif",
-      "query": "coin",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "coin-6JJVUVGNSCOUC5NHXVUHFPAAEXAVCX5B",
-      "alias": "coin-5",
-      "category": "money",
-      "path": "/gifs/library/money/coin-5.gif",
-      "query": "coin",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "coin-6KAUKKY3IYEOAZRL2ZLTUKOHPUFGC2CM",
-      "alias": "coin-6",
-      "category": "money",
-      "path": "/gifs/library/money/coin-6.gif",
-      "query": "coin",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "coin-735336L2ZXDELJPHDSA6LPL62VXERVB2",
-      "alias": "coin-7",
-      "category": "money",
-      "path": "/gifs/library/money/coin-7.gif",
-      "query": "coin",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "coin-77IQZQBDQOEFSY33ANITG3BSMGB4QFVI",
-      "alias": "coin-8",
-      "category": "money",
-      "path": "/gifs/library/money/coin-8.gif",
+      "category": "markets",
+      "path": "/gifs/library/markets/coin.gif",
       "query": "coin",
       "themes": [
         "trade"
@@ -584,228 +61,28 @@
     {
       "id": "command-line-2RDRH6GZYAXJI7CO2RGZHRO2LESCSDV4",
       "alias": "command-line",
-      "category": "misc",
-      "path": "/gifs/library/misc/command-line.gif",
+      "category": "retro",
+      "path": "/gifs/library/retro/command-line.gif",
       "query": "command line",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "command-line-3237EKQFAHMEB2EALMSYGSIZF4AQI4OK",
-      "alias": "command-line-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/command-line-2.gif",
-      "query": "command line",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "countdown-35S3YZEZH55XXM7QRVIQ6TL3RTFANO6Q",
-      "alias": "countdown",
-      "category": "stats",
-      "path": "/gifs/library/stats/countdown.gif",
-      "query": "countdown",
       "themes": [
         "misc"
       ]
     },
     {
       "id": "countdown-4BRMNTRPTNWRMLNSOSNUZUG4C6TEDS5A",
-      "alias": "countdown-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/countdown-2.gif",
+      "alias": "countdown",
+      "category": "markets",
+      "path": "/gifs/library/markets/countdown.gif",
       "query": "countdown",
       "themes": [
         "misc"
-      ]
-    },
-    {
-      "id": "countdown-6KSUL2BT4U2SXY4PTBIGR42DL4NLIWQ2",
-      "alias": "countdown-3",
-      "category": "stats",
-      "path": "/gifs/library/stats/countdown-3.gif",
-      "query": "countdown",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "countdown-7BTJNPQS4RLTFVIEW2URBRZV52G3JOOI",
-      "alias": "countdown-4",
-      "category": "stats",
-      "path": "/gifs/library/stats/countdown-4.gif",
-      "query": "countdown",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "countdown-7H322CCLH7P3QGC2VMIIB5MABBJ7DHM3",
-      "alias": "countdown-5",
-      "category": "stats",
-      "path": "/gifs/library/stats/countdown-5.gif",
-      "query": "countdown",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "counter-2GKKPE7NGILZAOSBCJAJCDU6YYRHRPSU",
-      "alias": "counter",
-      "category": "stats",
-      "path": "/gifs/library/stats/counter.gif",
-      "query": "counter",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "counter-3E7XJLPAKLCU3VAURPIF4RV2ARGWFEAS",
-      "alias": "counter-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/counter-2.gif",
-      "query": "counter",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "counter-5637B7PEDCTL2U5QHAORZAIB6AQH7VGJ",
-      "alias": "counter-3",
-      "category": "stats",
-      "path": "/gifs/library/stats/counter-3.gif",
-      "query": "counter",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "crash-2LJZETPK4XJCZQS2E4HNDFBHGU6B2WBO",
-      "alias": "crash",
-      "category": "misc",
-      "path": "/gifs/library/misc/crash.gif",
-      "query": "crash",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "crash-534LTGKXD57L55GXBIFY7TXU7B2F7VWJ",
-      "alias": "crash-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/crash-2.gif",
-      "query": "crash",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "crash-5MZAMOOGX7XYBO3XVJYDLJ745NUPQUBD",
-      "alias": "crash-3",
-      "category": "misc",
-      "path": "/gifs/library/misc/crash-3.gif",
-      "query": "crash",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "crash-6JPPFT25PX65SIOHQ3CNTF5ALEX635MM",
-      "alias": "crash-4",
-      "category": "misc",
-      "path": "/gifs/library/misc/crash-4.gif",
-      "query": "crash",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "data-stream-2CIIEJ2JPF4W25EJNLSXE63DG3KT64UU",
-      "alias": "data-stream",
-      "category": "misc",
-      "path": "/gifs/library/misc/data-stream.gif",
-      "query": "data stream",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "data-stream-2QHDPWHOHROWSY42WOZJDHRJ6IZTCVQ4",
-      "alias": "data-stream-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/data-stream-2.gif",
-      "query": "data stream",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "data-stream-2VWE5VAJFRRFZHX6DTJKCSFXISCXSK3S",
-      "alias": "data-stream-3",
-      "category": "misc",
-      "path": "/gifs/library/misc/data-stream-3.gif",
-      "query": "data stream",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "data-stream-3OG2NP76TGRHPKHKB4K2WWUO6DTGS2RA",
-      "alias": "data-stream-4",
-      "category": "misc",
-      "path": "/gifs/library/misc/data-stream-4.gif",
-      "query": "data stream",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "dollar-2VI25CELKZB2I5TA5S4CGOXQMAGSDI5S",
-      "alias": "dollar",
-      "category": "money",
-      "path": "/gifs/library/money/dollar.gif",
-      "query": "dollar",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "dollar-3PACFL2WW7HJBZUQBEQPLYPISMFIZO25",
-      "alias": "dollar-2",
-      "category": "money",
-      "path": "/gifs/library/money/dollar-2.gif",
-      "query": "dollar",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "dollar-4NCZ2LGZGFZ7FPACLFVLT4Z55OTS52TM",
-      "alias": "dollar-3",
-      "category": "money",
-      "path": "/gifs/library/money/dollar-3.gif",
-      "query": "dollar",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "dollar-5PLJFZ6OOKKRCN5XFK5TAWDVCGNFKV4B",
-      "alias": "dollar-4",
-      "category": "money",
-      "path": "/gifs/library/money/dollar-4.gif",
-      "query": "dollar",
-      "themes": [
-        "trade"
       ]
     },
     {
       "id": "dollar-6GJKA3YMPYJGOF4J3FBWAO4IEK5ZQLAT",
-      "alias": "dollar-5",
-      "category": "money",
-      "path": "/gifs/library/money/dollar-5.gif",
+      "alias": "dollar",
+      "category": "markets",
+      "path": "/gifs/library/markets/dollar.gif",
       "query": "dollar",
       "themes": [
         "trade"
@@ -813,9 +90,9 @@
     },
     {
       "id": "dollar-6TO2XIUKT7JUQPPZGQAE7WPX7LU5DNRA",
-      "alias": "dollar-6",
-      "category": "money",
-      "path": "/gifs/library/money/dollar-6.gif",
+      "alias": "dollar-2",
+      "category": "markets",
+      "path": "/gifs/library/markets/dollar-2.gif",
       "query": "dollar",
       "themes": [
         "trade"
@@ -823,19 +100,9 @@
     },
     {
       "id": "dollar-6VPWMCOBWD2ZHZQAC6EMNSNRTJLDWTBE",
-      "alias": "dollar-7",
-      "category": "money",
-      "path": "/gifs/library/money/dollar-7.gif",
-      "query": "dollar",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "dollar-7YOVURK4KH6EHZD7QZYS32556WJSNETA",
-      "alias": "dollar-8",
-      "category": "money",
-      "path": "/gifs/library/money/dollar-8.gif",
+      "alias": "dollar-3",
+      "category": "markets",
+      "path": "/gifs/library/markets/dollar-3.gif",
       "query": "dollar",
       "themes": [
         "trade"
@@ -844,18 +111,8 @@
     {
       "id": "down-arrow-2KTGRVUO2VWROMS5QMFEPT24VV6VTMBH",
       "alias": "down-arrow",
-      "category": "misc",
-      "path": "/gifs/library/misc/down-arrow.gif",
-      "query": "down arrow",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "down-arrow-2OGL5W2BS2CJZAEF7KIEE34GRDI3I4VS",
-      "alias": "down-arrow-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/down-arrow-2.gif",
+      "category": "retro",
+      "path": "/gifs/library/retro/down-arrow.gif",
       "query": "down arrow",
       "themes": [
         "misc"
@@ -863,19 +120,9 @@
     },
     {
       "id": "down-arrow-2PMLYPS7DVL42OYNI6Z5RRHNAFOEBYIS",
-      "alias": "down-arrow-3",
-      "category": "misc",
-      "path": "/gifs/library/misc/down-arrow-3.gif",
-      "query": "down arrow",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "down-arrow-2RM326LOL6JBGHMEQFOAAKLNGF5Y5PA7",
-      "alias": "down-arrow-4",
-      "category": "misc",
-      "path": "/gifs/library/misc/down-arrow-4.gif",
+      "alias": "down-arrow-2",
+      "category": "retro",
+      "path": "/gifs/library/retro/down-arrow-2.gif",
       "query": "down arrow",
       "themes": [
         "misc"
@@ -883,60 +130,10 @@
     },
     {
       "id": "down-arrow-3AO2FUO6ZV6B67RGCREGA7MYU5EA37OH",
-      "alias": "down-arrow-5",
-      "category": "misc",
-      "path": "/gifs/library/misc/down-arrow-5.gif",
+      "alias": "down-arrow-3",
+      "category": "retro",
+      "path": "/gifs/library/retro/down-arrow-3.gif",
       "query": "down arrow",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "encrypted-3UMSISSFUYH66PGU56IQXARVHYFOQIN7",
-      "alias": "encrypted",
-      "category": "intel",
-      "path": "/gifs/library/intel/encrypted.gif",
-      "query": "encrypted",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "encrypted-3YULX6GYEEYLCJRU73KONPT2ZKOB7EJI",
-      "alias": "encrypted-2",
-      "category": "intel",
-      "path": "/gifs/library/intel/encrypted-2.gif",
-      "query": "encrypted",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "encrypted-3ZZOJ5D5G322VHS2JB4FWQ5YI7POAVWZ",
-      "alias": "encrypted-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/encrypted-3.gif",
-      "query": "encrypted",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "encrypted-455TFHF7UJZLMNS4JTEU2BY5AF2RTQ7W",
-      "alias": "encrypted-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/encrypted-4.gif",
-      "query": "encrypted",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "encrypted-4KSV3VFCL5AZ7SETHILTRPH2JMKAIYII",
-      "alias": "encrypted-5",
-      "category": "intel",
-      "path": "/gifs/library/intel/encrypted-5.gif",
-      "query": "encrypted",
       "themes": [
         "misc"
       ]
@@ -946,26 +143,6 @@
       "alias": "explosion",
       "category": "threat",
       "path": "/gifs/library/threat/explosion.gif",
-      "query": "explosion",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "explosion-2NASREVX7UZNCZBFDZ2QGEFLODSWHRUQ",
-      "alias": "explosion-2",
-      "category": "threat",
-      "path": "/gifs/library/threat/explosion-2.gif",
-      "query": "explosion",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "explosion-2NKAVT5IMC53RADCDXLGQ3DWKDGHEPAA",
-      "alias": "explosion-3",
-      "category": "threat",
-      "path": "/gifs/library/threat/explosion-3.gif",
       "query": "explosion",
       "themes": [
         "threat"
@@ -984,29 +161,9 @@
     },
     {
       "id": "explosion-3T3Z3OMXG76HUVT4HUEATNDYTICBS3U3",
-      "alias": "explosion-4",
+      "alias": "explosion-2",
       "category": "threat",
-      "path": "/gifs/library/threat/explosion-4.gif",
-      "query": "explosion",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "explosion-435ASZWSYPARZOR6VHEPWTOOGDDCF46Q",
-      "alias": "explosion-5",
-      "category": "threat",
-      "path": "/gifs/library/threat/explosion-5.gif",
-      "query": "explosion",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "explosion-4DFCZDQXATSYSWTJG53JF6H6WXKWZ6LP",
-      "alias": "explosion-6",
-      "category": "threat",
-      "path": "/gifs/library/threat/explosion-6.gif",
+      "path": "/gifs/library/threat/explosion-2.gif",
       "query": "explosion",
       "themes": [
         "threat"
@@ -1014,276 +171,46 @@
     },
     {
       "id": "explosion-4V23YEKV2ABLCPDQYM2I264GZ3ZHZIGB",
-      "alias": "explosion-7",
+      "alias": "explosion-3",
       "category": "threat",
-      "path": "/gifs/library/threat/explosion-7.gif",
+      "path": "/gifs/library/threat/explosion-3.gif",
       "query": "explosion",
       "themes": [
         "threat"
       ]
     },
     {
-      "id": "flame-divider-2JSPVKTVXZLXZHUJSL3UG5DVHJMQBM3I",
-      "alias": "flame-divider",
-      "category": "retro",
-      "path": "/gifs/library/retro/flame-divider.gif",
-      "query": "flame divider",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "flame-divider-3EETJJDAUM77R5JQISEML4A3WFOU5UKQ",
-      "alias": "flame-divider-2",
-      "category": "retro",
-      "path": "/gifs/library/retro/flame-divider-2.gif",
-      "query": "flame divider",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
       "id": "gauge-25RGEAJTLBFB5SSQR7LPF6BQ3ELVIAL5",
       "alias": "gauge",
-      "category": "stats",
-      "path": "/gifs/library/stats/gauge.gif",
+      "category": "markets",
+      "path": "/gifs/library/markets/gauge.gif",
       "query": "gauge",
       "themes": [
         "misc"
-      ]
-    },
-    {
-      "id": "gauge-4FYBXXVDLBESSKB5AWXEK4CXECWBHADC",
-      "alias": "gauge-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/gauge-2.gif",
-      "query": "gauge",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "graph-4C4RPUIXBSER5FSSOIO73XN65QE6YHMB",
-      "alias": "graph",
-      "category": "charts",
-      "path": "/gifs/library/charts/graph.gif",
-      "query": "graph",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "graph-4FRY7I2BWFLADWBMCH2LYYDMLYCMKLV5",
-      "alias": "graph-2",
-      "category": "charts",
-      "path": "/gifs/library/charts/graph-2.gif",
-      "query": "graph",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "graph-4OOA5HRLW2KEXD7G45ROLTAWQ5A43UI2",
-      "alias": "graph-3",
-      "category": "charts",
-      "path": "/gifs/library/charts/graph-3.gif",
-      "query": "graph",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "guestbook-23IHNDVDH3HITPZ32434J73QIFTR3YNQ",
-      "alias": "guestbook",
-      "category": "retro",
-      "path": "/gifs/library/retro/guestbook.gif",
-      "query": "guestbook",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "guestbook-3A5RCZAEMJ7GBAPKZKTZX5LX65UVUBKI",
-      "alias": "guestbook-2",
-      "category": "retro",
-      "path": "/gifs/library/retro/guestbook-2.gif",
-      "query": "guestbook",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "guestbook-3AZY46WGVHKEJCJNVCSQX3CUFCOH57R5",
-      "alias": "guestbook-3",
-      "category": "retro",
-      "path": "/gifs/library/retro/guestbook-3.gif",
-      "query": "guestbook",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "guestbook-3ICNUIOT7RE7QTYOODZMWINASVD4O5TF",
-      "alias": "guestbook-4",
-      "category": "retro",
-      "path": "/gifs/library/retro/guestbook-4.gif",
-      "query": "guestbook",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "guestbook-4MS44GMZT2OP5AF4XVPEBEVJBBJJAD7Y",
-      "alias": "guestbook-5",
-      "category": "retro",
-      "path": "/gifs/library/retro/guestbook-5.gif",
-      "query": "guestbook",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "guestbook-4PJHIIAPYGFDREOP7DVE3LS5U4XCWH3B",
-      "alias": "guestbook-6",
-      "category": "retro",
-      "path": "/gifs/library/retro/guestbook-6.gif",
-      "query": "guestbook",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "guestbook-52YCQ2E2S6BDGQFSAPR2VXV52MS24TQB",
-      "alias": "guestbook-7",
-      "category": "retro",
-      "path": "/gifs/library/retro/guestbook-7.gif",
-      "query": "guestbook",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "guestbook-52YCYR75K3XSH2E3QUE2ZR3QTGZLT2R3",
-      "alias": "guestbook-8",
-      "category": "retro",
-      "path": "/gifs/library/retro/guestbook-8.gif",
-      "query": "guestbook",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "indicator-223BGR6EUMGPAKGVD3KO45VHMVF5VA2S",
-      "alias": "indicator",
-      "category": "misc",
-      "path": "/gifs/library/misc/indicator.gif",
-      "query": "indicator",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "indicator-26NFVBHWYXUS44NDYMZ3BJFWT4NPJGUQ",
-      "alias": "indicator-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/indicator-2.gif",
-      "query": "indicator",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "indicator-2ILBPKQMG4DH4TVSBDKW7L57HOYP2KH3",
-      "alias": "indicator-3",
-      "category": "misc",
-      "path": "/gifs/library/misc/indicator-3.gif",
-      "query": "indicator",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "indicator-2VFECRSHEXZZHEWGFUOXXVDRJOBSP4ZU",
-      "alias": "indicator-4",
-      "category": "misc",
-      "path": "/gifs/library/misc/indicator-4.gif",
-      "query": "indicator",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "line-chart-2AEVL6YH7ATYYZTYKXXTIM2AP5V4FXGZ",
-      "alias": "line-chart",
-      "category": "charts",
-      "path": "/gifs/library/charts/line-chart.gif",
-      "query": "line chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "line-chart-4MIEQP2VZHE3BTNHH65CFIGY33U6Y5XO",
-      "alias": "line-chart-2",
-      "category": "charts",
-      "path": "/gifs/library/charts/line-chart-2.gif",
-      "query": "line chart",
-      "themes": [
-        "trade"
       ]
     },
     {
       "id": "line-chart-4PMRULGTLUN5NGIZBOYMULGL44HFAQYD",
-      "alias": "line-chart-3",
-      "category": "charts",
-      "path": "/gifs/library/charts/line-chart-3.gif",
+      "alias": "line-chart",
+      "category": "markets",
+      "path": "/gifs/library/markets/line-chart.gif",
       "query": "line chart",
       "themes": [
         "trade"
-      ]
-    },
-    {
-      "id": "line-chart-4U3TP6U5ETMYHYBNJOTIIT4ZE7EAYQIR",
-      "alias": "line-chart-4",
-      "category": "charts",
-      "path": "/gifs/library/charts/line-chart-4.gif",
-      "query": "line chart",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "loading-bar-2S4N3JQ6GIQGIKRNQ6CX4AAHKS6DQHE6",
-      "alias": "loading-bar",
-      "category": "misc",
-      "path": "/gifs/library/misc/loading-bar.gif",
-      "query": "loading bar",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "loading-bar-3LY35ZHXUVOUGNVPBHUYPVGIWXYH2WGC",
-      "alias": "loading-bar-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/loading-bar-2.gif",
-      "query": "loading bar",
-      "themes": [
-        "misc"
       ]
     },
     {
       "id": "loading-bar-4IXTTQ4E5YMN5WMBRHSB573K4CXM437R",
-      "alias": "loading-bar-3",
-      "category": "misc",
-      "path": "/gifs/library/misc/loading-bar-3.gif",
+      "alias": "loading-bar",
+      "category": "markets",
+      "path": "/gifs/library/markets/loading-bar.gif",
       "query": "loading bar",
       "themes": [
         "misc"
       ]
     },
     {
-      "id": "map-ping-2VFOAX5V7CYEGJZDIUN7GDVBLZMV5ZIY",
+      "id": "map-ping-AFJ7KAIJR2TR6K4VXHAYVPSRXFFYLSVG",
       "alias": "map-ping",
       "category": "intel",
       "path": "/gifs/library/intel/map-ping.gif",
@@ -1293,130 +220,10 @@
       ]
     },
     {
-      "id": "map-ping-36IPVHRFHA56K2GUWQ6IOYT57LCYWBUR",
-      "alias": "map-ping-2",
-      "category": "intel",
-      "path": "/gifs/library/intel/map-ping-2.gif",
-      "query": "map ping",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "map-ping-7CLXYAYTLXWOGAUXFYGAXHHASGSJDRF5",
-      "alias": "map-ping-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/map-ping-3.gif",
-      "query": "map ping",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "map-ping-7Q6DI3IQ4ER44WWPPQ6WYGDWQWAV2RG2",
-      "alias": "map-ping-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/map-ping-4.gif",
-      "query": "map ping",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "map-ping-7VD744OJRRSR76X2LMKTW54EKPY6KWFA",
-      "alias": "map-ping-5",
-      "category": "intel",
-      "path": "/gifs/library/intel/map-ping-5.gif",
-      "query": "map ping",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "map-ping-AFJ7KAIJR2TR6K4VXHAYVPSRXFFYLSVG",
-      "alias": "map-ping-6",
-      "category": "intel",
-      "path": "/gifs/library/intel/map-ping-6.gif",
-      "query": "map ping",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "map-ping-ALJUFQ326CZ7UBDPT32FNAPAE7RSWE7H",
-      "alias": "map-ping-7",
-      "category": "intel",
-      "path": "/gifs/library/intel/map-ping-7.gif",
-      "query": "map ping",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "market-graph-2LMJRBEW2KV66N6TNHFDJNI5DFLFCVOQ",
-      "alias": "market-graph",
-      "category": "charts",
-      "path": "/gifs/library/charts/market-graph.gif",
-      "query": "market graph",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "market-graph-4C4NC5OWC2OPESZGTF24ZLP2TEQB6JT5",
-      "alias": "market-graph-2",
-      "category": "charts",
-      "path": "/gifs/library/charts/market-graph-2.gif",
-      "query": "market graph",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "matrix-numbers-25U5MCDJZULWRA3T3QTCWFVF2U2BDAYH",
-      "alias": "matrix-numbers",
-      "category": "stats",
-      "path": "/gifs/library/stats/matrix-numbers.gif",
-      "query": "matrix numbers",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "matrix-numbers-2XHE4OM5X3QZV5FH76GW5HX27DUP7YZK",
-      "alias": "matrix-numbers-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/matrix-numbers-2.gif",
-      "query": "matrix numbers",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "matrix-numbers-2ZE3ENPNM4EYEG35O4YMK2B6YKQQEZRG",
-      "alias": "matrix-numbers-3",
-      "category": "stats",
-      "path": "/gifs/library/stats/matrix-numbers-3.gif",
-      "query": "matrix numbers",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
       "id": "matrix-numbers-35LWPZE42FFGHYEE73C4QVW2FCDJSSIE",
-      "alias": "matrix-numbers-4",
-      "category": "stats",
-      "path": "/gifs/library/stats/matrix-numbers-4.gif",
-      "query": "matrix numbers",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "matrix-numbers-3D4NHR4QWFAHDT3KHXLR7ALJDKMK7CSR",
-      "alias": "matrix-numbers-5",
-      "category": "stats",
-      "path": "/gifs/library/stats/matrix-numbers-5.gif",
+      "alias": "matrix-numbers",
+      "category": "markets",
+      "path": "/gifs/library/markets/matrix-numbers.gif",
       "query": "matrix numbers",
       "themes": [
         "misc"
@@ -1425,45 +232,15 @@
     {
       "id": "meter-2ORL73XVN52JBLAVI2TVO6YVVOVCZABC",
       "alias": "meter",
-      "category": "stats",
-      "path": "/gifs/library/stats/meter.gif",
+      "category": "markets",
+      "path": "/gifs/library/markets/meter.gif",
       "query": "meter",
       "themes": [
         "misc"
       ]
     },
     {
-      "id": "meter-3YMTL652UZ3GKJJD7TDCIPYNYCAQXD34",
-      "alias": "meter-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/meter-2.gif",
-      "query": "meter",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "meter-4GLHSHZOCYEQ2Y6ZZYAUKURKZJVILA7Z",
-      "alias": "meter-3",
-      "category": "stats",
-      "path": "/gifs/library/stats/meter-3.gif",
-      "query": "meter",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "meter-55GW4DDXXL44EN46KDSAFBZSXUZTETTD",
-      "alias": "meter-4",
-      "category": "stats",
-      "path": "/gifs/library/stats/meter-4.gif",
-      "query": "meter",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "missile-2I5FGTOTX3QMDQ7KICTDVZDRHQEVTHEA",
+      "id": "missile-2K5ZJP2L44EHFCXJN3FLIBEE3NJG6VVA",
       "alias": "missile",
       "category": "threat",
       "path": "/gifs/library/threat/missile.gif",
@@ -1473,7 +250,7 @@
       ]
     },
     {
-      "id": "missile-2K5ZJP2L44EHFCXJN3FLIBEE3NJG6VVA",
+      "id": "missile-2L3LLGQMEYOOVP6FRCT75N5VWNBF7AUJ",
       "alias": "missile-2",
       "category": "threat",
       "path": "/gifs/library/threat/missile-2.gif",
@@ -1483,127 +260,7 @@
       ]
     },
     {
-      "id": "missile-2L3LLGQMEYOOVP6FRCT75N5VWNBF7AUJ",
-      "alias": "missile-3",
-      "category": "threat",
-      "path": "/gifs/library/threat/missile-3.gif",
-      "query": "missile",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "missile-3JY5RFWHOKU32DKF3VLE677BVOLLHMIM",
-      "alias": "missile-4",
-      "category": "threat",
-      "path": "/gifs/library/threat/missile-4.gif",
-      "query": "missile",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "missile-4MOU5T3IAYGZHXK3FEWJDBAU3YPHJOUX",
-      "alias": "missile-5",
-      "category": "threat",
-      "path": "/gifs/library/threat/missile-5.gif",
-      "query": "missile",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "missile-4T4ACPGSGDTJR5GBX4MWQWAA2NROWFA4",
-      "alias": "missile-6",
-      "category": "threat",
-      "path": "/gifs/library/threat/missile-6.gif",
-      "query": "missile",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "missile-5FJISA7OUSMBSU3WGTJ324DPLFJVUH2D",
-      "alias": "missile-7",
-      "category": "threat",
-      "path": "/gifs/library/threat/missile-7.gif",
-      "query": "missile",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "netscape-2HWGKKL26HMWLHET7A5GJT3T5X6XSGLN",
-      "alias": "netscape",
-      "category": "retro",
-      "path": "/gifs/library/retro/netscape.gif",
-      "query": "netscape",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "netscape-3A552HQ2EIHJLIWJL4Q2LRDUL4365YGD",
-      "alias": "netscape-2",
-      "category": "retro",
-      "path": "/gifs/library/retro/netscape-2.gif",
-      "query": "netscape",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "netscape-3FUFD34X6MDCO3TGAV4L7BUZNOTKVFRK",
-      "alias": "netscape-3",
-      "category": "retro",
-      "path": "/gifs/library/retro/netscape-3.gif",
-      "query": "netscape",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "netscape-3LPDK2WLZHX65GKUA6QVTYGBYPBOYWVT",
-      "alias": "netscape-4",
-      "category": "retro",
-      "path": "/gifs/library/retro/netscape-4.gif",
-      "query": "netscape",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "netscape-3N6WHECSQZQBEVNQXQGTWKQLJ5UGP3AB",
-      "alias": "netscape-5",
-      "category": "retro",
-      "path": "/gifs/library/retro/netscape-5.gif",
-      "query": "netscape",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "netscape-3NNLZMMZOZYEVBGP7M6DUBGRSLMDXAHD",
-      "alias": "netscape-6",
-      "category": "retro",
-      "path": "/gifs/library/retro/netscape-6.gif",
-      "query": "netscape",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "netscape-3W6MLPZMWSCCRMHXQ6O3XC6C422W7WGU",
-      "alias": "netscape-7",
-      "category": "retro",
-      "path": "/gifs/library/retro/netscape-7.gif",
-      "query": "netscape",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "new-badge-3O52ODGAOH5O3IGLGUIN2VGE4B5BFTXF",
+      "id": "new-badge-3VTBFEMOXWXUH3PJYVKNKN4X4DLRL6FO",
       "alias": "new-badge",
       "category": "retro",
       "path": "/gifs/library/retro/new-badge.gif",
@@ -1613,7 +270,7 @@
       ]
     },
     {
-      "id": "new-badge-3VTBFEMOXWXUH3PJYVKNKN4X4DLRL6FO",
+      "id": "new-badge-BSCLWF2NA7VIOLNBHZ6APAYT674XMEZV",
       "alias": "new-badge-2",
       "category": "retro",
       "path": "/gifs/library/retro/new-badge-2.gif",
@@ -1623,67 +280,7 @@
       ]
     },
     {
-      "id": "new-badge-ALEHHM7CPI35RWHDSUZP7BO6KJMI3DRZ",
-      "alias": "new-badge-3",
-      "category": "retro",
-      "path": "/gifs/library/retro/new-badge-3.gif",
-      "query": "new badge",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "new-badge-BD6KC5BR2HIN6E7RZUQSUIDSZYSNH5NB",
-      "alias": "new-badge-4",
-      "category": "retro",
-      "path": "/gifs/library/retro/new-badge-4.gif",
-      "query": "new badge",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "new-badge-BSCLWF2NA7VIOLNBHZ6APAYT674XMEZV",
-      "alias": "new-badge-5",
-      "category": "retro",
-      "path": "/gifs/library/retro/new-badge-5.gif",
-      "query": "new badge",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "new-badge-CCQCG7TCGRVMXIOCDM2E4IC5J5L3FZ26",
-      "alias": "new-badge-6",
-      "category": "retro",
-      "path": "/gifs/library/retro/new-badge-6.gif",
-      "query": "new badge",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "new-badge-D624VBQURDUOG6GNGJOI6Y2NSQLIEKQK",
-      "alias": "new-badge-7",
-      "category": "retro",
-      "path": "/gifs/library/retro/new-badge-7.gif",
-      "query": "new badge",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "new-badge-EMXPST6AT64OARWVJECTHNP6WGD5EXTJ",
-      "alias": "new-badge-8",
-      "category": "retro",
-      "path": "/gifs/library/retro/new-badge-8.gif",
-      "query": "new badge",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "nuclear-232HCAWSEJ5RJMDJDBMJ5VPT7MPFGDRY",
+      "id": "nuclear-3MM3TS6KSUO2LB4HHPVRWIBKK4KCO3IH",
       "alias": "nuclear",
       "category": "threat",
       "path": "/gifs/library/threat/nuclear.gif",
@@ -1693,100 +290,10 @@
       ]
     },
     {
-      "id": "nuclear-3MM3TS6KSUO2LB4HHPVRWIBKK4KCO3IH",
-      "alias": "nuclear-2",
-      "category": "threat",
-      "path": "/gifs/library/threat/nuclear-2.gif",
-      "query": "nuclear",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "nuclear-3O5A6XNTKSTEEVYKYJSTPQHVQV5HWM6N",
-      "alias": "nuclear-3",
-      "category": "threat",
-      "path": "/gifs/library/threat/nuclear-3.gif",
-      "query": "nuclear",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "nuclear-44KVNY3S5BZZC2LXDSFWZ4YDHAARPZ35",
-      "alias": "nuclear-4",
-      "category": "threat",
-      "path": "/gifs/library/threat/nuclear-4.gif",
-      "query": "nuclear",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "nuclear-4WPDJCWWOAGVXXSMX34SL6XHXOJVUHZE",
-      "alias": "nuclear-5",
-      "category": "threat",
-      "path": "/gifs/library/threat/nuclear-5.gif",
-      "query": "nuclear",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "nuclear-57PQAZAIQBTUH42VXRQ7QBG6A5FRHUXN",
-      "alias": "nuclear-6",
-      "category": "threat",
-      "path": "/gifs/library/threat/nuclear-6.gif",
-      "query": "nuclear",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "nuclear-72E5QGVVT2C3FNWWJP2D64AWSUV5CTI5",
-      "alias": "nuclear-7",
-      "category": "threat",
-      "path": "/gifs/library/threat/nuclear-7.gif",
-      "query": "nuclear",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "numbers-46LEXVKA6E7ZFAOFIMPE2HSASZ2D6T42",
-      "alias": "numbers",
-      "category": "stats",
-      "path": "/gifs/library/stats/numbers.gif",
-      "query": "numbers",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "oscilloscope-3BGE7K3GWFGN67MVAIG26BUXXOQSGD7E",
-      "alias": "oscilloscope",
-      "category": "stats",
-      "path": "/gifs/library/stats/oscilloscope.gif",
-      "query": "oscilloscope",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "oscilloscope-3BZVFNMBMAUTPNCPE3WR4MWXFGMCBCUW",
-      "alias": "oscilloscope-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/oscilloscope-2.gif",
-      "query": "oscilloscope",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
       "id": "oscilloscope-3FOW4RX5E42QJLRHO47UJ6XBTNJIEN5P",
-      "alias": "oscilloscope-3",
-      "category": "stats",
-      "path": "/gifs/library/stats/oscilloscope-3.gif",
+      "alias": "oscilloscope",
+      "category": "markets",
+      "path": "/gifs/library/markets/oscilloscope.gif",
       "query": "oscilloscope",
       "themes": [
         "misc"
@@ -1794,9 +301,9 @@
     },
     {
       "id": "oscilloscope-4LT5FOEVO7G5CKZT3KPPAEZHZRDOTME2",
-      "alias": "oscilloscope-4",
-      "category": "stats",
-      "path": "/gifs/library/stats/oscilloscope-4.gif",
+      "alias": "oscilloscope-2",
+      "category": "markets",
+      "path": "/gifs/library/markets/oscilloscope-2.gif",
       "query": "oscilloscope",
       "themes": [
         "misc"
@@ -1804,36 +311,16 @@
     },
     {
       "id": "oscilloscope-6QEXPNOG3ZEIFRHBOHUSWYPW4BJJCE5J",
-      "alias": "oscilloscope-5",
-      "category": "stats",
-      "path": "/gifs/library/stats/oscilloscope-5.gif",
+      "alias": "oscilloscope-3",
+      "category": "markets",
+      "path": "/gifs/library/markets/oscilloscope-3.gif",
       "query": "oscilloscope",
       "themes": [
         "misc"
       ]
     },
     {
-      "id": "progress-3CMIWMJECBO32NMPABFAGGMCVFIHIEUU",
-      "alias": "progress",
-      "category": "misc",
-      "path": "/gifs/library/misc/progress.gif",
-      "query": "progress",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "progress-3K5TSDQRFBOTYEWEJXYTDFDPOS7PL4PM",
-      "alias": "progress-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/progress-2.gif",
-      "query": "progress",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "radar-27DVYM7YFWD57RIPJGXPC2IECYH6RKE3",
+      "id": "radar-36T33SDHRYY736M6IPHOVTQZJM5XIMIU",
       "alias": "radar",
       "category": "intel",
       "path": "/gifs/library/intel/radar.gif",
@@ -1843,7 +330,7 @@
       ]
     },
     {
-      "id": "radar-2SVIZDY54VEDTABGZ72BAQOYJLL5J23K",
+      "id": "radar-3ZOVGJKL7OI5HTNHBPVQ4QKUSPTXFYMA",
       "alias": "radar-2",
       "category": "intel",
       "path": "/gifs/library/intel/radar-2.gif",
@@ -1853,7 +340,7 @@
       ]
     },
     {
-      "id": "radar-36T33SDHRYY736M6IPHOVTQZJM5XIMIU",
+      "id": "radar-552BXMRJ53NLA7AW6ZXG2IBZMBKOBJ2Q",
       "alias": "radar-3",
       "category": "intel",
       "path": "/gifs/library/intel/radar-3.gif",
@@ -1863,67 +350,7 @@
       ]
     },
     {
-      "id": "radar-3CBSW6ZDVQBRGGWZS2PR6QZ63E2RH6SG",
-      "alias": "radar-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/radar-4.gif",
-      "query": "radar",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "radar-3ZOVGJKL7OI5HTNHBPVQ4QKUSPTXFYMA",
-      "alias": "radar-5",
-      "category": "intel",
-      "path": "/gifs/library/intel/radar-5.gif",
-      "query": "radar",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "radar-552BXMRJ53NLA7AW6ZXG2IBZMBKOBJ2Q",
-      "alias": "radar-6",
-      "category": "intel",
-      "path": "/gifs/library/intel/radar-6.gif",
-      "query": "radar",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "radar-56UU3Y45IT4FWDB7YFFC2ZS5OGUACF7P",
-      "alias": "radar-7",
-      "category": "intel",
-      "path": "/gifs/library/intel/radar-7.gif",
-      "query": "radar",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "radar-67YOT2JZHAXRSQ7CRP2NBZHQJYJ4NFOU",
-      "alias": "radar-8",
-      "category": "intel",
-      "path": "/gifs/library/intel/radar-8.gif",
-      "query": "radar",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "radar-sweep-4HGHQ34M2K2QZ2DHJ6JDT7Z3EDF5YMGF",
-      "alias": "radar-sweep",
-      "category": "intel",
-      "path": "/gifs/library/intel/radar-sweep.gif",
-      "query": "radar sweep",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "reticle-2J6LEKQPEFQOZ5D427OWXALBQO4GSXE4",
+      "id": "reticle-5AYJI76J6ZHFWSMNJQEMSVUJZFVT4KQT",
       "alias": "reticle",
       "category": "intel",
       "path": "/gifs/library/intel/reticle.gif",
@@ -1933,60 +360,10 @@
       ]
     },
     {
-      "id": "reticle-2SPOVNM6FPDUDPXHONZBSQZWRKYHXJUP",
+      "id": "reticle-5ULJTDUVHJTMQC2TEVC7PYG2WF27IZNK",
       "alias": "reticle-2",
       "category": "intel",
       "path": "/gifs/library/intel/reticle-2.gif",
-      "query": "reticle",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "reticle-3V54QQIMXW46MU2Y6H45OM4T7BASIJFS",
-      "alias": "reticle-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/reticle-3.gif",
-      "query": "reticle",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "reticle-4C575373B4U63AZWXAT2GQAZX3S25WJ7",
-      "alias": "reticle-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/reticle-4.gif",
-      "query": "reticle",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "reticle-4VPYJCJ5UH5WQEP6DMBFR3F424NPUJ2Q",
-      "alias": "reticle-5",
-      "category": "intel",
-      "path": "/gifs/library/intel/reticle-5.gif",
-      "query": "reticle",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "reticle-5AYJI76J6ZHFWSMNJQEMSVUJZFVT4KQT",
-      "alias": "reticle-6",
-      "category": "intel",
-      "path": "/gifs/library/intel/reticle-6.gif",
-      "query": "reticle",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "reticle-5ULJTDUVHJTMQC2TEVC7PYG2WF27IZNK",
-      "alias": "reticle-7",
-      "category": "intel",
-      "path": "/gifs/library/intel/reticle-7.gif",
       "query": "reticle",
       "themes": [
         "intel"
@@ -2043,26 +420,6 @@
       ]
     },
     {
-      "id": "satellite-3JWNWHWL7DFNUC5OUKK6EZWR6CCVIPR3",
-      "alias": "satellite-6",
-      "category": "intel",
-      "path": "/gifs/library/intel/satellite-6.gif",
-      "query": "satellite",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "satellite-4B4ZCQQN5WJ3UQJNHGA63TAJM5TCDXNR",
-      "alias": "satellite-7",
-      "category": "intel",
-      "path": "/gifs/library/intel/satellite-7.gif",
-      "query": "satellite",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
       "id": "satellite-map-2K7SEU4MAEAF4OICM6N7S3KEND453EK3",
       "alias": "satellite-map",
       "category": "intel",
@@ -2073,430 +430,20 @@
       ]
     },
     {
-      "id": "satellite-map-2Q64JALA3E3H4G7WPMOWVK6DGTXSZA2W",
-      "alias": "satellite-map-2",
-      "category": "intel",
-      "path": "/gifs/library/intel/satellite-map-2.gif",
-      "query": "satellite map",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "satellite-map-2SGDIG5FHFUVQTQIWQC2LMWDEXAAJWE3",
-      "alias": "satellite-map-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/satellite-map-3.gif",
-      "query": "satellite map",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "satellite-map-5OLKA6LAJEXKNLOXDVLHVBMBNBLSXJL6",
-      "alias": "satellite-map-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/satellite-map-4.gif",
-      "query": "satellite map",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "scan-2FIT2Q2464KCHAYWXAMUGL2G3W7IEO6T",
-      "alias": "scan",
-      "category": "misc",
-      "path": "/gifs/library/misc/scan.gif",
-      "query": "scan",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "scan-3YITLMOJVH5IHE3WPGLDZIKH5GFWJP5N",
-      "alias": "scan-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/scan-2.gif",
-      "query": "scan",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "scope-4JABPWQJWLXMKLS4ZPGB6M26Z7JNDHCQ",
-      "alias": "scope",
-      "category": "misc",
-      "path": "/gifs/library/misc/scope.gif",
-      "query": "scope",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "score-26SWWSWHPQUA72RYMECQDBL7O5NWPZEV",
-      "alias": "score",
-      "category": "misc",
-      "path": "/gifs/library/misc/score.gif",
-      "query": "score",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "score-2QSCHJJNGVVVWOQBBCYL2MXWH5I3ME5G",
-      "alias": "score-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/score-2.gif",
-      "query": "score",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "score-2TX2KSD26O44KZBI6QOAEWLJ2N54VK3K",
-      "alias": "score-3",
-      "category": "misc",
-      "path": "/gifs/library/misc/score-3.gif",
-      "query": "score",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "scrolling-numbers-22IHWFT3ZLMT42MZ4V4V3NIQ6GND226L",
-      "alias": "scrolling-numbers",
-      "category": "stats",
-      "path": "/gifs/library/stats/scrolling-numbers.gif",
-      "query": "scrolling numbers",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "scrolling-numbers-2LB2F7PZP5YUQMMNPP3EET5W542CNPA7",
-      "alias": "scrolling-numbers-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/scrolling-numbers-2.gif",
-      "query": "scrolling numbers",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "secure-channel-33RKKM3B4HM4P464VVR2XY3M5YEIGRTY",
-      "alias": "secure-channel",
-      "category": "intel",
-      "path": "/gifs/library/intel/secure-channel.gif",
-      "query": "secure channel",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "secure-channel-37PY7VKMUNZUYBBA4WIMEUR5X3DR7ABS",
-      "alias": "secure-channel-2",
-      "category": "intel",
-      "path": "/gifs/library/intel/secure-channel-2.gif",
-      "query": "secure channel",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "secure-channel-57FB2JA66WJ7YQYQPQFVIPX2B6QV3IV6",
-      "alias": "secure-channel-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/secure-channel-3.gif",
-      "query": "secure channel",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "secure-channel-5GO267XJIWUXZFBZMSGEBGS6CTDYDL62",
-      "alias": "secure-channel-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/secure-channel-4.gif",
-      "query": "secure channel",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "signal-2DDRHYDQ4A2QFC2OGQQQUBTOUETQSOZH",
-      "alias": "signal",
-      "category": "intel",
-      "path": "/gifs/library/intel/signal.gif",
-      "query": "signal",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "signal-4VZBDGQJJGLUGZYR3MIVQ2XPK6LIBE6U",
-      "alias": "signal-2",
-      "category": "intel",
-      "path": "/gifs/library/intel/signal-2.gif",
-      "query": "signal",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "signal-53UM2ZVJXMQWRBVOXXHVF22JLE37JW4L",
-      "alias": "signal-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/signal-3.gif",
-      "query": "signal",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "signal-5XLDVCHNLDXGMUZQ3QW633EAPKWUOTRV",
-      "alias": "signal-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/signal-4.gif",
-      "query": "signal",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "signal-5ZIHO4U7E74A5CAUYMSXLEOIQ2GQY3C5",
-      "alias": "signal-5",
-      "category": "intel",
-      "path": "/gifs/library/intel/signal-5.gif",
-      "query": "signal",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "signal-63WFJZSDA7AZEF2WKJLKH3LAF6HMMBNV",
-      "alias": "signal-6",
-      "category": "intel",
-      "path": "/gifs/library/intel/signal-6.gif",
-      "query": "signal",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "siren-2Y3ZYYUNGQGM64YRAEOL4PQR5KKMKW3Y",
-      "alias": "siren",
-      "category": "threat",
-      "path": "/gifs/library/threat/siren.gif",
-      "query": "siren",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "siren-2ZXAGQNRZNCUS5UMPQWFD3GD5NYK6OMM",
-      "alias": "siren-2",
-      "category": "threat",
-      "path": "/gifs/library/threat/siren-2.gif",
-      "query": "siren",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "siren-37VU3XMJUNN52R23DC7V4B7YAHCCV5OJ",
-      "alias": "siren-3",
-      "category": "threat",
-      "path": "/gifs/library/threat/siren-3.gif",
-      "query": "siren",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "siren-422CB2O5JUGJI47JL4BMT6CDZXYLR4U5",
-      "alias": "siren-4",
-      "category": "threat",
-      "path": "/gifs/library/threat/siren-4.gif",
-      "query": "siren",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "siren-4IULSRXJ3N7S4U3FGC5PE3CNU6VU75SC",
-      "alias": "siren-5",
-      "category": "threat",
-      "path": "/gifs/library/threat/siren-5.gif",
-      "query": "siren",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "spinning-skull-2PRGDN7FJPEHFDIYIYHCGOPM4IBYQB2W",
-      "alias": "spinning-skull",
-      "category": "threat",
-      "path": "/gifs/library/threat/spinning-skull.gif",
-      "query": "spinning skull",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "spinning-skull-2VPOMGP4AVHMHHB5TBX72ANNADKR4LZI",
-      "alias": "spinning-skull-2",
-      "category": "threat",
-      "path": "/gifs/library/threat/spinning-skull-2.gif",
-      "query": "spinning skull",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "spinning-skull-32QGINXG2AAZFR6ZI4AZIDTFGF2X462L",
-      "alias": "spinning-skull-3",
-      "category": "threat",
-      "path": "/gifs/library/threat/spinning-skull-3.gif",
-      "query": "spinning skull",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "spinning-skull-3FYZP3PYC3CO4CJABFXNVIHEUDK3YHGO",
-      "alias": "spinning-skull-4",
-      "category": "threat",
-      "path": "/gifs/library/threat/spinning-skull-4.gif",
-      "query": "spinning skull",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "spinning-skull-3JOB4JE7GIMVCXYLYRZ6QSGRDUSRGDSF",
-      "alias": "spinning-skull-5",
-      "category": "threat",
-      "path": "/gifs/library/threat/spinning-skull-5.gif",
-      "query": "spinning skull",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "spinning-skull-4C7PQ4366NPTHBQ54QK6OE35UMR45UKZ",
-      "alias": "spinning-skull-6",
-      "category": "threat",
-      "path": "/gifs/library/threat/spinning-skull-6.gif",
-      "query": "spinning skull",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "spinning-skull-4MTLEJ4CPVE755QPMKMCF35AYMGYC3KO",
-      "alias": "spinning-skull-7",
-      "category": "threat",
-      "path": "/gifs/library/threat/spinning-skull-7.gif",
-      "query": "spinning skull",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "spinning-skull-5GKI64ISZALGZBEBS6J5HMO5FOSDNAKT",
-      "alias": "spinning-skull-8",
-      "category": "threat",
-      "path": "/gifs/library/threat/spinning-skull-8.gif",
-      "query": "spinning skull",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
       "id": "statistics-27OATMX7Q6FFKJVNEB4RQ5TKRKG25RII",
       "alias": "statistics",
-      "category": "stats",
-      "path": "/gifs/library/stats/statistics.gif",
+      "category": "markets",
+      "path": "/gifs/library/markets/statistics.gif",
       "query": "statistics",
       "themes": [
         "misc"
-      ]
-    },
-    {
-      "id": "statistics-3FVNRDFP3XWZFAMXVSRQ67BD3VQ54GKA",
-      "alias": "statistics-2",
-      "category": "stats",
-      "path": "/gifs/library/stats/statistics-2.gif",
-      "query": "statistics",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "stock-2CA7VIJPQHXHD6IPK7Q4IL2GKBMWZIWT",
-      "alias": "stock",
-      "category": "charts",
-      "path": "/gifs/library/charts/stock.gif",
-      "query": "stock",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "stock-2WCIS2J6XUCVFROPJR2UKMMSLWEG6QHI",
-      "alias": "stock-2",
-      "category": "charts",
-      "path": "/gifs/library/charts/stock-2.gif",
-      "query": "stock",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "stock-3OD4GDHDGHHUY3APZC62QDZDWH5TWGP6",
-      "alias": "stock-3",
-      "category": "charts",
-      "path": "/gifs/library/charts/stock-3.gif",
-      "query": "stock",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "stock-3SRAMD2Y2TRQJOGXKLQRZQBWWVKQLLCK",
-      "alias": "stock-4",
-      "category": "charts",
-      "path": "/gifs/library/charts/stock-4.gif",
-      "query": "stock",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "stock-4X2ZZSCBNNAV464C73Z6NT3NAUKXLCU4",
-      "alias": "stock-5",
-      "category": "charts",
-      "path": "/gifs/library/charts/stock-5.gif",
-      "query": "stock",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "stock-5IYER54L6Z4LAR7GR5GXUV3D6ZOHFFNJ",
-      "alias": "stock-6",
-      "category": "charts",
-      "path": "/gifs/library/charts/stock-6.gif",
-      "query": "stock",
-      "themes": [
-        "trade"
       ]
     },
     {
       "id": "stock-chart-27O2SPAXWLSM7COZEDYVI6ZA7PDUY4KS",
       "alias": "stock-chart",
-      "category": "charts",
-      "path": "/gifs/library/charts/stock-chart.gif",
+      "category": "markets",
+      "path": "/gifs/library/markets/stock-chart.gif",
       "query": "stock chart",
       "themes": [
         "trade"
@@ -2523,67 +470,7 @@
       ]
     },
     {
-      "id": "tank-2XBOAHETLU7JUKU4BDJCY5TL7QGUS6QE",
-      "alias": "tank-3",
-      "category": "threat",
-      "path": "/gifs/library/threat/tank-3.gif",
-      "query": "tank",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "tank-3G3B5X7XSGLFSJUGPK7T3RBHVCCEGTBK",
-      "alias": "tank-4",
-      "category": "threat",
-      "path": "/gifs/library/threat/tank-4.gif",
-      "query": "tank",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "tank-3MGD2KP72N4FFCT3VDVZX6CLIHUR2KFF",
-      "alias": "tank-5",
-      "category": "threat",
-      "path": "/gifs/library/threat/tank-5.gif",
-      "query": "tank",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "tank-3R74EFZ6VLX2R74O4T7EDIBV4EPX2ZW7",
-      "alias": "tank-6",
-      "category": "threat",
-      "path": "/gifs/library/threat/tank-6.gif",
-      "query": "tank",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "tank-42QYICBUB6NE5F2NLM7AUVTEGYNSCWKE",
-      "alias": "tank-7",
-      "category": "threat",
-      "path": "/gifs/library/threat/tank-7.gif",
-      "query": "tank",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "tank-55NZ5BXAPXQYUMBTCGQYDQRB6KFRLOUG",
-      "alias": "tank-8",
-      "category": "threat",
-      "path": "/gifs/library/threat/tank-8.gif",
-      "query": "tank",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "target-24NXDXTNLBCNKM5KVZRLJDGMKXGZYJQ2",
+      "id": "target-36Y53MF7KCDFGTN7X74PKYAPA4TAZVCE",
       "alias": "target",
       "category": "intel",
       "path": "/gifs/library/intel/target.gif",
@@ -2593,77 +480,7 @@
       ]
     },
     {
-      "id": "target-2C263EN2TFVBX2WGFDKVUOZHBANELWBN",
-      "alias": "target-2",
-      "category": "intel",
-      "path": "/gifs/library/intel/target-2.gif",
-      "query": "target",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "target-2WQKWRIZNUC6QVMSHU32DXP2FV6DVGCD",
-      "alias": "target-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/target-3.gif",
-      "query": "target",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "target-36Y53MF7KCDFGTN7X74PKYAPA4TAZVCE",
-      "alias": "target-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/target-4.gif",
-      "query": "target",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "target-3IV5DEV2CALFICZRZ3L4FHMQXB3NHIKL",
-      "alias": "target-5",
-      "category": "intel",
-      "path": "/gifs/library/intel/target-5.gif",
-      "query": "target",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "target-3QE4GBELBNHQCKQQHPYJN3QR6QPEEDHV",
-      "alias": "target-6",
-      "category": "intel",
-      "path": "/gifs/library/intel/target-6.gif",
-      "query": "target",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "target-3R4G4RVODCRNVSREJEYKSWYW7XGDVJCA",
-      "alias": "target-7",
-      "category": "intel",
-      "path": "/gifs/library/intel/target-7.gif",
-      "query": "target",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "target-536NFYRTQVKMX4KTUCLV43TGYWG7N236",
-      "alias": "target-8",
-      "category": "intel",
-      "path": "/gifs/library/intel/target-8.gif",
-      "query": "target",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "terminal-2AHSWTQMFOC5EUGU4YSGCBY2GR6DH5CP",
+      "id": "terminal-322ICMSDFGZCHRHMBXD6RGYQJLPAQHVD",
       "alias": "terminal",
       "category": "intel",
       "path": "/gifs/library/intel/terminal.gif",
@@ -2673,137 +490,17 @@
       ]
     },
     {
-      "id": "terminal-2HDSJ2VD6NUSVOWAJBYOGQHVZKQ3YJYH",
-      "alias": "terminal-2",
-      "category": "intel",
-      "path": "/gifs/library/intel/terminal-2.gif",
-      "query": "terminal",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "terminal-2UOWO454PSCO3S6HX7PUW4SFURDJDYKW",
-      "alias": "terminal-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/terminal-3.gif",
-      "query": "terminal",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "terminal-322ICMSDFGZCHRHMBXD6RGYQJLPAQHVD",
-      "alias": "terminal-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/terminal-4.gif",
-      "query": "terminal",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "terminal-cursor-2Y5UHF4XBZIMOVMH6BQNCSYAGIK3TBVP",
-      "alias": "terminal-cursor",
-      "category": "intel",
-      "path": "/gifs/library/intel/terminal-cursor.gif",
-      "query": "terminal cursor",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "terminal-cursor-2ZBZO3AVMHQCVW6SND3B473A5J7SYBAO",
-      "alias": "terminal-cursor-2",
-      "category": "intel",
-      "path": "/gifs/library/intel/terminal-cursor-2.gif",
-      "query": "terminal cursor",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "terminal-cursor-3UJHZDSIMJGXHSN3VHA3LCQAP5NYQJVS",
-      "alias": "terminal-cursor-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/terminal-cursor-3.gif",
-      "query": "terminal cursor",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "ticker-5UKWWN3FHRQD2O7TFVUPRVXYIZSTNDNL",
-      "alias": "ticker",
-      "category": "charts",
-      "path": "/gifs/library/charts/ticker.gif",
-      "query": "ticker",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "ticker-tape-2QNYPZJITR6BMJZ45QHJCUX4ROHB5OKY",
-      "alias": "ticker-tape",
-      "category": "charts",
-      "path": "/gifs/library/charts/ticker-tape.gif",
-      "query": "ticker tape",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
       "id": "ticker-tape-4T2ZMICQADLO3V7OR5DLMZV6G6ZKKQOV",
-      "alias": "ticker-tape-2",
-      "category": "charts",
-      "path": "/gifs/library/charts/ticker-tape-2.gif",
+      "alias": "ticker-tape",
+      "category": "markets",
+      "path": "/gifs/library/markets/ticker-tape.gif",
       "query": "ticker tape",
       "themes": [
         "trade"
       ]
     },
     {
-      "id": "ticker-tape-5I6LTTE2SOPOXNK4PP3HHOTE3Y6FEQCV",
-      "alias": "ticker-tape-3",
-      "category": "charts",
-      "path": "/gifs/library/charts/ticker-tape-3.gif",
-      "query": "ticker tape",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "trend-35WAZU7VSHUCVWLHTAJXDDJ4J2R4AQ23",
-      "alias": "trend",
-      "category": "charts",
-      "path": "/gifs/library/charts/trend.gif",
-      "query": "trend",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "ufo-3RGJ4HLNOI2MDCWTZEMCO6NZ52FRGKXY",
-      "alias": "ufo",
-      "category": "retro",
-      "path": "/gifs/library/retro/ufo.gif",
-      "query": "ufo",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "ufo-6ETPLQA3GZLLGL5AHFPUILLD47GHBPZB",
-      "alias": "ufo-2",
-      "category": "retro",
-      "path": "/gifs/library/retro/ufo-2.gif",
-      "query": "ufo",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "under-construction-265AJPAO7EGU37UYYKIKIUAGDE3NIS42",
+      "id": "under-construction-3BRQCUJYYW2BZTHNT5NCVMX7GBP3AKFT",
       "alias": "under-construction",
       "category": "retro",
       "path": "/gifs/library/retro/under-construction.gif",
@@ -2813,177 +510,17 @@
       ]
     },
     {
-      "id": "under-construction-3BRQCUJYYW2BZTHNT5NCVMX7GBP3AKFT",
-      "alias": "under-construction-2",
-      "category": "retro",
-      "path": "/gifs/library/retro/under-construction-2.gif",
-      "query": "under construction",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "under-construction-4EIDJUVES2ZRKXWPZXUVFAILVPOHA2G5",
-      "alias": "under-construction-3",
-      "category": "retro",
-      "path": "/gifs/library/retro/under-construction-3.gif",
-      "query": "under construction",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "under-construction-4EMVT763OYXVU23TRDIYOMIG63UTTR6H",
-      "alias": "under-construction-4",
-      "category": "retro",
-      "path": "/gifs/library/retro/under-construction-4.gif",
-      "query": "under construction",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "under-construction-4J3YZPNWQMTWL72ME66L672WQUABTJ7I",
-      "alias": "under-construction-5",
-      "category": "retro",
-      "path": "/gifs/library/retro/under-construction-5.gif",
-      "query": "under construction",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "under-construction-4POQMBYDCU5ANQKVIUACZQSNHOGQ4QBL",
-      "alias": "under-construction-6",
-      "category": "retro",
-      "path": "/gifs/library/retro/under-construction-6.gif",
-      "query": "under construction",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "under-construction-4X6A4ILIOPG6IGCVSOGQJMBUQNUVKNAC",
-      "alias": "under-construction-7",
-      "category": "retro",
-      "path": "/gifs/library/retro/under-construction-7.gif",
-      "query": "under construction",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "under-construction-5PQO2NVJC4OV4N4JL436DCAJZ6DX7GNQ",
-      "alias": "under-construction-8",
-      "category": "retro",
-      "path": "/gifs/library/retro/under-construction-8.gif",
-      "query": "under construction",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "up-arrow-34SCLUKO2G7GPQ2KT7ZZ6SUVBOXQKJDY",
-      "alias": "up-arrow",
-      "category": "misc",
-      "path": "/gifs/library/misc/up-arrow.gif",
-      "query": "up arrow",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "up-arrow-37PN65HKTOGLSD6E5EFP26OAXUWOYWV7",
-      "alias": "up-arrow-2",
-      "category": "misc",
-      "path": "/gifs/library/misc/up-arrow-2.gif",
-      "query": "up arrow",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
       "id": "up-arrow-3CVTOPAKESU7VJ4QQ6HQQD2RXLFIOAZD",
-      "alias": "up-arrow-3",
-      "category": "misc",
-      "path": "/gifs/library/misc/up-arrow-3.gif",
+      "alias": "up-arrow",
+      "category": "retro",
+      "path": "/gifs/library/retro/up-arrow.gif",
       "query": "up arrow",
       "themes": [
         "misc"
       ]
     },
     {
-      "id": "up-arrow-3GPR4NXWVLI7VRJ43GUS37SQYE7PSZZJ",
-      "alias": "up-arrow-4",
-      "category": "misc",
-      "path": "/gifs/library/misc/up-arrow-4.gif",
-      "query": "up arrow",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "up-arrow-3U4NPMD6N76R3AZ453SVEUGAPTQO6VAU",
-      "alias": "up-arrow-5",
-      "category": "misc",
-      "path": "/gifs/library/misc/up-arrow-5.gif",
-      "query": "up arrow",
-      "themes": [
-        "misc"
-      ]
-    },
-    {
-      "id": "vault-275LVBKW36QVNU4LE542UMGN6MWDYLNK",
-      "alias": "vault",
-      "category": "money",
-      "path": "/gifs/library/money/vault.gif",
-      "query": "vault",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "vault-2BIC44FFKGWC5W5HA3WQJSKZZHPUBMRV",
-      "alias": "vault-2",
-      "category": "money",
-      "path": "/gifs/library/money/vault-2.gif",
-      "query": "vault",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "vault-5DA6HJ2NBLJBKVLGOEZLWPSS27U7DQIF",
-      "alias": "vault-3",
-      "category": "money",
-      "path": "/gifs/library/money/vault-3.gif",
-      "query": "vault",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "vault-5MQQSGUFJ67AQQIUHRSATURUULZNQWE6",
-      "alias": "vault-4",
-      "category": "money",
-      "path": "/gifs/library/money/vault-4.gif",
-      "query": "vault",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "vault-6YYLPNUSGWVQDVWVCLTIH6V5TZ5277Y4",
-      "alias": "vault-5",
-      "category": "money",
-      "path": "/gifs/library/money/vault-5.gif",
-      "query": "vault",
-      "themes": [
-        "trade"
-      ]
-    },
-    {
-      "id": "warning-2HV6QQODT5Q5WZEOLTWTBVLGDEUUNEIC",
+      "id": "warning-5LWVWTLO7BC464VOU3FOKLMMOJ7KKIB4",
       "alias": "warning",
       "category": "threat",
       "path": "/gifs/library/threat/warning.gif",
@@ -2993,137 +530,7 @@
       ]
     },
     {
-      "id": "warning-2UFQMJ2QGAGG3ZDNCQOD4IDJONRITJ3H",
-      "alias": "warning-2",
-      "category": "threat",
-      "path": "/gifs/library/threat/warning-2.gif",
-      "query": "warning",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "warning-4CSHZ254PJNXVT5R47IKGPSLC5Z4ZJX7",
-      "alias": "warning-3",
-      "category": "threat",
-      "path": "/gifs/library/threat/warning-3.gif",
-      "query": "warning",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "warning-4SAWC6MQHPQQOEP5EEAQULS6HBYLRK7L",
-      "alias": "warning-4",
-      "category": "threat",
-      "path": "/gifs/library/threat/warning-4.gif",
-      "query": "warning",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "warning-5LWVWTLO7BC464VOU3FOKLMMOJ7KKIB4",
-      "alias": "warning-5",
-      "category": "threat",
-      "path": "/gifs/library/threat/warning-5.gif",
-      "query": "warning",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "warning-7NGQTXXH25L66CMQCICYXF7DNPM2MDAX",
-      "alias": "warning-6",
-      "category": "threat",
-      "path": "/gifs/library/threat/warning-6.gif",
-      "query": "warning",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "warning-7QXQ325FTRS77NBFN44ML4CZWCN3PG2J",
-      "alias": "warning-7",
-      "category": "threat",
-      "path": "/gifs/library/threat/warning-7.gif",
-      "query": "warning",
-      "themes": [
-        "threat"
-      ]
-    },
-    {
-      "id": "web-ring-2LIZN47PTA47JBOPIPCNN254LIL3CU7X",
-      "alias": "web-ring",
-      "category": "retro",
-      "path": "/gifs/library/retro/web-ring.gif",
-      "query": "web ring",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "web-ring-3HTX2OPCDSQFT5LXSYDEG2QP65NHX2PD",
-      "alias": "web-ring-2",
-      "category": "retro",
-      "path": "/gifs/library/retro/web-ring-2.gif",
-      "query": "web ring",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "web-ring-47OPY6FFPLJ4LTPFMFGNBG5RBUORKVGM",
-      "alias": "web-ring-3",
-      "category": "retro",
-      "path": "/gifs/library/retro/web-ring-3.gif",
-      "query": "web ring",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "web-ring-5CIZZI4HQGBWXEEG3KABTSO6O3S2T7BF",
-      "alias": "web-ring-4",
-      "category": "retro",
-      "path": "/gifs/library/retro/web-ring-4.gif",
-      "query": "web ring",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "web-ring-6BNW7IPQMJSR7QBFIPWPRR24FEPA22BH",
-      "alias": "web-ring-5",
-      "category": "retro",
-      "path": "/gifs/library/retro/web-ring-5.gif",
-      "query": "web ring",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "web-ring-7AH2QRK6233AFY5XQMGFWMOPIS3DY4KT",
-      "alias": "web-ring-6",
-      "category": "retro",
-      "path": "/gifs/library/retro/web-ring-6.gif",
-      "query": "web ring",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "web-ring-7JVSMVIRNK2JCCNQTSDDBPNY52S7MVJ3",
-      "alias": "web-ring-7",
-      "category": "retro",
-      "path": "/gifs/library/retro/web-ring-7.gif",
-      "query": "web ring",
-      "themes": [
-        "retro-web"
-      ]
-    },
-    {
-      "id": "world-map-22EPUNHYHRWUOCHL7SQROEPCRANJ2T4G",
+      "id": "world-map-3RTQ5YH6YJQW73FLZRGRERB6UPJ5QUJL",
       "alias": "world-map",
       "category": "intel",
       "path": "/gifs/library/intel/world-map.gif",
@@ -3133,41 +540,161 @@
       ]
     },
     {
-      "id": "world-map-3ENIZ3IF6WR7DERDGTOQE466YJPOCBXU",
+      "id": "atom",
+      "alias": "atom",
+      "category": "retro",
+      "path": "/gifs/library/retro/atom.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "computer",
+      "alias": "computer",
+      "category": "retro",
+      "path": "/gifs/library/retro/computer.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "constructionWorker",
+      "alias": "construction-worker",
+      "category": "retro",
+      "path": "/gifs/library/retro/construction-worker.gif",
+      "query": null,
+      "themes": [
+        "retro-web"
+      ]
+    },
+    {
+      "id": "danger",
+      "alias": "danger",
+      "category": "retro",
+      "path": "/gifs/library/retro/danger.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "dividerColor",
+      "alias": "divider-color",
+      "category": "retro",
+      "path": "/gifs/library/retro/divider-color.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "dollar",
+      "alias": "dollar-4",
+      "category": "markets",
+      "path": "/gifs/library/markets/dollar-4.gif",
+      "query": null,
+      "themes": [
+        "trade"
+      ]
+    },
+    {
+      "id": "earthSpin",
+      "alias": "earth-spin",
+      "category": "retro",
+      "path": "/gifs/library/retro/earth-spin.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "fire3",
+      "alias": "fire3",
+      "category": "threat",
+      "path": "/gifs/library/threat/fire3.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "globeSmall",
+      "alias": "globe-small",
+      "category": "retro",
+      "path": "/gifs/library/retro/globe-small.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "lightning",
+      "alias": "lightning",
+      "category": "retro",
+      "path": "/gifs/library/retro/lightning.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "missile2",
+      "alias": "missile2",
+      "category": "threat",
+      "path": "/gifs/library/threat/missile2.gif",
+      "query": null,
+      "themes": [
+        "threat"
+      ]
+    },
+    {
+      "id": "satellite",
+      "alias": "satellite-6",
+      "category": "intel",
+      "path": "/gifs/library/intel/satellite-6.gif",
+      "query": null,
+      "themes": [
+        "intel"
+      ]
+    },
+    {
+      "id": "skull",
+      "alias": "skull",
+      "category": "threat",
+      "path": "/gifs/library/threat/skull.gif",
+      "query": null,
+      "themes": [
+        "threat"
+      ]
+    },
+    {
+      "id": "sparkle1",
+      "alias": "sparkle1",
+      "category": "retro",
+      "path": "/gifs/library/retro/sparkle1.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "sparkle2",
+      "alias": "sparkle2",
+      "category": "retro",
+      "path": "/gifs/library/retro/sparkle2.gif",
+      "query": null,
+      "themes": [
+        "misc"
+      ]
+    },
+    {
+      "id": "worldMap",
       "alias": "world-map-2",
       "category": "intel",
       "path": "/gifs/library/intel/world-map-2.gif",
-      "query": "world map",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "world-map-3RTQ5YH6YJQW73FLZRGRERB6UPJ5QUJL",
-      "alias": "world-map-3",
-      "category": "intel",
-      "path": "/gifs/library/intel/world-map-3.gif",
-      "query": "world map",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "world-map-3WBBCBY6T7IN7PR3H42MVDVDE7PCCMZO",
-      "alias": "world-map-4",
-      "category": "intel",
-      "path": "/gifs/library/intel/world-map-4.gif",
-      "query": "world map",
-      "themes": [
-        "intel"
-      ]
-    },
-    {
-      "id": "world-map-4KME2HOR46SG74Y2KD6EDJVWIWRGOZLU",
-      "alias": "world-map-5",
-      "category": "intel",
-      "path": "/gifs/library/intel/world-map-5.gif",
-      "query": "world map",
+      "query": null,
       "themes": [
         "intel"
       ]
