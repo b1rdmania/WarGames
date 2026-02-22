@@ -16,6 +16,7 @@ export function RiskLanding() {
   const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
   const fireHeroGif = getGifPath('fire3', GC.fire1);
   const satelliteGif = getGifPath('satellite', '/gifs/library/intel/satellite.gif');
+  const intelStripGif = getGifPath('map-ping', satelliteGif);
 
   return (
     <TerminalShell
@@ -53,7 +54,7 @@ export function RiskLanding() {
           <div className={styles.intelStrip} aria-hidden="true">
             <img src={satelliteGif} width={46} height={28} alt="" />
             <div className={styles.intelRule} />
-            <img src="/gifs/library/misc/scan.gif" width={88} height={18} alt="" />
+            <img src={intelStripGif} width={88} height={18} alt="" />
           </div>
 
           <div className={styles.badge}>

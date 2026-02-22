@@ -13,6 +13,7 @@ import {
   TerminalSessionBadge,
 } from '@/components/terminal';
 import type { StatsSummary } from '@/lib/stats/types';
+import { getGifPath } from '@/lib/gifPaths';
 import { MARKETS } from '@/integrations/pear/markets';
 import styles from './stats.module.css';
 
@@ -82,6 +83,9 @@ export default function StatsPage() {
 
   const pulseWindow = (data?.daily ?? []).slice(-7);
   const maxPulse = Math.max(1, ...pulseWindow.map((d) => d.successful));
+  const matrixNumbersGif = getGifPath('matrix-numbers', '/gifs/library/markets/matrix-numbers.gif');
+  const lineChartGif = getGifPath('line-chart', '/gifs/library/markets/line-chart.gif');
+  const countdownGif = getGifPath('countdown', '/gifs/library/markets/countdown.gif');
 
   return (
     <TerminalShell
@@ -91,7 +95,7 @@ export default function StatsPage() {
           <TerminalPaneTitle>ROUTING PROOF</TerminalPaneTitle>
           <div className={styles.gifRow}>
             <Image
-              src="/gifs/library/stats/matrix-numbers.gif"
+              src={matrixNumbersGif}
               width={86}
               height={28}
               alt="Animated matrix numbers"
@@ -122,7 +126,7 @@ export default function StatsPage() {
           <TerminalPaneTitle>MARKET ACTIVITY</TerminalPaneTitle>
           <div className={styles.gifRow}>
             <Image
-              src="/gifs/library/charts/line-chart.gif"
+              src={lineChartGif}
               width={72}
               height={34}
               alt="Animated line chart"
@@ -186,7 +190,7 @@ export default function StatsPage() {
           <TerminalPaneTitle>TARGETS & HISTORY</TerminalPaneTitle>
           <div className={styles.gifRow}>
             <Image
-              src="/gifs/library/stats/countdown.gif"
+              src={countdownGif}
               width={74}
               height={31}
               alt="Animated countdown display"

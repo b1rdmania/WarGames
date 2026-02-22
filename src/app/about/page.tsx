@@ -31,6 +31,7 @@ export default function AboutPage() {
   const radarGif = getGifPath('radar', GC.radar);
   const worldMapGif = getGifPath('world-map', GC.worldMap);
   const tankGif = getGifPath('tank', GC.tank);
+  const mobileScanGif = getGifPath('map-ping', radarGif);
 
   return (
     <TerminalShell
@@ -78,7 +79,7 @@ export default function AboutPage() {
               <span>MAP</span>
             </div>
             <div className={styles.mobileVisualItem}>
-              <img src="/gifs/library/intel/radar-sweep.gif" width={64} height={16} alt="" />
+              <img src={mobileScanGif} width={64} height={16} alt="" />
               <span>SCAN</span>
             </div>
             <div className={styles.mobileVisualItem}>

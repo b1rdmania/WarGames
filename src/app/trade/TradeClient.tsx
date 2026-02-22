@@ -144,6 +144,8 @@ export default function TradeClient() {
   const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
   const satelliteGif = getGifPath('satellite', '/gifs/library/intel/satellite.gif');
   const dollarGif = getGifPath('dollar', '/gifs/library/markets/dollar.gif');
+  const warningGif = getGifPath('warning', GC.warning);
+  const mapPingGif = getGifPath('map-ping', satelliteGif);
   const downArrowGif = getGifPath('down-arrow', '/gifs/library/retro/down-arrow.gif');
 
   useEffect(() => {
@@ -443,8 +445,8 @@ export default function TradeClient() {
           }}
         >
           <img src={dollarGif} width={26} height={26} alt="" style={{ imageRendering: 'pixelated' }} />
-          <img src="/gifs/library/misc/scan.gif" width={74} height={14} alt="" style={{ imageRendering: 'pixelated', opacity: 0.8 }} />
-          <img src="/gifs/library/threat/alert.gif" width={38} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
+          <img src={mapPingGif} width={74} height={14} alt="" style={{ imageRendering: 'pixelated', opacity: 0.8 }} />
+          <img src={warningGif} width={38} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
         </div>
       </>
     );
@@ -475,7 +477,6 @@ export default function TradeClient() {
               opacity: 0.9,
             }}
           >
-            <img src="/gifs/library/intel/radar-sweep.gif" width={60} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
             <img src={downArrowGif} width={14} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
           </div>
           <TerminalMarketList>
