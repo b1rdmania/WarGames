@@ -143,7 +143,7 @@ export default function TradeClient() {
   }, [effectiveMarkets]);
   const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
   const nuclearGif = getGifPath('nuclear', GC.nuclear);
-  const satelliteFiveGif = getGifPath('satellite-5', '/gifs/library/intel/satellite-5.gif');
+  const satelliteThreeGif = getGifPath('satellite-3', '/gifs/library/intel/satellite-3.gif');
   const dollarGif = getGifPath('dollar-2', '/gifs/library/markets/dollar-2.gif');
 
   useEffect(() => {
@@ -473,25 +473,31 @@ export default function TradeClient() {
           <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
               <TerminalPaneTitle>
-                <span
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    verticalAlign: 'middle',
-                    marginRight: '8px',
-                  }}
-                >
-                  <img src={earthSpinGif} width={20} height={20} alt="" style={{ display: 'block' }} />
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', verticalAlign: 'middle' }}>
+                  <span
+                    style={{
+                      width: '22px',
+                      height: '22px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <img
+                      src={earthSpinGif}
+                      width={20}
+                      height={20}
+                      alt=""
+                      style={{ display: 'block', imageRendering: 'pixelated', objectFit: 'contain' }}
+                    />
+                  </span>
+                  <span>MARKET DIRECTORY</span>
                 </span>
-                MARKET DIRECTORY
               </TerminalPaneTitle>
               <span
                 style={{
-                  width: '20px',
-                  height: '20px',
+                  width: '22px',
+                  height: '22px',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -574,11 +580,11 @@ export default function TradeClient() {
               }}
             >
               <img
-                src={satelliteFiveGif}
-                width={80}
-                height={48}
+                src={satelliteThreeGif}
+                width={108}
+                height={64}
                 alt=""
-                style={{ imageRendering: 'pixelated', display: 'block' }}
+                style={{ imageRendering: 'pixelated', display: 'block', objectFit: 'contain' }}
               />
             </div>
           </div>
