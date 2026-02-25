@@ -93,16 +93,6 @@ export default function StatsPage() {
       leftPane={
         <div className={styles.pane}>
           <TerminalPaneTitle>ROUTING PROOF</TerminalPaneTitle>
-          <div className={styles.gifRow}>
-            <Image
-              src={matrixNumbersGif}
-              width={86}
-              height={28}
-              alt="Animated matrix numbers"
-              unoptimized
-              className={styles.gifBadge}
-            />
-          </div>
           <div className={styles.hero}>{data ? `$${num(data.totals.notionalUsd)}` : '$0'}</div>
           <div className={styles.heroLabel}>TOTAL NOTIONAL ROUTED</div>
           <div className={styles.divider} />
@@ -119,6 +109,16 @@ export default function StatsPage() {
               value={`${num(data?.totals.attempted ?? 0)} / ${num(data?.totals.failed ?? 0)}`}
             />
           </TerminalKV>
+          <div className={styles.bottomGifRow} aria-hidden="true">
+            <Image
+              src={matrixNumbersGif}
+              width={86}
+              height={28}
+              alt=""
+              unoptimized
+              className={styles.gifPlain}
+            />
+          </div>
         </div>
       }
       centerPane={

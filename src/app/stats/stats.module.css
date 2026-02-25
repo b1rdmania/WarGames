@@ -18,6 +18,11 @@
   opacity: 0.92;
 }
 
+.gifPlain {
+  image-rendering: pixelated;
+  opacity: 0.92;
+}
+
 .hero {
   font-size: 32px;
   line-height: 1;
@@ -200,4 +205,13 @@
 .error {
   color: var(--loss);
   font-size: 12px;
+}
+
+.bottomGifRow {
+  margin-top: auto;
+  min-height: 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-top: 6px;
 }
