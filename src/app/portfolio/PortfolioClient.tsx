@@ -480,7 +480,7 @@ export default function PortfolioClient() {
                 width={96}
                 height={44}
                 alt=""
-                style={{ imageRendering: 'pixelated', opacity: 0.9 }}
+                style={{ imageRendering: 'pixelated', opacity: 0.9, marginTop: '20px' }}
               />
             </div>
           ) : portfolioTab === 'positions' ? (
