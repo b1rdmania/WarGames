@@ -47,18 +47,18 @@ export default function SplashGatePreviewPage() {
             <img
               src={tickerTapeGif}
               alt=""
-              width={156}
-              height={28}
+              width={312}
+              height={56}
               style={{ imageRendering: 'pixelated', opacity: 0.92, objectFit: 'contain' }}
             />
           </div>
         </div>
 
         <div style={{ display: 'grid', gap: '10px', textAlign: 'center' }}>
-          <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.65, color: '#b8cdc1', maxWidth: '700px', justifySelf: 'center' }}>
-            Welcome to WAR.MARKET. This is experimental DeFi for basket trades routed via Pear Protocol and settled on
-            Hyperliquid. By entering, you confirm you understand the risks, accept this is not investment advice, and
-            are not accessing from a jurisdiction that prohibits this product.
+          <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.7, color: '#b8cdc1', maxWidth: '760px', justifySelf: 'center', whiteSpace: 'pre-line' }}>
+            {`Welcome to WAR.MARKET. Experimental DeFi on Hyperliquid. If you're here you probably know what that means.
+
+This is not investment advice. You can and will lose money. By entering you confirm you understand the risks and you're not accessing from somewhere that says you can't.`}
           </p>
         </div>
 
