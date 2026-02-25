@@ -143,6 +143,7 @@ export default function TradeClient() {
   }, [effectiveMarkets]);
   const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
   const nuclearGif = getGifPath('nuclear', GC.nuclear);
+  const satelliteFiveGif = getGifPath('satellite-5', '/gifs/library/intel/satellite-5.gif');
   const dollarGif = getGifPath('dollar', '/gifs/library/markets/dollar.gif');
 
   useEffect(() => {
@@ -453,67 +454,118 @@ export default function TradeClient() {
       menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       leftPane={
         <>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
-            <TerminalPaneTitle>
-              <img src={earthSpinGif} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
-              MARKET DIRECTORY
-            </TerminalPaneTitle>
-            <img src={nuclearGif} width={20} height={20} alt="" style={{ imageRendering: 'pixelated', opacity: 0.9 }} />
-          </div>
-          <div style={{ marginBottom: '10px' }} />
-          <TerminalMarketList>
-            {MARKET_GROUP_ORDER.map((category) => {
-              const markets = groupedMarkets[category] ?? [];
-              if (markets.length === 0) return null;
-              const expanded = expandedGroups[category] ?? true;
-              return (
-                <div
-                  key={category}
+          <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
+              <TerminalPaneTitle>
+                <span
                   style={{
-                    marginTop: '10px',
-                    border: '1px solid var(--border)',
-                    background: 'var(--bg-deep)',
+                    width: '20px',
+                    height: '20px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    verticalAlign: 'middle',
+                    marginRight: '8px',
                   }}
                 >
-                  <button
-                    type="button"
-                    onClick={() => setExpandedGroups((prev) => ({ ...prev, [category]: !expanded }))}
+                  <img src={earthSpinGif} width={20} height={20} alt="" style={{ display: 'block' }} />
+                </span>
+                MARKET DIRECTORY
+              </TerminalPaneTitle>
+              <span
+                style={{
+                  width: '20px',
+                  height: '20px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  opacity: 0.9,
+                }}
+              >
+                <img
+                  src={nuclearGif}
+                  width={20}
+                  height={20}
+                  alt=""
+                  style={{ imageRendering: 'pixelated', maxWidth: '100%', maxHeight: '100%', display: 'block' }}
+                />
+              </span>
+            </div>
+            <div style={{ marginBottom: '10px' }} />
+            <TerminalMarketList>
+              {MARKET_GROUP_ORDER.map((category) => {
+                const markets = groupedMarkets[category] ?? [];
+                if (markets.length === 0) return null;
+                const expanded = expandedGroups[category] ?? true;
+                return (
+                  <div
+                    key={category}
                     style={{
-                      width: '100%',
-                      textAlign: 'left',
-                      border: 'none',
-                      borderBottom: expanded ? '1px solid var(--border)' : 'none',
+                      marginTop: '10px',
+                      border: '1px solid var(--border)',
                       background: 'var(--bg-deep)',
-                      color: 'var(--text-secondary)',
-                      padding: '10px 12px',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '11px',
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      cursor: 'pointer',
                     }}
                   >
-                    {expanded ? '▾' : '▸'} {MARKET_GROUP_LABEL[category]}
-                  </button>
-                  {expanded
-                    ? markets.map((market) => (
-                        <TerminalMarketRow
-                          key={market.id}
-                          code={market.id.toUpperCase().replace(/-/g, '_')}
-                          status={market.isTradable ? 'LIVE' : 'PAUSED'}
-                          active={selectedMarketId === market.id}
-                          onClick={() => {
-                            setSelectedMarketId(market.id);
-                            setLeverage(market.effectiveLeverage ?? market.leverage);
-                            setExecutionError(null);
-                          }}
-                        />
-                      ))
-                    : null}
-                </div>
-              );
-            })}
-          </TerminalMarketList>
+                    <button
+                      type="button"
+                      onClick={() => setExpandedGroups((prev) => ({ ...prev, [category]: !expanded }))}
+                      style={{
+                        width: '100%',
+                        textAlign: 'left',
+                        border: 'none',
+                        borderBottom: expanded ? '1px solid var(--border)' : 'none',
+                        background: 'var(--bg-deep)',
+                        color: 'var(--text-secondary)',
+                        padding: '10px 12px',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '11px',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {expanded ? '▾' : '▸'} {MARKET_GROUP_LABEL[category]}
+                    </button>
+                    {expanded
+                      ? markets.map((market) => (
+                          <TerminalMarketRow
+                            key={market.id}
+                            code={market.id.toUpperCase().replace(/-/g, '_')}
+                            status={market.isTradable ? 'LIVE' : 'PAUSED'}
+                            active={selectedMarketId === market.id}
+                            onClick={() => {
+                              setSelectedMarketId(market.id);
+                              setLeverage(market.effectiveLeverage ?? market.leverage);
+                              setExecutionError(null);
+                            }}
+                          />
+                        ))
+                      : null}
+                  </div>
+                );
+              })}
+            </TerminalMarketList>
+            <div style={{ flex: 1 }} />
+            <div
+              aria-hidden="true"
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '72px',
+                paddingBottom: '8px',
+                opacity: 0.92,
+              }}
+            >
+              <img
+                src={satelliteFiveGif}
+                width={80}
+                height={48}
+                alt=""
+                style={{ imageRendering: 'pixelated', display: 'block' }}
+              />
+            </div>
+          </div>
         </>
       }
       centerPane={

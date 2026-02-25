@@ -84,8 +84,6 @@ export default function StatsPage() {
   const pulseWindow = (data?.daily ?? []).slice(-7);
   const maxPulse = Math.max(1, ...pulseWindow.map((d) => d.successful));
   const matrixNumbersGif = getGifPath('matrix-numbers', '/gifs/library/markets/matrix-numbers.gif');
-  const marketActivityGif = getGifPath('graph', '/gifs/library/markets/graph.gif');
-  const countdownGif = getGifPath('countdown', '/gifs/library/markets/countdown.gif');
 
   return (
     <TerminalShell
@@ -124,16 +122,6 @@ export default function StatsPage() {
       centerPane={
         <div className={styles.pane}>
           <TerminalPaneTitle>MARKET ACTIVITY</TerminalPaneTitle>
-          <div className={styles.gifRow}>
-            <Image
-              src={marketActivityGif}
-              width={40}
-              height={40}
-              alt="Animated market graph"
-              unoptimized
-              className={styles.gifBadge}
-            />
-          </div>
           <div className={styles.mix}>
             {(data?.topMarkets ?? []).slice(0, 5).map((m) => {
               const w = (data?.totals.notionalUsd ?? 0) > 0 ? (m.notionalUsd / (data?.totals.notionalUsd ?? 1)) * 100 : 0;
@@ -188,16 +176,6 @@ export default function StatsPage() {
       rightPane={
         <div className={styles.pane}>
           <TerminalPaneTitle>TARGETS & HISTORY</TerminalPaneTitle>
-          <div className={styles.gifRow}>
-            <Image
-              src={countdownGif}
-              width={74}
-              height={31}
-              alt="Animated countdown display"
-              unoptimized
-              className={styles.gifBadge}
-            />
-          </div>
           <button
             type="button"
             className={styles.refreshBtn}

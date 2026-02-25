@@ -65,21 +65,15 @@
 
 .intelStrip {
   margin: -12px auto 18px;
-  width: min(100%, 440px);
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  width: min(100%, 120px);
+  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
   opacity: 0.92;
 }
 
 .intelStrip img {
   image-rendering: pixelated;
-}
-
-.intelRule {
-  border-top: 1px solid var(--border);
-  height: 0;
 }
 
 .winnerLine {
@@ -230,8 +224,7 @@
   }
 
   .intelStrip {
-    width: min(100%, 320px);
-    gap: 8px;
+    width: min(100%, 120px);
   }
 
   .ctaGrid {

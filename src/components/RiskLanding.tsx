@@ -15,8 +15,7 @@ import styles from './RiskLanding.module.css';
 export function RiskLanding() {
   const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
   const fireHeroGif = getGifPath('fire3', GC.fire1);
-  const satelliteGif = getGifPath('satellite', '/gifs/library/intel/satellite.gif');
-  const intelStripGif = getGifPath('map-ping', satelliteGif);
+  const warningGif = getGifPath('warning', GC.warning);
 
   return (
     <TerminalShell
@@ -52,9 +51,7 @@ export function RiskLanding() {
           </p>
 
           <div className={styles.intelStrip} aria-hidden="true">
-            <img src={satelliteGif} width={46} height={28} alt="" />
-            <div className={styles.intelRule} />
-            <img src={intelStripGif} width={88} height={18} alt="" />
+            <img src={warningGif} width={38} height={14} alt="" />
           </div>
 
           <div className={styles.badge}>
