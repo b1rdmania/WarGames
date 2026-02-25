@@ -28,6 +28,7 @@ import type { PearPosition } from '@/integrations/pear/types';
 import { connectPearWebsocket } from '@/integrations/pear/websocket';
 import { emitDebugLog } from '@/lib/debugLog';
 import { connectWalletSafely } from '@/lib/connectWallet';
+import { getGifPath } from '@/lib/gifPaths';
 import { getHyperliquidPortfolioUrl, getPearDashboardUrl } from '@/integrations/pear/links';
 
 type HyperliquidOpenPositionsResponse = {
@@ -100,6 +101,7 @@ export default function PortfolioClient() {
   const [protocolTotals, setProtocolTotals] = useState<{ notionalUsd: number; uniqueWallets: number } | null>(null);
   const hlWallet = agentWallet ?? address ?? null;
   const hlWalletSource: 'agent' | 'wallet' = agentWallet ? 'agent' : 'wallet';
+  const worldMapGif = getGifPath('world-map', GC.worldMap);
 
   const loadHyperliquidOpen = useCallback(async () => {
     if (!hlWallet) {
@@ -474,7 +476,7 @@ export default function PortfolioClient() {
             >
               <div style={{ color: '#8da294' }}>NO ACTIVE POSITIONS</div>
               <img
-                src={GC.worldMap}
+                src={worldMapGif}
                 width={96}
                 height={44}
                 alt=""
