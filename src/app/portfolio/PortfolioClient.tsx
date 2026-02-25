@@ -461,7 +461,26 @@ export default function PortfolioClient() {
           {portfolioTab === 'positions' && loadingPositions && !hasLoadedPositions ? (
             <div style={{ color: '#8da294', marginTop: '20px' }}>LOADING POSITIONS...</div>
           ) : portfolioTab === 'positions' && positions.length === 0 ? (
-            <div style={{ color: '#8da294', marginTop: '20px' }}>NO ACTIVE POSITIONS</div>
+            <div
+              style={{
+                marginTop: '20px',
+                minHeight: '220px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '14px',
+              }}
+            >
+              <div style={{ color: '#8da294' }}>NO ACTIVE POSITIONS</div>
+              <img
+                src={GC.worldMap}
+                width={96}
+                height={44}
+                alt=""
+                style={{ imageRendering: 'pixelated', opacity: 0.9 }}
+              />
+            </div>
           ) : portfolioTab === 'positions' ? (
             <TerminalMarketList>
               {positions.map((position) => {
