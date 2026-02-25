@@ -23,35 +23,32 @@ export default function SplashGatePreviewPage() {
     >
       <section
         style={{
-          width: 'min(100%, 680px)',
-          border: '1px solid #16402e',
-          background: '#08110d',
-          padding: '22px',
+          width: 'min(100%, 760px)',
+          padding: '12px',
           display: 'grid',
-          gap: '16px',
-          boxShadow: '0 0 0 1px rgba(0,0,0,0.25) inset',
+          gap: '20px',
         }}
       >
-        <div style={{ color: '#03ff88', letterSpacing: '0.14em', fontSize: '12px' }}>ENTRY GATE (PREVIEW)</div>
+        <div style={{ color: '#03ff88', letterSpacing: '0.14em', fontSize: '12px', textAlign: 'center' }}>
+          ENTRY GATE (PREVIEW)
+        </div>
 
         <div
           style={{
-            minHeight: '140px',
-            border: '1px solid #123424',
-            background: '#060d09',
+            minHeight: '220px',
             display: 'grid',
             placeItems: 'center',
-            padding: '14px',
+            padding: '6px',
           }}
         >
-          <img src={bombGif} alt="" width={84} height={84} style={{ imageRendering: 'pixelated' }} />
+          <img src={bombGif} alt="" width={168} height={168} style={{ imageRendering: 'pixelated' }} />
         </div>
 
-        <div style={{ borderTop: '1px solid #143626', paddingTop: '14px', display: 'grid', gap: '8px' }}>
-          <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.5 }}>
+        <div style={{ display: 'grid', gap: '10px', textAlign: 'center' }}>
+          <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.5 }}>
             WAR.MARKET routes leveraged basket trades via Pear Protocol and Hyperliquid.
           </p>
-          <p style={{ margin: 0, fontSize: '12px', lineHeight: 1.5, color: '#93a89c' }}>
+          <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.55, color: '#93a89c', maxWidth: '680px', justifySelf: 'center' }}>
             Trades can lose value quickly. Slippage, partial fills, and execution failures can occur. Not investment
             advice.
           </p>
@@ -62,9 +59,9 @@ export default function SplashGatePreviewPage() {
             display: 'flex',
             alignItems: 'flex-start',
             gap: '10px',
-            border: '1px solid #143626',
-            background: '#09120e',
-            padding: '12px',
+            border: '1px solid #133223',
+            background: 'rgba(9, 18, 14, 0.45)',
+            padding: '14px',
             cursor: 'pointer',
             userSelect: 'none',
           }}
@@ -80,8 +77,8 @@ export default function SplashGatePreviewPage() {
           </span>
         </label>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '10px', alignItems: 'center' }}>
-          <div style={{ fontSize: '10px', color: '#7d9387', letterSpacing: '0.06em' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '12px', alignItems: 'center' }}>
+          <div style={{ fontSize: '10px', color: '#7d9387', letterSpacing: '0.06em', textAlign: 'left' }}>
             LINKS: <Link href="/terms" style={{ color: '#9bb7a7' }}>TERMS</Link> ·{' '}
             <Link href="/privacy" style={{ color: '#9bb7a7' }}>PRIVACY</Link> ·{' '}
             <Link href="/about" style={{ color: '#9bb7a7' }}>ABOUT</Link>
@@ -97,7 +94,7 @@ export default function SplashGatePreviewPage() {
               background: acknowledged ? '#05f78a' : '#0b1712',
               color: acknowledged ? '#04110a' : '#8ea497',
               textDecoration: 'none',
-              padding: '10px 16px',
+              padding: '12px 18px',
               letterSpacing: '0.12em',
               fontSize: '12px',
               textTransform: 'uppercase',
