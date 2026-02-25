@@ -144,8 +144,6 @@ export default function TradeClient() {
   const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
   const nuclearGif = getGifPath('nuclear', GC.nuclear);
   const dollarGif = getGifPath('dollar', '/gifs/library/markets/dollar.gif');
-  const warningGif = getGifPath('warning', GC.warning);
-  const mapPingGif = getGifPath('map-ping', GC.signal);
 
   useEffect(() => {
     if (!accessToken) {
@@ -438,14 +436,12 @@ export default function TradeClient() {
             borderTop: '1px solid var(--border)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             gap: '10px',
             opacity: 0.9,
           }}
         >
           <img src={dollarGif} width={26} height={26} alt="" style={{ imageRendering: 'pixelated' }} />
-          <img src={mapPingGif} width={74} height={14} alt="" style={{ imageRendering: 'pixelated', opacity: 0.8 }} />
-          <img src={warningGif} width={38} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
         </div>
       </>
     );
