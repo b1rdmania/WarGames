@@ -110,8 +110,8 @@ export default function StatsPage() {
           <div className={styles.bottomGifRow} aria-hidden="true">
             <Image
               src={matrixNumbersGif}
-              width={86}
-              height={28}
+              width={172}
+              height={56}
               alt=""
               unoptimized
               className={styles.gifPlain}
