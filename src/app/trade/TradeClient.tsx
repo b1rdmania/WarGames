@@ -144,7 +144,7 @@ export default function TradeClient() {
   const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
   const nuclearGif = getGifPath('nuclear', GC.nuclear);
   const satelliteFiveGif = getGifPath('satellite-5', '/gifs/library/intel/satellite-5.gif');
-  const dollarGif = getGifPath('dollar', '/gifs/library/markets/dollar.gif');
+  const dollarGif = getGifPath('dollar-2', '/gifs/library/markets/dollar-2.gif');
 
   useEffect(() => {
     if (!accessToken) {
@@ -442,7 +442,23 @@ export default function TradeClient() {
             opacity: 0.9,
           }}
         >
-          <img src={dollarGif} width={26} height={26} alt="" style={{ imageRendering: 'pixelated' }} />
+          <span
+            style={{
+              width: '54px',
+              height: '40px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <img
+              src={dollarGif}
+              width={44}
+              height={32}
+              alt=""
+              style={{ imageRendering: 'pixelated', display: 'block', objectFit: 'contain' }}
+            />
+          </span>
         </div>
       </>
     );
