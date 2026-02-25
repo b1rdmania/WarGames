@@ -84,7 +84,7 @@ export default function StatsPage() {
   const pulseWindow = (data?.daily ?? []).slice(-7);
   const maxPulse = Math.max(1, ...pulseWindow.map((d) => d.successful));
   const matrixNumbersGif = getGifPath('matrix-numbers', '/gifs/library/markets/matrix-numbers.gif');
-  const lineChartGif = getGifPath('line-chart', '/gifs/library/markets/line-chart.gif');
+  const marketActivityGif = getGifPath('graph', '/gifs/library/markets/graph.gif');
   const countdownGif = getGifPath('countdown', '/gifs/library/markets/countdown.gif');
 
   return (
@@ -126,10 +126,10 @@ export default function StatsPage() {
           <TerminalPaneTitle>MARKET ACTIVITY</TerminalPaneTitle>
           <div className={styles.gifRow}>
             <Image
-              src={lineChartGif}
-              width={72}
-              height={34}
-              alt="Animated line chart"
+              src={marketActivityGif}
+              width={40}
+              height={40}
+              alt="Animated market graph"
               unoptimized
               className={styles.gifBadge}
             />

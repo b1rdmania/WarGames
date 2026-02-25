@@ -142,11 +142,10 @@ export default function TradeClient() {
     return groups;
   }, [effectiveMarkets]);
   const earthSpinGif = getGifPath('earth-spin', GC.earthSpin);
-  const satelliteGif = getGifPath('satellite', '/gifs/library/intel/satellite.gif');
+  const nuclearGif = getGifPath('nuclear', GC.nuclear);
   const dollarGif = getGifPath('dollar', '/gifs/library/markets/dollar.gif');
   const warningGif = getGifPath('warning', GC.warning);
-  const mapPingGif = getGifPath('map-ping', satelliteGif);
-  const downArrowGif = getGifPath('down-arrow', '/gifs/library/retro/down-arrow.gif');
+  const mapPingGif = getGifPath('map-ping', GC.signal);
 
   useEffect(() => {
     if (!accessToken) {
@@ -463,22 +462,9 @@ export default function TradeClient() {
               <img src={earthSpinGif} width={20} height={20} alt="" style={{ verticalAlign: 'middle', marginRight: '8px' }} />
               MARKET DIRECTORY
             </TerminalPaneTitle>
-            <img src={satelliteGif} width={30} height={18} alt="" style={{ imageRendering: 'pixelated', opacity: 0.9 }} />
+            <img src={nuclearGif} width={20} height={20} alt="" style={{ imageRendering: 'pixelated', opacity: 0.9 }} />
           </div>
-          <div
-            aria-hidden="true"
-            style={{
-              marginTop: '-4px',
-              marginBottom: '10px',
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              gap: '8px',
-              opacity: 0.9,
-            }}
-          >
-            <img src={downArrowGif} width={14} height={14} alt="" style={{ imageRendering: 'pixelated' }} />
-          </div>
+          <div style={{ marginBottom: '10px' }} />
           <TerminalMarketList>
             {MARKET_GROUP_ORDER.map((category) => {
               const markets = groupedMarkets[category] ?? [];
