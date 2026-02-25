@@ -2,12 +2,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { getGifPath } from '@/lib/gifPaths';
 
 export default function SplashGatePreviewPage() {
-  const [acknowledged, setAcknowledged] = useState(false);
   const bombGif = useMemo(() => getGifPath('bomb', '/gifs/library/threat/bomb.gif'), []);
+  const tickerTapeGif = useMemo(() => getGifPath('ticker-tape', '/gifs/library/markets/ticker-tape.gif'), []);
 
   return (
     <main
@@ -35,47 +35,32 @@ export default function SplashGatePreviewPage() {
 
         <div
           style={{
-            minHeight: '220px',
+            minHeight: '250px',
             display: 'grid',
             placeItems: 'center',
             padding: '6px',
+            gap: '10px',
           }}
         >
-          <img src={bombGif} alt="" width={168} height={168} style={{ imageRendering: 'pixelated' }} />
+          <div style={{ display: 'grid', justifyItems: 'center', gap: '10px' }}>
+            <img src={bombGif} alt="" width={176} height={176} style={{ imageRendering: 'pixelated' }} />
+            <img
+              src={tickerTapeGif}
+              alt=""
+              width={156}
+              height={28}
+              style={{ imageRendering: 'pixelated', opacity: 0.92, objectFit: 'contain' }}
+            />
+          </div>
         </div>
 
         <div style={{ display: 'grid', gap: '10px', textAlign: 'center' }}>
-          <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.5 }}>
-            WAR.MARKET routes leveraged basket trades via Pear Protocol and Hyperliquid.
-          </p>
-          <p style={{ margin: 0, fontSize: '13px', lineHeight: 1.55, color: '#93a89c', maxWidth: '680px', justifySelf: 'center' }}>
-            Trades can lose value quickly. Slippage, partial fills, and execution failures can occur. Not investment
-            advice.
+          <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.65, color: '#b8cdc1', maxWidth: '700px', justifySelf: 'center' }}>
+            Welcome to WAR.MARKET. This is experimental DeFi for basket trades routed via Pear Protocol and settled on
+            Hyperliquid. By entering, you confirm you understand the risks, accept this is not investment advice, and
+            are not accessing from a jurisdiction that prohibits this product.
           </p>
         </div>
-
-        <label
-          style={{
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '10px',
-            border: '1px solid #133223',
-            background: 'rgba(9, 18, 14, 0.45)',
-            padding: '14px',
-            cursor: 'pointer',
-            userSelect: 'none',
-          }}
-        >
-          <input
-            type="checkbox"
-            checked={acknowledged}
-            onChange={(e) => setAcknowledged(e.target.checked)}
-            style={{ marginTop: '2px' }}
-          />
-          <span style={{ fontSize: '12px', lineHeight: 1.4, color: '#b9cec2' }}>
-            I understand this is high-risk leveraged trading and I am responsible for my decisions.
-          </span>
-        </label>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '12px', alignItems: 'center' }}>
           <div style={{ fontSize: '10px', color: '#7d9387', letterSpacing: '0.06em', textAlign: 'left' }}>
@@ -85,23 +70,18 @@ export default function SplashGatePreviewPage() {
           </div>
           <Link
             href="/"
-            aria-disabled={!acknowledged}
-            onClick={(e) => {
-              if (!acknowledged) e.preventDefault();
-            }}
             style={{
               border: '1px solid #1d4c37',
-              background: acknowledged ? '#05f78a' : '#0b1712',
-              color: acknowledged ? '#04110a' : '#8ea497',
+              background: '#05f78a',
+              color: '#04110a',
               textDecoration: 'none',
               padding: '12px 18px',
               letterSpacing: '0.12em',
               fontSize: '12px',
               textTransform: 'uppercase',
-              pointerEvents: acknowledged ? 'auto' : 'auto',
             }}
           >
-            Enter Terminal
+            Enter App
           </Link>
         </div>
       </section>
