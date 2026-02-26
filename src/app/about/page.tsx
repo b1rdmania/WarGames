@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { GC } from '@/app/labs/geocities-gifs';
 import { getGifPath } from '@/lib/gifPaths';
 import {
@@ -148,6 +149,15 @@ export default function AboutPage() {
               <a href="https://hyperliquid.xyz" target="_blank" rel="noreferrer" className={styles.link}>
                 Hyperliquid
               </a>
+              <Link href="/risk" className={styles.link}>
+                Risk
+              </Link>
+              <Link href="/terms" className={styles.link}>
+                Terms
+              </Link>
+              <Link href="/privacy" className={styles.link}>
+                Privacy
+              </Link>
             </div>
             <div className={styles.linksGif}>
               <img src={tankGif} width={56} height={56} alt="" />
