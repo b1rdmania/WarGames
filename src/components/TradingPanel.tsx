@@ -2,10 +2,12 @@
 
 import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useAccount } from 'wagmi';
 import type { PearMarketConfig, ResolvedBasket, ResolvedPairs } from '@/integrations/pear/types';
 import { executePosition } from '@/integrations/pear/positions';
 import { MarketDetail } from '@/components/MarketDetail';
 import { formatPairOrBasketSide } from '@/lib/marketDisplay';
+import { logTradeStatEvent } from '@/lib/stats/client';
 
 export function TradingPanel({
   accessToken,
@@ -32,6 +34,7 @@ export function TradingPanel({
   const [amount, setAmount] = useState('10');
   const [submitting, setSubmitting] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const { address } = useAccount();
 
   const market = useMemo(() => markets.find((m) => m.id === marketId) ?? null, [markets, marketId]);
   const balanceNum = balance ? Number(balance) : null;
@@ -163,8 +166,18 @@ export function TradingPanel({
           onClick={() => {
             (async () => {
               setSubmitting(true);
+              const notionalUsd = Number.isFinite(amountNum ?? NaN) ? Number(amountNum) * leverage : 0;
               try {
-                await executePosition(accessToken, {
+                await logTradeStatEvent({
+                  wallet: address,
+                  marketId: market.id,
+                  side: side === 'long' ? 'YES' : 'NO',
+                  sizeUsd: Number(amount) || 0,
+                  leverage,
+                  notionalUsd,
+                  status: 'attempted',
+                });
+                const result = await executePosition(accessToken, {
                   marketId: market.id,
                   side,
                   amount,
@@ -172,11 +185,31 @@ export function TradingPanel({
                   resolvedPairs: market.resolvedPairs,
                   resolvedBasket: market.resolvedBasket,
                 });
+                await logTradeStatEvent({
+                  wallet: address,
+                  marketId: market.id,
+                  side: side === 'long' ? 'YES' : 'NO',
+                  sizeUsd: Number(amount) || 0,
+                  leverage,
+                  notionalUsd,
+                  status: 'success',
+                  orderId: result.orderId,
+                });
                 toast.success('Position opened! 🎉');
                 setAmount('10');
                 onPlaced();
               } catch (e) {
                 console.error(e);
+                await logTradeStatEvent({
+                  wallet: address,
+                  marketId: market.id,
+                  side: side === 'long' ? 'YES' : 'NO',
+                  sizeUsd: Number(amount) || 0,
+                  leverage,
+                  notionalUsd,
+                  status: 'failed',
+                  error: (e as Error).message || 'Failed to place bet',
+                });
                 toast.error((e as Error).message || 'Failed to place bet');
               } finally {
                 setSubmitting(false);

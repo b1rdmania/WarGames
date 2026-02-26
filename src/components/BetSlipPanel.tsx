@@ -2,9 +2,11 @@
 
 import { useMemo, useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { useAccount } from 'wagmi';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import { executePosition } from '@/integrations/pear/positions';
 import { formatPairOrBasketSide } from '@/lib/marketDisplay';
+import { logTradeStatEvent } from '@/lib/stats/client';
 import styles from './BetSlipPanel.module.css';
 
 export function BetSlipPanel({
@@ -31,6 +33,7 @@ export function BetSlipPanel({
   const [lastError, setLastError] = useState<string | null>(null);
   const [showError, setShowError] = useState(false);
   const mountedRef = useRef(true);
+  const { address } = useAccount();
 
   useEffect(() => {
     mountedRef.current = true;
@@ -217,8 +220,19 @@ export function BetSlipPanel({
           }
           setSubmitting(true);
           setLastError(null);
+          const amountNum = Number(amount);
+          const notionalUsd = Number.isFinite(amountNum) ? amountNum * leverage : 0;
           try {
-            await executePosition(accessToken, {
+            await logTradeStatEvent({
+              wallet: address,
+              marketId: market.id,
+              side: side === 'long' ? 'YES' : 'NO',
+              sizeUsd: Number(amount) || 0,
+              leverage,
+              notionalUsd,
+              status: 'attempted',
+            });
+            const result = await executePosition(accessToken, {
               marketId: market.id,
               side,
               amount,
@@ -226,12 +240,32 @@ export function BetSlipPanel({
               resolvedPairs: market.resolvedPairs,
               resolvedBasket: market.resolvedBasket,
             });
+            await logTradeStatEvent({
+              wallet: address,
+              marketId: market.id,
+              side: side === 'long' ? 'YES' : 'NO',
+              sizeUsd: Number(amount) || 0,
+              leverage,
+              notionalUsd,
+              status: 'success',
+              orderId: result.orderId,
+            });
             if (!mountedRef.current) return;
             toast.success('Position opened');
             onPlaced();
           } catch (e) {
             if (!mountedRef.current) return;
             const errMsg = (e as Error).message || 'Failed to execute';
+            await logTradeStatEvent({
+              wallet: address,
+              marketId: market.id,
+              side: side === 'long' ? 'YES' : 'NO',
+              sizeUsd: Number(amount) || 0,
+              leverage,
+              notionalUsd,
+              status: 'failed',
+              error: errMsg,
+            });
             if (errMsg.includes('401') || errMsg.includes('unauthorized') || errMsg.includes('token')) {
               setLastError('Session expired. Please re-authenticate.');
               toast.error('Session expired');

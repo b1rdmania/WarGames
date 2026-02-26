@@ -2,9 +2,11 @@
 
 import { useMemo, useState, useRef, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { useAccount } from 'wagmi';
 import type { ValidatedMarket } from '@/integrations/pear/marketValidation';
 import { executePosition } from '@/integrations/pear/positions';
 import { formatPairOrBasketSide } from '@/lib/marketDisplay';
+import { logTradeStatEvent } from '@/lib/stats/client';
 
 export function BetSlip({
   isOpen,
@@ -30,6 +32,7 @@ export function BetSlip({
   const [showDetails, setShowDetails] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
   const mountedRef = useRef(true);
+  const { address } = useAccount();
 
   // Track mounted state to prevent state updates after unmount
   useEffect(() => {
@@ -199,14 +202,35 @@ export function BetSlip({
               }
               setSubmitting(true);
               setLastError(null);
+              const amountNum = Number(amount);
+              const notionalUsd = Number.isFinite(amountNum) ? amountNum * leverage : 0;
               try {
-                await executePosition(accessToken, {
+                await logTradeStatEvent({
+                  wallet: address,
+                  marketId: market.id,
+                  side: side === 'long' ? 'YES' : 'NO',
+                  sizeUsd: Number(amount) || 0,
+                  leverage,
+                  notionalUsd,
+                  status: 'attempted',
+                });
+                const result = await executePosition(accessToken, {
                   marketId: market.id,
                   side,
                   amount,
                   leverage,
                   resolvedPairs: market.resolvedPairs,
                   resolvedBasket: market.resolvedBasket,
+                });
+                await logTradeStatEvent({
+                  wallet: address,
+                  marketId: market.id,
+                  side: side === 'long' ? 'YES' : 'NO',
+                  sizeUsd: Number(amount) || 0,
+                  leverage,
+                  notionalUsd,
+                  status: 'success',
+                  orderId: result.orderId,
                 });
                 if (!mountedRef.current) return;
                 toast.success('Locked in.');
@@ -215,6 +239,16 @@ export function BetSlip({
               } catch (e) {
                 if (!mountedRef.current) return;
                 const errMsg = (e as Error).message || 'Failed to execute';
+                await logTradeStatEvent({
+                  wallet: address,
+                  marketId: market.id,
+                  side: side === 'long' ? 'YES' : 'NO',
+                  sizeUsd: Number(amount) || 0,
+                  leverage,
+                  notionalUsd,
+                  status: 'failed',
+                  error: errMsg,
+                });
                 // Check for auth-related errors
                 if (errMsg.includes('401') || errMsg.includes('unauthorized') || errMsg.includes('token')) {
                   setLastError('Session expired. Please re-authenticate on the Trade page.');
