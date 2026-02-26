@@ -249,7 +249,7 @@ export default function TradeClient() {
       if (result.verifiedClosed) {
         toast.success('Position closed');
       } else {
-        toast.error('Close submitted but position still appears open. Please refresh and verify on Hyperliquid.');
+        toast.error('Close submitted, but HL still shows the position open. Refresh positions and verify on Hyperliquid before retrying.');
       }
     } catch (e) {
       toast.error((e as Error).message || 'Failed to close position');

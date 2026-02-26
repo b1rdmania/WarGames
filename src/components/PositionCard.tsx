@@ -255,7 +255,7 @@ export function PositionCard({
               : hyperliquidCheck.state === 'verified'
               ? 'Verified on HL'
               : hyperliquidCheck.state === 'mismatch'
-              ? 'Mismatch with HL open positions'
+              ? 'Mismatch with HL open positions (do not assume closed)'
               : 'HL verification unavailable'}
           </div>
           {hyperliquidCheck.state === 'mismatch' && (hyperliquidCheck.missingLong?.length || hyperliquidCheck.missingShort?.length) ? (
@@ -270,6 +270,11 @@ export function PositionCard({
           ) : null}
           {hyperliquidCheck.note ? (
             <div style={{ marginTop: '4px', color: 'var(--text-muted)' }}>{hyperliquidCheck.note}</div>
+          ) : null}
+          {hyperliquidCheck.state !== 'verified' ? (
+            <div style={{ marginTop: '4px', color: 'var(--text-muted)' }}>
+              Refresh positions and verify on Hyperliquid before retrying actions.
+            </div>
           ) : null}
         </div>
       ) : null}
@@ -320,7 +325,7 @@ export function PositionCard({
               if (result.verifiedClosed) {
                 toast.success('Position closed');
               } else {
-                toast.error('Close submitted but position still appears open. Refresh and retry if needed.');
+                toast.error('Close submitted, but HL still shows position open. Refresh positions and verify on Hyperliquid before retrying.');
               }
               onClose();
             } catch (e) {
