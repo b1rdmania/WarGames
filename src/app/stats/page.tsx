@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
 import {
   TerminalShell,
   TerminalMenuBar,
@@ -17,6 +18,8 @@ import { getGifPath } from '@/lib/gifPaths';
 import { MARKETS } from '@/integrations/pear/markets';
 import styles from './stats.module.css';
 
+type StatsMode = 'my' | 'protocol';
+
 function num(n: number) {
   return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
@@ -26,14 +29,30 @@ function pct(value: number) {
 }
 
 export default function StatsPage() {
+  const { address, isConnected } = useAccount();
   const [data, setData] = useState<StatsSummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [mode, setMode] = useState<StatsMode>('protocol');
+
+  useEffect(() => {
+    setMode(isConnected && address ? 'my' : 'protocol');
+  }, [address, isConnected]);
 
   const loadStats = useCallback(async () => {
+    const wantsMyStats = mode === 'my';
+    const wallet = wantsMyStats ? address : undefined;
+    if (wantsMyStats && !wallet) {
+      setData(null);
+      setError(null);
+      setLoading(false);
+      return;
+    }
     try {
       setLoading(true);
-      const res = await fetch('/api/stats/summary?days=30', { cache: 'no-store' });
+      const params = new URLSearchParams({ days: '30' });
+      if (wallet) params.set('wallet', wallet);
+      const res = await fetch(`/api/stats/summary?${params.toString()}`, { cache: 'no-store' });
       if (!res.ok) throw new Error('Failed to load stats');
       const json = (await res.json()) as StatsSummary;
       setData(json);
@@ -43,7 +62,7 @@ export default function StatsPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [address, mode]);
 
   useEffect(() => {
     void loadStats();
@@ -84,6 +103,8 @@ export default function StatsPage() {
   const pulseWindow = (data?.daily ?? []).slice(-7);
   const maxPulse = Math.max(1, ...pulseWindow.map((d) => d.successful));
   const matrixNumbersGif = getGifPath('matrix-numbers', '/gifs/library/markets/matrix-numbers.gif');
+  const showMySignInPrompt = mode === 'my' && !isConnected;
+  const modeLabel = mode === 'my' ? 'MY' : 'PROTOCOL';
 
   return (
     <TerminalShell
@@ -91,6 +112,25 @@ export default function StatsPage() {
       leftPane={
         <div className={styles.pane}>
           <TerminalPaneTitle>ROUTING PROOF</TerminalPaneTitle>
+          <div className={styles.modeBar}>
+            <button
+              type="button"
+              className={`${styles.modeBtn} ${mode === 'my' ? styles.modeBtnActive : ''}`}
+              onClick={() => setMode('my')}
+            >
+              MY STATS
+            </button>
+            <button
+              type="button"
+              className={`${styles.modeBtn} ${mode === 'protocol' ? styles.modeBtnActive : ''}`}
+              onClick={() => setMode('protocol')}
+            >
+              PROTOCOL
+            </button>
+          </div>
+          {showMySignInPrompt ? (
+            <div className={styles.muted}>CONNECT WALLET TO VIEW PERSONAL STATS. SHOWING NO DATA.</div>
+          ) : null}
           <div className={styles.hero}>{data ? `$${num(data.totals.notionalUsd)}` : '$0'}</div>
           <div className={styles.heroLabel}>TOTAL NOTIONAL ROUTED</div>
           <div className={styles.divider} />
@@ -180,18 +220,20 @@ export default function StatsPage() {
             type="button"
             className={styles.refreshBtn}
             onClick={() => void loadStats()}
+            disabled={showMySignInPrompt}
           >
             REFRESH DATA
           </button>
           <div className={styles.subhead}>WARM-UP TARGETS</div>
           <div className={styles.goals}>
             {goals.map((g) => {
-              const progress = g.target > 0 ? (g.current / g.target) * 100 : 0;
+              const adjustedTarget = mode === 'my' && g.label === 'First 10 wallets' ? 1 : g.target;
+              const progress = adjustedTarget > 0 ? (g.current / adjustedTarget) * 100 : 0;
               return (
                 <div key={g.label} className={styles.goal}>
                   <div className={styles.goalHead}>
                     <span>{g.label.toUpperCase()}</span>
-                    <span>{num(g.current)} / {num(g.target)}</span>
+                    <span>{num(g.current)} / {num(adjustedTarget)}</span>
                   </div>
                   <div className={styles.goalBar}>
                     <div className={styles.goalFill} style={{ width: `${Math.min(100, progress)}%` }} />
@@ -237,6 +279,7 @@ export default function StatsPage() {
           items={[
             { label: 'PAGE', value: 'STATS' },
             { label: 'WINDOW', value: '30D' },
+            { label: 'MODE', value: modeLabel },
             { label: 'SOURCE', value: data?.storage?.toUpperCase() ?? '—' },
             { label: 'STATE', value: loading ? 'LOADING' : error ? 'ERROR' : 'LIVE' },
           ]}

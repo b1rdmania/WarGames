@@ -7,7 +7,8 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const days = Number(searchParams.get('days') ?? 30);
-    const summary = await getStatsSummary(days);
+    const wallet = searchParams.get('wallet') ?? undefined;
+    const summary = await getStatsSummary(days, { wallet });
     return NextResponse.json(summary);
   } catch (error) {
     return NextResponse.json(

@@ -64,6 +64,14 @@ function normalizeWallet(wallet?: string): string | null {
   return w ? w : null;
 }
 
+function parseEventRow(raw: string): (TradeStatEvent & { ts: number }) | null {
+  try {
+    return JSON.parse(raw) as TradeStatEvent & { ts: number };
+  } catch {
+    return null;
+  }
+}
+
 async function recordWithKv(event: TradeStatEvent, day: string, wallet: string | null, notionalCents: number) {
   const record: TradeStatEvent & { ts: number } = {
     ...event,
@@ -196,6 +204,103 @@ async function summaryFromKv(days: number): Promise<StatsSummary> {
   };
 }
 
+function summaryFromEvents(
+  events: Array<TradeStatEvent & { ts: number }>,
+  days: number,
+  storage: 'kv' | 'memory'
+): StatsSummary {
+  const now = Date.now();
+  const oldestTs = now - (days - 1) * 24 * 60 * 60 * 1000;
+  const filtered = events.filter((evt) => Number.isFinite(evt.ts) && evt.ts >= oldestTs);
+
+  const dailyMap = new Map<string, DailyUsagePoint>();
+  const marketMap = new Map<string, { successfulTrades: number; notionalUsd: number }>();
+  const wallets = new Set<string>();
+  let attempted = 0;
+  let successful = 0;
+  let failed = 0;
+  let notionalUsd = 0;
+
+  for (const evt of filtered) {
+    const day = toDay(evt.ts);
+    const daily = dailyMap.get(day) ?? {
+      date: day,
+      attempted: 0,
+      successful: 0,
+      failed: 0,
+      notionalUsd: 0,
+      uniqueWallets: 0,
+    };
+    if (evt.status === 'attempted') {
+      attempted += 1;
+      daily.attempted += 1;
+    }
+    if (evt.status === 'success') {
+      successful += 1;
+      const n = Number(evt.notionalUsd) || 0;
+      notionalUsd += n;
+      daily.successful += 1;
+      daily.notionalUsd += n;
+      const market = marketMap.get(evt.marketId) ?? { successfulTrades: 0, notionalUsd: 0 };
+      market.successfulTrades += 1;
+      market.notionalUsd += n;
+      marketMap.set(evt.marketId, market);
+    }
+    if (evt.status === 'failed') {
+      failed += 1;
+      daily.failed += 1;
+    }
+    if (evt.wallet) {
+      wallets.add(evt.wallet.toLowerCase());
+    }
+    dailyMap.set(day, daily);
+  }
+
+  const daily: DailyUsagePoint[] = [];
+  for (let i = days - 1; i >= 0; i -= 1) {
+    const date = toDay(now - i * 24 * 60 * 60 * 1000);
+    const d = dailyMap.get(date);
+    daily.push({
+      date,
+      attempted: d?.attempted ?? 0,
+      successful: d?.successful ?? 0,
+      failed: d?.failed ?? 0,
+      notionalUsd: d?.notionalUsd ?? 0,
+      uniqueWallets: d?.uniqueWallets ?? 0,
+    });
+  }
+
+  // Recompute day-level unique wallets from filtered events.
+  const dailyWallets = new Map<string, Set<string>>();
+  for (const evt of filtered) {
+    if (!evt.wallet) continue;
+    const day = toDay(evt.ts);
+    if (!dailyWallets.has(day)) dailyWallets.set(day, new Set<string>());
+    dailyWallets.get(day)!.add(evt.wallet.toLowerCase());
+  }
+  for (const row of daily) {
+    row.uniqueWallets = dailyWallets.get(row.date)?.size ?? 0;
+  }
+
+  const topMarkets = Array.from(marketMap.entries())
+    .map(([marketId, data]) => ({ marketId, successfulTrades: data.successfulTrades, notionalUsd: data.notionalUsd }))
+    .sort((a, b) => b.notionalUsd - a.notionalUsd)
+    .slice(0, 8);
+
+  return {
+    totals: {
+      attempted,
+      successful,
+      failed,
+      notionalUsd,
+      uniqueWallets: wallets.size,
+    },
+    daily,
+    topMarkets,
+    storage,
+  };
+}
+
 function summaryFromMemory(days: number): StatsSummary {
   const store = getMemoryStore();
   const daily: DailyUsagePoint[] = [];
@@ -237,8 +342,13 @@ function summaryFromMemory(days: number): StatsSummary {
   };
 }
 
-export async function getStatsSummary(days = 30): Promise<StatsSummary> {
+export async function getStatsSummary(days = 30, opts?: { wallet?: string }): Promise<StatsSummary> {
   const window = Math.max(7, Math.min(60, Math.floor(days)));
+  const wallet = normalizeWallet(opts?.wallet);
+  if (wallet) {
+    const events = await getRecentTradeStatEvents(500, wallet);
+    return summaryFromEvents(events, window, hasKv ? 'kv' : 'memory');
+  }
   if (hasKv) return summaryFromKv(window);
   return summaryFromMemory(window);
 }
@@ -250,13 +360,7 @@ export async function getRecentTradeStatEvents(limit = 50, wallet?: string): Pro
   if (hasKv) {
     const rows = await kv.lrange<string>('wm:stats:events', 0, Math.max(max * 4, 100) - 1);
     const parsed = rows
-      .map((raw) => {
-        try {
-          return JSON.parse(raw) as TradeStatEvent & { ts: number };
-        } catch {
-          return null;
-        }
-      })
+      .map(parseEventRow)
       .filter((x): x is TradeStatEvent & { ts: number } => Boolean(x))
       .filter((evt) => (normalizedWallet ? evt.wallet?.toLowerCase() === normalizedWallet : true))
       .sort((a, b) => (b.ts ?? 0) - (a.ts ?? 0))

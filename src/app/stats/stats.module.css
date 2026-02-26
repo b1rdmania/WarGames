@@ -3,6 +3,29 @@
   gap: 10px;
 }
 
+.modeBar {
+  display: inline-flex;
+  gap: 6px;
+  margin-top: -2px;
+}
+
+.modeBtn {
+  border: 1px solid var(--border);
+  background: var(--bg-warm);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 8px;
+  cursor: pointer;
+}
+
+.modeBtnActive {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
 .gifRow {
   display: flex;
   align-items: center;
@@ -71,6 +94,11 @@
 .refreshBtn:hover {
   border-color: var(--primary);
   color: var(--primary);
+}
+
+.refreshBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .mix {
