@@ -158,6 +158,12 @@ export default function AboutPage() {
               <Link href="/privacy" className={styles.link}>
                 Privacy
               </Link>
+              <Link href="/support" className={styles.link}>
+                Support
+              </Link>
+              <Link href="/feedback" className={styles.link}>
+                Feedback
+              </Link>
             </div>
             <div className={styles.linksGif}>
               <img src={tankGif} width={56} height={56} alt="" />
