@@ -266,6 +266,7 @@ export default function TradeClient() {
     setLeverage(firstCrypto.effectiveLeverage ?? firstCrypto.leverage);
     setExecutionError(null);
   };
+  const isReadyToTrade = isConnected && isAuthenticated && agentWalletApproval !== 'pending';
 
   // Right pane content based on auth state
   const renderRightPane = () => {
@@ -295,6 +296,26 @@ export default function TradeClient() {
             >
               {isPending ? 'CONNECTING…' : 'CONNECT WALLET'}
             </TerminalButton>
+            <div
+              style={{
+                marginTop: '12px',
+                border: '1px solid var(--border)',
+                background: 'var(--bg-warm)',
+                padding: '10px',
+                textAlign: 'left',
+                color: 'var(--text-muted)',
+                fontSize: '10px',
+                lineHeight: 1.5,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+              }}
+            >
+              <div style={{ color: 'var(--text-secondary)', marginBottom: '4px' }}>FIRST-TIME FLOW</div>
+              <div>1. Connect wallet</div>
+              <div>2. Authenticate with Pear</div>
+              <div>3. Approve agent wallet on Hyperliquid</div>
+              <div>4. Fund margin and execute basket</div>
+            </div>
           </div>
         </>
       );
@@ -305,11 +326,33 @@ export default function TradeClient() {
         <>
           <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
           <div style={{ padding: '20px 0' }}>
-            {agentWalletApproval === 'pending' ? (
-              <div style={{ color: 'var(--loss)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px' }}>
-                Approval pending: complete Hyperliquid agent-wallet approval first.
-              </div>
-            ) : null}
+            <div
+              style={{
+                border: '1px solid var(--border)',
+                background: 'var(--bg-warm)',
+                padding: '10px',
+                marginBottom: '10px',
+                color: 'var(--text-muted)',
+                fontSize: '10px',
+                lineHeight: 1.5,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+              }}
+            >
+              {!isAuthenticated ? (
+                <>
+                  <div style={{ color: 'var(--text-secondary)', marginBottom: '4px' }}>NEXT STEP: AUTHENTICATE WITH PEAR</div>
+                  <div>Creates your trading session.</div>
+                  <div style={{ marginTop: '4px' }}>First trade may trigger Hyperliquid setup/approval requirements.</div>
+                </>
+              ) : (
+                <>
+                  <div style={{ color: 'var(--loss)', marginBottom: '4px' }}>NEXT STEP: COMPLETE HYPERLIQUID APPROVAL</div>
+                  <div>Approve the agent wallet on Hyperliquid to activate execution.</div>
+                  <div style={{ marginTop: '4px' }}>Then return here and refresh approval.</div>
+                </>
+              )}
+            </div>
             <PearSetupCard />
           </div>
         </>
@@ -320,6 +363,22 @@ export default function TradeClient() {
     return (
       <>
         <TerminalPaneTitle>EXECUTION TICKET</TerminalPaneTitle>
+        <div
+          style={{
+            marginBottom: '10px',
+            border: '1px solid var(--border)',
+            background: 'var(--bg-warm)',
+            padding: '8px 10px',
+            color: 'var(--text-muted)',
+            fontSize: '10px',
+            lineHeight: 1.45,
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+          }}
+        >
+          <div style={{ color: 'var(--primary)' }}>READY TO EXECUTE</div>
+          <div>Check margin, size, and leverage. Verify fills/positions on Hyperliquid.</div>
+        </div>
         <div style={{ color: 'var(--text-muted)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>
           DIRECTION
         </div>
@@ -764,7 +823,7 @@ export default function TradeClient() {
           items={[
             { label: 'SESSION', value: isAuthenticated ? 'OPERATOR' : 'BROWSE' },
             { label: 'BALANCE', value: isAuthenticated && perpUsdc ? `$${Number(perpUsdc).toFixed(2)}` : '—' },
-            { label: 'STATE', value: isAuthenticated ? (agentWalletApproval === 'pending' ? 'APPROVAL PENDING' : side === 'YES' ? 'THESIS ARMED' : 'FADE MODE') : 'READ-ONLY' },
+            { label: 'STATE', value: isAuthenticated ? (isReadyToTrade ? (side === 'YES' ? 'THESIS ARMED' : 'FADE MODE') : 'APPROVAL PENDING') : 'READ-ONLY' },
             { label: 'OPERATOR', value: address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'GUEST' },
           ]}
         />
