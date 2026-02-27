@@ -40,11 +40,11 @@ function orderConnectors(connectors: readonly Connector[]): Connector[] {
     const aid = getConnectorId(a);
     const bid = getConnectorId(b);
     const rank = (id: string) => {
-      // On mobile, prefer in-app injected wallets first.
-      // WalletConnect modal can stall on some iOS setups when wallet list fetch fails.
-      if (mobile && id.includes('injected')) return 0;
-      if (mobile && id.includes('coinbase')) return 1;
-      if (mobile && id.includes('walletconnect')) return 2;
+      // On mobile, prefer WalletConnect first so users get wallet choice UX,
+      // then injected wallets. Keep Coinbase as explicit fallback.
+      if (mobile && id.includes('walletconnect')) return 0;
+      if (mobile && id.includes('injected')) return 1;
+      if (mobile && id.includes('coinbase')) return 2;
       if (id.includes('injected')) return 0;
       if (id.includes('coinbase')) return 1;
       if (id.includes('walletconnect')) return 2;
@@ -69,10 +69,18 @@ export async function connectWalletSafely(opts: {
   if (!connectors?.length) throw new Error('No wallet connector available');
 
   const ordered = orderConnectors(connectors);
-  let lastErrorMessage = '';
   const mobile = isMobileBrowser();
+  // Prevent mobile auto-connect from jumping directly into Coinbase unless it's the only option.
+  const mobileCandidates = mobile
+    ? ordered.filter((c, _, arr) => {
+        const id = getConnectorId(c);
+        const isCoinbase = id.includes('coinbase');
+        return arr.length === 1 || !isCoinbase;
+      })
+    : ordered;
+  let lastErrorMessage = '';
 
-  for (const connector of ordered) {
+  for (const connector of mobileCandidates) {
     try {
       await connectAsync({ connector });
       return;
