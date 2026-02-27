@@ -124,9 +124,7 @@ export default function BetaWelcomePage() {
             <br />
             Report: confusion, trust gaps, failures.
           </div>
-          <div style={{ color: 'var(--text-muted)', fontSize: '11px' }}>
-            Need help? <Link href="/support">Support</Link>
-          </div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '11px' }}>Need help? Use the Support page from nav.</div>
         </div>
       }
       statusBar={
