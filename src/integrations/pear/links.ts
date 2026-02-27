@@ -1,5 +1,6 @@
 const DEFAULT_PEAR_APP_URL = 'https://app.pear.garden';
 const DEFAULT_HYPERLIQUID_APP_URL = 'https://app.hyperliquid.xyz';
+const DEFAULT_HYPERLIQUID_ONBOARDING_URL = 'https://app.hyperliquid.xyz/join/WARMARKET';
 
 function normalizeBaseUrl(raw?: string): string {
   const source = (raw ?? '').trim() || DEFAULT_PEAR_APP_URL;
@@ -28,6 +29,5 @@ export function getHyperliquidPortfolioUrl(): string {
 export function getHyperliquidOnboardingUrl(): string {
   const explicit = (process.env.NEXT_PUBLIC_HYPERLIQUID_ONBOARDING_URL ?? '').trim();
   if (explicit) return explicit;
-  const source = (process.env.NEXT_PUBLIC_HYPERLIQUID_APP_URL ?? '').trim() || DEFAULT_HYPERLIQUID_APP_URL;
-  return source.replace(/\/+$/, '');
+  return DEFAULT_HYPERLIQUID_ONBOARDING_URL;
 }
