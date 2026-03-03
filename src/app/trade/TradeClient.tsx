@@ -59,7 +59,7 @@ function isLikelyUsSessionOpenNow(): boolean {
   return minutes >= 9 * 60 + 30 && minutes < 16 * 60;
 }
 
-const MARKET_GROUP_ORDER = ['macro', 'geopolitical', 'commodities', 'crypto', 'tech'] as const;
+const MARKET_GROUP_ORDER = ['crypto', 'macro', 'geopolitical', 'commodities', 'tech'] as const;
 type MarketGroup = (typeof MARKET_GROUP_ORDER)[number];
 const MARKET_GROUP_LABEL: Record<MarketGroup, string> = {
   macro: 'MACRO',
