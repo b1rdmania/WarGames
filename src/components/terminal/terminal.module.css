@@ -5,7 +5,7 @@
   min-height: 100vh;
   background: var(--bg-deep);
   color: var(--text-primary);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   box-sizing: border-box;
   padding-top: max(12px, env(safe-area-inset-top));
   padding-bottom: 12px;

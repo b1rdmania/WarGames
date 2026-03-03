@@ -100,15 +100,27 @@ export default function BetaWelcomePage() {
             }}
           >
             <div style={{ color: 'var(--primary)', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              What To Test (5-10 mins)
+              Next Step
             </div>
-            <ol style={{ margin: 0, paddingLeft: '18px', color: 'var(--text-secondary)', fontSize: '12px', lineHeight: 1.8 }}>
-              <li>Connect wallet and complete setup/auth</li>
-              <li>Open one small position</li>
-              <li>Verify the position on Hyperliquid</li>
-              <li>Close the position</li>
-              <li>Check Portfolio and Stats</li>
-            </ol>
+            <div style={{ color: 'var(--text-secondary)', fontSize: '12px', lineHeight: 1.7 }}>
+              Run the single beta checklist flow for execution + trust validation.
+            </div>
+          </div>
+
+          <Link href="/beta/test-checklist" style={{ textDecoration: 'none' }}>
+            <TerminalButton fullWidth>OPEN TEST CHECKLIST</TerminalButton>
+          </Link>
+
+          <div
+            style={{
+              borderTop: '1px solid var(--border)',
+              paddingTop: '12px',
+              color: 'var(--text-muted)',
+              fontSize: '11px',
+              lineHeight: 1.6,
+            }}
+          >
+            If blocked, report directly in beta chat with wallet short, market, timestamp, screenshot, and Hyperliquid verification.
           </div>
 
           <Link href="/trade" style={{ textDecoration: 'none' }}>
@@ -122,9 +134,9 @@ export default function BetaWelcomePage() {
           <div style={{ color: 'var(--text-secondary)', fontSize: '11px', lineHeight: 1.6 }}>
             Voice notes and screenshots are ideal.
             <br />
-            Report: confusion, trust gaps, failures.
+            Report: confusion, trust gaps, and failures.
           </div>
-          <div style={{ color: 'var(--text-muted)', fontSize: '11px' }}>Need help? Use the Support page from nav.</div>
+          <div style={{ color: 'var(--text-muted)', fontSize: '11px' }}>No staffed support desk in this phase.</div>
         </div>
       }
       statusBar={

@@ -85,7 +85,7 @@ export default function TradeClient() {
   const { perpUsdc } = useVaultBalances(accessToken);
   const { markets: effectiveMarkets } = useValidatedMarkets();
 
-  const [selectedMarketId, setSelectedMarketId] = useState<string | null>('risk-on-risk-off');
+  const [selectedMarketId, setSelectedMarketId] = useState<string | null>('eth-vs-btc');
   const [side, setSide] = useState<'YES' | 'NO'>('YES');
   const [size, setSize] = useState(50);
   const [leverage, setLeverage] = useState(
