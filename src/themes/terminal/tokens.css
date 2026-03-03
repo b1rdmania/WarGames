@@ -53,8 +53,8 @@
 
   /* Typography */
   --font-display: 'OCR A Std', 'Eurostile', 'Bank Gothic', 'Microgramma D Extended', 'Lucida Console', monospace;
-  --font-sans: 'OCR A Std', 'Eurostile', 'Bank Gothic', 'Microgramma D Extended', 'Lucida Console', monospace;
-  --font-mono: 'OCR A Std', 'Eurostile', 'Bank Gothic', 'Microgramma D Extended', 'Lucida Console', monospace;
+  --font-sans: 'JetBrains Mono', 'SF Mono', monospace;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
 
   /* Legacy aliases */
   --pear-dark: var(--bg-deep);
