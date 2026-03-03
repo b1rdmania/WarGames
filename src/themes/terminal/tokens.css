@@ -52,7 +52,7 @@
   --info: var(--secondary);
 
   /* Typography */
-  --font-display: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-display: 'OCR A Std', 'Eurostile', 'Bank Gothic', 'Microgramma D Extended', 'Lucida Console', monospace;
   --font-sans: 'JetBrains Mono', 'SF Mono', monospace;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
 
