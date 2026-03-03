@@ -65,7 +65,7 @@
   --norad-fault: #ff8f9a;
 
   /* Typography */
-  --font-display: 'OCR A Std', 'Eurostile', 'Bank Gothic', 'Microgramma D Extended', 'Lucida Console', monospace;
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
 
