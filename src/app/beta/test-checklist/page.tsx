@@ -29,12 +29,8 @@ export default function BetaTestChecklistPage() {
             <div>Use small size only.</div>
             <div>Target time: 5-10 minutes.</div>
           </div>
-
-          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '10px', display: 'grid', gap: '6px', fontSize: '12px' }}>
-            <Link href="/beta">Beta Welcome</Link>
-            <Link href="/feedback">Feedback</Link>
-            <Link href="/support">Support</Link>
-            <Link href="/risk">Risk</Link>
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '10px', color: 'var(--text-muted)', fontSize: '11px', lineHeight: 1.6 }}>
+            Keep this checklist open and run it top-to-bottom once.
           </div>
         </div>
       }
@@ -81,6 +77,9 @@ Screenshot or screen recording:`}</pre>
           <Link href="/trade" style={{ textDecoration: 'none' }}>
             <TerminalButton variant="primary" fullWidth>OPEN TRADE TERMINAL</TerminalButton>
           </Link>
+          <Link href="/beta" style={{ textDecoration: 'none' }}>
+            <TerminalButton fullWidth>BETA WELCOME</TerminalButton>
+          </Link>
         </div>
       }
       rightPane={
@@ -94,6 +93,9 @@ Screenshot or screen recording:`}</pre>
           </div>
           <div style={{ color: 'var(--text-muted)', fontSize: '11px' }}>
             Voice notes and scrappy feedback are fine.
+          </div>
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '10px', display: 'grid', gap: '6px', fontSize: '12px' }}>
+            <Link href="/risk">Risk</Link>
           </div>
         </div>
       }
