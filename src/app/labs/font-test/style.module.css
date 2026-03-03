@@ -1,0 +1,152 @@
+.page {
+  min-height: 100vh;
+  background: #02070a;
+  color: #9ab0a7;
+  font-family: var(--font-mono), "JetBrains Mono", "SF Mono", "Consolas", monospace;
+}
+
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 20px 72px;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+  color: #00ff9f;
+  font-size: 34px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.link {
+  border: 1px solid #0d5b42;
+  color: #00ff9f;
+  text-decoration: none;
+  padding: 10px 14px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.link:hover {
+  border-color: #00ff9f;
+  background: rgba(0, 255, 159, 0.08);
+}
+
+.lede {
+  margin: 18px 0 0;
+  max-width: 900px;
+  line-height: 1.6;
+  font-size: 16px;
+  color: #8fa59d;
+}
+
+.grid {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.mockCtaWrap {
+  margin-top: 16px;
+}
+
+.card {
+  border: 1px solid #0d5b42;
+  background: rgba(0, 20, 16, 0.4);
+  padding: 24px;
+}
+
+.experimentalCard {
+  font-family: "OCR A Std", "Eurostile", "Bank Gothic", "Microgramma D Extended", "Lucida Console", monospace;
+}
+
+.kicker {
+  color: #7a8d86;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.experimentalKicker {
+  color: #9aeebf;
+}
+
+.currentHeading {
+  margin: 14px 0 0;
+  font-size: 34px;
+  line-height: 1.1;
+  letter-spacing: 0.12em;
+  color: #00ff9f;
+}
+
+.currentBody {
+  margin: 18px 0 0;
+  font-size: 19px;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: #a8bdb5;
+}
+
+.currentMeta {
+  margin-top: 24px;
+  border-top: 1px solid #0d5b42;
+  padding-top: 14px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: #7f948d;
+}
+
+.experimentalHeading {
+  margin: 14px 0 0;
+  font-size: 52px;
+  line-height: 0.95;
+  letter-spacing: 0.09em;
+  color: #7dffd1;
+  text-transform: uppercase;
+}
+
+.experimentalBody {
+  margin: 18px 0 0;
+  font-size: 18px;
+  line-height: 1.62;
+  letter-spacing: 0.02em;
+  color: #bae6d2;
+}
+
+.experimentalMeta {
+  margin-top: 24px;
+  border-top: 1px solid #0d5b42;
+  padding-top: 14px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: #9ceac4;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .currentHeading {
+    font-size: 28px;
+  }
+
+  .experimentalHeading {
+    font-size: 44px;
+  }
+
+  .currentBody,
+  .experimentalBody {
+    font-size: 16px;
+  }
+}

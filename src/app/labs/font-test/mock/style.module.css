@@ -1,0 +1,255 @@
+.page {
+  min-height: 100vh;
+  background: #02070a;
+  color: #99b2a8;
+}
+
+.wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 14px 28px;
+}
+
+.topBar {
+  border: 1px solid #0d5b42;
+  background: rgba(0, 16, 12, 0.7);
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+}
+
+.brand {
+  color: #00ff9f;
+  font-size: 16px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modeBtn {
+  border: 1px solid #0d5b42;
+  background: #061b15;
+  color: #96b0a6;
+  padding: 8px 10px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.modeBtn:hover {
+  border-color: #00ff9f;
+}
+
+.modeBtnActive {
+  color: #00ff9f;
+  border-color: #00ff9f;
+}
+
+.backLink {
+  border: 1px solid #0d5b42;
+  color: #00ff9f;
+  text-decoration: none;
+  padding: 8px 10px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.frame {
+  margin-top: 10px;
+  border: 1px solid #0d5b42;
+  background: rgba(0, 18, 14, 0.55);
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr 1fr;
+  gap: 10px;
+}
+
+.fontCurrent {
+  font-family: var(--font-mono), "JetBrains Mono", "SF Mono", "Consolas", monospace;
+}
+
+.fontObscureA {
+  font-family: "OCR A Std", "Eurostile", "Bank Gothic", "Microgramma D Extended", "Lucida Console", monospace;
+}
+
+.fontObscureB {
+  font-family: "Share Tech Mono", "Andale Mono", "Lucida Console", monospace;
+}
+
+.card {
+  border: 1px solid #0d5b42;
+  background: rgba(0, 12, 10, 0.8);
+  min-height: 420px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHead {
+  color: #00ff9f;
+  font-size: 18px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.row {
+  border: 1px solid #0d5b42;
+  padding: 14px 12px;
+  margin-bottom: 10px;
+  color: #b3c8bf;
+  font-size: 32px;
+  letter-spacing: 0.08em;
+}
+
+.meta {
+  margin-top: auto;
+  border-top: 1px solid #0d5b42;
+  padding-top: 12px;
+  color: #769489;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  color: #d4efe4;
+  font-size: 44px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.copy {
+  margin-top: 12px;
+  color: #a4bcb3;
+  font-size: 24px;
+  line-height: 1.35;
+}
+
+.kvGrid {
+  margin-top: 16px;
+  border-top: 1px solid #0d5b42;
+}
+
+.kvLabel,
+.kvValue {
+  border-bottom: 1px solid #0d5b42;
+  padding: 12px 0;
+}
+
+.kvLabel {
+  color: #7a968d;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.kvValue {
+  color: #d0e4dd;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+}
+
+.segment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.segBtn {
+  border: 1px solid #0d5b42;
+  background: #061b15;
+  color: #92a9a0;
+  padding: 12px;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.segBtnActive {
+  border-color: #00ff9f;
+  color: #01281d;
+  background: #00ff9f;
+}
+
+.statRow {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #a3bbb2;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rule {
+  margin-top: 14px;
+  border-top: 1px solid #0d5b42;
+}
+
+.executeBtn {
+  margin-top: 20px;
+  border: 1px solid #00ff9f;
+  background: transparent;
+  color: #00ff9f;
+  padding: 14px 12px;
+  font-size: 22px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1100px) {
+  .frame {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 300px;
+  }
+
+  .row {
+    font-size: 24px;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .copy {
+    font-size: 19px;
+  }
+
+  .kvValue {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 640px) {
+  .topBar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+  }
+
+  .modeBtn,
+  .backLink {
+    font-size: 11px;
+    padding: 7px 9px;
+  }
+}
