@@ -153,13 +153,13 @@ export const MARKETS: PearMarketConfig[] = [
   },
 
   {
-    id: 'd5-wars',
-    name: 'D5 Wars',
-    description: 'PLACEHOLDER: finalize D5 wars narrative and rationale.',
+    id: 'defi-wars',
+    name: 'DeFi Wars',
+    description: 'PLACEHOLDER: finalize DeFi Wars narrative and rationale.',
     category: 'crypto',
     pairs: {
-      long: 'MORE',
-      short: 'HYPE',
+      long: 'MORPHO',
+      short: 'AAVE',
     },
     leverage: 3,
     status: 'live',
