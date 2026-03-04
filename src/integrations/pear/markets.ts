@@ -152,6 +152,19 @@ export const MARKETS: PearMarketConfig[] = [
     status: 'live',
   },
 
+  {
+    id: 'd5-wars',
+    name: 'D5 Wars',
+    description: 'PLACEHOLDER: finalize D5 wars narrative and rationale.',
+    category: 'crypto',
+    pairs: {
+      long: 'MORE',
+      short: 'HYPE',
+    },
+    leverage: 3,
+    status: 'live',
+  },
+
 ];
 
 export function getMarketById(id: string): PearMarketConfig | undefined {

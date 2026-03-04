@@ -75,6 +75,15 @@ const MARKET_NARRATIVES: Record<string, {
     longLabel: '🚀 HYPE CONVICTION',
     shortLabel: '🧺 L1 INDEX SHORT',
   },
+  'd5-wars': {
+    thesis: 'PLACEHOLDER: D5 wars thesis copy goes here.',
+    overview: 'PLACEHOLDER: add overview for the D5 long/short setup.',
+    why: 'PLACEHOLDER: explain catalyst and regime assumptions.',
+    model: 'Long MORE vs short HYPE as a 50/50 relative-value expression.',
+    poweredBy: 'Pear execution + Hyperliquid settlement.',
+    longLabel: '🟢 D5 LONG',
+    shortLabel: '🔴 D5 SHORT',
+  },
 };
 
 export function getMarketNarrative(marketId: string) {

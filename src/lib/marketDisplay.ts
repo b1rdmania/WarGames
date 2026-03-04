@@ -8,6 +8,7 @@ const ASSET_NAMES: Record<string, string> = {
   SUI: 'Sui',
   APT: 'Aptos',
   HYPE: 'Hyperliquid',
+  MORE: 'More',
   INTC: 'Intel',
   AMD: 'Advanced Micro Devices',
   ORCL: 'Oracle',
