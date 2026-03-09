@@ -1,6 +1,7 @@
 .pane {
   display: grid;
   gap: 10px;
+  font-family: var(--font-sans);
 }
 
 .modeBar {
@@ -47,6 +48,7 @@
 }
 
 .hero {
+  font-family: var(--font-mono);
   font-size: 32px;
   line-height: 1;
   color: var(--primary);
@@ -54,6 +56,7 @@
 }
 
 .heroLabel {
+  font-family: var(--font-display);
   margin-top: 4px;
   color: var(--text-muted);
   font-size: 10px;
@@ -73,6 +76,7 @@
 }
 
 .subhead {
+  font-family: var(--font-display);
   color: var(--text-muted);
   font-size: 10px;
   letter-spacing: 0.08em;
@@ -114,6 +118,7 @@
 }
 
 .mixLabel {
+  font-family: var(--font-mono);
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -155,6 +160,7 @@
 }
 
 .pulseLabel {
+  font-family: var(--font-mono);
   text-align: center;
   color: var(--text-muted);
   font-size: 9px;
@@ -175,6 +181,7 @@
 }
 
 .goalHead {
+  font-family: var(--font-mono);
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -208,6 +215,7 @@
 }
 
 .head {
+  font-family: var(--font-mono);
   border-bottom: 1px solid var(--border);
   color: var(--text-muted);
   font-size: 10px;
@@ -216,6 +224,7 @@
 }
 
 .row {
+  font-family: var(--font-mono);
   border-bottom: 1px solid var(--border-subtle);
   color: var(--text-secondary);
   font-size: 12px;
@@ -226,11 +235,13 @@
 }
 
 .muted {
+  font-family: var(--font-sans);
   color: var(--text-muted);
   font-size: 12px;
 }
 
 .error {
+  font-family: var(--font-sans);
   color: var(--loss);
   font-size: 12px;
 }
