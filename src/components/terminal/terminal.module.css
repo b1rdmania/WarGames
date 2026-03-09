@@ -5,7 +5,7 @@
   min-height: 100vh;
   background: var(--bg-deep);
   color: var(--text-primary);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   box-sizing: border-box;
   padding-top: max(12px, env(safe-area-inset-top));
   padding-bottom: 12px;
@@ -428,7 +428,7 @@
   width: 100%;
   box-sizing: border-box;
   font-size: 12px;
-  font-family: inherit;
+  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
@@ -506,6 +506,7 @@
   padding: 9px 0;
   border-bottom: 1px solid var(--border);
   font-size: 12px;
+  font-family: var(--font-mono);
 }
 
 .kv span {
@@ -531,7 +532,7 @@
   background: var(--bg-warm);
   color: var(--text-primary);
   padding: 10px;
-  font: inherit;
+  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 12px;
@@ -556,7 +557,7 @@
   background: var(--bg-warm);
   color: var(--text-primary);
   padding: 10px;
-  font: inherit;
+  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 12px;
@@ -583,7 +584,7 @@
   background: var(--bg-warm);
   color: var(--text-primary);
   padding: 10px;
-  font: inherit;
+  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 12px;
@@ -607,7 +608,7 @@
   background: var(--bg-warm);
   color: var(--primary);
   padding: 10px;
-  font: inherit;
+  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 12px;
@@ -632,6 +633,7 @@
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  font-family: var(--font-mono);
 }
 
 /* Command Bar (F-keys) */
@@ -640,6 +642,7 @@
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 8px;
+  font-family: var(--font-mono);
 }
 
 .commandBar span {
@@ -655,6 +658,7 @@
   display: flex;
   justify-content: space-between;
   color: var(--primary);
+  font-family: var(--font-mono);
 }
 
 /* Responsive */

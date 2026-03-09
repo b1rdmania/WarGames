@@ -27,6 +27,7 @@
 
 .sectionLabel {
   color: var(--primary);
+  font-family: var(--font-display);
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -35,6 +36,7 @@
 
 .body {
   color: var(--text-secondary);
+  font-family: var(--font-sans);
   font-size: 12px;
   line-height: 1.7;
 }
@@ -75,6 +77,7 @@
 .visualCaption {
   margin-top: 8px;
   color: var(--text-muted);
+  font-family: var(--font-display);
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -118,6 +121,7 @@
 
 .link {
   color: var(--text-secondary);
+  font-family: var(--font-sans);
   text-decoration: none;
   font-size: 12px;
 }
