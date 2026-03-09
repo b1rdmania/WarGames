@@ -18,30 +18,37 @@ export default function BetaWelcomePage() {
     <TerminalShell
       menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       leftPane={
-          <div style={{ display: 'grid', gap: '10px' }}>
-            <TerminalPaneTitle>BETA NOTES</TerminalPaneTitle>
-          <div style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: '11px', lineHeight: 1.6 }}>
+        <div style={{ display: 'grid', gap: '10px' }}>
+          <TerminalPaneTitle>BEFORE YOU START</TerminalPaneTitle>
+          <div style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: '11px', lineHeight: 1.65 }}>
             Closed cohort.
             <br />
             Small size only.
             <br />
-            Focus: trust + execution.
+            Focus: trust + execution quality.
+          </div>
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '10px', color: 'var(--text-muted)', fontFamily: 'var(--font-sans)', fontSize: '11px', lineHeight: 1.6 }}>
+            This is experimental DeFi.
+            <br />
+            You can lose money quickly.
+            <br />
+            Verify final state on Hyperliquid.
           </div>
         </div>
       }
       centerPane={
-        <div style={{ display: 'grid', gap: '16px' }}>
+        <div style={{ display: 'grid', gap: '14px' }}>
           <TerminalPaneTitle>BETA TESTER WELCOME</TerminalPaneTitle>
 
           <div
             aria-hidden="true"
             style={{
-              display: 'grid',
-              justifyItems: 'center',
-              gap: '10px',
-              padding: '6px 0 2px',
-              minHeight: 'clamp(180px, 28vh, 260px)',
-              alignContent: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '12px',
+              padding: '6px 0',
+              minHeight: 'clamp(96px, 16vh, 132px)',
             }}
           >
             <img
@@ -51,8 +58,8 @@ export default function BetaWelcomePage() {
               height={176}
               style={{
                 imageRendering: 'pixelated',
-                width: 'clamp(140px, 18vw, 220px)',
-                height: 'clamp(140px, 18vw, 220px)',
+                width: 'clamp(86px, 10vw, 120px)',
+                height: 'clamp(86px, 10vw, 120px)',
                 objectFit: 'contain',
               }}
             />
@@ -63,8 +70,8 @@ export default function BetaWelcomePage() {
               height={56}
               style={{
                 imageRendering: 'pixelated',
-                width: 'clamp(240px, 34vw, 420px)',
-                height: 'clamp(42px, 6vw, 72px)',
+                width: 'clamp(170px, 26vw, 300px)',
+                height: 'clamp(30px, 4vw, 52px)',
                 objectFit: 'contain',
                 opacity: 0.92,
                 maxWidth: '100%',
@@ -76,20 +83,11 @@ export default function BetaWelcomePage() {
             style={{
               color: 'var(--text-secondary)',
               fontFamily: 'var(--font-sans)',
-              fontSize: '13px',
-              lineHeight: 1.7,
-              display: 'grid',
-              gap: '10px',
+              fontSize: '12px',
+              lineHeight: 1.65,
             }}
           >
-            <p style={{ margin: 0 }}>
-              Thanks for being a beta tester. WAR.MARKET is an experimental terminal for narrative basket trades routed via
-              Pear Protocol and settled on Hyperliquid.
-            </p>
-            <p style={{ margin: 0 }}>
-              Please use small size only. This is high-risk, experimental DeFi. You can lose money quickly, and flows may
-              fail or behave unexpectedly while we are testing.
-            </p>
+            Thanks for being a beta tester. Run one full trade cycle and tell me how it felt.
           </div>
 
           <div
@@ -101,7 +99,7 @@ export default function BetaWelcomePage() {
             }}
           >
             <div style={{ color: 'var(--primary)', fontFamily: 'var(--font-display)', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              What To Test (5-10 mins)
+              Quick Test Flow (5-10 mins)
             </div>
             <ol style={{ margin: 0, paddingLeft: '18px', color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: '12px', lineHeight: 1.8 }}>
               <li>Connect wallet on mobile or desktop</li>
@@ -134,6 +132,11 @@ export default function BetaWelcomePage() {
                 What you liked, what felt easy, what you hated about the UX, what steps weren&apos;t explained well,
                 whether the basket settled, whether you understood what was happening, and whether you&apos;d use it.
               </div>
+              <div style={{ marginTop: '2px', borderTop: '1px solid var(--border)', paddingTop: '8px', display: 'grid', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '11px' }}>
+                <a href="mailto:birdandy@me.com">Email: birdandy@me.com</a>
+                <a href="https://t.me/birdman1a" target="_blank" rel="noreferrer">Telegram: @birdman1a</a>
+                <a href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">X: @b1rdmania</a>
+              </div>
             </div>
           </div>
 
@@ -157,11 +160,11 @@ export default function BetaWelcomePage() {
       }
       rightPane={
         <div style={{ display: 'grid', gap: '10px' }}>
-          <TerminalPaneTitle>CONTACT</TerminalPaneTitle>
+          <TerminalPaneTitle>SEND FEEDBACK</TerminalPaneTitle>
           <div style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: '11px', lineHeight: 1.6 }}>
             Email: <a href="mailto:birdandy@me.com">birdandy@me.com</a>
             <br />
-            Telegram: birdman1a
+            Telegram: <a href="https://t.me/birdman1a" target="_blank" rel="noreferrer">@birdman1a</a>
             <br />
             X: <a href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">@b1rdmania</a>
           </div>
