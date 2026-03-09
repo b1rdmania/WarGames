@@ -125,27 +125,16 @@ export default function BetaWelcomePage() {
             }}
           >
             <div style={{ color: 'var(--primary)', fontFamily: 'var(--font-display)', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '6px' }}>
-              Report Back In This Format
+              Report Back (Any Format)
             </div>
-            <pre
-              style={{
-                margin: 0,
-                border: '1px solid var(--border)',
-                background: 'var(--bg-warm)',
-                padding: '10px',
-                overflowX: 'auto',
-                color: 'var(--text-secondary)',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                lineHeight: 1.55,
-                whiteSpace: 'pre-wrap',
-              }}
-            >{`Device + wallet:
-Trade attempted (market + side + size):
-Did it open on Hyperliquid? (Y/N):
-Did it close on Hyperliquid? (Y/N):
-Biggest confusion point (1 line):
-Screenshot or screen recording:`}</pre>
+            <div style={{ border: '1px solid var(--border)', background: 'var(--bg-warm)', padding: '10px', display: 'grid', gap: '8px' }}>
+              <div>Report back in any format you find easiest.</div>
+              <div>I&apos;m happy to receive voice notes, emails, Telegram messages, or tweets.</div>
+              <div>
+                What you liked, what felt easy, what you hated about the UX, what steps weren&apos;t explained well,
+                whether the basket settled, whether you understood what was happening, and whether you&apos;d use it.
+              </div>
+            </div>
           </div>
 
           <div
@@ -168,11 +157,13 @@ Screenshot or screen recording:`}</pre>
       }
       rightPane={
         <div style={{ display: 'grid', gap: '10px' }}>
-          <TerminalPaneTitle>FEEDBACK</TerminalPaneTitle>
+          <TerminalPaneTitle>CONTACT</TerminalPaneTitle>
           <div style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: '11px', lineHeight: 1.6 }}>
-            Voice notes and screenshots are ideal.
+            Email: <a href="mailto:birdandy@me.com">birdandy@me.com</a>
             <br />
-            Report: confusion, trust gaps, and failures.
+            Telegram: birdman1a
+            <br />
+            X: <a href="https://x.com/b1rdmania" target="_blank" rel="noreferrer">@b1rdmania</a>
           </div>
           <div style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-sans)', fontSize: '11px' }}>No staffed support desk in this phase.</div>
           <div style={{ borderTop: '1px solid var(--border)', paddingTop: '10px', display: 'grid', gap: '6px', fontSize: '12px' }}>
