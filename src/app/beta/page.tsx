@@ -6,7 +6,7 @@ import { TerminalShell, TerminalMenuBar, TerminalPaneTitle, TerminalSessionBadge
 
 export const metadata: Metadata = {
   title: 'Beta Tester Welcome',
-  description: 'WAR.MARKET closed beta onboarding and test instructions',
+  description: 'WAR.MARKET single-page beta onboarding and test checklist',
   robots: 'noindex, nofollow',
 };
 
@@ -18,9 +18,9 @@ export default function BetaWelcomePage() {
     <TerminalShell
       menuBar={<TerminalMenuBar items={[]} right={<TerminalSessionBadge />} />}
       leftPane={
-        <div style={{ display: 'grid', gap: '10px' }}>
-          <TerminalPaneTitle>BETA NOTES</TerminalPaneTitle>
-          <div style={{ color: 'var(--text-secondary)', fontSize: '11px', lineHeight: 1.6 }}>
+          <div style={{ display: 'grid', gap: '10px' }}>
+            <TerminalPaneTitle>BETA NOTES</TerminalPaneTitle>
+          <div style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: '11px', lineHeight: 1.6 }}>
             Closed cohort.
             <br />
             Small size only.
@@ -75,6 +75,7 @@ export default function BetaWelcomePage() {
           <div
             style={{
               color: 'var(--text-secondary)',
+              fontFamily: 'var(--font-sans)',
               fontSize: '13px',
               lineHeight: 1.7,
               display: 'grid',
@@ -99,23 +100,60 @@ export default function BetaWelcomePage() {
               gap: '10px',
             }}
           >
-            <div style={{ color: 'var(--primary)', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              Next Step
+            <div style={{ color: 'var(--primary)', fontFamily: 'var(--font-display)', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+              What To Test (5-10 mins)
             </div>
-            <div style={{ color: 'var(--text-secondary)', fontSize: '12px', lineHeight: 1.7 }}>
-              Run the single beta checklist flow for execution + trust validation.
-            </div>
+            <ol style={{ margin: 0, paddingLeft: '18px', color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: '12px', lineHeight: 1.8 }}>
+              <li>Connect wallet on mobile or desktop</li>
+              <li>Authenticate with Pear</li>
+              <li>Open Hyperliquid via referral and complete first-time approval if prompted</li>
+              <li>Open one small crypto position</li>
+              <li>Verify position on Hyperliquid</li>
+              <li>Close the position and verify it actually closed on Hyperliquid</li>
+              <li>Check Portfolio and Stats for consistency</li>
+            </ol>
           </div>
 
-          <Link href="/beta/test-checklist" style={{ textDecoration: 'none' }}>
-            <TerminalButton fullWidth>OPEN TEST CHECKLIST</TerminalButton>
-          </Link>
+          <div
+            style={{
+              borderTop: '1px solid var(--border)',
+              paddingTop: '12px',
+              color: 'var(--text-secondary)',
+              fontFamily: 'var(--font-sans)',
+              fontSize: '12px',
+              lineHeight: 1.75,
+            }}
+          >
+            <div style={{ color: 'var(--primary)', fontFamily: 'var(--font-display)', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '6px' }}>
+              Report Back In This Format
+            </div>
+            <pre
+              style={{
+                margin: 0,
+                border: '1px solid var(--border)',
+                background: 'var(--bg-warm)',
+                padding: '10px',
+                overflowX: 'auto',
+                color: 'var(--text-secondary)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                lineHeight: 1.55,
+                whiteSpace: 'pre-wrap',
+              }}
+            >{`Device + wallet:
+Trade attempted (market + side + size):
+Did it open on Hyperliquid? (Y/N):
+Did it close on Hyperliquid? (Y/N):
+Biggest confusion point (1 line):
+Screenshot or screen recording:`}</pre>
+          </div>
 
           <div
             style={{
               borderTop: '1px solid var(--border)',
               paddingTop: '12px',
               color: 'var(--text-muted)',
+              fontFamily: 'var(--font-sans)',
               fontSize: '11px',
               lineHeight: 1.6,
             }}
@@ -131,12 +169,15 @@ export default function BetaWelcomePage() {
       rightPane={
         <div style={{ display: 'grid', gap: '10px' }}>
           <TerminalPaneTitle>FEEDBACK</TerminalPaneTitle>
-          <div style={{ color: 'var(--text-secondary)', fontSize: '11px', lineHeight: 1.6 }}>
+          <div style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', fontSize: '11px', lineHeight: 1.6 }}>
             Voice notes and screenshots are ideal.
             <br />
             Report: confusion, trust gaps, and failures.
           </div>
-          <div style={{ color: 'var(--text-muted)', fontSize: '11px' }}>No staffed support desk in this phase.</div>
+          <div style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-sans)', fontSize: '11px' }}>No staffed support desk in this phase.</div>
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: '10px', display: 'grid', gap: '6px', fontSize: '12px' }}>
+            <Link href="/risk">Risk</Link>
+          </div>
         </div>
       }
       statusBar={
