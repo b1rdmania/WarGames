@@ -27,7 +27,7 @@ export const MARKETS: PearMarketConfig[] = [
       ],
     },
     leverage: 3,
-    status: 'paused',
+    status: 'live',
   },
 
   {
@@ -49,7 +49,7 @@ export const MARKETS: PearMarketConfig[] = [
       ],
     },
     leverage: 2,
-    status: 'paused',
+    status: 'live',
   },
 
   {
@@ -69,7 +69,7 @@ export const MARKETS: PearMarketConfig[] = [
       ],
     },
     leverage: 3,
-    status: 'paused',
+    status: 'live',
   },
 
   {
@@ -89,7 +89,7 @@ export const MARKETS: PearMarketConfig[] = [
       ],
     },
     leverage: 3,
-    status: 'paused',
+    status: 'live',
   },
 
   // === CRYPTO (24/7 TRADING) ===
