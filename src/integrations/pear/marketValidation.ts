@@ -77,10 +77,11 @@ export function validateNarrativeMarkets(
         };
       }
 
-      // Active feed is advisory (top/active markets), not a full tradability registry.
-      // Do not hard-disable configured markets just because a leg is absent there.
-      const ok = true;
       const legs = [...m.basket.long.map((a) => a.asset), ...m.basket.short.map((a) => a.asset)];
+      const missingLegs = activeUpper.size
+        ? legs.filter((s) => !activeUpper.has(normalized(s)) && !activeUpper.has(base(s)))
+        : [];
+      const ok = missingLegs.length === 0;
       const perLegCaps = legs
         .map((s) => lookupCap(s, leverageCaps))
         .filter((v): v is number => typeof v === 'number');
@@ -91,7 +92,7 @@ export function validateNarrativeMarkets(
         ...m,
         resolvedBasket: { ...m.basket },
         isTradable: ok,
-        unavailableReason: undefined,
+        unavailableReason: ok ? undefined : `Live API check failed. Missing legs: ${missingLegs.join(', ')}`,
         maxAllowedLeverage,
         effectiveLeverage,
       };
@@ -100,9 +101,11 @@ export function validateNarrativeMarkets(
     if (m.pairs) {
       const longOk = activeUpper.has(m.pairs.long.toUpperCase()) || activeUpper.has(base(m.pairs.long));
       const shortOk = activeUpper.has(m.pairs.short.toUpperCase()) || activeUpper.has(base(m.pairs.short));
-      // Active feed is advisory (top/active markets), not a full tradability registry.
-      // Do not hard-disable configured markets just because a leg is absent there.
-      const ok = true;
+      const ok = activeUpper.size ? (longOk && shortOk) : true;
+      const missingLegs = [
+        ...(longOk ? [] : [m.pairs.long]),
+        ...(shortOk ? [] : [m.pairs.short]),
+      ];
 
       const longCap = lookupCap(m.pairs.long, leverageCaps);
       const shortCap = lookupCap(m.pairs.short, leverageCaps);
@@ -116,7 +119,7 @@ export function validateNarrativeMarkets(
         ...m,
         resolvedPairs: { ...m.pairs },
         isTradable: ok,
-        unavailableReason: undefined,
+        unavailableReason: ok ? undefined : `Live API check failed. Missing legs: ${missingLegs.join(', ')}`,
         maxAllowedLeverage,
         effectiveLeverage,
       };

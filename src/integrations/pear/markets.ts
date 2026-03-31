@@ -92,6 +92,111 @@ export const MARKETS: PearMarketConfig[] = [
     status: 'live',
   },
 
+  {
+    id: 'semiconductor-stranglehold',
+    name: 'Semiconductor Stranglehold',
+    description: 'Chip supply control tightens and hardware leadership rotates hard',
+    category: 'macro',
+    basket: {
+      long: [
+        { asset: 'vntl:SEMIS', weight: 0.30 },
+        { asset: 'xyz:INTC', weight: 0.35 },
+        { asset: 'xyz:AMD', weight: 0.35 },
+      ],
+      short: [
+        { asset: 'xyz:TSM', weight: 0.40 },
+        { asset: 'xyz:NVDA', weight: 0.35 },
+        { asset: 'km:USTECH', weight: 0.25 },
+      ],
+    },
+    leverage: 3,
+    status: 'live',
+  },
+
+  {
+    id: 'api-armageddon',
+    name: 'API Armageddon',
+    description: 'Cloud dependency snaps and platform concentration gets repriced',
+    category: 'macro',
+    basket: {
+      long: [
+        { asset: 'xyz:GOLD', weight: 0.35 },
+        { asset: 'BTC', weight: 0.35 },
+        { asset: 'XMR', weight: 0.30 },
+      ],
+      short: [
+        { asset: 'xyz:GOOGL', weight: 0.35 },
+        { asset: 'xyz:AMZN', weight: 0.35 },
+        { asset: 'xyz:MSFT', weight: 0.30 },
+      ],
+    },
+    leverage: 3,
+    status: 'live',
+  },
+
+  {
+    id: 'grid-down',
+    name: 'Grid Down',
+    description: 'Power-system stress pushes capital into hard infrastructure and safety',
+    category: 'geopolitical',
+    basket: {
+      long: [
+        { asset: 'vntl:DEFENSE', weight: 0.40 },
+        { asset: 'xyz:NATGAS', weight: 0.35 },
+        { asset: 'xyz:GOLD', weight: 0.25 },
+      ],
+      short: [
+        { asset: 'km:US500', weight: 0.45 },
+        { asset: 'xyz:AMZN', weight: 0.30 },
+        { asset: 'xyz:MSFT', weight: 0.25 },
+      ],
+    },
+    leverage: 3,
+    status: 'live',
+  },
+
+  {
+    id: 'internet-shutdown',
+    name: 'Internet Shutdown',
+    description: 'Connectivity fractures while censorship and outages hit platform beta',
+    category: 'geopolitical',
+    basket: {
+      long: [
+        { asset: 'BTC', weight: 0.40 },
+        { asset: 'XMR', weight: 0.30 },
+        { asset: 'HYPE', weight: 0.30 },
+      ],
+      short: [
+        { asset: 'xyz:META', weight: 0.35 },
+        { asset: 'xyz:GOOGL', weight: 0.35 },
+        { asset: 'xyz:AMZN', weight: 0.30 },
+      ],
+    },
+    leverage: 3,
+    status: 'live',
+  },
+
+  {
+    id: 'sovereign-debt-spiral',
+    name: 'Sovereign Debt Spiral',
+    description: 'Rates shock and sovereign credibility stress trigger flight-to-safety',
+    category: 'macro',
+    basket: {
+      long: [
+        { asset: 'xyz:GOLD', weight: 0.40 },
+        { asset: 'xyz:JPY', weight: 0.30 },
+        { asset: 'BTC', weight: 0.30 },
+      ],
+      short: [
+        { asset: 'xyz:EUR', weight: 0.35 },
+        { asset: 'km:US500', weight: 0.35 },
+        { asset: 'xyz:SP500', weight: 0.30 },
+      ],
+    },
+    leverage: 3,
+    status: 'live',
+  },
+
   // === CRYPTO (24/7 TRADING) ===
 
   {

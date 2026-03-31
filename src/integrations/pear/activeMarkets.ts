@@ -7,6 +7,10 @@ export type ActiveMarketDiscovery = {
   maxLeverageBySymbol: Map<string, number>;
 };
 
+type PearMarketListResponse = {
+  markets?: Array<{ name?: string }>;
+};
+
 function normalizeSymbol(raw: string): string {
   return raw.trim().toUpperCase();
 }
@@ -22,19 +26,41 @@ function readLeverage(value: unknown): number | null {
   return n;
 }
 
+function parseSymbolsFromMarketName(name: string): string[] {
+  // Example format: "L:ETH|S:BTC,ETH"
+  const out: string[] = [];
+  const parts = name.split('|');
+  for (const part of parts) {
+    const sidePayload = part.replace(/^\s*[LS]\s*:\s*/i, '').trim();
+    if (!sidePayload) continue;
+    for (const token of sidePayload.split(',')) {
+      const sym = token.trim();
+      if (!sym) continue;
+      out.push(sym);
+    }
+  }
+  return out;
+}
+
+async function fetchPagedMarketNames(limitPages = 6): Promise<string[]> {
+  const names: string[] = [];
+  for (let page = 1; page <= limitPages; page += 1) {
+    const res = await fetch(`/api/pear/markets?page=${page}&pageSize=100&active=true`, {
+      headers: { 'Content-Type': 'application/json' },
+    }).catch(() => null);
+    if (!res || !res.ok) break;
+    const data = (await res.json().catch(() => null)) as PearMarketListResponse | null;
+    const rows = data?.markets ?? [];
+    if (!rows.length) break;
+    for (const row of rows) {
+      if (typeof row?.name === 'string' && row.name.trim()) names.push(row.name.trim());
+    }
+    if (rows.length < 100) break;
+  }
+  return names;
+}
+
 export async function getActiveMarketDiscovery(): Promise<ActiveMarketDiscovery> {
-  // Browser CORS can block direct calls to Pear. Proxy through our Next.js API route.
-  const res = await fetch(`/api/pear/markets/active`, {
-    headers: { 'Content-Type': 'application/json' },
-  }).catch(() => null);
-
-  // If this endpoint ever changes / becomes unavailable, we still want the app to work.
-  // Return empty discovery and let caller use safe defaults.
-  if (!res || !res.ok) return { symbols: new Set(), maxLeverageBySymbol: new Map() };
-
-  const data = await res.json().catch(() => null);
-  if (!data) return { symbols: new Set(), maxLeverageBySymbol: new Map() };
-
   const symbols = new Set<string>();
   const maxLeverageBySymbol = new Map<string, number>();
 
@@ -92,10 +118,25 @@ export async function getActiveMarketDiscovery(): Promise<ActiveMarketDiscovery>
     scan(obj.shortAssets);
     scan(obj.legs);
     scan(obj.assets);
-    scan(obj.active); // Pear API wraps markets in "active" array
+    scan(obj.active); // Pear API wraps active markets in "active" array
   };
 
-  scan(data);
+  // Primary source: active feed (includes explicit longAssets/shortAssets + leverage caps).
+  const activeRes = await fetch(`/api/pear/markets/active`, {
+    headers: { 'Content-Type': 'application/json' },
+  }).catch(() => null);
+
+  if (activeRes?.ok) {
+    const activeData = await activeRes.json().catch(() => null);
+    if (activeData) scan(activeData);
+  }
+
+  // Secondary source: paged /markets names. This catches symbols absent from the active subset.
+  const names = await fetchPagedMarketNames().catch(() => []);
+  for (const name of names) {
+    for (const token of parseSymbolsFromMarketName(name)) addSymbol(token);
+  }
+
   console.log(`[activeMarkets] Found ${symbols.size} symbols, ${maxLeverageBySymbol.size} leverage caps`);
   return { symbols, maxLeverageBySymbol };
 }
