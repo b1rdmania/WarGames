@@ -35,6 +35,24 @@ function readErrorMessage(value: unknown, fallback: string): string {
   return fallback;
 }
 
+function isLikelyUsSessionOpenNow(): boolean {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    hour12: false,
+    weekday: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).formatToParts(new Date());
+
+  const weekday = parts.find((p) => p.type === 'weekday')?.value ?? 'Mon';
+  const hour = Number(parts.find((p) => p.type === 'hour')?.value ?? '0');
+  const minute = Number(parts.find((p) => p.type === 'minute')?.value ?? '0');
+  const isWeekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].includes(weekday);
+  if (!isWeekday) return false;
+  const minutes = hour * 60 + minute;
+  return minutes >= 9 * 60 + 30 && minutes < 16 * 60;
+}
+
 export async function executePosition(
   accessToken: string,
   params: ExecutePositionParams
@@ -128,11 +146,21 @@ export async function executePosition(
       msg.includes('trading hours') ||
       msg.includes('outside') ||
       msg.includes('session');
+    const looksLikeGenericServerError =
+      msg.includes('internal server error') ||
+      msg.includes('server error') ||
+      msg.includes('http 500');
 
     // Pear can surface market-hours errors in different shapes/status codes.
     if (hasTradFiAssets && looksLikeMarketHours && [400, 403, 500].includes(response.status)) {
       throw new Error(
         'Markets closed. TradFi only trades Mon–Fri during regular hours (US session). Try a 24/7 crypto market.'
+      );
+    }
+    // Off-hours TradFi failures often bubble up as generic 500s from upstream.
+    if (hasTradFiAssets && response.status >= 500 && looksLikeGenericServerError && !isLikelyUsSessionOpenNow()) {
+      throw new Error(
+        'Likely market-hours issue. TradFi baskets trade Mon–Fri during US session. Switch to a 24/7 crypto market.'
       );
     }
 

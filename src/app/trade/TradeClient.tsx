@@ -259,10 +259,18 @@ export default function TradeClient() {
   };
 
   const switchToCryptoMarket = () => {
-    const firstCrypto = (effectiveMarkets ?? []).find((m) => m.category === 'crypto');
+    const cryptoMarkets = (effectiveMarkets ?? []).filter((m) => m.category === 'crypto');
+    const firstCrypto = cryptoMarkets.find((m) => m.isTradable) ?? cryptoMarkets[0];
     if (!firstCrypto) return;
-    setExpandedGroups((prev) => ({ ...prev, crypto: true }));
+    setExpandedGroups({
+      macro: false,
+      geopolitical: false,
+      commodities: false,
+      crypto: true,
+      tech: false,
+    });
     setSelectedMarketId(firstCrypto.id);
+    setSide('YES');
     setLeverage(firstCrypto.effectiveLeverage ?? firstCrypto.leverage);
     setExecutionError(null);
   };
