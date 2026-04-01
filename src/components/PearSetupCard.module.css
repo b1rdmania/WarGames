@@ -3,6 +3,7 @@
   border-top: 2px solid var(--primary);
   background: var(--bg-surface);
   padding: 20px;
+  font-family: var(--font-mono);
 }
 
 .header {
@@ -15,6 +16,7 @@
 
 .title {
   color: #f1f8ff;
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
@@ -90,6 +92,7 @@
 
 .guidanceText {
   color: var(--text-secondary);
+  font-family: var(--font-mono);
   font-size: 13px;
   line-height: 1.5;
   margin-bottom: 8px;
@@ -147,6 +150,7 @@
   color: var(--bg-deep);
   border: none;
   padding: 12px 20px;
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -172,6 +176,7 @@
   color: var(--primary);
   border: 1px solid var(--primary);
   padding: 12px 20px;
+  font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
