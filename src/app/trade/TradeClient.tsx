@@ -69,6 +69,14 @@ const MARKET_GROUP_LABEL: Record<MarketGroup, string> = {
   tech: 'DEGEN',
 };
 
+const MARKET_MENU_CODE: Record<string, string> = {
+  'semiconductor-stranglehold': 'SEMICONDUCTOR',
+};
+
+function marketMenuCode(marketId: string): string {
+  return MARKET_MENU_CODE[marketId] ?? marketId.toUpperCase().replace(/-/g, '_');
+}
+
 function marketGroupKey(market: { id: string; category: string; basket?: { long: Array<{ asset: string }> } }): MarketGroup {
   if (market.id === 'taiwan-strait-crisis' || market.id === 'middle-east-oil-shock') return 'geopolitical';
   if (market.category === 'macro') return 'macro';
@@ -620,7 +628,7 @@ export default function TradeClient() {
                       ? markets.map((market) => (
                           <TerminalMarketRow
                             key={market.id}
-                            code={market.id.toUpperCase().replace(/-/g, '_')}
+                            code={marketMenuCode(market.id)}
                             status={market.isTradable ? 'LIVE' : 'PAUSED'}
                             active={selectedMarketId === market.id}
                             onClick={() => {
