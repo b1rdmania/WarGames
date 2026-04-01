@@ -265,6 +265,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .menuRightOnly {
@@ -279,6 +280,7 @@
   margin-left: auto;
   display: flex;
   align-items: center;
+  min-width: 0;
 }
 
 .sessionWrap {
@@ -299,6 +301,7 @@
   align-items: center;
   gap: 7px;
   cursor: pointer;
+  max-width: 100%;
 }
 
 .sessionBadgeLive {
@@ -396,6 +399,9 @@
   padding: 12px;
   border-right: 1px solid var(--border);
   overflow-y: auto;
+  overflow-x: hidden;
+  font-family: var(--font-mono);
+  min-width: 0;
 }
 
 .pane:last-child {
@@ -415,12 +421,13 @@
 .marketList {
   display: grid;
   gap: 6px;
+  min-width: 0;
 }
 
 .marketRow {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px;
   align-items: center;
-  justify-content: space-between;
   border: 1px solid var(--border);
   background: var(--bg-warm);
   color: var(--text-secondary);
@@ -433,6 +440,7 @@
   letter-spacing: 0.05em;
   cursor: pointer;
   transition: all 0.15s;
+  min-width: 0;
 }
 
 .marketCode {
@@ -445,14 +453,16 @@
 }
 
 .marketStatus {
-  flex-shrink: 0;
-  min-width: 56px;
-  margin-left: 10px;
+  min-width: 0;
+  margin-left: 8px;
+  padding-right: 2px;
   text-align: right;
-  padding: 0;
   font-size: 11px;
   letter-spacing: 0.06em;
   color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
 }
 
 .marketStatusLive {
@@ -683,6 +693,18 @@
   .statusBar {
     flex-direction: column;
     gap: 4px;
+  }
+
+  .marketRow {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+
+  .marketStatus {
+    min-width: 0;
+    margin-left: 6px;
+    padding-right: 1px;
+    font-size: 10px;
   }
 
 }

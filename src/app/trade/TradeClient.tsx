@@ -105,6 +105,7 @@ export default function TradeClient() {
   });
 
   const selectedMarket = effectiveMarkets?.find((m) => m.id === selectedMarketId) ?? null;
+  const [lastCryptoMarketId, setLastCryptoMarketId] = useState<string>('eth-vs-btc');
   const selectedSideLabels = selectedMarket ? sideBalanceLabel(selectedMarket) : { long: 'LONG', short: 'SHORT' };
   const narrative = selectedMarket ? getMarketNarrative(selectedMarket.id) : null;
   const selectedAssets = selectedMarket
@@ -260,18 +261,18 @@ export default function TradeClient() {
 
   const switchToCryptoMarket = () => {
     const cryptoMarkets = (effectiveMarkets ?? []).filter((m) => m.category === 'crypto');
-    const firstCrypto = cryptoMarkets.find((m) => m.isTradable) ?? cryptoMarkets[0];
-    if (!firstCrypto) return;
-    setExpandedGroups({
-      macro: false,
-      geopolitical: false,
-      commodities: false,
-      crypto: true,
-      tech: false,
-    });
-    setSelectedMarketId(firstCrypto.id);
-    setSide('YES');
-    setLeverage(firstCrypto.effectiveLeverage ?? firstCrypto.leverage);
+    if (!cryptoMarkets.length) return;
+    const byId = (id: string) => cryptoMarkets.find((m) => m.id === id);
+    const preferred =
+      (lastCryptoMarketId ? byId(lastCryptoMarketId) : undefined) ??
+      byId('eth-vs-btc') ??
+      cryptoMarkets.find((m) => m.isTradable) ??
+      cryptoMarkets[0];
+    if (!preferred) return;
+    setExpandedGroups((prev) => ({ ...prev, crypto: true }));
+    setSelectedMarketId(preferred.id);
+    setLastCryptoMarketId(preferred.id);
+    setLeverage(preferred.effectiveLeverage ?? preferred.leverage);
     setExecutionError(null);
   };
   const isReadyToTrade = isConnected && isAuthenticated && agentWalletApproval !== 'pending';
@@ -624,6 +625,9 @@ export default function TradeClient() {
                             active={selectedMarketId === market.id}
                             onClick={() => {
                               setSelectedMarketId(market.id);
+                              if (market.category === 'crypto') {
+                                setLastCryptoMarketId(market.id);
+                              }
                               setLeverage(market.effectiveLeverage ?? market.leverage);
                               setExecutionError(null);
                             }}
