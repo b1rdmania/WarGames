@@ -1,0 +1,110 @@
+.frame {
+  --frame-accent: #02ff81;
+  --frame-accent-soft: rgba(2, 255, 129, 0.18);
+  --frame-panel: rgba(8, 11, 9, 0.88);
+}
+
+.viewportWrap {
+  position: relative;
+  min-height: calc(100vh - 116px);
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at top, rgba(2, 255, 129, 0.1), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), transparent 40%),
+    #050806;
+  overflow: hidden;
+}
+
+.viewportWrap::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(2, 255, 129, 0.18);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.viewportWrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 4px, 4px 100%;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.frame :global(main) {
+  z-index: 2;
+}
+
+.frame :global(.hud-zone) {
+  --text-secondary: #02ff81;
+  --text-muted: #0aa255;
+  --text-heading: #b8ffd6;
+  --hover-accent: rgba(2, 255, 129, 0.08);
+  --scrollbar-thumb: rgba(2, 255, 129, 0.22);
+  --scrollbar-thumb-hover: rgba(2, 255, 129, 0.35);
+  --border-primary: rgba(2, 255, 129, 0.24);
+  --border-secondary: rgba(2, 255, 129, 0.42);
+  --border-glow: rgba(2, 255, 129, 0.16);
+}
+
+.frame :global(.hud-zone .text-glow) {
+  text-shadow: 0 0 10px rgba(2, 255, 129, 0.45), 0 0 20px rgba(2, 255, 129, 0.16);
+}
+
+.frame :global(.hud-zone .text-cyan-300) {
+  color: #9fffc7 !important;
+}
+
+.frame :global(.hud-zone .text-cyan-400) {
+  color: #02ff81 !important;
+}
+
+.frame :global(.hud-zone .text-cyan-500) {
+  color: #15d46e !important;
+}
+
+.frame :global(.hud-zone .text-cyan-600) {
+  color: #0aa255 !important;
+}
+
+.frame :global(.hud-zone .text-cyan-700) {
+  color: #0b7f46 !important;
+}
+
+.frame :global(.hud-zone .border-cyan-800\/50),
+.frame :global(.hud-zone .border-cyan-900\/40),
+.frame :global(.hud-zone .border-cyan-900\/60),
+.frame :global(.hud-zone .border-cyan-500\/20),
+.frame :global(.hud-zone .border-cyan-500\/30),
+.frame :global(.hud-zone .border-cyan-500\/40) {
+  border-color: rgba(2, 255, 129, 0.26) !important;
+}
+
+.frame :global(.hud-zone .bg-cyan-950\/40),
+.frame :global(.hud-zone .bg-cyan-950\/30),
+.frame :global(.hud-zone .bg-cyan-950\/10),
+.frame :global(.hud-zone .bg-cyan-900\/40),
+.frame :global(.hud-zone .bg-cyan-900\/50),
+.frame :global(.hud-zone .bg-cyan-900\/60),
+.frame :global(.hud-zone .bg-cyan-500\/10),
+.frame :global(.hud-zone .bg-cyan-500\/20),
+.frame :global(.hud-zone .bg-cyan-500\/30) {
+  background-color: rgba(2, 255, 129, 0.08) !important;
+}
+
+.frame :global(.hud-zone .shadow-\[0_0_20px_rgba\(0\,255\,255\,0\.1\)\]),
+.frame :global(.hud-zone .shadow-\[0_0_10px_rgba\(6\,182\,212\,0\.15\)\]) {
+  box-shadow: 0 0 16px var(--frame-accent-soft) !important;
+}
+
+@media (max-width: 960px) {
+  .viewportWrap {
+    min-height: calc(100vh - 116px);
+  }
+}

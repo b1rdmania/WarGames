@@ -18,7 +18,8 @@ export function middleware(req: NextRequest) {
     pathname === '/favicon.ico' ||
     pathname.startsWith('/music') ||
     pathname.startsWith('/splash') ||
-    pathname.startsWith('/gtm')
+    pathname.startsWith('/gtm') ||
+    pathname.startsWith('/monitor')
   ) {
     return NextResponse.next();
   }
