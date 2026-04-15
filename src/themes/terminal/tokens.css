@@ -14,7 +14,7 @@
 
   /* Text - Cool gray tones */
   --text-primary: #d7dbde;
-  --text-secondary: #9bb7a9;
+  --text-secondary: #72c3de;
   --text-muted: #6b7a70;
   --text-faint: #4a5550;
   --text-disabled: #3a4440;
@@ -33,10 +33,10 @@
   --primary-rgb: 2, 255, 129;
 
   /* Secondary: Muted Green - labels, secondary text */
-  --secondary: #9bb7a9;
-  --secondary-hover: #b5cdc0;
-  --secondary-soft: rgba(155, 183, 169, 0.1);
-  --secondary-muted: #7a9a88;
+  --secondary: #72c3de;
+  --secondary-hover: #95d8ef;
+  --secondary-soft: rgba(114, 195, 222, 0.1);
+  --secondary-muted: #4e8ea4;
 
   /* Tertiary: Dim Green - subtle accents */
   --tertiary: #6b7a70;

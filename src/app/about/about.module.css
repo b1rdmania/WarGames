@@ -1,5 +1,4 @@
 .grid {
-  --about-secondary: #72c3de;
   margin-top: 8px;
   border: 1px solid var(--border);
   min-height: 62vh;
@@ -36,7 +35,7 @@
 }
 
 .body {
-  color: var(--about-secondary);
+  color: var(--text-secondary);
   font-family: var(--font-sans);
   font-size: 12px;
   line-height: 1.7;
@@ -99,7 +98,7 @@
   list-style: none;
   display: grid;
   gap: 2px;
-  color: var(--about-secondary);
+  color: var(--text-secondary);
   font-size: 12px;
   line-height: 1.7;
 }
@@ -121,7 +120,7 @@
 }
 
 .link {
-  color: var(--about-secondary);
+  color: var(--text-secondary);
   font-family: var(--font-sans);
   text-decoration: none;
   font-size: 12px;
