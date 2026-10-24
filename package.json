@@ -30,16 +30,16 @@
     "geist": "^1.5.1",
     "hls.js": "^1.6.16",
     "lucide-react": "^0.575.0",
-    "maplibre-gl": "^5.23.0",
-    "next": "16.1.2",
+    "maplibre-gl": "^6.15.0",
+    "next": "16.4.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hot-toast": "^2.6.0",
     "react-map-gl": "^8.1.1",
     "satellite.js": "^7.0.0",
     "viem": "^2.44.4",
-    "wagmi": "^2.19.5",
-    "zod": "^4.3.6"
+    "wagmi": "^3.7.9",
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
